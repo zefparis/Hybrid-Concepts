@@ -49,6 +49,7 @@ function AuthenticatedApp() {
           <Switch>
             <Route path="/" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/ai-automation" component={AIAutomation} />
             <Route path="/quotes" component={Quotes} />
             <Route path="/tracking" component={Tracking} />
             <Route path="/documents" component={Documents} />
