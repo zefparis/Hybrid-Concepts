@@ -1,5 +1,3 @@
-import { apiRequest } from "./queryClient";
-
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -24,48 +22,69 @@ export interface RegisterData {
 
 export const authService = {
   async login(credentials: LoginCredentials) {
-    const response = await apiRequest("POST", "/api/auth/login", credentials);
-    return response.json();
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+      throw new Error('Invalid credentials');
+    }
+
+    const data = await response.json();
+    return data;
   },
 
   async register(data: RegisterData) {
-    const response = await apiRequest("POST", "/api/auth/register", data);
-    return response.json();
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Registration failed');
+    }
+
+    const result = await response.json();
+    return result;
   },
 
   logout() {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_data");
-    localStorage.removeItem("company_data");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('company');
+    window.location.href = '/';
   },
 
   getToken() {
-    return localStorage.getItem("auth_token");
+    return localStorage.getItem('token');
   },
 
   saveAuthData(token: string, user: any, company: any) {
-    localStorage.setItem("auth_token", token);
-    localStorage.setItem("user_data", JSON.stringify(user));
-    localStorage.setItem("company_data", JSON.stringify(company));
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('company', JSON.stringify(company));
   },
 
   getStoredAuthData() {
-    const token = localStorage.getItem("auth_token");
-    const userStr = localStorage.getItem("user_data");
-    const companyStr = localStorage.getItem("company_data");
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    const company = localStorage.getItem('company');
 
-    if (!token || !userStr || !companyStr) {
-      return null;
-    }
-
-    try {
+    if (token && user && company) {
       return {
         token,
-        user: JSON.parse(userStr),
-        company: JSON.parse(companyStr),
+        user: JSON.parse(user),
+        company: JSON.parse(company),
       };
-    } catch {
-      return null;
     }
+
+    return null;
   },
 };

@@ -41,19 +41,23 @@ function AuthenticatedApp() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Sidebar />
-      <Switch>
-        <Route path="/" component={Dashboard} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/quotes" component={Quotes} />
-        <Route path="/tracking" component={Tracking} />
-        <Route path="/documents" component={Documents} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/invoicing" component={Invoicing} />
-        <Route path="/analytics" component={Analytics} />
-        <Route component={NotFound} />
-      </Switch>
+      <main className="lg:pl-64">
+        <div className="px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pt-16 lg:pt-8">
+          <Switch>
+            <Route path="/" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/quotes" component={Quotes} />
+            <Route path="/tracking" component={Tracking} />
+            <Route path="/documents" component={Documents} />
+            <Route path="/chat" component={Chat} />
+            <Route path="/invoicing" component={Invoicing} />
+            <Route path="/analytics" component={Analytics} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </main>
     </div>
   );
 }

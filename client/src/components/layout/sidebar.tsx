@@ -1,143 +1,122 @@
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { cn } from "@/lib/utils";
 import { 
-  BarChart3, 
+  LayoutDashboard, 
+  Package, 
   FileText, 
-  MapPin, 
-  FolderOpen, 
   MessageSquare, 
-  Receipt, 
-  TrendingUp,
-  Truck,
-  Settings,
-  Badge
+  Calculator, 
+  TrendingUp, 
+  Settings, 
+  LogOut,
+  Menu,
+  X,
+  Truck
 } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
+import { cn } from "@/lib/utils";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const navigationItems = [
-  { 
-    href: "/dashboard", 
-    icon: BarChart3, 
-    labelKey: "dashboard",
-    badge: null 
-  },
-  { 
-    href: "/quotes", 
-    icon: FileText, 
-    labelKey: "quotes",
-    badge: 12 
-  },
-  { 
-    href: "/tracking", 
-    icon: MapPin, 
-    labelKey: "tracking",
-    badge: null 
-  },
-  { 
-    href: "/documents", 
-    icon: FolderOpen, 
-    labelKey: "documents",
-    badge: null 
-  },
-  { 
-    href: "/chat", 
-    icon: MessageSquare, 
-    labelKey: "chat",
-    badge: 3 
-  },
-  { 
-    href: "/invoicing", 
-    icon: Receipt, 
-    labelKey: "invoicing",
-    badge: null 
-  },
-  { 
-    href: "/analytics", 
-    icon: TrendingUp, 
-    labelKey: "analytics",
-    badge: null 
-  },
+const navigation = [
+  { name: "Tableau de bord", href: "/", icon: LayoutDashboard },
+  { name: "Cotations", href: "/quotes", icon: FileText },
+  { name: "Suivi", href: "/tracking", icon: Package },
+  { name: "Documents", href: "/documents", icon: FileText },
+  { name: "Chat", href: "/chat", icon: MessageSquare },
+  { name: "Facturation", href: "/invoicing", icon: Calculator },
+  { name: "Analytics", href: "/analytics", icon: TrendingUp },
 ];
 
-export function Sidebar() {
+function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
   const [location] = useLocation();
-  const { t } = useTranslation();
-  const { user, company, logout } = useAuth();
+  const { logout, user } = useAuth();
 
-  const getUserInitials = (user: any) => {
-    if (!user) return "?";
-    return `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase();
+  const handleLogout = () => {
+    logout();
+    onItemClick?.();
   };
 
   return (
-    <div className="w-64 bg-emulog-dark text-white flex flex-col">
-      {/* Logo Section */}
-      <div className="p-6 border-b border-gray-700">
+    <div className="flex h-full flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+      {/* Logo */}
+      <div className="flex h-16 items-center px-4 border-b border-gray-200 dark:border-gray-800">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-emulog-blue rounded flex items-center justify-center">
-            <Truck className="text-white w-4 h-4" />
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <Truck className="text-white w-5 h-5" />
           </div>
-          <span className="text-xl font-bold">eMulog</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">eMulog</span>
         </div>
-        <p className="text-gray-400 text-xs mt-1">Optimisation Logistique</p>
       </div>
-      
-      {/* Navigation Menu */}
-      <nav className="flex-1 p-4">
-        <ul className="space-y-2">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = location === item.href;
-            
-            return (
-              <li key={item.href}>
-                <Link href={item.href}>
-                  <a
-                    className={cn(
-                      "flex items-center space-x-3 p-3 rounded-lg transition-colors",
-                      isActive
-                        ? "bg-emulog-blue text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                    )}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span>{t(item.labelKey)}</span>
-                    {item.badge && (
-                      <span className="ml-auto bg-emulog-green text-white text-xs px-2 py-1 rounded-full">
-                        {item.badge}
-                      </span>
-                    )}
-                  </a>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-        
-        {/* User Profile Section */}
-        <div className="mt-8 pt-8 border-t border-gray-700">
-          <div className="flex items-center space-x-3 p-3">
-            <div className="w-8 h-8 bg-emulog-purple rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-medium">
-                {getUserInitials(user)}
-              </span>
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium">
-                {user ? `${user.firstName} ${user.lastName}` : ""}
-              </p>
-              <p className="text-xs text-gray-400">{user?.role || ""}</p>
-            </div>
-            <button 
-              onClick={logout}
-              className="text-gray-400 hover:text-white"
-            >
-              <Settings className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-2">
+        {navigation.map((item) => {
+          const isActive = location === item.href;
+          return (
+            <Link key={item.name} href={item.href}>
+              <div
+                onClick={onItemClick}
+                className={cn(
+                  "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer",
+                  isActive
+                    ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                )}
+              >
+                <item.icon className="w-5 h-5" />
+                <span>{item.name}</span>
+              </div>
+            </Link>
+          );
+        })}
       </nav>
+
+      {/* User info and logout */}
+      <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+        <div className="mb-3 px-3">
+          <p className="text-sm font-medium text-gray-900 dark:text-white">
+            {user?.firstName} {user?.lastName}
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleLogout}
+          className="w-full justify-start text-gray-700 dark:text-gray-300"
+        >
+          <LogOut className="w-4 h-4 mr-2" />
+          Déconnexion
+        </Button>
+      </div>
     </div>
+  );
+}
+
+export function Sidebar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <>
+      {/* Mobile menu button */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="bg-white shadow-md">
+              <Menu className="h-4 w-4" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="p-0 w-72">
+            <SidebarContent onItemClick={() => setMobileOpen(false)} />
+          </SheetContent>
+        </Sheet>
+      </div>
+
+      {/* Desktop sidebar */}
+      <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
+        <SidebarContent />
+      </div>
+    </>
   );
 }
