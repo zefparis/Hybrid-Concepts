@@ -153,7 +153,7 @@ export default function AITerminal({ isProcessing, onComplete, requestData }: AI
 
       const stepData = automationSteps[step];
       const newLine: TerminalLine = {
-        id: `line-${step}`,
+        id: `${stepData.text}-${step}-${Date.now()}`,
         text: stepData.text,
         type: stepData.type,
         timestamp: new Date()
