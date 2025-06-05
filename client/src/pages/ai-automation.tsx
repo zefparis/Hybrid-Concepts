@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Brain, Zap, Target, TrendingUp, Clock, Bot, Cpu, Code, ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 import AITerminal from "@/components/ai-terminal";
 import AddressAutocomplete from "@/components/address-autocomplete";
+import FreightAutomationResults from "@/components/freight-automation-results";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -309,51 +310,12 @@ export default function AIAutomation() {
           </CardHeader>
           <CardContent>
             {showResults && automationResults ? (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="font-medium text-green-800">Automatisation réussie</span>
-                  </div>
-                  <span className="text-sm text-green-600">30 secondes</span>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm">
-                    <ArrowRight className="w-4 h-4 text-blue-500" />
-                    <span>Demande créée: #{automationResults.quoteRequest?.reference}</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-sm">
-                    <ArrowRight className="w-4 h-4 text-blue-500" />
-                    <span>Mode de transport détecté automatiquement</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-sm">
-                    <ArrowRight className="w-4 h-4 text-blue-500" />
-                    <span>3 cotations générées et analysées</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-sm">
-                    <ArrowRight className="w-4 h-4 text-blue-500" />
-                    <span>Recommandation optimale sélectionnée</span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <h4 className="font-medium text-blue-800 mb-2">Recommandation IA</h4>
-                  <p className="text-sm text-blue-700">
-                    Transport maritime recommandé - Meilleur rapport qualité/prix/délai
-                  </p>
-                  <p className="text-xs text-blue-600 mt-1">
-                    Économies estimées: 1,200€ par rapport au transport aérien
-                  </p>
-                </div>
-              </div>
+              <FreightAutomationResults results={automationResults.automation} />
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <Bot className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Les résultats apparaîtront ici après l'automatisation</p>
+                <p>Les résultats apparaîtront ici après l'automatisation complète</p>
+                <p className="text-xs mt-2">Analyse transport • Documentation douanière • APIs transporteurs • Évaluation risques</p>
               </div>
             )}
           </CardContent>

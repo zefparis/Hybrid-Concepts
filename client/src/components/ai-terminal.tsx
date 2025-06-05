@@ -23,27 +23,27 @@ export default function AITerminal({ isProcessing, onComplete, requestData }: AI
   const automationSteps = [
     {
       type: 'system' as const,
-      text: '> Initializing eMulog AI Logistics Automation Engine...',
+      text: '> Initializing eMulog AI Freight Dropshipping Engine...',
       delay: 500
     },
     {
       type: 'ai' as const,
-      text: '🧠 Claude Sonnet-4 connecting to logistics network...',
+      text: '🧠 Claude Sonnet-4 analyzing global logistics requirements...',
       delay: 800
     },
     {
       type: 'code' as const,
-      text: 'async function analyzeLogisticsRequest(data) {',
+      text: 'async function analyzeTransportModes(request) {',
       delay: 1000
     },
     {
-      type: 'code' as const,
-      text: '  const origin = await geocode(data.origin);',
+      type: 'processing' as const,
+      text: '🌍 Analyzing geographic constraints and optimal routing...',
       delay: 1200
     },
     {
-      type: 'code' as const,
-      text: '  const destination = await geocode(data.destination);',
+      type: 'success' as const,
+      text: '✅ Transport mode detected: MARITIME (optimal for route)',
       delay: 1400
     },
     {

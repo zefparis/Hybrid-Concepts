@@ -295,7 +295,11 @@ Analyse en JSON:
       }]
     });
 
-    return JSON.parse(riskAnalysis.content[0].text);
+    const content = riskAnalysis.content[0];
+    if ('text' in content) {
+      return JSON.parse(content.text);
+    }
+    throw new Error('Invalid risk analysis response format');
   }
 
   /**
