@@ -31,22 +31,52 @@ async function seed() {
     // Create carriers
     const carriersData = [
       {
-        name: "Transport Express SA",
-        email: "contact@transport-express.fr",
-        phone: "+33 1 23 45 67 90",
+        name: "DHL Express",
+        email: "contact@dhl.fr",
+        phone: "+33 1 55 95 95 95",
         rating: "4.8"
       },
       {
-        name: "Logis Rapid",
-        email: "info@logis-rapid.fr",
-        phone: "+33 1 23 45 67 91",
+        name: "UPS France",
+        email: "info@ups.fr",
+        phone: "+33 1 49 00 00 00",
+        rating: "4.6"
+      },
+      {
+        name: "FedEx France",
+        email: "contact@fedex.fr",
+        phone: "+33 1 40 85 85 85",
+        rating: "4.7"
+      },
+      {
+        name: "Chronopost",
+        email: "pro@chronopost.fr",
+        phone: "+33 1 44 82 58 58",
+        rating: "4.3"
+      },
+      {
+        name: "Geodis",
+        email: "contact@geodis.fr",
+        phone: "+33 1 56 76 26 00",
+        rating: "4.4"
+      },
+      {
+        name: "CMA CGM",
+        email: "contact@cma-cgm.fr",
+        phone: "+33 4 88 91 90 00",
         rating: "4.5"
       },
       {
-        name: "Fret Sécurisé",
-        email: "contact@fret-securise.fr",
-        phone: "+33 1 23 45 67 92",
+        name: "MSC France",
+        email: "info@msc.fr",
+        phone: "+33 1 49 03 49 03",
         rating: "4.2"
+      },
+      {
+        name: "Air France Cargo",
+        email: "cargo@airfrance.fr",
+        phone: "+33 1 41 56 78 00",
+        rating: "4.6"
       }
     ];
 
@@ -63,6 +93,7 @@ async function seed() {
         goodsType: "Electronics",
         weight: "150.5",
         volume: "2.5",
+        transportMode: "terre",
         requestedDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         status: "pending",
         description: "Transport d'équipements électroniques fragiles"
@@ -71,14 +102,29 @@ async function seed() {
         reference: "QR-2024-002",
         companyId: demoCompany.id,
         userId: demoUser.id,
-        origin: "Marseille, France",
-        destination: "Bordeaux, France",
+        origin: "Port de Marseille, France",
+        destination: "Port de Barcelone, Espagne",
         goodsType: "Furniture",
-        weight: "500.0",
-        volume: "8.0",
+        weight: "2500.0",
+        volume: "15.0",
+        transportMode: "mer",
         requestedDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
         status: "quoted",
-        description: "Mobilier de bureau"
+        description: "Container de mobilier export"
+      },
+      {
+        reference: "QR-2024-003",
+        companyId: demoCompany.id,
+        userId: demoUser.id,
+        origin: "CDG - Charles de Gaulle",
+        destination: "BCN - Barcelone",
+        goodsType: "Electronics",
+        weight: "45.0",
+        volume: "0.8",
+        transportMode: "air",
+        requestedDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        status: "quoted",
+        description: "Envoi urgent composants électroniques"
       }
     ];
 
@@ -86,32 +132,71 @@ async function seed() {
 
     // Create quotes
     const quotesData = [
+      // Quotes for terrestrial transport (QR-2024-001)
       {
         quoteRequestId: createdQuoteRequests[0].id,
-        carrierId: createdCarriers[0].id,
-        price: "450.00",
+        carrierId: createdCarriers[0].id, // DHL Express
+        price: "285.00",
+        estimatedDays: 1,
+        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        status: "pending",
+        conditions: "Express 24h, assurance incluse"
+      },
+      {
+        quoteRequestId: createdQuoteRequests[0].id,
+        carrierId: createdCarriers[1].id, // UPS France
+        price: "245.00",
         estimatedDays: 2,
         validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         status: "pending",
-        conditions: "Livraison standard avec assurance incluse"
+        conditions: "Standard, livraison signature requise"
       },
       {
         quoteRequestId: createdQuoteRequests[0].id,
-        carrierId: createdCarriers[1].id,
-        price: "420.00",
+        carrierId: createdCarriers[4].id, // Geodis
+        price: "198.00",
         estimatedDays: 3,
         validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         status: "pending",
-        conditions: "Livraison express possible"
+        conditions: "Économique, emballage renforcé inclus"
+      },
+      // Quotes for maritime transport (QR-2024-002)
+      {
+        quoteRequestId: createdQuoteRequests[1].id,
+        carrierId: createdCarriers[5].id, // CMA CGM
+        price: "1850.00",
+        estimatedDays: 7,
+        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        status: "pending",
+        conditions: "Container 20 pieds, départ hebdomadaire"
       },
       {
         quoteRequestId: createdQuoteRequests[1].id,
-        carrierId: createdCarriers[2].id,
-        price: "850.00",
-        estimatedDays: 4,
+        carrierId: createdCarriers[6].id, // MSC France
+        price: "1750.00",
+        estimatedDays: 9,
         validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         status: "accepted",
-        conditions: "Transport spécialisé mobilier"
+        conditions: "Container partagé, prix incluant manutention"
+      },
+      // Quotes for air transport (QR-2024-003)
+      {
+        quoteRequestId: createdQuoteRequests[2].id,
+        carrierId: createdCarriers[7].id, // Air France Cargo
+        price: "850.00",
+        estimatedDays: 1,
+        validUntil: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+        status: "pending",
+        conditions: "Vol direct, suivi temps réel"
+      },
+      {
+        quoteRequestId: createdQuoteRequests[2].id,
+        carrierId: createdCarriers[2].id, // FedEx France
+        price: "920.00",
+        estimatedDays: 1,
+        validUntil: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+        status: "pending",
+        conditions: "Express international, dédouanement inclus"
       }
     ];
 

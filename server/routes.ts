@@ -126,6 +126,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Simulate carrier quotes generation
+  const generateSimulatedQuotes = async (quoteRequest: any) => {
+    const carriers = await storage.getCarriers();
+    const transportMode = quoteRequest.transportMode?.toLowerCase() || 'terre';
+    
+    // Filter carriers based on transport mode (simplified simulation)
+    const availableCarriers = carriers.filter((carrier: any) => {
+      if (transportMode === 'air') {
+        return carrier.name.includes('Air') || carrier.name.includes('DHL') || carrier.name.includes('FedEx');
+      } else if (transportMode === 'mer') {
+        return carrier.name.includes('CMA') || carrier.name.includes('MSC');
+      } else {
+        return !carrier.name.includes('Air') && !carrier.name.includes('CMA') && !carrier.name.includes('MSC');
+      }
+    }).slice(0, 3); // Max 3 quotes per request
+    
+    const weight = parseFloat(quoteRequest.weight) || 100;
+    const basePrice = transportMode === 'air' ? weight * 15 : 
+                     transportMode === 'mer' ? weight * 2.5 : 
+                     weight * 1.8;
+    
+    for (const [index, carrier] of availableCarriers.entries()) {
+      const priceVariation = 0.8 + (Math.random() * 0.4); // ±20% variation
+      const price = (basePrice * priceVariation).toFixed(2);
+      const estimatedDays = transportMode === 'air' ? 1 + index : 
+                           transportMode === 'mer' ? 7 + index * 2 : 
+                           1 + index;
+      
+      const conditions = transportMode === 'air' ? 'Express international, dédouanement inclus' :
+                        transportMode === 'mer' ? 'Container partagé, départ hebdomadaire' :
+                        'Livraison standard, assurance incluse';
+      
+      await storage.createQuote({
+        quoteRequestId: quoteRequest.id,
+        carrierId: carrier.id,
+        price,
+        estimatedDays,
+        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        status: 'pending',
+        conditions
+      });
+    }
+  };
+
   app.post("/api/quote-requests", authenticateToken, async (req: any, res) => {
     try {
       const validatedData = insertQuoteRequestSchema.parse({
@@ -135,6 +179,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       const quoteRequest = await storage.createQuoteRequest(validatedData);
+      
+      // Generate simulated carrier responses
+      setTimeout(async () => {
+        try {
+          await generateSimulatedQuotes(quoteRequest);
+          // Update status to 'quoted' after quotes are generated
+          await storage.updateQuoteRequest(quoteRequest.id, { status: 'quoted' });
+        } catch (error) {
+          console.error('Error generating simulated quotes:', error);
+        }
+      }, 2000); // Simulate 2 second delay for carrier responses
       
       // Create activity log
       await storage.createActivity({
@@ -149,7 +204,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(quoteRequest);
     } catch (error) {
       console.error('Create quote request error:', error);
-      res.status(400).json({ message: 'Failed to create quote request', error: error.message });
+      res.status(400).json({ message: 'Failed to create quote request', error: (error as Error).message });
     }
   });
 
