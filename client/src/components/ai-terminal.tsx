@@ -139,14 +139,46 @@ export default function AITerminal({ isProcessing, onComplete, requestData }: AI
   ];
 
   useEffect(() => {
-    if (!isProcessing) {
+    if (!isProcessing && lines.length === 0) {
+      // Only reset if no lines have been generated yet
       setLines([]);
       setCurrentStep(0);
+      return;
+    }
+    
+    if (!isProcessing && lines.length > 0) {
+      // Keep existing lines when processing stops
       return;
     }
 
     const addLine = (step: number) => {
       if (step >= automationSteps.length) {
+        // Add final permanent summary
+        setTimeout(() => {
+          const finalLines: TerminalLine[] = [
+            {
+              id: `separator-${Date.now()}`,
+              text: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+              type: 'system',
+              timestamp: new Date()
+            },
+            {
+              id: `summary-${Date.now()}`,
+              text: '📋 AUTOMATION COMPLETE - Results available for review above',
+              type: 'success',
+              timestamp: new Date()
+            },
+            {
+              id: `ready-${Date.now()}`,
+              text: '🔄 Terminal ready for next automation request',
+              type: 'system',
+              timestamp: new Date()
+            }
+          ];
+          
+          setLines(prev => [...prev, ...finalLines]);
+        }, 500);
+        
         onComplete?.();
         return;
       }
