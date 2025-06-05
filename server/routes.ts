@@ -722,7 +722,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Créer une activité
       await storage.createActivity({
         companyId: quoteRequest.companyId,
-        userId: req.user.id,
+        userId: quoteRequest.userId, // Utiliser l'utilisateur de la demande
         action: 'quotes_generated',
         description: `${generatedQuotes.length} cotations générées pour ${quoteRequest.reference}`,
         entityType: 'quote_request',
