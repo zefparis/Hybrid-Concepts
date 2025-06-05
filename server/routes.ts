@@ -67,7 +67,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error('Registration error:', error);
-      res.status(400).json({ message: 'Registration failed', error: error.message });
+      res.status(400).json({ message: 'Registration failed', error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 
@@ -186,7 +186,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
                      transportMode === 'mer' ? weight * 2.5 : 
                      weight * 1.8;
     
-    for (const [index, carrier] of availableCarriers.entries()) {
+    for (let index = 0; index < availableCarriers.length; index++) {
+      const carrier = availableCarriers[index];
       const priceVariation = 0.8 + (Math.random() * 0.4); // ±20% variation
       const price = (basePrice * priceVariation).toFixed(2);
       const estimatedDays = transportMode === 'air' ? 1 + index : 
@@ -387,7 +388,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(document);
     } catch (error) {
       console.error('Create document error:', error);
-      res.status(400).json({ message: 'Failed to create document', error: error.message });
+      res.status(400).json({ message: 'Failed to create document', error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 
@@ -426,7 +427,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(message);
     } catch (error) {
       console.error('Create message error:', error);
-      res.status(400).json({ message: 'Failed to send message', error: error.message });
+      res.status(400).json({ message: 'Failed to send message', error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 

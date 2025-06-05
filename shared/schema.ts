@@ -52,6 +52,7 @@ export const quoteRequests = pgTable("quote_requests", {
   goodsType: text("goods_type").notNull(),
   weight: decimal("weight", { precision: 10, scale: 2 }),
   volume: decimal("volume", { precision: 10, scale: 2 }),
+  transportMode: text("transport_mode").default('multimodal'), // 'air' | 'mer' | 'route' | 'multimodal'
   requestedDate: timestamp("requested_date").notNull(),
   status: text("status").notNull().default('pending'), // 'pending' | 'quoted' | 'accepted' | 'rejected'
   description: text("description"),
