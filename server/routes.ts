@@ -385,31 +385,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Try Mapbox first
       const mapboxKey = process.env.MAPBOX_PUBLIC_KEY || process.env.MAPBOX_API_KEY;
+      console.log('Mapbox key available:', !!mapboxKey);
+      
       if (mapboxKey) {
         try {
-          const response = await fetch(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?` +
+          const mapboxUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?` +
             `access_token=${mapboxKey}&` +
             `types=${types}&` +
             `limit=${limit}&` +
-            `language=fr`
-          );
+            `language=fr`;
+          
+          console.log('Mapbox URL:', mapboxUrl.replace(mapboxKey, 'HIDDEN_KEY'));
+          
+          const response = await fetch(mapboxUrl);
+          console.log('Mapbox response status:', response.status);
 
           if (response.ok) {
             const data = await response.json();
-            suggestions = data.features.map((feature: any) => ({
-              text: feature.place_name,
-              value: feature.place_name,
-              coordinates: feature.center,
-              source: 'mapbox'
-            }));
+            console.log('Mapbox data features:', data.features?.length || 0);
+            
+            if (data.features && data.features.length > 0) {
+              suggestions = data.features.map((feature: any) => ({
+                text: feature.place_name,
+                value: feature.place_name,
+                coordinates: feature.center,
+                source: 'mapbox'
+              }));
+            }
+          } else {
+            const errorText = await response.text();
+            console.error('Mapbox API error:', response.status, errorText);
           }
         } catch (mapboxError) {
-          console.warn('Mapbox geocoding failed:', mapboxError);
+          console.error('Mapbox geocoding failed:', mapboxError);
         }
+      } else {
+        console.log('No Mapbox key found');
       }
 
       // If Mapbox didn't return enough results or failed, use Google as fallback
+      console.log('Checking Google fallback. Current suggestions:', suggestions.length);
+      console.log('Google key available:', !!process.env.GOOGLE_MAPS_API_KEY);
+      
       if (suggestions.length < 3 && process.env.GOOGLE_MAPS_API_KEY) {
         try {
           let enhancedQuery = query;
@@ -435,10 +452,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
             language: 'fr'
           });
 
+          console.log('Google URL:', `${googleUrl}?${googleParams.toString().replace(process.env.GOOGLE_MAPS_API_KEY!, 'HIDDEN_KEY')}`);
+
           const googleResponse = await fetch(`${googleUrl}?${googleParams}`);
+          console.log('Google response status:', googleResponse.status);
           
           if (googleResponse.ok) {
             const googleData = await googleResponse.json();
+            console.log('Google predictions:', googleData.predictions?.length || 0);
+            
             if (googleData.predictions) {
               const googleSuggestions = googleData.predictions
                 .slice(0, parseInt(limit.toString()) - suggestions.length)
@@ -450,10 +472,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 }));
               
               suggestions = [...suggestions, ...googleSuggestions];
+              console.log('Final suggestions count:', suggestions.length);
             }
+          } else {
+            const errorText = await googleResponse.text();
+            console.error('Google API error:', googleResponse.status, errorText);
           }
         } catch (googleError) {
-          console.warn('Google geocoding failed:', googleError);
+          console.error('Google geocoding failed:', googleError);
         }
       }
 
