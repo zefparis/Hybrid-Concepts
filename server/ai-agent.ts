@@ -212,7 +212,8 @@ Format de réponse JSON requis:
 
     const content = analysis.content[0];
     if ('text' in content) {
-      return JSON.parse(content.text);
+      const cleanedText = this.cleanJsonResponse(content.text);
+      return JSON.parse(cleanedText);
     }
     throw new Error('Invalid response format from AI');
   }
@@ -250,7 +251,8 @@ Fournis en JSON:
 
     const content = customsAnalysis.content[0];
     if ('text' in content) {
-      return JSON.parse(content.text);
+      const cleanedText = this.cleanJsonResponse(content.text);
+      return JSON.parse(cleanedText);
     }
     throw new Error('Invalid customs analysis response format');
   }
