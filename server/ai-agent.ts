@@ -379,8 +379,8 @@ Analyse en JSON:
       origin: request.origin,
       destination: request.destination,
       goodsType: request.cargo.type,
-      weight: request.cargo.weight,
-      volume: request.cargo.dimensions ? parseFloat(request.cargo.dimensions.replace(/[^\d.]/g, '')) || 1.0 : 1.0,
+      weight: request.cargo.weight.toString(),
+      volume: (request.cargo.dimensions ? parseFloat(request.cargo.dimensions.replace(/[^\d.]/g, '')) || 1.0 : 1.0).toString(),
       requestedDate: new Date(request.timeline.preferred),
       description: `Mode: ${analysis.transportMode}, Valeur: ${request.cargo.value || 0}€, Exigences: ${analysis.recommendations.specialRequirements.join(', ') || 'Standard'}`,
       status: 'active'
@@ -579,7 +579,8 @@ Analyse en JSON:
 
     const content = response.content[0];
     if (content.type === 'text') {
-      return JSON.parse(content.text);
+      const cleanedText = this.cleanJsonResponse(content.text);
+      return JSON.parse(cleanedText);
     }
     throw new Error('Unexpected response format');
   }
@@ -645,7 +646,8 @@ Analyse en JSON:
 
     const content = response.content[0];
     if (content.type === 'text') {
-      return JSON.parse(content.text);
+      const cleanedText = this.cleanJsonResponse(content.text);
+      return JSON.parse(cleanedText);
     }
     throw new Error('Unexpected response format');
   }
