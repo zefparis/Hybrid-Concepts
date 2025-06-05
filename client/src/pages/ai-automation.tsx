@@ -29,7 +29,7 @@ export default function AIAutomation() {
   const automationMutation = useMutation({
     mutationFn: async (data: any) => {
       // First create the quote request
-      const quoteRequest = await apiRequest("/api/quote-requests", "POST", {
+      const quoteRequestResponse = await apiRequest("POST", "/api/quote-requests", {
         origin: data.origin,
         destination: data.destination,
         weight: data.weight,
@@ -38,9 +38,10 @@ export default function AIAutomation() {
         description: data.description,
         requestedDate: new Date().toISOString().split('T')[0]
       });
+      const quoteRequest = await quoteRequestResponse.json();
 
       // Then trigger automation process
-      const automation = await apiRequest("/api/ai/process", "POST", {
+      const automationResponse = await apiRequest("POST", "/api/ai/process", {
         quoteRequestId: quoteRequest.id,
         origin: data.origin,
         destination: data.destination,
@@ -54,6 +55,7 @@ export default function AIAutomation() {
           latest: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
         }
       });
+      const automation = await automationResponse.json();
 
       return { quoteRequest, automation };
     },
