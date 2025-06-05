@@ -172,8 +172,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/quote-requests", authenticateToken, async (req: any, res) => {
     try {
+      // Auto-detect transport mode based on locations
+      const detectTransportMode = (origin: string, destination: string) => {
+        const isAirport = (location: string) => {
+          const airportKeywords = ['aéroport', 'airport', 'cdg', 'heathrow', 'changi', 'tambo', 'jfk', 'lax'];
+          return airportKeywords.some(keyword => location.toLowerCase().includes(keyword));
+        };
+        
+        const isPort = (location: string) => {
+          const portKeywords = ['port', 'harbour', 'harbor'];
+          return portKeywords.some(keyword => location.toLowerCase().includes(keyword));
+        };
+        
+        if (isAirport(origin) || isAirport(destination)) {
+          return 'air';
+        } else if (isPort(origin) || isPort(destination)) {
+          return 'mer';
+        } else {
+          return req.body.transportMode || 'terre';
+        }
+      };
+      
+      const autoDetectedMode = detectTransportMode(req.body.origin || '', req.body.destination || '');
+      
       const validatedData = insertQuoteRequestSchema.parse({
         ...req.body,
+        transportMode: autoDetectedMode,
         companyId: req.user.companyId,
         userId: req.user.userId
       });
