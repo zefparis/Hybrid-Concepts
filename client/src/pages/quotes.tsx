@@ -57,6 +57,27 @@ export default function Quotes() {
     },
   });
 
+  const generateQuotesMutation = useMutation({
+    mutationFn: async (quoteRequestId: number) => {
+      const response = await apiRequest("POST", "/api/quotes/generate", { quoteRequestId });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
+      toast({
+        title: "Cotations générées",
+        description: data.message || "Les cotations ont été générées avec succès",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erreur",
+        description: "Impossible de générer les cotations",
+        variant: "destructive",
+      });
+    },
+  });
+
   const [newQuote, setNewQuote] = useState({
     origin: "",
     destination: "",
@@ -862,6 +883,17 @@ export default function Quotes() {
                   >
                     Modifier
                   </Button>
+                  {quote.status === "pending" && !quote.quotes?.length && (
+                    <Button 
+                      variant="default" 
+                      size="sm" 
+                      className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700"
+                      onClick={() => generateQuotesMutation.mutate(quote.id)}
+                      disabled={generateQuotesMutation.isPending}
+                    >
+                      {generateQuotesMutation.isPending ? "Génération..." : "Générer cotations"}
+                    </Button>
+                  )}
                   {quote.status === "pending" && (
                     <Button 
                       variant="outline" 

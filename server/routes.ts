@@ -670,6 +670,198 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // API de test pour générer des cotations automatiques
+  app.post("/api/quotes/generate", authenticateToken, async (req: any, res) => {
+    try {
+      const { quoteRequestId } = req.body;
+      
+      if (!quoteRequestId) {
+        return res.status(400).json({ error: 'Quote request ID is required' });
+      }
+
+      console.log(`Génération de cotations pour la demande ${quoteRequestId}`);
+
+      // Récupérer la demande de cotation
+      const quoteRequest = await storage.getQuoteRequest(quoteRequestId);
+      if (!quoteRequest) {
+        return res.status(404).json({ error: 'Quote request not found' });
+      }
+
+      // Récupérer tous les transporteurs disponibles
+      const carriers = await storage.getCarriers();
+      
+      // Générer des cotations réalistes basées sur la demande
+      const generatedQuotes = [];
+      
+      for (const carrier of carriers.slice(0, 3)) { // Limiter à 3 transporteurs
+        // Calculer un prix de base basé sur le poids et la distance estimée
+        const basePrice = calculateRealisticPrice(quoteRequest, carrier);
+        const deliveryDays = calculateDeliveryTime(quoteRequest, carrier);
+        
+        const quote = {
+          quoteRequestId: quoteRequestId,
+          carrierId: carrier.id,
+          price: basePrice.toString(),
+          estimatedDays: deliveryDays,
+          validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 jours
+          conditions: generateRealisticTerms(carrier, quoteRequest),
+          status: 'pending' as const
+        };
+
+        const createdQuote = await storage.createQuote(quote);
+        generatedQuotes.push(createdQuote);
+        
+        console.log(`Cotation générée: ${carrier.name} - ${basePrice}€ - ${deliveryDays} jours`);
+      }
+
+      // Mettre à jour le statut de la demande
+      await storage.updateQuoteRequest(quoteRequestId, {
+        status: 'quoted'
+      });
+
+      // Créer une activité
+      await storage.createActivity({
+        companyId: quoteRequest.companyId,
+        userId: req.user.id,
+        action: 'quotes_generated',
+        description: `${generatedQuotes.length} cotations générées pour ${quoteRequest.reference}`,
+        entityType: 'quote_request',
+        entityId: quoteRequestId
+      });
+
+      res.json({
+        success: true,
+        quotes: generatedQuotes,
+        message: `${generatedQuotes.length} cotations générées avec succès`
+      });
+
+    } catch (error) {
+      console.error('Erreur génération cotations:', error);
+      res.status(500).json({ message: 'Erreur lors de la génération des cotations' });
+    }
+  });
+
+  // Fonction pour calculer un prix réaliste
+  function calculateRealisticPrice(quoteRequest: any, carrier: any): number {
+    const { weight, dimensions } = quoteRequest;
+    
+    // Prix de base selon le mode de transport
+    let basePricePerKg = 2.5; // Route par défaut
+    
+    if (quoteRequest.transportMode === 'maritime') {
+      basePricePerKg = 1.2;
+    } else if (quoteRequest.transportMode === 'aerien') {
+      basePricePerKg = 4.8;
+    }
+    
+    // Calcul du prix de base
+    let basePrice = weight * basePricePerKg;
+    
+    // Ajustements selon le transporteur
+    const carrierMultipliers: { [key: string]: number } = {
+      'DHL Express': 1.3,
+      'FedEx International': 1.25,
+      'UPS Worldwide': 1.2,
+      'Maersk Line': 0.9,
+      'MSC Mediterranean': 0.85,
+      'CMA CGM': 0.88,
+      'Air France Cargo': 1.15,
+      'Lufthansa Cargo': 1.18,
+      'Emirates SkyCargo': 1.1
+    };
+    
+    const multiplier = carrierMultipliers[carrier.name] || 1.0;
+    basePrice *= multiplier;
+    
+    // Ajustement volumétrique si dimensions fournies
+    if (dimensions) {
+      const volume = parseFloat(dimensions.split('x')[0] || '1') * 
+                    parseFloat(dimensions.split('x')[1] || '1') * 
+                    parseFloat(dimensions.split('x')[2] || '1');
+      
+      if (volume > weight * 0.0067) { // Ratio volumétrique standard
+        basePrice *= 1.2;
+      }
+    }
+    
+    // Frais fixes selon le mode
+    let fixedFees = 50; // Route
+    if (quoteRequest.transportMode === 'maritime') {
+      fixedFees = 150;
+    } else if (quoteRequest.transportMode === 'aerien') {
+      fixedFees = 200;
+    }
+    
+    basePrice += fixedFees;
+    
+    // Arrondir à l'euro près
+    return Math.round(basePrice);
+  }
+
+  // Fonction pour calculer le délai de livraison
+  function calculateDeliveryTime(quoteRequest: any, carrier: any): number {
+    let baseDays = 5; // Route par défaut
+    
+    if (quoteRequest.transportMode === 'maritime') {
+      baseDays = 25;
+    } else if (quoteRequest.transportMode === 'aerien') {
+      baseDays = 3;
+    }
+    
+    // Ajustements selon le transporteur
+    const carrierAdjustments: { [key: string]: number } = {
+      'DHL Express': -1,
+      'FedEx International': -1,
+      'UPS Worldwide': 0,
+      'Maersk Line': 2,
+      'MSC Mediterranean': 3,
+      'CMA CGM': 1,
+      'Air France Cargo': 0,
+      'Lufthansa Cargo': -1,
+      'Emirates SkyCargo': 0
+    };
+    
+    const adjustment = carrierAdjustments[carrier.name] || 0;
+    return Math.max(1, baseDays + adjustment);
+  }
+
+  // Fonction pour générer des conditions réalistes
+  function generateRealisticTerms(carrier: any, quoteRequest: any): string {
+    const baseTerms = [
+      "Prix valable 30 jours",
+      "Assurance comprise jusqu'à 1000€",
+      "Enlèvement et livraison inclus"
+    ];
+    
+    if (quoteRequest.transportMode === 'maritime') {
+      baseTerms.push("Frais de port inclus");
+      baseTerms.push("Dédouanement export/import en sus");
+    } else if (quoteRequest.transportMode === 'aerien') {
+      baseTerms.push("Frais de carburant inclus");
+      baseTerms.push("Surtaxe sécurité comprise");
+    }
+    
+    return baseTerms.join(' • ');
+  }
+
+  // Fonction pour générer des notes de transporteur
+  function generateCarrierNotes(carrier: any, quoteRequest: any): string {
+    const notes = [];
+    
+    if (quoteRequest.transportMode === 'maritime') {
+      notes.push(`Service maritime régulier ${quoteRequest.origin} → ${quoteRequest.destination}`);
+      notes.push("Départ hebdomadaire, documentation complète requise");
+    } else if (quoteRequest.transportMode === 'aerien') {
+      notes.push(`Vol direct disponible via ${carrier.name}`);
+      notes.push("Enlèvement J+1, livraison express possible");
+    } else {
+      notes.push(`Transport routier sécurisé par ${carrier.name}`);
+      notes.push("Suivi temps réel, livraison sur rendez-vous");
+    }
+    
+    return notes.join(' | ');
+  }
+
   const httpServer = createServer(app);
 
   // WebSocket setup for real-time chat
