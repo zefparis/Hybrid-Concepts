@@ -123,13 +123,13 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
           <Badge variant={isProcessing ? "default" : isCompleted ? "secondary" : "outline"}>
             {isProcessing ? "En cours..." : isCompleted ? "Terminé" : "Prêt"}
           </Badge>
           {lines.length > 0 && (
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs sm:text-sm text-muted-foreground">
               {lines.length} étapes d'automatisation
             </span>
           )}
@@ -137,7 +137,7 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
         {isCompleted && (
           <button
             onClick={reset}
-            className="text-sm text-blue-600 hover:text-blue-800"
+            className="text-sm text-blue-600 hover:text-blue-800 self-start sm:self-auto"
           >
             Effacer le terminal
           </button>
@@ -148,7 +148,7 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
         <CardContent className="p-0">
           <div 
             ref={terminalRef}
-            className="bg-gray-900 text-green-400 font-mono text-sm p-4 h-96 overflow-y-auto border rounded-lg"
+            className="bg-gray-900 text-green-400 font-mono text-xs sm:text-sm p-3 sm:p-4 h-64 sm:h-96 overflow-y-auto border rounded-lg"
           >
             {lines.length === 0 ? (
               <div className="text-gray-500">

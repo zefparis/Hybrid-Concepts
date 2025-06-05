@@ -5,14 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Eye, Download, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import type { ShipmentWithDetails } from "@/types";
+import type { Shipment, Quote, QuoteRequest, Carrier } from "@shared/schema";
 import { format } from "date-fns";
 import { fr, enUS } from "date-fns/locale";
 
 export function ShipmentsTable() {
   const { t, i18n } = useTranslation();
   
-  const { data: shipments, isLoading } = useQuery<ShipmentWithDetails[]>({
+  const { data: shipments, isLoading } = useQuery<Array<Shipment & { quote: Quote & { quoteRequest: QuoteRequest; carrier: Carrier } }>>({
     queryKey: ["/api/shipments"],
   });
 
