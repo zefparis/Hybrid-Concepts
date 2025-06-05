@@ -444,30 +444,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
           }
 
-          const googleUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json`;
+          const googleUrl = `https://maps.googleapis.com/maps/api/geocode/json`;
           const googleParams = new URLSearchParams({
-            input: enhancedQuery,
+            address: enhancedQuery,
             key: process.env.GOOGLE_MAPS_API_KEY!,
-            types: googleTypes,
             language: 'fr'
           });
 
-          console.log('Google URL:', `${googleUrl}?${googleParams.toString().replace(process.env.GOOGLE_MAPS_API_KEY!, 'HIDDEN_KEY')}`);
+          const finalUrl = `${googleUrl}?${googleParams}`;
+          console.log('Google URL:', finalUrl.replace(process.env.GOOGLE_MAPS_API_KEY!, 'HIDDEN_KEY'));
 
-          const googleResponse = await fetch(`${googleUrl}?${googleParams}`);
+          const googleResponse = await fetch(finalUrl);
           console.log('Google response status:', googleResponse.status);
           
           if (googleResponse.ok) {
             const googleData = await googleResponse.json();
-            console.log('Google predictions:', googleData.predictions?.length || 0);
+            console.log('Google results:', googleData.results?.length || 0);
+            console.log('Google status:', googleData.status);
             
-            if (googleData.predictions) {
-              const googleSuggestions = googleData.predictions
+            if (googleData.results) {
+              const googleSuggestions = googleData.results
                 .slice(0, parseInt(limit.toString()) - suggestions.length)
-                .map((prediction: any) => ({
-                  text: prediction.description,
-                  value: prediction.description,
-                  place_id: prediction.place_id,
+                .map((result: any) => ({
+                  text: result.formatted_address,
+                  value: result.formatted_address,
+                  place_id: result.place_id,
                   source: 'google'
                 }));
               
