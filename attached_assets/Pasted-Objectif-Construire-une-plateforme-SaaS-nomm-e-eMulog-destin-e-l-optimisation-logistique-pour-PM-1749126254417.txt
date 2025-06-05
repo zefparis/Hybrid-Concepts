@@ -1,0 +1,69 @@
+Objectif :
+Construire une plateforme SaaS nommée eMulog destinée à l’optimisation logistique pour PME et commissionnaires, avec agrégation de devis, automatisation documentaire, tracking, gestion collaborative et modules d’intelligence artificielle pour l’automatisation des tâches administratives et l’analyse des flux.
+
+Détail précis du besoin utilisateur :
+
+Type de système à créer :
+
+Application web SaaS (multi-tenant) accessible à la fois aux PME (utilisateurs finaux) et aux commissionnaires (prestataires de services logistiques).
+
+Principales fonctionnalités attendues :
+
+Onboarding PME/groupes (création de comptes, gestion de profils sociétés, upload des flux d’import/export)
+
+Demande et agrégation de cotations : formulaire intelligent, matching automatique avec commissionnaires, génération de devis automatique ou semi-automatique, scoring/ranking des réponses.
+
+Chat intégré (clients/commissionnaires), archivage des échanges, notifications temps réel.
+
+Gestion documentaire collaborative : upload, classement, versioning, accès sécurisé.
+
+Tracking logistique (maritime via INTTRA, fallback manuel), timeline opérationnelle, alertes automatisées.
+
+Facturation & vérification IA : OCR des factures, contrôle de cohérence, workflow de validation.
+
+Dashboards analytics (coûts, économies, stats transport/CO2, scoring fournisseurs).
+
+Sécurité avancée, gestion fine des rôles et des accès.
+
+Contraintes technologiques :
+
+Frontend : Next.js (TypeScript) + Tailwind CSS
+
+Backend : Node.js + Express (TypeScript, API REST modulaire)
+
+Database : PostgreSQL
+
+Cloud Storage : AWS S3
+
+OCR : Shipamax ou Tesseract (open source)
+
+Tracking API : INTTRA (maritime), fallback manuel
+
+Authentification : JWT, gestion multi-rôles
+
+Internationalisation : multilingue (FR/EN)
+
+Cibles et usage :
+
+PME : pour automatiser, optimiser et mutualiser leurs opérations logistiques, avoir accès à plus de compétitivité et de visibilité.
+
+Commissionnaires : pour réduire le temps de traitement des demandes, industrialiser la réponse aux cotations et accéder à de nouveaux leads qualifiés.
+
+Livrables :
+
+Code source complet, structuré par modules (voir prompt précédent)
+
+Documentation technique, schémas d’architecture, scripts de déploiement
+
+Jeu de données de démonstration (seed)
+
+Mockups UX principaux (si possible)
+
+Directive finale :
+
+Voici le besoin fonctionnel, technique et business parfaitement cadré.
+Tu dois générer une plateforme SaaS conforme à ces spécifications, sans extrapolation, sans questions superflues.
+Concentre-toi sur l’automatisation, l’agrégation et la productivité pour les PME et commissionnaires.
+L’UX doit être fluide, chaque module autonome, l’API bien documentée, la sécurité irréprochable.
+
+Lance la génération complète du projet selon ce cadre, en livrant architecture, code et documentation.
