@@ -71,6 +71,10 @@ export default function Quotes() {
   const [destinationSuggestions, setDestinationSuggestions] = useState<string[]>([]);
   const [showOriginSuggestions, setShowOriginSuggestions] = useState(false);
   const [showDestinationSuggestions, setShowDestinationSuggestions] = useState(false);
+  const [selectedQuote, setSelectedQuote] = useState<any>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [editingQuote, setEditingQuote] = useState<any>(null);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   // Geocoding API for real-world location suggestions
   const searchLocations = async (query: string, transportMode: string) => {
@@ -165,6 +169,52 @@ export default function Quotes() {
     setShowDestinationSuggestions(false);
   };
 
+  // Mutation pour supprimer une cotation
+  const deleteQuoteMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/quote-requests/${id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error('Failed to delete');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
+      toast({ title: "Cotation annulée avec succès" });
+    },
+    onError: () => {
+      toast({ 
+        title: "Erreur",
+        description: "Impossible d'annuler la cotation",
+        variant: "destructive"
+      });
+    },
+  });
+
+  // Mutation pour modifier une cotation
+  const updateQuoteMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      const response = await fetch(`/api/quote-requests/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to update');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
+      setIsEditOpen(false);
+      setEditingQuote(null);
+      toast({ title: "Cotation modifiée avec succès" });
+    },
+    onError: () => {
+      toast({ 
+        title: "Erreur",
+        description: "Impossible de modifier la cotation",
+        variant: "destructive"
+      });
+    },
+  });
+
   const handleCreateQuote = (e: React.FormEvent) => {
     e.preventDefault();
     const quoteData = {
@@ -174,6 +224,43 @@ export default function Quotes() {
       requestedDate: newQuote.requestedDate
     };
     createQuoteMutation.mutate(quoteData);
+  };
+
+  const handleViewDetails = (quote: any) => {
+    setSelectedQuote(quote);
+    setIsDetailsOpen(true);
+  };
+
+  const handleEditQuote = (quote: any) => {
+    setEditingQuote({
+      ...quote,
+      requestedDate: new Date(quote.requestedDate).toISOString().split('T')[0]
+    });
+    setIsEditOpen(true);
+  };
+
+  const handleDeleteQuote = (quoteId: number) => {
+    if (window.confirm('Êtes-vous sûr de vouloir annuler cette cotation ?')) {
+      deleteQuoteMutation.mutate(quoteId);
+    }
+  };
+
+  const handleUpdateQuote = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editingQuote) {
+      updateQuoteMutation.mutate({
+        id: editingQuote.id,
+        data: {
+          origin: editingQuote.origin,
+          destination: editingQuote.destination,
+          goodsType: editingQuote.goodsType,
+          weight: editingQuote.weight,
+          volume: editingQuote.volume,
+          requestedDate: editingQuote.requestedDate,
+          description: editingQuote.description
+        }
+      });
+    }
   };
 
   const getTransportIcon = (mode: string) => {
@@ -734,15 +821,31 @@ export default function Quotes() {
                 )}
                 
                 <div className="flex flex-col sm:flex-row gap-2 pt-2">
-                  <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full sm:w-auto"
+                    onClick={() => handleViewDetails(quote)}
+                  >
                     Voir détails
                   </Button>
-                  <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full sm:w-auto"
+                    onClick={() => handleEditQuote(quote)}
+                  >
                     Modifier
                   </Button>
                   {quote.status === "pending" && (
-                    <Button variant="outline" size="sm" className="w-full sm:w-auto text-red-600 hover:text-red-700">
-                      Annuler
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full sm:w-auto text-red-600 hover:text-red-700"
+                      onClick={() => handleDeleteQuote(quote.id)}
+                      disabled={deleteQuoteMutation.isPending}
+                    >
+                      {deleteQuoteMutation.isPending ? "Annulation..." : "Annuler"}
                     </Button>
                   )}
                 </div>
@@ -751,6 +854,169 @@ export default function Quotes() {
           ))
         )}
       </div>
+
+      {/* Modal détails */}
+      <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Détails de la cotation</DialogTitle>
+          </DialogHeader>
+          {selectedQuote && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">Référence</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.reference}</p>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">Statut</Label>
+                  <p className="text-sm text-gray-600">
+                    {selectedQuote.status === "pending" ? "En attente" : selectedQuote.status}
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">Origine</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.origin}</p>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">Destination</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.destination}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <Label className="text-sm font-medium">Type de marchandise</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.goodsType}</p>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">Poids</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.weight} kg</p>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium">Volume</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.volume} m³</p>
+                </div>
+              </div>
+              <div>
+                <Label className="text-sm font-medium">Date souhaitée</Label>
+                <p className="text-sm text-gray-600">
+                  {new Date(selectedQuote.requestedDate).toLocaleDateString('fr-FR')}
+                </p>
+              </div>
+              {selectedQuote.description && (
+                <div>
+                  <Label className="text-sm font-medium">Description</Label>
+                  <p className="text-sm text-gray-600">{selectedQuote.description}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal édition */}
+      <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Modifier la cotation</DialogTitle>
+          </DialogHeader>
+          {editingQuote && (
+            <form onSubmit={handleUpdateQuote} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="edit-origin">Origine</Label>
+                  <Input
+                    id="edit-origin"
+                    value={editingQuote.origin}
+                    onChange={(e) => setEditingQuote({...editingQuote, origin: e.target.value})}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-destination">Destination</Label>
+                  <Input
+                    id="edit-destination"
+                    value={editingQuote.destination}
+                    onChange={(e) => setEditingQuote({...editingQuote, destination: e.target.value})}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="edit-goods">Type de marchandise</Label>
+                  <Select 
+                    value={editingQuote.goodsType} 
+                    onValueChange={(value) => setEditingQuote({...editingQuote, goodsType: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Mobilier">Mobilier</SelectItem>
+                      <SelectItem value="Électronique">Électronique</SelectItem>
+                      <SelectItem value="Vêtements">Vêtements</SelectItem>
+                      <SelectItem value="Automobile">Automobile</SelectItem>
+                      <SelectItem value="Alimentaire">Alimentaire</SelectItem>
+                      <SelectItem value="Chimique">Chimique</SelectItem>
+                      <SelectItem value="Autre">Autre</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="edit-weight">Poids (kg)</Label>
+                  <Input
+                    id="edit-weight"
+                    type="number"
+                    value={editingQuote.weight}
+                    onChange={(e) => setEditingQuote({...editingQuote, weight: e.target.value})}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-volume">Volume (m³)</Label>
+                  <Input
+                    id="edit-volume"
+                    type="number"
+                    step="0.1"
+                    value={editingQuote.volume}
+                    onChange={(e) => setEditingQuote({...editingQuote, volume: e.target.value})}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="edit-date">Date souhaitée</Label>
+                <Input
+                  id="edit-date"
+                  type="date"
+                  value={editingQuote.requestedDate}
+                  onChange={(e) => setEditingQuote({...editingQuote, requestedDate: e.target.value})}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-description">Description</Label>
+                <Textarea
+                  id="edit-description"
+                  value={editingQuote.description || ''}
+                  onChange={(e) => setEditingQuote({...editingQuote, description: e.target.value})}
+                  placeholder="Décrivez votre expédition, contraintes particulières, etc."
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button type="button" variant="outline" onClick={() => setIsEditOpen(false)}>
+                  Annuler
+                </Button>
+                <Button type="submit" disabled={updateQuoteMutation.isPending}>
+                  {updateQuoteMutation.isPending ? "Modification..." : "Modifier"}
+                </Button>
+              </div>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
