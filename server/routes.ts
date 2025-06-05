@@ -627,45 +627,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Always supplement with comprehensive logistics database for complete coverage
       console.log("Supplementing with comprehensive internal logistics database...");
       
-      const comprehensiveLocations = [
-          // Major Global Ports
-          { name: "Port de Shanghai, Chine", coordinates: [121.5000, 31.2000], type: "port", aliases: ["shanghai port", "port shanghai", "yangshan"] },
-          { name: "Port de Singapour", coordinates: [103.8198, 1.3521], type: "port", aliases: ["singapore port", "port singapore", "psa"] },
-          { name: "Port de Rotterdam, Pays-Bas", coordinates: [4.1427, 51.9244], type: "port", aliases: ["rotterdam port", "port rotterdam", "europoort"] },
-          { name: "Port de Los Angeles, États-Unis", coordinates: [-118.2437, 33.7405], type: "port", aliases: ["la port", "los angeles port", "port los angeles"] },
-          { name: "Port de Durban, Afrique du Sud", coordinates: [31.0218, -29.8587], type: "port", aliases: ["durban port", "port durban"] },
-          { name: "Port du Cap, Afrique du Sud", coordinates: [18.4265, -33.9058], type: "port", aliases: ["cape town port", "port cape town"] },
-          { name: "Port de Casablanca, Maroc", coordinates: [-7.6164, 33.6022], type: "port", aliases: ["casablanca port", "port casablanca"] },
-          { name: "Port de Matadi, République Démocratique du Congo", coordinates: [13.4667, -5.8167], type: "port", aliases: ["matadi port", "port matadi"] },
-          { name: "Port de Dakar, Sénégal", coordinates: [-17.4441, 14.7167], type: "port", aliases: ["dakar port", "port dakar"] },
-          { name: "Port d'Abidjan, Côte d'Ivoire", coordinates: [-4.0435, 5.3599], type: "port", aliases: ["abidjan port", "port abidjan"] },
-          { name: "Port de Lagos, Nigéria", coordinates: [3.3792, 6.5244], type: "port", aliases: ["lagos port", "port lagos", "apapa"] },
-          { name: "Port de Mombasa, Kenya", coordinates: [39.6682, -4.0435], type: "port", aliases: ["mombasa port", "port mombasa"] },
-          { name: "Port de Djibouti", coordinates: [43.1456, 11.5883], type: "port", aliases: ["djibouti port", "port djibouti"] },
-          { name: "Port Saïd, Égypte", coordinates: [32.3019, 31.2653], type: "port", aliases: ["port said", "suez canal"] },
-          { name: "Port de Tanger Med, Maroc", coordinates: [-5.4972, 35.9167], type: "port", aliases: ["tanger med", "tangier med"] },
-          
-          // Major Global Airports
-          { name: "Aéroport Jomo Kenyatta, Nairobi", coordinates: [36.9278, -1.3192], type: "airport", aliases: ["nairobi airport", "jomo kenyatta", "nbo"] },
-          { name: "Aéroport O.R. Tambo, Johannesburg", coordinates: [28.2460, -26.1392], type: "airport", aliases: ["johannesburg airport", "or tambo", "jnb"] },
-          { name: "Aéroport du Cap", coordinates: [18.6017, -33.9648], type: "airport", aliases: ["cape town airport", "cpt"] },
-          { name: "Aéroport Mohammed V, Casablanca", coordinates: [-7.5895, 33.3675], type: "airport", aliases: ["casablanca airport", "cmn", "mohammed v"] },
-          { name: "Aéroport du Caire", coordinates: [31.4056, 30.1219], type: "airport", aliases: ["cairo airport", "cai"] },
-          { name: "Aéroport de Lagos", coordinates: [3.3211, 6.5772], type: "airport", aliases: ["lagos airport", "los", "murtala mohammed"] },
-          { name: "Aéroport de Dakar", coordinates: [-17.0732, 14.7397], type: "airport", aliases: ["dakar airport", "dss", "leopold sedar senghor"] },
-          { name: "Aéroport d'Abidjan", coordinates: [-3.9263, 5.2614], type: "airport", aliases: ["abidjan airport", "abj", "felix houphouet boigny"] },
-          
-          // Major Cities
-          { name: "Nairobi, Kenya", coordinates: [36.8219, -1.2921], type: "city", aliases: ["nairobi"] },
-          { name: "Johannesburg, Afrique du Sud", coordinates: [28.0473, -26.2041], type: "city", aliases: ["johannesburg", "joburg"] },
-          { name: "Le Cap, Afrique du Sud", coordinates: [18.4241, -33.9249], type: "city", aliases: ["cape town", "le cap"] },
-          { name: "Casablanca, Maroc", coordinates: [-7.5898, 33.5731], type: "city", aliases: ["casablanca"] },
-          { name: "Lagos, Nigéria", coordinates: [3.3792, 6.5244], type: "city", aliases: ["lagos"] },
-          { name: "Dakar, Sénégal", coordinates: [-17.4441, 14.7167], type: "city", aliases: ["dakar"] },
-          { name: "Abidjan, Côte d'Ivoire", coordinates: [-4.0435, 5.3599], type: "city", aliases: ["abidjan"] },
-          { name: "Accra, Ghana", coordinates: [-0.1969, 5.6037], type: "city", aliases: ["accra"] },
-          { name: "Kinshasa, République Démocratique du Congo", coordinates: [15.2663, -4.4419], type: "city", aliases: ["kinshasa"] }
-        ];
+      // Import comprehensive global database
+      const { comprehensiveLocations } = await import('./comprehensive-locations');
       
       const searchLower = searchQuery.toLowerCase();
       const internalResults = comprehensiveLocations
