@@ -27,3 +27,10 @@ export interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
 }
+
+export interface DashboardMetrics {
+  activeShipments: number;
+  pendingQuotes: number;
+  totalSavings: number;
+  performance: number;
+}

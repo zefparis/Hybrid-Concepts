@@ -65,20 +65,20 @@ export function MetricsCards() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
       {metricsData.map((metric, index) => {
         const Icon = metric.icon;
         return (
-          <Card key={index} className={`border-l-4 border-l-${metric.color}`}>
-            <CardContent className="p-6">
+          <Card key={index} className="border-l-4 border-l-blue-600 hover:shadow-lg transition-shadow">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">{metric.title}</p>
-                  <p className="text-3xl font-bold text-emulog-dark">{metric.value}</p>
-                  <p className={`text-sm ${metric.textColor}`}>{metric.change}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 truncate">{metric.title}</p>
+                  <p className="text-xl sm:text-2xl xl:text-3xl font-bold text-gray-900 dark:text-white mt-1">{metric.value}</p>
+                  <p className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 mt-1 truncate">{metric.change}</p>
                 </div>
-                <div className={`w-12 h-12 ${metric.bgColor} bg-opacity-10 rounded-lg flex items-center justify-center`}>
-                  <Icon className={`${metric.textColor} w-6 h-6`} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center ml-3">
+                  <Icon className="text-blue-600 dark:text-blue-400 w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
               </div>
             </CardContent>

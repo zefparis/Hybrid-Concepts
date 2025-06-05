@@ -12,21 +12,23 @@ export default function Dashboard() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <Header title={t("dashboard")} />
+    <div className="space-y-4 sm:space-y-6">
+      <Header title="Tableau de bord" subtitle="Vue d'ensemble de votre activité logistique" />
       
-      <main className="flex-1 overflow-y-auto p-6">
-        <MetricsCards />
+      <MetricsCards />
+      
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+        <div className="xl:col-span-2 space-y-4 sm:space-y-6">
+          <ShipmentsTable />
+          <AnalyticsCharts />
+        </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="space-y-4 sm:space-y-6">
           <QuickActions />
           <RecentActivity />
+          <DocumentsWidget />
         </div>
-
-        <ShipmentsTable />
-        <AnalyticsCharts />
-        <DocumentsWidget />
-      </main>
+      </div>
       
       <FloatingChatWidget />
     </div>
