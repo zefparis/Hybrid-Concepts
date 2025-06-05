@@ -29,38 +29,30 @@ export default function AIAutomation() {
   const automationMutation = useMutation({
     mutationFn: async (data: any) => {
       // First create the quote request
-      const quoteRequest = await apiRequest("/api/quote-requests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          origin: data.origin,
-          destination: data.destination,
-          weight: data.weight,
-          volume: data.volume,
-          goodsType: data.goodsType,
-          description: data.description,
-          requestedDate: new Date().toISOString().split('T')[0]
-        })
+      const quoteRequest = await apiRequest("/api/quote-requests", "POST", {
+        origin: data.origin,
+        destination: data.destination,
+        weight: data.weight,
+        volume: data.volume,
+        goodsType: data.goodsType,
+        description: data.description,
+        requestedDate: new Date().toISOString().split('T')[0]
       });
 
-      // Then trigger AI automation
-      const automation = await apiRequest("/api/ai-automation/process", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          quoteRequestId: quoteRequest.id,
-          origin: data.origin,
-          destination: data.destination,
-          cargo: {
-            type: data.goodsType,
-            weight: parseInt(data.weight),
-            volume: data.volume
-          },
-          timeline: {
-            preferred: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-            latest: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-          }
-        })
+      // Then trigger automation process
+      const automation = await apiRequest("/api/ai/process", "POST", {
+        quoteRequestId: quoteRequest.id,
+        origin: data.origin,
+        destination: data.destination,
+        cargo: {
+          type: data.goodsType,
+          weight: parseInt(data.weight),
+          volume: data.volume
+        },
+        timeline: {
+          preferred: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          latest: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+        }
       });
 
       return { quoteRequest, automation };

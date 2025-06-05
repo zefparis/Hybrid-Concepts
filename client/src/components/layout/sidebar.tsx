@@ -11,7 +11,8 @@ import {
   LogOut,
   Menu,
   X,
-  Truck
+  Truck,
+  Brain
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -20,6 +21,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navigation = [
   { name: "Tableau de bord", href: "/", icon: LayoutDashboard },
+  { name: "Automatisation IA", href: "/ai-automation", icon: Brain },
   { name: "Cotations", href: "/quotes", icon: FileText },
   { name: "Suivi", href: "/tracking", icon: Package },
   { name: "Documents", href: "/documents", icon: FileText },
