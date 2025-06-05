@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Brain, Zap, Target, TrendingUp, Clock, Bot, Cpu, Code, ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 import AITerminal from "@/components/ai-terminal";
+import AddressAutocomplete from "@/components/address-autocomplete";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -202,20 +203,20 @@ export default function AIAutomation() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="origin">Port de départ *</Label>
-                <Input
+                <AddressAutocomplete
                   id="origin"
                   placeholder="Port de Mombasa, Kenya"
                   value={requestData.origin}
-                  onChange={(e) => setRequestData(prev => ({ ...prev, origin: e.target.value }))}
+                  onChange={(value) => setRequestData(prev => ({ ...prev, origin: value }))}
                 />
               </div>
               <div>
                 <Label htmlFor="destination">Port d'arrivée *</Label>
-                <Input
+                <AddressAutocomplete
                   id="destination"
                   placeholder="Port de Marseille, France"
                   value={requestData.destination}
-                  onChange={(e) => setRequestData(prev => ({ ...prev, destination: e.target.value }))}
+                  onChange={(value) => setRequestData(prev => ({ ...prev, destination: value }))}
                 />
               </div>
             </div>
