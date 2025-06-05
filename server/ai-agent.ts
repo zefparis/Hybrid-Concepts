@@ -377,8 +377,8 @@ Analyse en JSON:
       origin: request.origin,
       destination: request.destination,
       goodsType: request.cargo.type,
-      weight: request.cargo.weight.toString(),
-      volume: request.cargo.dimensions || 'Standard',
+      weight: request.cargo.weight,
+      volume: request.cargo.dimensions ? parseFloat(request.cargo.dimensions.replace(/[^\d.]/g, '')) || 1.0 : 1.0,
       requestedDate: new Date(request.timeline.preferred),
       description: `Mode: ${analysis.transportMode}, Valeur: ${request.cargo.value || 0}€, Exigences: ${analysis.recommendations.specialRequirements.join(', ') || 'Standard'}`,
       status: 'active'
