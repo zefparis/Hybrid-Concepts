@@ -141,7 +141,7 @@ export default function Quotes() {
       return filteredSuggestions.slice(0, 5);
     } catch (error) {
       console.error('Geocoding error:', error);
-      return getFallbackSuggestions(query, transportMode);
+      return [];
     }
   };
 
