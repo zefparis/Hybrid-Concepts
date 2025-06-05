@@ -72,7 +72,7 @@ export default function Quotes() {
   const [showOriginSuggestions, setShowOriginSuggestions] = useState(false);
   const [showDestinationSuggestions, setShowDestinationSuggestions] = useState(false);
 
-  // Mapbox Geocoding API for real-world location suggestions
+  // Geocoding API for real-world location suggestions
   const searchLocations = async (query: string, transportMode: string) => {
     if (query.length < 2) return [];
     
@@ -94,27 +94,16 @@ export default function Quotes() {
         searchQuery = `airport ${query}`;
       }
       
-      const mapboxKey = import.meta.env.VITE_MAPBOX_PUBLIC_KEY;
-      if (!mapboxKey) {
-        console.warn('Mapbox API key not found, using fallback suggestions');
-        return getFallbackSuggestions(query, transportMode);
-      }
-      
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json?` +
-        `access_token=${mapboxKey}&` +
-        `types=${searchType}&` +
-        `limit=5&` +
-        `language=fr`
+        `/api/geocoding/search?query=${encodeURIComponent(searchQuery)}&types=${searchType}&limit=5`
       );
       
-      if (!response.ok) throw new Error('Geocoding API error');
+      if (!response.ok) {
+        throw new Error('Geocoding API error');
+      }
       
       const data = await response.json();
-      return data.features.map((feature: any) => ({
-        text: feature.place_name,
-        value: feature.place_name
-      }));
+      return data.suggestions || [];
     } catch (error) {
       console.error('Geocoding error:', error);
       return getFallbackSuggestions(query, transportMode);

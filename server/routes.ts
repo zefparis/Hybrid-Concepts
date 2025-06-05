@@ -338,6 +338,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Mapbox Geocoding proxy endpoint
+  app.get('/api/geocoding/search', async (req, res) => {
+    try {
+      const { query, types = 'place,locality', limit = 5 } = req.query;
+      
+      if (!query || typeof query !== 'string') {
+        return res.status(400).json({ error: 'Query parameter is required' });
+      }
+
+      const mapboxKey = process.env.MAPBOX_PUBLIC_KEY || process.env.MAPBOX_API_KEY;
+      if (!mapboxKey) {
+        return res.status(500).json({ error: 'Mapbox API key not configured' });
+      }
+
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?` +
+        `access_token=${mapboxKey}&` +
+        `types=${types}&` +
+        `limit=${limit}&` +
+        `language=fr`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Mapbox API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const suggestions = data.features.map((feature: any) => ({
+        text: feature.place_name,
+        value: feature.place_name,
+        coordinates: feature.center
+      }));
+
+      res.json({ suggestions });
+    } catch (error) {
+      console.error('Geocoding error:', error);
+      res.status(500).json({ error: 'Geocoding service unavailable' });
+    }
+  });
+
   // Carriers routes
   app.get("/api/carriers", authenticateToken, async (req: any, res) => {
     try {
