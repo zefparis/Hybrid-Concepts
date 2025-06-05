@@ -252,7 +252,11 @@ export const activitiesRelations = relations(activities, ({ one }) => ({
 export const insertCompanySchema = createInsertSchema(companies).omit({ id: true, createdAt: true });
 export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true });
 export const insertCarrierSchema = createInsertSchema(carriers).omit({ id: true, createdAt: true });
-export const insertQuoteRequestSchema = createInsertSchema(quoteRequests).omit({ id: true, createdAt: true, reference: true });
+export const insertQuoteRequestSchema = createInsertSchema(quoteRequests).omit({ id: true, createdAt: true, reference: true }).extend({
+  weight: z.union([z.string(), z.number()]).transform(val => typeof val === 'string' ? val : val.toString()),
+  volume: z.union([z.string(), z.number()]).transform(val => typeof val === 'string' ? val : val.toString()),
+  requestedDate: z.union([z.string(), z.date()]).transform(val => typeof val === 'string' ? new Date(val) : val)
+});
 export const insertQuoteSchema = createInsertSchema(quotes).omit({ id: true, createdAt: true });
 export const insertShipmentSchema = createInsertSchema(shipments).omit({ id: true, createdAt: true, reference: true });
 export const insertDocumentSchema = createInsertSchema(documents).omit({ id: true, createdAt: true });

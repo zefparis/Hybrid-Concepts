@@ -169,9 +169,9 @@ export default function Quotes() {
     e.preventDefault();
     const quoteData = {
       ...newQuote,
-      requestedDate: new Date(newQuote.requestedDate),
-      weight: parseFloat(newQuote.weight) || 0,
-      volume: parseFloat(newQuote.volume) || 0
+      weight: newQuote.weight,
+      volume: newQuote.volume,
+      requestedDate: newQuote.requestedDate
     };
     createQuoteMutation.mutate(quoteData);
   };
