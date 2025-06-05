@@ -8,6 +8,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { Suspense } from "react";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
+import AIAutomation from "@/pages/ai-automation";
 import Quotes from "@/pages/quotes";
 import Tracking from "@/pages/tracking";
 import Documents from "@/pages/documents";

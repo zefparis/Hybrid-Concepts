@@ -11,7 +11,8 @@ import {
   Receipt, 
   TrendingUp,
   Settings,
-  LogOut
+  LogOut,
+  Bot
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const navigation = [
   { name: "Tableau de Bord", href: "/", icon: BarChart3 },
+  { name: "Agent IA", href: "/ai-automation", icon: Bot, badge: "NEW" },
   { name: "Cotations", href: "/quotes", icon: FileText, badge: 12 },
   { name: "Suivi Transport", href: "/tracking", icon: MapPin },
   { name: "Documents", href: "/documents", icon: FolderOpen },

@@ -385,6 +385,50 @@ export class LogisticsAIAgent {
     deliveryDate.setDate(deliveryDate.getDate() + (bestOption?.estimatedDays || 7));
     return deliveryDate.toISOString().split('T')[0];
   }
+
+  /**
+   * Optimisation d'une cotation existante
+   */
+  async optimizeExistingQuote(quoteRequest: any) {
+    console.log('🤖 AI Agent: Optimizing existing quote...');
+    
+    const prompt = `
+    Analysez cette demande de cotation existante et proposez des optimisations:
+
+    ${JSON.stringify(quoteRequest)}
+
+    Fournissez des recommandations d'optimisation JSON:
+    {
+      "costOptimization": {
+        "potentialSavings": "percentage",
+        "recommendations": ["rec1", "rec2"]
+      },
+      "timeOptimization": {
+        "fasterOptions": ["option1", "option2"],
+        "timeReduction": "days"
+      },
+      "alternativeRoutes": [
+        {
+          "route": "description",
+          "advantages": ["avantage1", "avantage2"],
+          "estimatedSavings": "percentage"
+        }
+      ]
+    }
+    `;
+
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }],
+    });
+
+    const content = response.content[0];
+    if (content.type === 'text') {
+      return JSON.parse(content.text);
+    }
+    throw new Error('Unexpected response format');
+  }
 }
 
 export const aiAgent = new LogisticsAIAgent();
