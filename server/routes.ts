@@ -120,8 +120,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const quoteRequests = await storage.getQuoteRequests(req.user.companyId);
       
-      // Fix transport mode for existing quotes based on locations
-      const fixedQuotes = quoteRequests.map(quote => {
+      // Enhanced quote requests with quotes and carrier information
+      const enrichedQuotes = await Promise.all(quoteRequests.map(async (quote) => {
         const isPort = (location: string) => {
           const portKeywords = ['port du', 'port de', 'port of', 'port d\'', 'harbour', 'harbor'];
           return portKeywords.some(keyword => location.toLowerCase().includes(keyword.toLowerCase()));
@@ -139,13 +139,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
           correctMode = 'air';
         }
         
+        // Récupérer les cotations pour cette demande
+        const quotes = await storage.getQuotesByRequest(quote.id);
+        
+        // Enrichir chaque cotation avec les informations du transporteur
+        const enrichedQuotes = await Promise.all(quotes.map(async (q) => {
+          const carrier = await storage.getCarrier(q.carrierId);
+          return {
+            ...q,
+            carrier
+          };
+        }));
+        
         return {
           ...quote,
-          transportMode: correctMode
+          transportMode: correctMode,
+          quotes: enrichedQuotes
         };
-      });
+      }));
       
-      res.json(fixedQuotes);
+      res.json(enrichedQuotes);
     } catch (error) {
       console.error('Quote requests error:', error);
       res.status(500).json({ message: 'Failed to fetch quote requests' });
