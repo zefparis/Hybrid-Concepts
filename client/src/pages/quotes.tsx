@@ -77,7 +77,7 @@ export default function Quotes() {
   const [editingQuote, setEditingQuote] = useState<any>(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
 
-  // Geocoding API for real-world location suggestions
+  // Enhanced geocoding API with Google fallback for specialized locations
   const searchLocations = async (query: string, transportMode: string) => {
     if (query.length < 2) return [];
     
@@ -85,22 +85,28 @@ export default function Quotes() {
       // Define search types based on transport mode
       const searchTypes = {
         terre: 'place,locality,address',
-        mer: 'place,poi', // Points of interest for ports
-        air: 'place,poi'  // Points of interest for airports
+        mer: 'place,poi,mer', // Enhanced for ports with Google fallback
+        air: 'place,poi,air'  // Enhanced for airports with Google fallback
       };
       
       const searchType = searchTypes[transportMode as keyof typeof searchTypes] || 'place,locality';
       
-      // Add specific queries for ports and airports
+      // Enhanced queries for better port and airport detection
       let searchQuery = query;
-      if (transportMode === 'mer' && !query.toLowerCase().includes('port')) {
-        searchQuery = `port ${query}`;
-      } else if (transportMode === 'air' && !query.toLowerCase().includes('airport') && !query.toLowerCase().includes('aéroport')) {
-        searchQuery = `airport ${query}`;
+      if (transportMode === 'mer') {
+        // More intelligent port detection
+        if (!query.toLowerCase().includes('port') && !query.toLowerCase().includes('harbour') && !query.toLowerCase().includes('terminal')) {
+          searchQuery = `port ${query}`;
+        }
+      } else if (transportMode === 'air') {
+        // More intelligent airport detection
+        if (!query.toLowerCase().includes('airport') && !query.toLowerCase().includes('aéroport') && !query.toLowerCase().includes('terminal')) {
+          searchQuery = `airport ${query}`;
+        }
       }
       
       const response = await fetch(
-        `/api/geocoding/search?query=${encodeURIComponent(searchQuery)}&types=${searchType}&limit=5`
+        `/api/geocoding/search?query=${encodeURIComponent(searchQuery)}&types=${searchType}&limit=8`
       );
       
       if (!response.ok) {
@@ -108,7 +114,31 @@ export default function Quotes() {
       }
       
       const data = await response.json();
-      return data.suggestions || [];
+      
+      // Filter and prioritize results based on transport mode
+      let filteredSuggestions = data.suggestions || [];
+      
+      if (transportMode === 'mer') {
+        // Prioritize port-related results
+        filteredSuggestions = filteredSuggestions.filter((s: any) => 
+          s.text.toLowerCase().includes('port') || 
+          s.text.toLowerCase().includes('harbour') || 
+          s.text.toLowerCase().includes('terminal') ||
+          s.text.toLowerCase().includes('dock') ||
+          s.source === 'google' // Google results are already filtered for ports
+        );
+      } else if (transportMode === 'air') {
+        // Prioritize airport-related results
+        filteredSuggestions = filteredSuggestions.filter((s: any) => 
+          s.text.toLowerCase().includes('airport') || 
+          s.text.toLowerCase().includes('aéroport') || 
+          s.text.toLowerCase().includes('terminal') ||
+          s.text.toLowerCase().includes('airfield') ||
+          s.source === 'google' // Google results are already filtered for airports
+        );
+      }
+      
+      return filteredSuggestions.slice(0, 5);
     } catch (error) {
       console.error('Geocoding error:', error);
       return getFallbackSuggestions(query, transportMode);

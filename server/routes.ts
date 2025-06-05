@@ -372,7 +372,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Mapbox Geocoding proxy endpoint
+  // Enhanced Geocoding proxy endpoint with Google fallback
   app.get('/api/geocoding/search', async (req, res) => {
     try {
       const { query, types = 'place,locality', limit = 5 } = req.query;
@@ -381,31 +381,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Query parameter is required' });
       }
 
+      let suggestions: any[] = [];
+
+      // Try Mapbox first
       const mapboxKey = process.env.MAPBOX_PUBLIC_KEY || process.env.MAPBOX_API_KEY;
-      if (!mapboxKey) {
-        return res.status(500).json({ error: 'Mapbox API key not configured' });
+      if (mapboxKey) {
+        try {
+          const response = await fetch(
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?` +
+            `access_token=${mapboxKey}&` +
+            `types=${types}&` +
+            `limit=${limit}&` +
+            `language=fr`
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            suggestions = data.features.map((feature: any) => ({
+              text: feature.place_name,
+              value: feature.place_name,
+              coordinates: feature.center,
+              source: 'mapbox'
+            }));
+          }
+        } catch (mapboxError) {
+          console.warn('Mapbox geocoding failed:', mapboxError);
+        }
       }
 
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?` +
-        `access_token=${mapboxKey}&` +
-        `types=${types}&` +
-        `limit=${limit}&` +
-        `language=fr`
-      );
+      // If Mapbox didn't return enough results or failed, use Google as fallback
+      if (suggestions.length < 3 && process.env.GOOGLE_MAPS_API_KEY) {
+        try {
+          let enhancedQuery = query;
+          let googleTypes = 'geocode';
+          
+          // Enhance query and types based on transport mode for better airport/port results
+          const typesStr = String(types);
+          if (typesStr.includes('poi')) {
+            if (query.toLowerCase().includes('port') || typesStr.includes('mer')) {
+              enhancedQuery = query.includes('port') ? query : `port ${query}`;
+              googleTypes = 'establishment';
+            } else if (query.toLowerCase().includes('airport') || query.toLowerCase().includes('aéroport') || typesStr.includes('air')) {
+              enhancedQuery = query.includes('airport') || query.includes('aéroport') ? query : `airport ${query}`;
+              googleTypes = 'establishment';
+            }
+          }
 
-      if (!response.ok) {
-        throw new Error(`Mapbox API error: ${response.status}`);
+          const googleUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json`;
+          const googleParams = new URLSearchParams({
+            input: enhancedQuery,
+            key: process.env.GOOGLE_MAPS_API_KEY!,
+            types: googleTypes,
+            language: 'fr'
+          });
+
+          const googleResponse = await fetch(`${googleUrl}?${googleParams}`);
+          
+          if (googleResponse.ok) {
+            const googleData = await googleResponse.json();
+            if (googleData.predictions) {
+              const googleSuggestions = googleData.predictions
+                .slice(0, parseInt(limit.toString()) - suggestions.length)
+                .map((prediction: any) => ({
+                  text: prediction.description,
+                  value: prediction.description,
+                  place_id: prediction.place_id,
+                  source: 'google'
+                }));
+              
+              suggestions = [...suggestions, ...googleSuggestions];
+            }
+          }
+        } catch (googleError) {
+          console.warn('Google geocoding failed:', googleError);
+        }
       }
 
-      const data = await response.json();
-      const suggestions = data.features.map((feature: any) => ({
-        text: feature.place_name,
-        value: feature.place_name,
-        coordinates: feature.center
-      }));
-
-      res.json({ suggestions });
+      res.json({ suggestions: suggestions.slice(0, parseInt(limit.toString())) });
     } catch (error) {
       console.error('Geocoding error:', error);
       res.status(500).json({ error: 'Geocoding service unavailable' });
