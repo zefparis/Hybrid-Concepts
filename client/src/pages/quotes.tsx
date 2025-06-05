@@ -167,7 +167,13 @@ export default function Quotes() {
 
   const handleCreateQuote = (e: React.FormEvent) => {
     e.preventDefault();
-    createQuoteMutation.mutate(newQuote);
+    const quoteData = {
+      ...newQuote,
+      requestedDate: new Date(newQuote.requestedDate),
+      weight: parseFloat(newQuote.weight) || 0,
+      volume: parseFloat(newQuote.volume) || 0
+    };
+    createQuoteMutation.mutate(quoteData);
   };
 
   const getTransportIcon = (mode: string) => {
