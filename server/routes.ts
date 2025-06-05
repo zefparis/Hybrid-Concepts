@@ -624,11 +624,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      // Enhanced fallback with comprehensive logistics database
-      if (suggestions.length < 3) {
-        console.log("Using comprehensive internal logistics database...");
-        
-        const comprehensiveLocations = [
+      // Always supplement with comprehensive logistics database for complete coverage
+      console.log("Supplementing with comprehensive internal logistics database...");
+      
+      const comprehensiveLocations = [
           // Major Global Ports
           { name: "Port de Shanghai, Chine", coordinates: [121.5000, 31.2000], type: "port", aliases: ["shanghai port", "port shanghai", "yangshan"] },
           { name: "Port de Singapour", coordinates: [103.8198, 1.3521], type: "port", aliases: ["singapore port", "port singapore", "psa"] },
@@ -667,9 +666,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { name: "Accra, Ghana", coordinates: [-0.1969, 5.6037], type: "city", aliases: ["accra"] },
           { name: "Kinshasa, République Démocratique du Congo", coordinates: [15.2663, -4.4419], type: "city", aliases: ["kinshasa"] }
         ];
-        
-        const searchLower = searchQuery.toLowerCase();
-        const fallbackResults = comprehensiveLocations
+      
+      const searchLower = searchQuery.toLowerCase();
+      const internalResults = comprehensiveLocations
           .filter(location => {
             return location.name.toLowerCase().includes(searchLower) ||
                    location.aliases.some(alias => alias.toLowerCase().includes(searchLower) || searchLower.includes(alias.toLowerCase()));
@@ -688,7 +687,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const typeOrder = { port: 1, airport: 2, city: 3 };
             return (typeOrder[a.type as keyof typeof typeOrder] || 4) - (typeOrder[b.type as keyof typeof typeOrder] || 4);
           })
-          .slice(0, parseInt(limit as string))
+          .slice(0, Math.max(3, parseInt(limit as string) - suggestions.length))
           .map(location => ({
             text: location.name,
             value: location.name,
@@ -696,13 +695,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
             type: location.type,
             source: "comprehensive_database"
           }));
-        
-        suggestions = fallbackResults;
-        console.log(`Comprehensive database returned ${suggestions.length} results for "${searchQuery}"`);
-      }
-
-      res.json({ suggestions });
-    } catch (error) {
+      
+      // Merge external API results with internal comprehensive database
+      const combinedResults = [...suggestions, ...internalResults];
+      
+      // Remove duplicates and limit results
+      const uniqueResults = combinedResults
+        .filter((item, index, array) => 
+          array.findIndex(t => t.text.toLowerCase() === item.text.toLowerCase()) === index
+        )
+        .slice(0, parseInt(limit as string));
+      
+      console.log(`Combined results: ${uniqueResults.length} total (${suggestions.length} external + ${internalResults.length} internal)`);
+      
+      res.json({ suggestions: uniqueResults });
+    } catch (error: any) {
       console.error("Geocoding search error:", error);
       res.status(500).json({ error: "Geocoding service error", message: error.message });
     }
