@@ -517,40 +517,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-          
-          if (googleResponse.ok) {
-            const googleData = await googleResponse.json();
-            console.log('Google results:', googleData.results?.length || 0);
-            console.log('Google status:', googleData.status);
-            
-            if (googleData.results) {
-              const googleSuggestions = googleData.results
-                .slice(0, parseInt(limit.toString()) - suggestions.length)
-                .map((result: any) => ({
-                  text: result.formatted_address,
-                  value: result.formatted_address,
-                  place_id: result.place_id,
-                  source: 'google'
-                }));
-              
-              suggestions = [...suggestions, ...googleSuggestions];
-              console.log('Final suggestions count:', suggestions.length);
-            }
-          } else {
-            const errorText = await googleResponse.text();
-            console.error('Google API error:', googleResponse.status, errorText);
-          }
-        } catch (googleError) {
-          console.error('Google geocoding failed:', googleError);
-        }
-      }
-
-      res.json({ suggestions: suggestions.slice(0, parseInt(limit.toString())) });
-    } catch (error) {
-      console.error('Geocoding error:', error);
-      res.status(500).json({ error: 'Geocoding service unavailable' });
-    }
-  });
 
   // Carriers routes
   app.get("/api/carriers", authenticateToken, async (req: any, res) => {
