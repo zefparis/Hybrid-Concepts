@@ -64,15 +64,15 @@ export function ShipmentsTable() {
   const locale = i18n.language === 'fr' ? fr : enUS;
 
   return (
-    <Card className="overflow-hidden mb-8">
+    <Card className="overflow-hidden mb-6 sm:mb-8">
       <CardHeader className="border-b border-gray-200">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <h3 className="text-lg font-semibold text-emulog-dark">
             {t("currentShipments")}
           </h3>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <Select defaultValue="all">
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-full sm:w-40">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -82,7 +82,7 @@ export function ShipmentsTable() {
                 <SelectItem value="delivered">{t("delivered")}</SelectItem>
               </SelectContent>
             </Select>
-            <Button size="sm" className="bg-emulog-blue hover:bg-blue-700">
+            <Button size="sm" className="bg-emulog-blue hover:bg-blue-700 w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               {t("export")}
             </Button>
