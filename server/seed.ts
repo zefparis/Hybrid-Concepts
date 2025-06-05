@@ -120,6 +120,7 @@ async function seed() {
     // Create shipments
     const shipmentsData = [
       {
+        reference: "SHP-2024-001",
         quoteId: createdQuotes[2].id,
         status: "in_transit",
         trackingNumber: "TRK123456789",
