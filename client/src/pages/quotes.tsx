@@ -72,48 +72,94 @@ export default function Quotes() {
   const [showOriginSuggestions, setShowOriginSuggestions] = useState(false);
   const [showDestinationSuggestions, setShowDestinationSuggestions] = useState(false);
 
-  // Prediction data for different transport modes
-  const locationSuggestions = {
-    terre: [
-      "Paris, 75001 France", "Lyon, 69000 France", "Marseille, 13000 France",
-      "Toulouse, 31000 France", "Nice, 06000 France", "Nantes, 44000 France",
-      "Montpellier, 34000 France", "Strasbourg, 67000 France", "Bordeaux, 33000 France",
-      "Lille, 59000 France", "Rennes, 35000 France", "Reims, 51100 France"
-    ],
-    mer: [
-      "Port de Marseille, France", "Port du Havre, France", "Port de Calais, France",
-      "Port de Brest, France", "Port de Bordeaux, France", "Port de Nantes-Saint-Nazaire, France",
-      "Port de Barcelone, Espagne", "Port de Valencia, Espagne", "Port de Gênes, Italie",
-      "Port de Rotterdam, Pays-Bas", "Port d'Anvers, Belgique", "Port de Hambourg, Allemagne"
-    ],
-    air: [
-      "CDG - Charles de Gaulle, Paris", "ORY - Orly, Paris", "LYS - Lyon Saint-Exupéry",
-      "MRS - Marseille Provence", "TLS - Toulouse Blagnac", "NCE - Nice Côte d'Azur",
-      "NTE - Nantes Atlantique", "BOD - Bordeaux Mérignac", "LIL - Lille Lesquin",
-      "BCN - Barcelone El Prat", "MAD - Madrid Barajas", "FCO - Rome Fiumicino"
-    ]
+  // Mapbox Geocoding API for real-world location suggestions
+  const searchLocations = async (query: string, transportMode: string) => {
+    if (query.length < 2) return [];
+    
+    try {
+      // Define search types based on transport mode
+      const searchTypes = {
+        terre: 'place,locality,address',
+        mer: 'place,poi', // Points of interest for ports
+        air: 'place,poi'  // Points of interest for airports
+      };
+      
+      const searchType = searchTypes[transportMode as keyof typeof searchTypes] || 'place,locality';
+      
+      // Add specific queries for ports and airports
+      let searchQuery = query;
+      if (transportMode === 'mer' && !query.toLowerCase().includes('port')) {
+        searchQuery = `port ${query}`;
+      } else if (transportMode === 'air' && !query.toLowerCase().includes('airport') && !query.toLowerCase().includes('aéroport')) {
+        searchQuery = `airport ${query}`;
+      }
+      
+      const mapboxKey = import.meta.env.VITE_MAPBOX_API_KEY;
+      if (!mapboxKey) {
+        console.warn('Mapbox API key not found, using fallback suggestions');
+        return getFallbackSuggestions(query, transportMode);
+      }
+      
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json?` +
+        `access_token=${mapboxKey}&` +
+        `types=${searchType}&` +
+        `limit=5&` +
+        `language=fr`
+      );
+      
+      if (!response.ok) throw new Error('Geocoding API error');
+      
+      const data = await response.json();
+      return data.features.map((feature: any) => ({
+        text: feature.place_name,
+        value: feature.place_name
+      }));
+    } catch (error) {
+      console.error('Geocoding error:', error);
+      return getFallbackSuggestions(query, transportMode);
+    }
   };
 
-  const handleOriginChange = (value: string) => {
+  // Fallback suggestions when API is not available
+  const getFallbackSuggestions = (query: string, transportMode: string) => {
+    const fallbackData = {
+      terre: [
+        "Paris, France", "Lyon, France", "Marseille, France", "London, United Kingdom",
+        "Berlin, Germany", "Madrid, Spain", "Rome, Italy", "Amsterdam, Netherlands"
+      ],
+      mer: [
+        "Port of Rotterdam, Netherlands", "Port of Antwerp, Belgium", "Port of Hamburg, Germany",
+        "Port of Marseille, France", "Port of Barcelona, Spain", "Port of Valencia, Spain"
+      ],
+      air: [
+        "Charles de Gaulle Airport, Paris", "Heathrow Airport, London", "Schiphol Airport, Amsterdam",
+        "Frankfurt Airport, Germany", "Madrid-Barajas Airport, Spain", "Leonardo da Vinci Airport, Rome"
+      ]
+    };
+    
+    return fallbackData[transportMode as keyof typeof fallbackData]
+      .filter(location => location.toLowerCase().includes(query.toLowerCase()))
+      .slice(0, 5)
+      .map(text => ({ text, value: text }));
+  };
+
+  const handleOriginChange = async (value: string) => {
     setNewQuote({...newQuote, origin: value});
     if (value.length > 1) {
-      const suggestions = locationSuggestions[newQuote.transportMode as keyof typeof locationSuggestions]
-        .filter(location => location.toLowerCase().includes(value.toLowerCase()))
-        .slice(0, 5);
-      setOriginSuggestions(suggestions);
+      const suggestions = await searchLocations(value, newQuote.transportMode);
+      setOriginSuggestions(suggestions.map(s => s.text));
       setShowOriginSuggestions(suggestions.length > 0);
     } else {
       setShowOriginSuggestions(false);
     }
   };
 
-  const handleDestinationChange = (value: string) => {
+  const handleDestinationChange = async (value: string) => {
     setNewQuote({...newQuote, destination: value});
     if (value.length > 1) {
-      const suggestions = locationSuggestions[newQuote.transportMode as keyof typeof locationSuggestions]
-        .filter(location => location.toLowerCase().includes(value.toLowerCase()))
-        .slice(0, 5);
-      setDestinationSuggestions(suggestions);
+      const suggestions = await searchLocations(value, newQuote.transportMode);
+      setDestinationSuggestions(suggestions.map(s => s.text));
       setShowDestinationSuggestions(suggestions.length > 0);
     } else {
       setShowDestinationSuggestions(false);
