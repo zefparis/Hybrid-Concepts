@@ -496,74 +496,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       let suggestions: any[] = [];
 
-      // Try Google Maps API first for comprehensive logistics coverage
+      // Try Google Places API (New) first for comprehensive logistics coverage
       const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
       if (googleApiKey) {
         try {
-          console.log("Using Google Maps API for comprehensive coverage...");
+          console.log("Using Google Places API (New) for comprehensive coverage...");
           
-          const googleUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json`;
-          const googleParams = new URLSearchParams({
-            input: searchQuery,
-            key: googleApiKey,
-            language: 'fr',
-            types: 'establishment|geocode',
-            fields: 'place_id,name,geometry'
+          const googleResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Goog-Api-Key': googleApiKey,
+              'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.id,places.types'
+            },
+            body: JSON.stringify({
+              textQuery: searchQuery,
+              languageCode: 'fr',
+              maxResultCount: 5
+            })
           });
-
-          const googleResponse = await fetch(`${googleUrl}?${googleParams}`);
           
           if (googleResponse.ok) {
             const googleData = await googleResponse.json();
             
-            if (googleData.status === 'OK' && googleData.predictions?.length > 0) {
-              // Get place details for coordinates
-              const detailPromises = googleData.predictions.slice(0, parseInt(limit as string)).map(async (prediction: any) => {
-                try {
-                  const detailUrl = `https://maps.googleapis.com/maps/api/place/details/json`;
-                  const detailParams = new URLSearchParams({
-                    place_id: prediction.place_id,
-                    key: googleApiKey,
-                    fields: 'name,geometry,type,formatted_address'
-                  });
-                  
-                  const detailResponse = await fetch(`${detailUrl}?${detailParams}`);
-                  const detailData = await detailResponse.json();
-                  
-                  if (detailData.status === 'OK' && detailData.result) {
-                    const result = detailData.result;
-                    let locationType = "city";
-                    
-                    // Determine type based on Google place types
-                    if (result.types?.some((t: string) => t.includes('airport'))) {
-                      locationType = "airport";
-                    } else if (result.types?.some((t: string) => ['seaport', 'port'].includes(t)) ||
-                               result.name?.toLowerCase().includes('port')) {
-                      locationType = "port";
-                    } else if (result.types?.some((t: string) => ['locality', 'administrative_area', 'country'].includes(t))) {
-                      locationType = "city";
-                    }
-                    
-                    return {
-                      text: result.formatted_address || result.name,
-                      value: result.formatted_address || result.name,
-                      coordinates: [
-                        result.geometry?.location?.lng || 0,
-                        result.geometry?.location?.lat || 0
-                      ],
-                      type: locationType,
-                      source: "google_maps"
-                    };
-                  }
-                  return null;
-                } catch (error) {
-                  console.error("Google Places detail error:", error);
-                  return null;
+            if (googleData.places?.length > 0) {
+              // Process Google Places API (New) results directly
+              suggestions = googleData.places.map((place: any) => {
+                let locationType = "city";
+                
+                // Determine type based on Google place types
+                if (place.types?.some((t: string) => t.includes('airport'))) {
+                  locationType = "airport";
+                } else if (place.types?.some((t: string) => ['establishment', 'point_of_interest'].includes(t)) &&
+                           (place.displayName?.text?.toLowerCase().includes('port') || 
+                            place.formattedAddress?.toLowerCase().includes('port'))) {
+                  locationType = "port";
+                } else if (place.types?.some((t: string) => ['locality', 'administrative_area_level_1', 'country'].includes(t))) {
+                  locationType = "city";
                 }
+                
+                return {
+                  text: place.formattedAddress || place.displayName?.text,
+                  value: place.formattedAddress || place.displayName?.text,
+                  coordinates: [
+                    place.location?.longitude || 0,
+                    place.location?.latitude || 0
+                  ],
+                  type: locationType,
+                  source: "google_places_new"
+                };
               });
-              
-              const detailResults = await Promise.all(detailPromises);
-              suggestions = detailResults.filter(result => result !== null);
               
               console.log(`Google Maps returned ${suggestions.length} results for "${searchQuery}"`);
             }
