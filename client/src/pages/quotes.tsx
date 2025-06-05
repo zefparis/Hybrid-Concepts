@@ -67,6 +67,69 @@ export default function Quotes() {
     description: "",
   });
 
+  const [originSuggestions, setOriginSuggestions] = useState<string[]>([]);
+  const [destinationSuggestions, setDestinationSuggestions] = useState<string[]>([]);
+  const [showOriginSuggestions, setShowOriginSuggestions] = useState(false);
+  const [showDestinationSuggestions, setShowDestinationSuggestions] = useState(false);
+
+  // Prediction data for different transport modes
+  const locationSuggestions = {
+    terre: [
+      "Paris, 75001 France", "Lyon, 69000 France", "Marseille, 13000 France",
+      "Toulouse, 31000 France", "Nice, 06000 France", "Nantes, 44000 France",
+      "Montpellier, 34000 France", "Strasbourg, 67000 France", "Bordeaux, 33000 France",
+      "Lille, 59000 France", "Rennes, 35000 France", "Reims, 51100 France"
+    ],
+    mer: [
+      "Port de Marseille, France", "Port du Havre, France", "Port de Calais, France",
+      "Port de Brest, France", "Port de Bordeaux, France", "Port de Nantes-Saint-Nazaire, France",
+      "Port de Barcelone, Espagne", "Port de Valencia, Espagne", "Port de Gênes, Italie",
+      "Port de Rotterdam, Pays-Bas", "Port d'Anvers, Belgique", "Port de Hambourg, Allemagne"
+    ],
+    air: [
+      "CDG - Charles de Gaulle, Paris", "ORY - Orly, Paris", "LYS - Lyon Saint-Exupéry",
+      "MRS - Marseille Provence", "TLS - Toulouse Blagnac", "NCE - Nice Côte d'Azur",
+      "NTE - Nantes Atlantique", "BOD - Bordeaux Mérignac", "LIL - Lille Lesquin",
+      "BCN - Barcelone El Prat", "MAD - Madrid Barajas", "FCO - Rome Fiumicino"
+    ]
+  };
+
+  const handleOriginChange = (value: string) => {
+    setNewQuote({...newQuote, origin: value});
+    if (value.length > 1) {
+      const suggestions = locationSuggestions[newQuote.transportMode as keyof typeof locationSuggestions]
+        .filter(location => location.toLowerCase().includes(value.toLowerCase()))
+        .slice(0, 5);
+      setOriginSuggestions(suggestions);
+      setShowOriginSuggestions(suggestions.length > 0);
+    } else {
+      setShowOriginSuggestions(false);
+    }
+  };
+
+  const handleDestinationChange = (value: string) => {
+    setNewQuote({...newQuote, destination: value});
+    if (value.length > 1) {
+      const suggestions = locationSuggestions[newQuote.transportMode as keyof typeof locationSuggestions]
+        .filter(location => location.toLowerCase().includes(value.toLowerCase()))
+        .slice(0, 5);
+      setDestinationSuggestions(suggestions);
+      setShowDestinationSuggestions(suggestions.length > 0);
+    } else {
+      setShowDestinationSuggestions(false);
+    }
+  };
+
+  const selectOriginSuggestion = (suggestion: string) => {
+    setNewQuote({...newQuote, origin: suggestion});
+    setShowOriginSuggestions(false);
+  };
+
+  const selectDestinationSuggestion = (suggestion: string) => {
+    setNewQuote({...newQuote, destination: suggestion});
+    setShowDestinationSuggestions(false);
+  };
+
   const handleCreateQuote = (e: React.FormEvent) => {
     e.preventDefault();
     createQuoteMutation.mutate(newQuote);
@@ -183,12 +246,30 @@ export default function Quotes() {
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="origin"
-                          placeholder="Paris, 75001 France"
+                          placeholder="Tapez pour rechercher..."
                           className="pl-10"
                           value={newQuote.origin}
-                          onChange={(e) => setNewQuote({...newQuote, origin: e.target.value})}
+                          onChange={(e) => handleOriginChange(e.target.value)}
+                          onFocus={() => newQuote.origin.length > 1 && setShowOriginSuggestions(true)}
+                          onBlur={() => setTimeout(() => setShowOriginSuggestions(false), 200)}
                           required
                         />
+                        {showOriginSuggestions && originSuggestions.length > 0 && (
+                          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            {originSuggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                                onClick={() => selectOriginSuggestion(suggestion)}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <MapPin className="h-3 w-3 text-gray-400" />
+                                  {suggestion}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -197,12 +278,30 @@ export default function Quotes() {
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="destination"
-                          placeholder="Lyon, 69000 France"
+                          placeholder="Tapez pour rechercher..."
                           className="pl-10"
                           value={newQuote.destination}
-                          onChange={(e) => setNewQuote({...newQuote, destination: e.target.value})}
+                          onChange={(e) => handleDestinationChange(e.target.value)}
+                          onFocus={() => newQuote.destination.length > 1 && setShowDestinationSuggestions(true)}
+                          onBlur={() => setTimeout(() => setShowDestinationSuggestions(false), 200)}
                           required
                         />
+                        {showDestinationSuggestions && destinationSuggestions.length > 0 && (
+                          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            {destinationSuggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                                onClick={() => selectDestinationSuggestion(suggestion)}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <MapPin className="h-3 w-3 text-gray-400" />
+                                  {suggestion}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -216,12 +315,30 @@ export default function Quotes() {
                         <Ship className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="origin-port"
-                          placeholder="Port de Marseille, France"
+                          placeholder="Tapez pour rechercher..."
                           className="pl-10"
                           value={newQuote.origin}
-                          onChange={(e) => setNewQuote({...newQuote, origin: e.target.value})}
+                          onChange={(e) => handleOriginChange(e.target.value)}
+                          onFocus={() => newQuote.origin.length > 1 && setShowOriginSuggestions(true)}
+                          onBlur={() => setTimeout(() => setShowOriginSuggestions(false), 200)}
                           required
                         />
+                        {showOriginSuggestions && originSuggestions.length > 0 && (
+                          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            {originSuggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                                onClick={() => selectOriginSuggestion(suggestion)}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <Ship className="h-3 w-3 text-gray-400" />
+                                  {suggestion}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -230,12 +347,30 @@ export default function Quotes() {
                         <Ship className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="destination-port"
-                          placeholder="Port de Barcelone, Espagne"
+                          placeholder="Tapez pour rechercher..."
                           className="pl-10"
                           value={newQuote.destination}
-                          onChange={(e) => setNewQuote({...newQuote, destination: e.target.value})}
+                          onChange={(e) => handleDestinationChange(e.target.value)}
+                          onFocus={() => newQuote.destination.length > 1 && setShowDestinationSuggestions(true)}
+                          onBlur={() => setTimeout(() => setShowDestinationSuggestions(false), 200)}
                           required
                         />
+                        {showDestinationSuggestions && destinationSuggestions.length > 0 && (
+                          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            {destinationSuggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                                onClick={() => selectDestinationSuggestion(suggestion)}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <Ship className="h-3 w-3 text-gray-400" />
+                                  {suggestion}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -249,12 +384,30 @@ export default function Quotes() {
                         <Plane className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="origin-airport"
-                          placeholder="CDG - Charles de Gaulle"
+                          placeholder="Tapez pour rechercher..."
                           className="pl-10"
                           value={newQuote.origin}
-                          onChange={(e) => setNewQuote({...newQuote, origin: e.target.value})}
+                          onChange={(e) => handleOriginChange(e.target.value)}
+                          onFocus={() => newQuote.origin.length > 1 && setShowOriginSuggestions(true)}
+                          onBlur={() => setTimeout(() => setShowOriginSuggestions(false), 200)}
                           required
                         />
+                        {showOriginSuggestions && originSuggestions.length > 0 && (
+                          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            {originSuggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                                onClick={() => selectOriginSuggestion(suggestion)}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <Plane className="h-3 w-3 text-gray-400" />
+                                  {suggestion}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -263,12 +416,30 @@ export default function Quotes() {
                         <Plane className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="destination-airport"
-                          placeholder="BCN - Barcelone"
+                          placeholder="Tapez pour rechercher..."
                           className="pl-10"
                           value={newQuote.destination}
-                          onChange={(e) => setNewQuote({...newQuote, destination: e.target.value})}
+                          onChange={(e) => handleDestinationChange(e.target.value)}
+                          onFocus={() => newQuote.destination.length > 1 && setShowDestinationSuggestions(true)}
+                          onBlur={() => setTimeout(() => setShowDestinationSuggestions(false), 200)}
                           required
                         />
+                        {showDestinationSuggestions && destinationSuggestions.length > 0 && (
+                          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                            {destinationSuggestions.map((suggestion, index) => (
+                              <div
+                                key={index}
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                                onClick={() => selectDestinationSuggestion(suggestion)}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <Plane className="h-3 w-3 text-gray-400" />
+                                  {suggestion}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
