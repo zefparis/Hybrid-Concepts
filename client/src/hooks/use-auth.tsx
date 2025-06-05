@@ -1,47 +1,93 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useLocation } from "wouter";
-import { User, isAuthenticated, getToken } from "@/lib/auth";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, createContext, useContext, ReactNode } from "react";
+import { authService } from "@/lib/auth";
+import type { AuthState, User, Company } from "@/types";
 
-interface AuthContextType {
-  user: User | null;
-  isLoading: boolean;
-  token: string | null;
+interface AuthContextType extends AuthState {
+  login: (email: string, password: string) => Promise<void>;
+  register: (data: any) => Promise<void>;
+  logout: () => void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [, setLocation] = useLocation();
-  const [token, setToken] = useState<string | null>(getToken());
-
-  const { data: user, isLoading } = useQuery({
-    queryKey: ["/api/user/profile"],
-    enabled: !!token && isAuthenticated(),
-    retry: false,
+  const [authState, setAuthState] = useState<AuthState>({
+    user: null,
+    company: null,
+    token: null,
+    isAuthenticated: false,
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const currentToken = getToken();
-    setToken(currentToken);
-    
-    if (!currentToken || !isAuthenticated()) {
-      const currentPath = window.location.pathname;
-      if (currentPath !== "/login") {
-        setLocation("/login");
-      }
+    // Check for stored auth data on app load
+    const storedAuth = authService.getStoredAuthData();
+    if (storedAuth) {
+      setAuthState({
+        user: storedAuth.user,
+        company: storedAuth.company,
+        token: storedAuth.token,
+        isAuthenticated: true,
+      });
     }
-  }, [setLocation]);
+    setLoading(false);
+  }, []);
 
-  // Redirect to login if not authenticated
-  useEffect(() => {
-    if (!isLoading && !user && !token) {
-      setLocation("/login");
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await authService.login({ email, password });
+      const { token, user, company } = response;
+      
+      authService.saveAuthData(token, user, company);
+      setAuthState({
+        user,
+        company,
+        token,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      throw error;
     }
-  }, [user, isLoading, token, setLocation]);
+  };
+
+  const register = async (data: any) => {
+    try {
+      const response = await authService.register(data);
+      const { token, user, company } = response;
+      
+      authService.saveAuthData(token, user, company);
+      setAuthState({
+        user,
+        company,
+        token,
+        isAuthenticated: true,
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const logout = () => {
+    authService.logout();
+    setAuthState({
+      user: null,
+      company: null,
+      token: null,
+      isAuthenticated: false,
+    });
+  };
 
   return (
-    <AuthContext.Provider value={{ user: user || null, isLoading, token }}>
+    <AuthContext.Provider
+      value={{
+        ...authState,
+        login,
+        register,
+        logout,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
