@@ -1,0 +1,82 @@
+{
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "quotes": "Cotations",
+    "tracking": "Suivi Transport",
+    "documents": "Documents",
+    "chat": "Messages",
+    "invoicing": "Facturation",
+    "analytics": "Analytics"
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "lastUpdate": "Dernière mise à jour",
+    "metrics": {
+      "activeShipments": "Envois en Cours",
+      "savings": "Économies Réalisées",
+      "pendingQuotes": "Cotations en Attente",
+      "performance": "Performance Globale"
+    },
+    "quickActions": {
+      "title": "Actions Rapides",
+      "newQuote": "Nouvelle Demande de Cotation",
+      "uploadDocument": "Importer Documents",
+      "trackShipment": "Suivre un Envoi"
+    },
+    "recentActivity": {
+      "title": "Activité Récente",
+      "viewAll": "Voir tout"
+    },
+    "currentShipments": {
+      "title": "Expéditions en Cours",
+      "reference": "Référence",
+      "route": "Origine → Destination",
+      "carrier": "Transporteur",
+      "status": "Statut",
+      "eta": "ETA",
+      "cost": "Coût",
+      "actions": "Actions"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Accédez à votre plateforme logistique",
+      "email": "Email",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "noAccount": "Pas de compte ?",
+      "register": "S'inscrire"
+    },
+    "register": {
+      "title": "Inscription",
+      "subtitle": "Créez votre compte eMulog",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "submit": "S'inscrire",
+      "hasAccount": "Déjà un compte ?",
+      "login": "Se connecter"
+    }
+  },
+  "status": {
+    "pending": "En Attente",
+    "in_transit": "En Transit",
+    "delivered": "Livré",
+    "cancelled": "Annulé"
+  },
+  "common": {
+    "search": "Rechercher...",
+    "export": "Exporter",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "quotes": "Quotes",
+    "tracking": "Shipment Tracking",
+    "documents": "Documents",
+    "chat": "Messages",
+    "invoicing": "Invoicing",
+    "analytics": "Analytics"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "lastUpdate": "Last update",
+    "metrics": {
+      "activeShipments": "Active Shipments",
+      "savings": "Cost Savings",
+      "pendingQuotes": "Pending Quotes",
+      "performance": "Global Performance"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "newQuote": "New Quote Request",
+      "uploadDocument": "Upload Documents",
+      "trackShipment": "Track Shipment"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "viewAll": "View all"
+    },
+    "currentShipments": {
+      "title": "Current Shipments",
+      "reference": "Reference",
+      "route": "Origin → Destination",
+      "carrier": "Carrier",
+      "status": "Status",
+      "eta": "ETA",
+      "cost": "Cost",
+      "actions": "Actions"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Access your logistics platform",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "noAccount": "No account?",
+      "register": "Sign Up"
+    },
+    "register": {
+      "title": "Register",
+      "subtitle": "Create your eMulog account",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "submit": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Sign In"
+    }
+  },
+  "status": {
+    "pending": "Pending",
+    "in_transit": "In Transit",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  },
+  "common": {
+    "search": "Search...",
+    "export": "Export",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}
