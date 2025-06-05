@@ -372,6 +372,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // AI Agent Automation endpoints
+  app.post("/api/ai/process-logistics", authenticateToken, async (req: any, res) => {
+    try {
+      const { aiAgent } = await import('./ai-agent');
+      
+      const logisticsRequest = req.body;
+      const result = await aiAgent.processLogisticsRequest(
+        logisticsRequest,
+        req.user.companyId,
+        req.user.userId
+      );
+      
+      res.json(result);
+    } catch (error) {
+      console.error('AI processing error:', error);
+      res.status(500).json({ message: 'Failed to process logistics request automatically' });
+    }
+  });
+
+  app.post("/api/ai/optimize-quote", authenticateToken, async (req: any, res) => {
+    try {
+      const { aiAgent } = await import('./ai-agent');
+      
+      const { quoteRequestId } = req.body;
+      const quoteRequest = await storage.getQuoteRequest(quoteRequestId);
+      
+      if (!quoteRequest) {
+        return res.status(404).json({ message: 'Quote request not found' });
+      }
+      
+      // Re-process with AI optimization
+      const optimization = await aiAgent.optimizeExistingQuote(quoteRequest);
+      
+      res.json(optimization);
+    } catch (error) {
+      console.error('AI optimization error:', error);
+      res.status(500).json({ message: 'Failed to optimize quote' });
+    }
+  });
+
   // Enhanced Geocoding proxy endpoint with Google fallback
   app.get('/api/geocoding/search', async (req, res) => {
     try {
