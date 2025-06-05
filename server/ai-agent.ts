@@ -89,12 +89,23 @@ export class LogisticsAIAgent {
    * Nettoie les réponses de l'API Anthropic pour extraire le JSON
    */
   private cleanJsonResponse(text: string): string {
-    return text
+    // Remove markdown code blocks
+    let cleaned = text
       .replace(/```json\s*/g, '')
       .replace(/```\s*/g, '')
       .replace(/^\s*```/gm, '')
       .replace(/```\s*$/gm, '')
       .trim();
+    
+    // Find the first { and last } to extract valid JSON
+    const firstBrace = cleaned.indexOf('{');
+    const lastBrace = cleaned.lastIndexOf('}');
+    
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+    }
+    
+    return cleaned;
   }
 
   /**
