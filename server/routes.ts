@@ -468,147 +468,114 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Geocoding search endpoint for address predictions
+  // Geocoding search endpoint using Google Maps API for global coverage
   app.get('/api/geocoding/search', async (req, res) => {
     try {
-      const { query, types = 'place,locality', limit = 5 } = req.query;
+      const { query, types = 'geocode', limit = 8 } = req.query;
       
       if (!query || typeof query !== 'string') {
         return res.status(400).json({ error: 'Query parameter is required' });
       }
 
-      const searchQuery = String(query).toLowerCase().trim();
-      let suggestions: any[] = [];
+      const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+      if (!apiKey) {
+        return res.status(500).json({ error: 'Google Maps API key not configured' });
+      }
 
-      console.log(`Searching for: "${searchQuery}"`);
+      console.log(`Google Maps search for: "${query}"`);
 
-      // Comprehensive location database with aliases for stable search
-      const globalLocations = [
-        // Cities with aliases
-        { name: "Paris, France", aliases: ["paris", "cdg", "charles de gaulle"], coordinates: [2.3522, 48.8566], type: "city" },
-        { name: "Londres, Royaume-Uni", aliases: ["london", "londres", "heathrow", "london uk"], coordinates: [-0.1276, 51.5074], type: "city" },
-        { name: "Berlin, Allemagne", aliases: ["berlin", "germany", "allemagne"], coordinates: [13.4050, 52.5200], type: "city" },
-        { name: "Madrid, Espagne", aliases: ["madrid", "spain", "espagne", "barajas"], coordinates: [-3.7038, 40.4168], type: "city" },
-        { name: "Rome, Italie", aliases: ["rome", "roma", "italy", "italie", "fiumicino"], coordinates: [12.4964, 41.9028], type: "city" },
-        { name: "Amsterdam, Pays-Bas", aliases: ["amsterdam", "schiphol", "netherlands"], coordinates: [4.9041, 52.3676], type: "city" },
-        { name: "Johannesburg, Afrique du Sud", aliases: ["johannesburg", "jburg", "joburg", "tambo", "south africa"], coordinates: [28.0473, -26.2041], type: "city" },
-        { name: "Le Cap, Afrique du Sud", aliases: ["cape town", "cap", "south africa"], coordinates: [18.4241, -33.9249], type: "city" },
-        { name: "Casablanca, Maroc", aliases: ["casablanca", "casa", "morocco", "maroc"], coordinates: [-7.5898, 33.5731], type: "city" },
-        { name: "Shanghai, Chine", aliases: ["shanghai", "china", "chine"], coordinates: [121.4737, 31.2304], type: "city" },
-        { name: "Hong Kong", aliases: ["hong kong", "hk"], coordinates: [114.1694, 22.3193], type: "city" },
-        { name: "Singapour", aliases: ["singapore", "singapour", "changi"], coordinates: [103.8198, 1.3521], type: "city" },
-        { name: "Tokyo, Japon", aliases: ["tokyo", "japan", "japon", "narita", "haneda"], coordinates: [139.6917, 35.6895], type: "city" },
-        { name: "New York, États-Unis", aliases: ["new york", "nyc", "jfk", "usa"], coordinates: [-74.0060, 40.7128], type: "city" },
-        { name: "Los Angeles, États-Unis", aliases: ["los angeles", "la", "lax", "usa"], coordinates: [-118.2437, 34.0522], type: "city" },
-        { name: "Dubaï, Émirats Arabes Unis", aliases: ["dubai", "dxb", "uae"], coordinates: [55.2708, 25.2048], type: "city" },
-        
-        // Airports with multiple search terms
-        { name: "Aéroport Charles de Gaulle, Paris", aliases: ["cdg", "charles de gaulle", "airport paris", "aeroport paris"], coordinates: [2.5500, 49.0097], type: "airport" },
-        { name: "Aéroport Heathrow, Londres", aliases: ["heathrow", "lhr", "airport london", "aeroport londres"], coordinates: [-0.4543, 51.4700], type: "airport" },
-        { name: "Aéroport Schiphol, Amsterdam", aliases: ["schiphol", "ams", "airport amsterdam", "aeroport amsterdam"], coordinates: [4.7683, 52.3081], type: "airport" },
-        { name: "Aéroport O.R. Tambo, Johannesburg", aliases: ["tambo", "jnb", "airport johannesburg", "aeroport johannesburg"], coordinates: [28.2460, -26.1392], type: "airport" },
-        { name: "Aéroport du Cap", aliases: ["cape town airport", "cpt", "airport cape town"], coordinates: [18.6017, -33.9648], type: "airport" },
-        { name: "Aéroport Changi, Singapour", aliases: ["changi", "sin", "airport singapore", "aeroport singapour"], coordinates: [103.9915, 1.3644], type: "airport" },
-        { name: "Aéroport JFK, New York", aliases: ["jfk", "kennedy", "airport new york", "aeroport new york"], coordinates: [-73.7781, 40.6413], type: "airport" },
-        { name: "Aéroport LAX, Los Angeles", aliases: ["lax", "airport los angeles", "aeroport los angeles"], coordinates: [-118.4085, 33.9425], type: "airport" },
-        { name: "Aéroport International de Dubaï", aliases: ["dxb", "dubai airport", "airport dubai"], coordinates: [55.3644, 25.2532], type: "airport" },
-        { name: "Aéroport Mohammed V, Casablanca", aliases: ["casablanca airport", "cmn", "airport casablanca"], coordinates: [-7.5895, 33.3675], type: "airport" },
-        
-        // Major Ports - Europe
-        { name: "Port de Rotterdam, Pays-Bas", aliases: ["rotterdam", "port rotterdam"], coordinates: [4.1427, 51.9244], type: "port" },
-        { name: "Port d'Anvers, Belgique", aliases: ["antwerp", "anvers", "port antwerp", "port anvers"], coordinates: [4.4025, 51.2194], type: "port" },
-        { name: "Port de Hambourg, Allemagne", aliases: ["hamburg", "hambourg", "port hamburg", "port hambourg"], coordinates: [9.9937, 53.5511], type: "port" },
-        { name: "Port du Havre, France", aliases: ["le havre", "havre", "port havre", "port le havre"], coordinates: [0.1070, 49.4944], type: "port" },
-        { name: "Port de Marseille, France", aliases: ["marseille port", "port marseille", "marseille", "port de marseille"], coordinates: [5.3698, 43.2965], type: "port" },
-        { name: "Port de Gênes, Italie", aliases: ["genoa", "genes", "port genoa", "port genes"], coordinates: [8.9463, 44.4056], type: "port" },
-        { name: "Port de Barcelone, Espagne", aliases: ["barcelona port", "port barcelona", "barcelone"], coordinates: [2.1734, 41.3851], type: "port" },
-        { name: "Port de Valencia, Espagne", aliases: ["valencia port", "port valencia"], coordinates: [-0.3774, 39.4699], type: "port" },
-        { name: "Port de Felixstowe, Royaume-Uni", aliases: ["felixstowe", "port felixstowe"], coordinates: [1.3511, 51.9561], type: "port" },
-        { name: "Port de Pirée, Grèce", aliases: ["piraeus", "piree", "port piraeus"], coordinates: [23.6425, 37.9470], type: "port" },
-        
-        // Major Ports - Asia
-        { name: "Port de Shanghai, Chine", aliases: ["shanghai port", "port shanghai"], coordinates: [121.5000, 31.2000], type: "port" },
-        { name: "Port de Singapour", aliases: ["singapore port", "port singapore"], coordinates: [103.8198, 1.3521], type: "port" },
-        { name: "Port de Hong Kong", aliases: ["hong kong port", "port hong kong"], coordinates: [114.1694, 22.3193], type: "port" },
-        { name: "Port de Shenzhen, Chine", aliases: ["shenzhen port", "port shenzhen"], coordinates: [114.0579, 22.5431], type: "port" },
-        { name: "Port de Busan, Corée du Sud", aliases: ["busan port", "port busan"], coordinates: [129.0756, 35.1796], type: "port" },
-        { name: "Port de Tokyo, Japon", aliases: ["tokyo port", "port tokyo"], coordinates: [139.7673, 35.6167], type: "port" },
-        { name: "Port de Dubaï, Émirats Arabes Unis", aliases: ["dubai port", "port dubai"], coordinates: [55.2708, 25.2048], type: "port" },
-        { name: "Port de Jebel Ali, Dubaï", aliases: ["jebel ali", "port jebel ali"], coordinates: [55.0364, 25.0122], type: "port" },
-        { name: "Port de Colombo, Sri Lanka", aliases: ["colombo port", "port colombo"], coordinates: [79.8612, 6.9271], type: "port" },
-        
-        // Major Ports - Americas
-        { name: "Port de Los Angeles, États-Unis", aliases: ["la port", "los angeles port", "port la"], coordinates: [-118.2437, 33.7405], type: "port" },
-        { name: "Port de Long Beach, États-Unis", aliases: ["long beach port", "port long beach"], coordinates: [-118.1937, 33.7701], type: "port" },
-        { name: "Port de New York, États-Unis", aliases: ["new york port", "ny port", "port ny"], coordinates: [-74.0445, 40.6892], type: "port" },
-        { name: "Port de Miami, États-Unis", aliases: ["miami port", "port miami"], coordinates: [-80.1659, 25.7743], type: "port" },
-        { name: "Port de Vancouver, Canada", aliases: ["vancouver port", "port vancouver"], coordinates: [-123.1207, 49.2827], type: "port" },
-        { name: "Port de Santos, Brésil", aliases: ["santos port", "port santos"], coordinates: [-46.3052, -23.9608], type: "port" },
-        { name: "Port de Callao, Pérou", aliases: ["callao port", "port callao"], coordinates: [-77.1181, -12.0464], type: "port" },
-        
-        // Major Ports - Africa
-        { name: "Port de Tanger Med, Maroc", aliases: ["tanger med", "port tanger", "tangier"], coordinates: [-5.9175, 35.8781], type: "port" },
-        { name: "Port de Casablanca, Maroc", aliases: ["casablanca port", "port casablanca"], coordinates: [-7.6164, 33.6022], type: "port" },
-        { name: "Port de Durban, Afrique du Sud", aliases: ["durban port", "port durban"], coordinates: [31.0218, -29.8587], type: "port" },
-        { name: "Port du Cap, Afrique du Sud", aliases: ["cape town port", "port cape town"], coordinates: [18.4265, -33.9058], type: "port" },
-        { name: "Port de Lagos, Nigéria", aliases: ["lagos port", "port lagos"], coordinates: [3.3792, 6.4474], type: "port" },
-        { name: "Port de Mombasa, Kenya", aliases: ["mombasa port", "port mombasa"], coordinates: [39.6682, -4.0435], type: "port" },
-        
-        // Additional major cities
-        { name: "Lyon, France", aliases: ["lyon"], coordinates: [4.8357, 45.7640], type: "city" },
-        { name: "Marseille, France", aliases: ["marseille"], coordinates: [5.3698, 43.2965], type: "city" },
-        { name: "Toulouse, France", aliases: ["toulouse"], coordinates: [1.4442, 43.6047], type: "city" },
-        { name: "Nice, France", aliases: ["nice"], coordinates: [7.2620, 43.7102], type: "city" },
-        { name: "Bordeaux, France", aliases: ["bordeaux"], coordinates: [-0.5792, 44.8378], type: "city" },
-        { name: "Lille, France", aliases: ["lille"], coordinates: [3.0573, 50.6292], type: "city" }
-      ];
+      // Use Google Places Autocomplete API for comprehensive global coverage
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&types=${types}&key=${apiKey}&language=fr`
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Google API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.status === "REQUEST_DENIED") {
+        return res.status(403).json({ 
+          error: 'Google API request denied',
+          message: data.error_message || 'Invalid API key or quotas exceeded'
+        });
+      }
+      
+      if (data.status === "ZERO_RESULTS") {
+        return res.json({ suggestions: [] });
+      }
 
-      // Simple and reliable search algorithm
-      const filteredLocations = globalLocations.filter(location => {
-        const query = searchQuery.toLowerCase();
-        
-        // Check location name
-        if (location.name.toLowerCase().includes(query)) {
-          return true;
-        }
-        
-        // Check aliases if they exist
-        if (location.aliases) {
-          return location.aliases.some(alias => {
-            const aliasLower = alias.toLowerCase();
-            return aliasLower.includes(query) || query.includes(aliasLower);
-          });
-        }
-        
-        return false;
-      });
-
-      // Sort by relevance (exact matches first, then partial matches)
-      const sortedLocations = filteredLocations.sort((a, b) => {
-        const aName = a.name.toLowerCase();
-        const bName = b.name.toLowerCase();
-        const aStart = aName.startsWith(searchQuery);
-        const bStart = bName.startsWith(searchQuery);
-        
-        if (aStart && !bStart) return -1;
-        if (!aStart && bStart) return 1;
-        return aName.localeCompare(bName);
-      });
-
-      // Convert to suggestions format
-      suggestions = sortedLocations.slice(0, parseInt(String(limit))).map(location => ({
-        text: location.name,
-        value: location.name,
-        coordinates: location.coordinates,
-        type: location.type,
-        source: 'internal'
-      }));
-
-      console.log(`Geocoding search for "${searchQuery}": ${suggestions.length} results found`);
+      // Enhanced results with coordinates from Place Details API
+      const suggestions = await Promise.all(
+        (data.predictions || []).slice(0, parseInt(limit as string)).map(async (prediction: any) => {
+          try {
+            // Get detailed info including coordinates
+            const detailsResponse = await fetch(
+              `https://maps.googleapis.com/maps/api/place/details/json?place_id=${prediction.place_id}&fields=geometry,name,formatted_address,types&key=${apiKey}&language=fr`
+            );
+            
+            if (detailsResponse.ok) {
+              const details = await detailsResponse.json();
+              const result = details.result;
+              
+              // Determine location type based on Google types
+              let locationType = "city";
+              if (result.types?.includes("airport")) {
+                locationType = "airport";
+              } else if (result.types?.includes("point_of_interest") && 
+                        (prediction.description.toLowerCase().includes("port") || 
+                         prediction.description.toLowerCase().includes("harbor") ||
+                         prediction.description.toLowerCase().includes("harbour"))) {
+                locationType = "port";
+              } else if (result.types?.includes("establishment") && 
+                        (prediction.description.toLowerCase().includes("aéroport") ||
+                         prediction.description.toLowerCase().includes("airport"))) {
+                locationType = "airport";
+              }
+              
+              return {
+                text: prediction.description,
+                value: prediction.description,
+                coordinates: [
+                  result.geometry?.location?.lng || 0,
+                  result.geometry?.location?.lat || 0
+                ],
+                type: locationType,
+                source: "google"
+              };
+            }
+            
+            // Fallback if details request fails
+            return {
+              text: prediction.description,
+              value: prediction.description,
+              coordinates: [0, 0],
+              type: "city",
+              source: "google"
+            };
+          } catch (error) {
+            console.error("Error getting place details:", error);
+            return {
+              text: prediction.description,
+              value: prediction.description,
+              coordinates: [0, 0],
+              type: "city",
+              source: "google"
+            };
+          }
+        })
+      );
+      
+      console.log(`Google geocoding returned ${suggestions.length} results for "${query}"`);
+      
       res.json({ suggestions });
     } catch (error) {
-      console.error('Geocoding search error:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error("Google geocoding error:", error);
+      res.status(500).json({ 
+        error: "Google geocoding service unavailable",
+        message: error.message 
+      });
     }
   });
 
