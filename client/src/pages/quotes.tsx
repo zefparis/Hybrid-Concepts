@@ -173,8 +173,7 @@ export default function Quotes() {
   // Mutation pour supprimer une cotation
   const deleteQuoteMutation = useMutation({
     mutationFn: async (id: number) => {
-      const response = await fetch(`/api/quote-requests/${id}`, { method: "DELETE" });
-      if (!response.ok) throw new Error('Failed to delete');
+      const response = await apiRequest("DELETE", `/api/quote-requests/${id}`);
       return response.json();
     },
     onSuccess: () => {
@@ -193,12 +192,7 @@ export default function Quotes() {
   // Mutation pour modifier une cotation
   const updateQuoteMutation = useMutation({
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
-      const response = await fetch(`/api/quote-requests/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error('Failed to update');
+      const response = await apiRequest("PATCH", `/api/quote-requests/${id}`, data);
       return response.json();
     },
     onSuccess: () => {
@@ -861,6 +855,9 @@ export default function Quotes() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>Détails de la cotation</DialogTitle>
+            <DialogDescription>
+              Informations complètes sur votre demande de cotation
+            </DialogDescription>
           </DialogHeader>
           {selectedQuote && (
             <div className="space-y-4">
@@ -922,6 +919,9 @@ export default function Quotes() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>Modifier la cotation</DialogTitle>
+            <DialogDescription>
+              Modifiez les détails de votre demande de cotation
+            </DialogDescription>
           </DialogHeader>
           {editingQuote && (
             <form onSubmit={handleUpdateQuote} className="space-y-4">
