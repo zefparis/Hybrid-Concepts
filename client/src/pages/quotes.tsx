@@ -94,7 +94,7 @@ export default function Quotes() {
         searchQuery = `airport ${query}`;
       }
       
-      const mapboxKey = import.meta.env.VITE_MAPBOX_API_KEY;
+      const mapboxKey = import.meta.env.VITE_MAPBOX_PUBLIC_KEY;
       if (!mapboxKey) {
         console.warn('Mapbox API key not found, using fallback suggestions');
         return getFallbackSuggestions(query, transportMode);
