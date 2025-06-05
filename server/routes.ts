@@ -481,7 +481,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Hybrid geocoding search endpoint with extensive global database
+  // Global geocoding search endpoint using Mapbox API
   app.get('/api/geocoding/search', async (req, res) => {
     try {
       const { query, types = 'geocode', limit = 8 } = req.query;
@@ -490,185 +490,122 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Query parameter is required' });
       }
 
-      const searchQuery = String(query).toLowerCase().trim();
-      console.log(`Global geocoding search for: "${searchQuery}"`);
+      const searchQuery = String(query).trim();
+      console.log(`Mapbox geocoding search for: "${searchQuery}"`);
 
-      // Comprehensive global location database for logistics
-      const globalLocations = [
-        // Major Global Cities - Europe
-        { name: "Paris, France", aliases: ["paris", "france", "fr"], coordinates: [2.3522, 48.8566], type: "city" },
-        { name: "Londres, Royaume-Uni", aliases: ["london", "londres", "uk", "england", "royaume-uni"], coordinates: [-0.1276, 51.5074], type: "city" },
-        { name: "Berlin, Allemagne", aliases: ["berlin", "germany", "deutschland", "allemagne"], coordinates: [13.4050, 52.5200], type: "city" },
-        { name: "Madrid, Espagne", aliases: ["madrid", "spain", "espagne", "españa"], coordinates: [-3.7038, 40.4168], type: "city" },
-        { name: "Rome, Italie", aliases: ["rome", "roma", "italy", "italie", "italia"], coordinates: [12.4964, 41.9028], type: "city" },
-        { name: "Amsterdam, Pays-Bas", aliases: ["amsterdam", "netherlands", "holland", "pays-bas"], coordinates: [4.9041, 52.3676], type: "city" },
-        { name: "Bruxelles, Belgique", aliases: ["brussels", "bruxelles", "belgium", "belgique"], coordinates: [4.3517, 50.8503], type: "city" },
-        { name: "Zurich, Suisse", aliases: ["zurich", "switzerland", "suisse", "schweiz"], coordinates: [8.5417, 47.3769], type: "city" },
-        { name: "Vienne, Autriche", aliases: ["vienna", "wien", "austria", "autriche"], coordinates: [16.3738, 48.2082], type: "city" },
-        { name: "Barcelone, Espagne", aliases: ["barcelona", "barcelone", "spain", "espagne"], coordinates: [2.1734, 41.3851], type: "city" },
-        { name: "Milan, Italie", aliases: ["milan", "milano", "italy", "italie"], coordinates: [9.1900, 45.4642], type: "city" },
-        { name: "Stockholm, Suède", aliases: ["stockholm", "sweden", "suède"], coordinates: [18.0686, 59.3293], type: "city" },
-        { name: "Copenhague, Danemark", aliases: ["copenhagen", "denmark", "danemark"], coordinates: [12.5683, 55.6761], type: "city" },
-        { name: "Helsinki, Finlande", aliases: ["helsinki", "finland", "finlande"], coordinates: [24.9384, 60.1699], type: "city" },
-        { name: "Oslo, Norvège", aliases: ["oslo", "norway", "norvège"], coordinates: [10.7522, 59.9139], type: "city" },
-        { name: "Varsovie, Pologne", aliases: ["warsaw", "varsovie", "poland", "pologne"], coordinates: [21.0122, 52.2297], type: "city" },
-        { name: "Prague, République Tchèque", aliases: ["prague", "czech republic", "tchèque"], coordinates: [14.4378, 50.0755], type: "city" },
-        { name: "Budapest, Hongrie", aliases: ["budapest", "hungary", "hongrie"], coordinates: [19.0402, 47.4979], type: "city" },
-        { name: "Athènes, Grèce", aliases: ["athens", "athènes", "greece", "grèce"], coordinates: [23.7275, 37.9838], type: "city" },
-        { name: "Lisbonne, Portugal", aliases: ["lisbon", "lisbonne", "portugal"], coordinates: [-9.1393, 38.7223], type: "city" },
-        { name: "Dublin, Irlande", aliases: ["dublin", "ireland", "irlande"], coordinates: [-6.2603, 53.3498], type: "city" },
-        
-        // Major Global Cities - North America
-        { name: "New York, États-Unis", aliases: ["new york", "nyc", "usa", "états-unis", "america"], coordinates: [-74.0060, 40.7128], type: "city" },
-        { name: "Los Angeles, États-Unis", aliases: ["los angeles", "la", "california", "usa"], coordinates: [-118.2437, 34.0522], type: "city" },
-        { name: "Chicago, États-Unis", aliases: ["chicago", "illinois", "usa"], coordinates: [-87.6298, 41.8781], type: "city" },
-        { name: "Miami, États-Unis", aliases: ["miami", "florida", "usa"], coordinates: [-80.1918, 25.7617], type: "city" },
-        { name: "Toronto, Canada", aliases: ["toronto", "canada", "ontario"], coordinates: [-79.3832, 43.6532], type: "city" },
-        { name: "Vancouver, Canada", aliases: ["vancouver", "canada", "british columbia"], coordinates: [-123.1207, 49.2827], type: "city" },
-        { name: "Montréal, Canada", aliases: ["montreal", "quebec", "canada"], coordinates: [-73.5673, 45.5017], type: "city" },
-        { name: "Mexico, Mexique", aliases: ["mexico city", "ciudad de mexico", "mexico", "mexique"], coordinates: [-99.1332, 19.4326], type: "city" },
-        
-        // Major Global Cities - South America
-        { name: "São Paulo, Brésil", aliases: ["sao paulo", "brazil", "brésil", "brasil"], coordinates: [-46.6333, -23.5505], type: "city" },
-        { name: "Rio de Janeiro, Brésil", aliases: ["rio de janeiro", "rio", "brazil", "brésil"], coordinates: [-43.1729, -22.9068], type: "city" },
-        { name: "Buenos Aires, Argentine", aliases: ["buenos aires", "argentina", "argentine"], coordinates: [-58.3816, -34.6037], type: "city" },
-        { name: "Lima, Pérou", aliases: ["lima", "peru", "pérou"], coordinates: [-77.0428, -12.0464], type: "city" },
-        { name: "Bogotá, Colombie", aliases: ["bogota", "colombia", "colombie"], coordinates: [-74.0721, 4.7110], type: "city" },
-        { name: "Santiago, Chili", aliases: ["santiago", "chile", "chili"], coordinates: [-70.6693, -33.4489], type: "city" },
-        { name: "Caracas, Venezuela", aliases: ["caracas", "venezuela"], coordinates: [-66.9036, 10.4806], type: "city" },
-        
-        // Major Global Cities - Asia
-        { name: "Tokyo, Japon", aliases: ["tokyo", "japan", "japon", "nippon"], coordinates: [139.6917, 35.6895], type: "city" },
-        { name: "Shanghai, Chine", aliases: ["shanghai", "china", "chine"], coordinates: [121.4737, 31.2304], type: "city" },
-        { name: "Pékin, Chine", aliases: ["beijing", "pekin", "china", "chine"], coordinates: [116.4074, 39.9042], type: "city" },
-        { name: "Hong Kong", aliases: ["hong kong", "hk"], coordinates: [114.1694, 22.3193], type: "city" },
-        { name: "Singapour", aliases: ["singapore", "singapour"], coordinates: [103.8198, 1.3521], type: "city" },
-        { name: "Séoul, Corée du Sud", aliases: ["seoul", "korea", "corée"], coordinates: [126.9780, 37.5665], type: "city" },
-        { name: "Mumbai, Inde", aliases: ["mumbai", "bombay", "india", "inde"], coordinates: [72.8777, 19.0760], type: "city" },
-        { name: "Delhi, Inde", aliases: ["delhi", "new delhi", "india", "inde"], coordinates: [77.1025, 28.7041], type: "city" },
-        { name: "Bangkok, Thaïlande", aliases: ["bangkok", "thailand", "thaïlande"], coordinates: [100.5018, 13.7563], type: "city" },
-        { name: "Kuala Lumpur, Malaisie", aliases: ["kuala lumpur", "malaysia", "malaisie"], coordinates: [101.6869, 3.1390], type: "city" },
-        { name: "Jakarta, Indonésie", aliases: ["jakarta", "indonesia", "indonésie"], coordinates: [106.8451, -6.2088], type: "city" },
-        { name: "Manille, Philippines", aliases: ["manila", "manille", "philippines"], coordinates: [120.9842, 14.5995], type: "city" },
-        { name: "Dubaï, Émirats Arabes Unis", aliases: ["dubai", "uae", "emirates"], coordinates: [55.2708, 25.2048], type: "city" },
-        { name: "Doha, Qatar", aliases: ["doha", "qatar"], coordinates: [51.5310, 25.2854], type: "city" },
-        { name: "Riyadh, Arabie Saoudite", aliases: ["riyadh", "saudi arabia", "arabie saoudite"], coordinates: [46.6753, 24.7136], type: "city" },
-        { name: "Tel Aviv, Israël", aliases: ["tel aviv", "israel", "israël"], coordinates: [34.7818, 32.0853], type: "city" },
-        { name: "Istanbul, Turquie", aliases: ["istanbul", "turkey", "turquie"], coordinates: [28.9784, 41.0082], type: "city" },
-        
-        // Major Global Cities - Africa
-        { name: "Le Cap, Afrique du Sud", aliases: ["cape town", "le cap", "south africa", "afrique du sud"], coordinates: [18.4241, -33.9249], type: "city" },
-        { name: "Johannesburg, Afrique du Sud", aliases: ["johannesburg", "joburg", "south africa"], coordinates: [28.0473, -26.2041], type: "city" },
-        { name: "Lagos, Nigéria", aliases: ["lagos", "nigeria", "nigéria"], coordinates: [3.3792, 6.5244], type: "city" },
-        { name: "Le Caire, Égypte", aliases: ["cairo", "le caire", "egypt", "égypte"], coordinates: [31.2357, 30.0444], type: "city" },
-        { name: "Casablanca, Maroc", aliases: ["casablanca", "morocco", "maroc"], coordinates: [-7.5898, 33.5731], type: "city" },
-        { name: "Nairobi, Kenya", aliases: ["nairobi", "kenya"], coordinates: [36.8219, -1.2921], type: "city" },
-        { name: "Alger, Algérie", aliases: ["algiers", "alger", "algeria", "algérie"], coordinates: [3.0586, 36.7372], type: "city" },
-        { name: "Tunis, Tunisie", aliases: ["tunis", "tunisia", "tunisie"], coordinates: [10.1815, 36.8065], type: "city" },
-        { name: "Dakar, Sénégal", aliases: ["dakar", "senegal", "sénégal"], coordinates: [-17.4441, 14.7167], type: "city" },
-        { name: "Abidjan, Côte d'Ivoire", aliases: ["abidjan", "ivory coast", "côte d'ivoire"], coordinates: [-4.0435, 5.3599], type: "city" },
-        
-        // Major Global Cities - Oceania
-        { name: "Sydney, Australie", aliases: ["sydney", "australia", "australie"], coordinates: [151.2093, -33.8688], type: "city" },
-        { name: "Melbourne, Australie", aliases: ["melbourne", "australia", "australie"], coordinates: [144.9631, -37.8136], type: "city" },
-        { name: "Auckland, Nouvelle-Zélande", aliases: ["auckland", "new zealand", "nouvelle-zélande"], coordinates: [174.7633, -36.8485], type: "city" },
-        
-        // Major International Airports
-        { name: "Aéroport Charles de Gaulle, Paris", aliases: ["cdg", "charles de gaulle", "roissy", "airport paris", "aeroport paris"], coordinates: [2.5500, 49.0097], type: "airport" },
-        { name: "Aéroport d'Orly, Paris", aliases: ["orly", "ory", "airport orly", "aeroport orly"], coordinates: [2.3597, 48.7233], type: "airport" },
-        { name: "Aéroport Heathrow, Londres", aliases: ["heathrow", "lhr", "airport london", "aeroport londres"], coordinates: [-0.4543, 51.4700], type: "airport" },
-        { name: "Aéroport de Francfort, Allemagne", aliases: ["frankfurt", "fra", "airport frankfurt", "aeroport francfort"], coordinates: [8.5706, 50.0379], type: "airport" },
-        { name: "Aéroport Schiphol, Amsterdam", aliases: ["schiphol", "ams", "airport amsterdam", "aeroport amsterdam"], coordinates: [4.7683, 52.3081], type: "airport" },
-        { name: "Aéroport de Madrid, Espagne", aliases: ["madrid barajas", "mad", "airport madrid", "barajas"], coordinates: [-3.5676, 40.4719], type: "airport" },
-        { name: "Aéroport JFK, New York", aliases: ["jfk", "kennedy", "airport new york", "aeroport new york"], coordinates: [-73.7781, 40.6413], type: "airport" },
-        { name: "Aéroport LAX, Los Angeles", aliases: ["lax", "airport los angeles", "aeroport los angeles"], coordinates: [-118.4085, 33.9425], type: "airport" },
-        { name: "Aéroport O.R. Tambo, Johannesburg", aliases: ["tambo", "or tambo", "jnb", "airport johannesburg"], coordinates: [28.2460, -26.1392], type: "airport" },
-        { name: "Aéroport du Cap", aliases: ["cape town airport", "cpt", "airport cape town"], coordinates: [18.6017, -33.9648], type: "airport" },
-        { name: "Aéroport Changi, Singapour", aliases: ["changi", "sin", "airport singapore", "aeroport singapour"], coordinates: [103.9915, 1.3644], type: "airport" },
-        { name: "Aéroport Narita, Tokyo", aliases: ["narita", "nrt", "airport tokyo", "aeroport tokyo"], coordinates: [140.3929, 35.7719], type: "airport" },
-        { name: "Aéroport de Haneda, Tokyo", aliases: ["haneda", "hnd", "airport haneda"], coordinates: [139.7798, 35.5494], type: "airport" },
-        { name: "Aéroport International de Dubaï", aliases: ["dxb", "dubai airport", "airport dubai"], coordinates: [55.3644, 25.2532], type: "airport" },
-        { name: "Aéroport Mohammed V, Casablanca", aliases: ["casablanca airport", "cmn", "airport casablanca"], coordinates: [-7.5895, 33.3675], type: "airport" },
-        
-        // Major Global Ports
-        { name: "Port de Shanghai, Chine", aliases: ["shanghai port", "port shanghai"], coordinates: [121.5000, 31.2000], type: "port" },
-        { name: "Port de Singapour", aliases: ["singapore port", "port singapore"], coordinates: [103.8198, 1.3521], type: "port" },
-        { name: "Port de Rotterdam, Pays-Bas", aliases: ["rotterdam port", "port rotterdam"], coordinates: [4.1427, 51.9244], type: "port" },
-        { name: "Port de Los Angeles, États-Unis", aliases: ["la port", "los angeles port", "port los angeles"], coordinates: [-118.2437, 33.7405], type: "port" },
-        { name: "Port de Hamburg, Allemagne", aliases: ["hamburg port", "port hamburg"], coordinates: [9.9937, 53.5511], type: "port" },
-        { name: "Port d'Anvers, Belgique", aliases: ["antwerp port", "port antwerp", "anvers"], coordinates: [4.4025, 51.2194], type: "port" },
-        { name: "Port de Hong Kong", aliases: ["hong kong port", "port hong kong"], coordinates: [114.1694, 22.3193], type: "port" },
-        { name: "Port de Dubaï, Émirats Arabes Unis", aliases: ["dubai port", "port dubai"], coordinates: [55.2708, 25.2048], type: "port" },
-        { name: "Port du Havre, France", aliases: ["le havre port", "port le havre", "havre"], coordinates: [0.1070, 49.4944], type: "port" },
-        { name: "Port de Marseille, France", aliases: ["marseille port", "port marseille"], coordinates: [5.3698, 43.2965], type: "port" },
-        { name: "Port du Cap, Afrique du Sud", aliases: ["cape town port", "port cape town"], coordinates: [18.4265, -33.9058], type: "port" },
-        { name: "Port de Casablanca, Maroc", aliases: ["casablanca port", "port casablanca"], coordinates: [-7.6164, 33.6022], type: "port" },
-        
-        // Additional French Cities
-        { name: "Lyon, France", aliases: ["lyon"], coordinates: [4.8357, 45.7640], type: "city" },
-        { name: "Marseille, France", aliases: ["marseille"], coordinates: [5.3698, 43.2965], type: "city" },
-        { name: "Toulouse, France", aliases: ["toulouse"], coordinates: [1.4442, 43.6047], type: "city" },
-        { name: "Nice, France", aliases: ["nice"], coordinates: [7.2620, 43.7102], type: "city" },
-        { name: "Bordeaux, France", aliases: ["bordeaux"], coordinates: [-0.5792, 44.8378], type: "city" },
-        { name: "Lille, France", aliases: ["lille"], coordinates: [3.0573, 50.6292], type: "city" },
-        { name: "Strasbourg, France", aliases: ["strasbourg"], coordinates: [7.7521, 48.5734], type: "city" },
-        { name: "Nantes, France", aliases: ["nantes"], coordinates: [-1.5534, 47.2184], type: "city" },
-        { name: "Montpellier, France", aliases: ["montpellier"], coordinates: [3.8767, 43.6109], type: "city" },
-        { name: "Rennes, France", aliases: ["rennes"], coordinates: [-1.6743, 48.1173], type: "city" }
-      ];
+      const mapboxToken = process.env.MAPBOX_API_KEY;
+      if (!mapboxToken) {
+        return res.status(500).json({ error: 'Mapbox API key not configured' });
+      }
 
-      // Enhanced search algorithm with fuzzy matching
-      const results = globalLocations.filter(location => {
-        const query = searchQuery.toLowerCase();
-        
-        // Exact name match (highest priority)
-        if (location.name.toLowerCase().includes(query)) {
-          return true;
-        }
-        
-        // Alias matching
-        if (location.aliases && location.aliases.length > 0) {
-          return location.aliases.some(alias => {
-            const aliasLower = alias.toLowerCase();
-            return aliasLower.includes(query) || query.includes(aliasLower);
-          });
-        }
-        
-        return false;
-      })
-      .sort((a, b) => {
-        // Prioritize exact matches at start of name
-        const aExactStart = a.name.toLowerCase().startsWith(searchQuery);
-        const bExactStart = b.name.toLowerCase().startsWith(searchQuery);
-        
-        if (aExactStart && !bExactStart) return -1;
-        if (!aExactStart && bExactStart) return 1;
-        
-        // Then by type relevance
-        const typeOrder = { airport: 1, port: 2, city: 3 };
-        const aOrder = typeOrder[a.type as keyof typeof typeOrder] || 4;
-        const bOrder = typeOrder[b.type as keyof typeof typeOrder] || 4;
-        
-        if (aOrder !== bOrder) return aOrder - bOrder;
-        
-        // Finally alphabetical
-        return a.name.localeCompare(b.name);
-      })
-      .slice(0, parseInt(limit as string))
-      .map(location => ({
-        text: location.name,
-        value: location.name,
-        coordinates: location.coordinates,
-        type: location.type,
-        source: "global_database"
-      }));
+      // Use Mapbox Geocoding API for worldwide coverage
+      const mapboxUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json`;
+      const mapboxParams = new URLSearchParams({
+        access_token: mapboxToken,
+        limit: limit.toString(),
+        language: 'fr',
+        types: 'place,locality,address,poi'
+      });
 
-      console.log(`Global search returned ${results.length} results for "${searchQuery}"`);
+      const response = await fetch(`${mapboxUrl}?${mapboxParams}`);
       
-      res.json({ suggestions: results });
+      if (!response.ok) {
+        throw new Error(`Mapbox API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      if (!data.features || data.features.length === 0) {
+        return res.json({ suggestions: [] });
+      }
+
+      // Transform Mapbox results to our format
+      const suggestions = data.features.map((feature: any) => {
+        // Determine location type based on Mapbox properties
+        let locationType = "city";
+        
+        if (feature.properties?.category?.includes("airport") || 
+            feature.place_name?.toLowerCase().includes("airport") ||
+            feature.place_name?.toLowerCase().includes("aéroport") ||
+            feature.place_type?.includes("airport")) {
+          locationType = "airport";
+        } else if (feature.properties?.category?.includes("port") || 
+                   feature.place_name?.toLowerCase().includes("port") ||
+                   feature.place_type?.includes("poi") && 
+                   feature.text?.toLowerCase().includes("port")) {
+          locationType = "port";
+        } else if (feature.place_type?.includes("place") || 
+                   feature.place_type?.includes("locality")) {
+          locationType = "city";
+        }
+
+        return {
+          text: feature.place_name,
+          value: feature.place_name,
+          coordinates: feature.geometry?.coordinates || [0, 0],
+          type: locationType,
+          source: "mapbox"
+        };
+      });
+      
+      console.log(`Mapbox returned ${suggestions.length} results for "${searchQuery}"`);
+      
+      res.json({ suggestions });
     } catch (error) {
-      console.error("Geocoding search error:", error);
-      res.status(500).json({ error: "Geocoding service error", message: error.message });
+      console.error("Mapbox geocoding error:", error);
+      
+      // Fallback to internal database if Mapbox fails
+      console.log("Falling back to internal database...");
+      
+      try {
+        const searchQuery = String(query).toLowerCase().trim();
+        
+        // Basic internal database for fallback
+        const fallbackLocations = [
+          { name: "Paris, France", coordinates: [2.3522, 48.8566], type: "city" },
+          { name: "Londres, Royaume-Uni", coordinates: [-0.1276, 51.5074], type: "city" },
+          { name: "New York, États-Unis", coordinates: [-74.0060, 40.7128], type: "city" },
+          { name: "Tokyo, Japon", coordinates: [139.6917, 35.6895], type: "city" },
+          { name: "Shanghai, Chine", coordinates: [121.4737, 31.2304], type: "city" },
+          { name: "Singapour", coordinates: [103.8198, 1.3521], type: "city" },
+          { name: "Dubaï, Émirats Arabes Unis", coordinates: [55.2708, 25.2048], type: "city" },
+          { name: "Sydney, Australie", coordinates: [151.2093, -33.8688], type: "city" },
+          { name: "Le Cap, Afrique du Sud", coordinates: [18.4241, -33.9249], type: "city" },
+          { name: "São Paulo, Brésil", coordinates: [-46.6333, -23.5505], type: "city" },
+          
+          // Major airports
+          { name: "Aéroport Charles de Gaulle, Paris", coordinates: [2.5500, 49.0097], type: "airport" },
+          { name: "Aéroport Heathrow, Londres", coordinates: [-0.4543, 51.4700], type: "airport" },
+          { name: "Aéroport JFK, New York", coordinates: [-73.7781, 40.6413], type: "airport" },
+          { name: "Aéroport Narita, Tokyo", coordinates: [140.3929, 35.7719], type: "airport" },
+          { name: "Aéroport Changi, Singapour", coordinates: [103.9915, 1.3644], type: "airport" },
+          
+          // Major ports
+          { name: "Port de Shanghai, Chine", coordinates: [121.5000, 31.2000], type: "port" },
+          { name: "Port de Rotterdam, Pays-Bas", coordinates: [4.1427, 51.9244], type: "port" },
+          { name: "Port de Los Angeles, États-Unis", coordinates: [-118.2437, 33.7405], type: "port" },
+          { name: "Port de Singapour", coordinates: [103.8198, 1.3521], type: "port" },
+          { name: "Port de Dubaï, Émirats Arabes Unis", coordinates: [55.2708, 25.2048], type: "port" }
+        ];
+        
+        const fallbackResults = fallbackLocations
+          .filter(location => location.name.toLowerCase().includes(searchQuery))
+          .slice(0, parseInt(limit as string))
+          .map(location => ({
+            text: location.name,
+            value: location.name,
+            coordinates: location.coordinates,
+            type: location.type,
+            source: "fallback"
+          }));
+          
+        console.log(`Fallback returned ${fallbackResults.length} results for "${searchQuery}"`);
+        res.json({ suggestions: fallbackResults });
+        
+      } catch (fallbackError) {
+        console.error("Fallback geocoding error:", fallbackError);
+        res.status(500).json({ error: "Geocoding service unavailable", message: error.message });
+      }
     }
   });
 
