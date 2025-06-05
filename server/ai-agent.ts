@@ -502,24 +502,111 @@ Analyse en JSON:
   }
 
   /**
-   * Calcul intelligent du délai de livraison
+   * Calcul intelligent du délai de livraison basé sur la distance réelle
    */
   private calculateDeliveryTime(quoteRequest: any, carrier: any, analysis: any) {
-    const baseTimes: Record<string, number> = {
-      air: 2,
-      mer: 14,
-      terre: 5,
-      multimodal: 7
-    };
+    const origin = quoteRequest.origin.toLowerCase();
+    const destination = quoteRequest.destination.toLowerCase();
     
-    let days = baseTimes[analysis.transportMode] || baseTimes.terre;
+    // Calcul intelligent basé sur les routes réelles
+    let distance = this.estimateDistance(origin, destination);
+    let baseTime = 0;
+    
+    switch (analysis.transportMode) {
+      case 'air':
+        baseTime = Math.max(1, Math.ceil(distance / 8000)); // 8000km par jour pour l'aérien
+        break;
+      case 'mer':
+        baseTime = Math.max(7, Math.ceil(distance / 500)); // 500km par jour pour maritime
+        break;
+      case 'terre':
+      case 'routier':
+        baseTime = Math.max(1, Math.ceil(distance / 800)); // 800km par jour pour routier
+        break;
+      case 'rail':
+        baseTime = Math.max(1, Math.ceil(distance / 600)); // 600km par jour pour ferroviaire
+        break;
+      default:
+        baseTime = Math.max(2, Math.ceil(distance / 700));
+    }
     
     // Ajustements par transporteur
     const name = carrier.name.toLowerCase();
-    if (name.includes('express') || name.includes('dhl')) days = Math.max(1, days - 1);
-    if (name.includes('economy')) days += 2;
+    if (name.includes('express') || name.includes('dhl')) baseTime = Math.max(1, baseTime - 1);
+    if (name.includes('economy')) baseTime += 1;
     
-    return days;
+    return baseTime;
+  }
+
+  /**
+   * Estimation intelligente de la distance entre deux points
+   */
+  private estimateDistance(origin: string, destination: string): number {
+    // Distances approximatives basées sur les villes principales
+    const cityDistances: Record<string, Record<string, number>> = {
+      'londres': {
+        'paris': 350,
+        'berlin': 950,
+        'rome': 1450,
+        'madrid': 1250,
+        'amsterdam': 350,
+        'bruxelles': 320,
+        'zurich': 750,
+        'vienne': 1250,
+        'stockholm': 1450,
+        'jakarta': 11800,
+        'sydney': 17000,
+        'new york': 5550,
+        'tokyo': 9600
+      },
+      'paris': {
+        'londres': 350,
+        'berlin': 880,
+        'rome': 1100,
+        'madrid': 1050,
+        'amsterdam': 430,
+        'bruxelles': 260,
+        'zurich': 490,
+        'vienne': 1040,
+        'stockholm': 1540
+      }
+    };
+    
+    // Chercher la distance exacte
+    for (const [city1, distances] of Object.entries(cityDistances)) {
+      if (origin.includes(city1)) {
+        for (const [city2, distance] of Object.entries(distances)) {
+          if (destination.includes(city2)) {
+            return distance;
+          }
+        }
+      }
+    }
+    
+    // Estimation basée sur les continents si pas de correspondance exacte
+    const isEuropean = (location: string) => {
+      return ['france', 'allemagne', 'italie', 'espagne', 'angleterre', 'royaume-uni', 'pays-bas', 'belgique', 'suisse', 'autriche', 'suède'].some(country => location.includes(country));
+    };
+    
+    const isAsian = (location: string) => {
+      return ['chine', 'japon', 'corée', 'inde', 'thaïlande', 'vietnam', 'singapour', 'malaisie', 'indonésie', 'philippines'].some(country => location.includes(country));
+    };
+    
+    const isAfrican = (location: string) => {
+      return ['afrique', 'maroc', 'algérie', 'tunisie', 'egypte', 'nigeria', 'kenya', 'ghana'].some(country => location.includes(country));
+    };
+    
+    const isAmerican = (location: string) => {
+      return ['états-unis', 'canada', 'mexique', 'brésil', 'argentine', 'chili', 'colombie'].some(country => location.includes(country));
+    };
+    
+    // Distances intercontinentales
+    if (isEuropean(origin) && isEuropean(destination)) return 1200; // Europe interne
+    if (isEuropean(origin) && isAsian(destination)) return 8000; // Europe-Asie
+    if (isEuropean(origin) && isAfrican(destination)) return 4000; // Europe-Afrique
+    if (isEuropean(origin) && isAmerican(destination)) return 7000; // Europe-Amérique
+    
+    return 5000; // Distance par défaut
   }
 
   /**

@@ -212,7 +212,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/quote-requests", authenticateToken, async (req: any, res) => {
     try {
-      // Auto-detect transport mode based on locations
+      // Auto-detect transport mode based on locations and geography
       const detectTransportMode = (origin: string, destination: string) => {
         const isAirport = (location: string) => {
           const airportKeywords = ['aéroport', 'airport', 'cdg', 'heathrow', 'changi', 'tambo', 'jfk', 'lax', 'orly', 'roissy'];
@@ -224,19 +224,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return portKeywords.some(keyword => location.toLowerCase().includes(keyword.toLowerCase()));
         };
         
+        const isEuropean = (location: string) => {
+          return ['france', 'allemagne', 'italie', 'espagne', 'angleterre', 'royaume-uni', 'pays-bas', 'belgique', 'suisse', 'autriche', 'suède', 'norvège', 'danemark', 'pologne'].some(country => location.toLowerCase().includes(country));
+        };
+        
+        const isAsian = (location: string) => {
+          return ['chine', 'japon', 'corée', 'inde', 'thaïlande', 'vietnam', 'singapour', 'malaisie', 'indonésie', 'philippines', 'jakarta', 'bangkok', 'manila', 'kuala lumpur'].some(keyword => location.toLowerCase().includes(keyword));
+        };
+        
+        const isAfrican = (location: string) => {
+          return ['afrique', 'maroc', 'algérie', 'tunisie', 'egypte', 'nigeria', 'kenya', 'ghana', 'johannesburg', 'cape town', 'casablanca', 'lagos'].some(keyword => location.toLowerCase().includes(keyword));
+        };
+        
+        const isAmerican = (location: string) => {
+          return ['états-unis', 'canada', 'mexique', 'brésil', 'argentine', 'chili', 'colombie', 'new york', 'los angeles', 'toronto', 'montreal'].some(keyword => location.toLowerCase().includes(keyword));
+        };
+        
         console.log(`Detecting transport mode for: "${origin}" → "${destination}"`);
         console.log(`Origin is port: ${isPort(origin)}, Destination is port: ${isPort(destination)}`);
         
+        // Check for airports first
         if (isAirport(origin) || isAirport(destination)) {
-          console.log('Mode détecté: aérien');
+          console.log('Mode détecté: aérien (aéroport détecté)');
           return 'air';
-        } else if (isPort(origin) || isPort(destination)) {
-          console.log('Mode détecté: maritime');
-          return 'mer';
-        } else {
-          console.log('Mode détecté: routier (par défaut)');
-          return req.body.transportMode || 'terre';
         }
+        
+        // Check for ports
+        if (isPort(origin) || isPort(destination)) {
+          console.log('Mode détecté: maritime (port détecté)');
+          return 'mer';
+        }
+        
+        // Intelligent geographic detection
+        const originEU = isEuropean(origin);
+        const destEU = isEuropean(destination);
+        const originAS = isAsian(origin);
+        const destAS = isAsian(destination);
+        const originAF = isAfrican(origin);
+        const destAF = isAfrican(destination);
+        const originAM = isAmerican(origin);
+        const destAM = isAmerican(destination);
+        
+        // Intercontinental = air or sea
+        if ((originEU && (destAS || destAF || destAM)) || 
+            (originAS && (destEU || destAF || destAM)) ||
+            (originAF && (destEU || destAS || destAM)) ||
+            (originAM && (destEU || destAS || destAF))) {
+          // For heavy cargo or budget shipping, prefer sea
+          const weight = parseFloat(req.body.weight) || 0;
+          if (weight > 500) {
+            console.log('Mode détecté: maritime (intercontinental, cargo lourd)');
+            return 'mer';
+          } else {
+            console.log('Mode détecté: aérien (intercontinental, cargo léger)');
+            return 'air';
+          }
+        }
+        
+        // Same continent = road or rail
+        if ((originEU && destEU) || (originAS && destAS) || (originAF && destAF) || (originAM && destAM)) {
+          console.log('Mode détecté: routier (même continent)');
+          return 'terre';
+        }
+        
+        console.log('Mode détecté: multimodal (par défaut)');
+        return req.body.transportMode || 'multimodal';
       };
       
       const autoDetectedMode = detectTransportMode(req.body.origin || '', req.body.destination || '');
