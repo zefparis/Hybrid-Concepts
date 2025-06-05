@@ -482,14 +482,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { name: "Aéroport International de Dubaï", aliases: ["dxb", "dubai airport", "airport dubai"], coordinates: [55.3644, 25.2532], type: "airport" },
         { name: "Aéroport Mohammed V, Casablanca", aliases: ["casablanca airport", "cmn", "airport casablanca"], coordinates: [-7.5895, 33.3675], type: "airport" },
         
-        // Major Ports
+        // Major Ports - Europe
         { name: "Port de Rotterdam, Pays-Bas", aliases: ["rotterdam", "port rotterdam"], coordinates: [4.1427, 51.9244], type: "port" },
-        { name: "Port de Singapour", aliases: ["singapore port", "port singapore"], coordinates: [103.8198, 1.3521], type: "port" },
+        { name: "Port d'Anvers, Belgique", aliases: ["antwerp", "anvers", "port antwerp", "port anvers"], coordinates: [4.4025, 51.2194], type: "port" },
+        { name: "Port de Hambourg, Allemagne", aliases: ["hamburg", "hambourg", "port hamburg", "port hambourg"], coordinates: [9.9937, 53.5511], type: "port" },
+        { name: "Port du Havre, France", aliases: ["le havre", "havre", "port havre", "port le havre"], coordinates: [0.1070, 49.4944], type: "port" },
+        { name: "Port de Marseille, France", aliases: ["marseille port", "port marseille", "marseille", "port de marseille"], coordinates: [5.3698, 43.2965], type: "port" },
+        { name: "Port de Gênes, Italie", aliases: ["genoa", "genes", "port genoa", "port genes"], coordinates: [8.9463, 44.4056], type: "port" },
+        { name: "Port de Barcelone, Espagne", aliases: ["barcelona port", "port barcelona", "barcelone"], coordinates: [2.1734, 41.3851], type: "port" },
+        { name: "Port de Valencia, Espagne", aliases: ["valencia port", "port valencia"], coordinates: [-0.3774, 39.4699], type: "port" },
+        { name: "Port de Felixstowe, Royaume-Uni", aliases: ["felixstowe", "port felixstowe"], coordinates: [1.3511, 51.9561], type: "port" },
+        { name: "Port de Pirée, Grèce", aliases: ["piraeus", "piree", "port piraeus"], coordinates: [23.6425, 37.9470], type: "port" },
+        
+        // Major Ports - Asia
         { name: "Port de Shanghai, Chine", aliases: ["shanghai port", "port shanghai"], coordinates: [121.5000, 31.2000], type: "port" },
+        { name: "Port de Singapour", aliases: ["singapore port", "port singapore"], coordinates: [103.8198, 1.3521], type: "port" },
+        { name: "Port de Hong Kong", aliases: ["hong kong port", "port hong kong"], coordinates: [114.1694, 22.3193], type: "port" },
+        { name: "Port de Shenzhen, Chine", aliases: ["shenzhen port", "port shenzhen"], coordinates: [114.0579, 22.5431], type: "port" },
+        { name: "Port de Busan, Corée du Sud", aliases: ["busan port", "port busan"], coordinates: [129.0756, 35.1796], type: "port" },
+        { name: "Port de Tokyo, Japon", aliases: ["tokyo port", "port tokyo"], coordinates: [139.7673, 35.6167], type: "port" },
+        { name: "Port de Dubaï, Émirats Arabes Unis", aliases: ["dubai port", "port dubai"], coordinates: [55.2708, 25.2048], type: "port" },
+        { name: "Port de Jebel Ali, Dubaï", aliases: ["jebel ali", "port jebel ali"], coordinates: [55.0364, 25.0122], type: "port" },
+        { name: "Port de Colombo, Sri Lanka", aliases: ["colombo port", "port colombo"], coordinates: [79.8612, 6.9271], type: "port" },
+        
+        // Major Ports - Americas
+        { name: "Port de Los Angeles, États-Unis", aliases: ["la port", "los angeles port", "port la"], coordinates: [-118.2437, 33.7405], type: "port" },
+        { name: "Port de Long Beach, États-Unis", aliases: ["long beach port", "port long beach"], coordinates: [-118.1937, 33.7701], type: "port" },
+        { name: "Port de New York, États-Unis", aliases: ["new york port", "ny port", "port ny"], coordinates: [-74.0445, 40.6892], type: "port" },
+        { name: "Port de Miami, États-Unis", aliases: ["miami port", "port miami"], coordinates: [-80.1659, 25.7743], type: "port" },
+        { name: "Port de Vancouver, Canada", aliases: ["vancouver port", "port vancouver"], coordinates: [-123.1207, 49.2827], type: "port" },
+        { name: "Port de Santos, Brésil", aliases: ["santos port", "port santos"], coordinates: [-46.3052, -23.9608], type: "port" },
+        { name: "Port de Callao, Pérou", aliases: ["callao port", "port callao"], coordinates: [-77.1181, -12.0464], type: "port" },
+        
+        // Major Ports - Africa
+        { name: "Port de Tanger Med, Maroc", aliases: ["tanger med", "port tanger", "tangier"], coordinates: [-5.9175, 35.8781], type: "port" },
         { name: "Port de Casablanca, Maroc", aliases: ["casablanca port", "port casablanca"], coordinates: [-7.6164, 33.6022], type: "port" },
+        { name: "Port de Durban, Afrique du Sud", aliases: ["durban port", "port durban"], coordinates: [31.0218, -29.8587], type: "port" },
         { name: "Port du Cap, Afrique du Sud", aliases: ["cape town port", "port cape town"], coordinates: [18.4265, -33.9058], type: "port" },
-        { name: "Port de Los Angeles, États-Unis", aliases: ["la port", "los angeles port"], coordinates: [-118.2437, 33.7405], type: "port" },
-        { name: "Port de New York, États-Unis", aliases: ["new york port", "ny port"], coordinates: [-74.0445, 40.6892], type: "port" },
+        { name: "Port de Lagos, Nigéria", aliases: ["lagos port", "port lagos"], coordinates: [3.3792, 6.4474], type: "port" },
+        { name: "Port de Mombasa, Kenya", aliases: ["mombasa port", "port mombasa"], coordinates: [39.6682, -4.0435], type: "port" },
         
         // Additional major cities
         { name: "Lyon, France", aliases: ["lyon"], coordinates: [4.8357, 45.7640], type: "city" },
