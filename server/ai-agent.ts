@@ -86,6 +86,18 @@ export interface AutomationResult {
 export class LogisticsAIAgent {
   
   /**
+   * Nettoie les réponses de l'API Anthropic pour extraire le JSON
+   */
+  private cleanJsonResponse(text: string): string {
+    return text
+      .replace(/```json\s*/g, '')
+      .replace(/```\s*/g, '')
+      .replace(/^\s*```/gm, '')
+      .replace(/```\s*$/gm, '')
+      .trim();
+  }
+
+  /**
    * Point d'entrée principal - Automatise complètement le processus logistique
    */
   async processLogisticsRequest(
@@ -296,8 +308,9 @@ Analyse en JSON:
     });
 
     const content = riskAnalysis.content[0];
-    if ('text' in content) {
-      return JSON.parse(content.text);
+    if (content.type === 'text') {
+      const cleanedText = this.cleanJsonResponse(content.text);
+      return JSON.parse(cleanedText);
     }
     throw new Error('Invalid risk analysis response format');
   }
@@ -343,7 +356,8 @@ Analyse en JSON:
 
     const content = response.content[0];
     if (content.type === 'text') {
-      return JSON.parse(content.text);
+      const cleanedText = this.cleanJsonResponse(content.text);
+      return JSON.parse(cleanedText);
     }
     throw new Error('Unexpected response format');
   }
