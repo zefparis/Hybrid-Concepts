@@ -14,6 +14,7 @@ import Documents from "@/pages/documents";
 import Chat from "@/pages/chat";
 import Invoicing from "@/pages/invoicing";
 import Analytics from "@/pages/analytics";
+import Login from "@/pages/login";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -25,21 +26,7 @@ function LoadingSpinner() {
 }
 
 function LoginForm() {
-  // Simplified login form - would implement proper authentication UI
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-            Connexion à eMulog
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Veuillez vous connecter pour accéder à votre tableau de bord
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+  return <Login />;
 }
 
 function AuthenticatedApp() {
