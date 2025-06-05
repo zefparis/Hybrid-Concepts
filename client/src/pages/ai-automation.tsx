@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Brain, Zap, Target, TrendingUp, Clock, Bot, Cpu, Code, ArrowRight, CheckCircle, Sparkles } from "lucide-react";
-import AITerminal from "@/components/ai-terminal";
+import PersistentAITerminal from "@/components/persistent-ai-terminal";
 import AddressAutocomplete from "@/components/address-autocomplete";
 import FreightAutomationResults from "@/components/freight-automation-results";
 import { useToast } from "@/hooks/use-toast";
@@ -385,7 +385,7 @@ export default function AIAutomation() {
 
       {/* AI Terminal Overlay */}
       {isProcessing && (
-        <AITerminal 
+        <PersistentAITerminal 
           isProcessing={isProcessing}
           onComplete={handleTerminalComplete}
           requestData={requestData}
