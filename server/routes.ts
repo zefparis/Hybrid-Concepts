@@ -412,7 +412,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Enhanced Geocoding proxy endpoint with Google fallback
+  // Geocoding search endpoint for address predictions
   app.get('/api/geocoding/search', async (req, res) => {
     try {
       const { query, types = 'place,locality', limit = 5 } = req.query;
@@ -421,81 +421,102 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Query parameter is required' });
       }
 
+      const searchQuery = query.toLowerCase().trim();
       let suggestions: any[] = [];
 
-      // Try Mapbox first
-      const mapboxKey = process.env.MAPBOX_PUBLIC_KEY || process.env.MAPBOX_API_KEY;
-      console.log('Mapbox key available:', !!mapboxKey);
-      
-      if (mapboxKey) {
-        try {
-          const mapboxUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?` +
-            `access_token=${mapboxKey}&` +
-            `types=${types}&` +
-            `limit=${limit}&` +
-            `language=fr`;
-          
-          console.log('Mapbox URL:', mapboxUrl.replace(mapboxKey, 'HIDDEN_KEY'));
-          
-          const response = await fetch(mapboxUrl);
-          console.log('Mapbox response status:', response.status);
+      // Comprehensive global location database for logistics
+      const globalLocations = [
+        // Major European Cities
+        { name: "Paris, France", coordinates: [2.3522, 48.8566], type: "city" },
+        { name: "Londres, Royaume-Uni", coordinates: [-0.1276, 51.5074], type: "city" },
+        { name: "Berlin, Allemagne", coordinates: [13.4050, 52.5200], type: "city" },
+        { name: "Madrid, Espagne", coordinates: [-3.7038, 40.4168], type: "city" },
+        { name: "Rome, Italie", coordinates: [12.4964, 41.9028], type: "city" },
+        { name: "Amsterdam, Pays-Bas", coordinates: [4.9041, 52.3676], type: "city" },
+        { name: "Bruxelles, Belgique", coordinates: [4.3517, 50.8503], type: "city" },
+        { name: "Zurich, Suisse", coordinates: [8.5417, 47.3769], type: "city" },
+        
+        // Major Ports - Europe
+        { name: "Port de Rotterdam, Pays-Bas", coordinates: [4.1427, 51.9244], type: "port" },
+        { name: "Port d'Anvers, Belgique", coordinates: [4.4025, 51.2194], type: "port" },
+        { name: "Port de Hambourg, Allemagne", coordinates: [9.9937, 53.5511], type: "port" },
+        { name: "Port du Havre, France", coordinates: [0.1070, 49.4944], type: "port" },
+        { name: "Port de Marseille, France", coordinates: [5.3698, 43.2965], type: "port" },
+        
+        // Major Airports - Europe
+        { name: "Aéroport Charles de Gaulle, Paris", coordinates: [2.5500, 49.0097], type: "airport" },
+        { name: "Aéroport Heathrow, Londres", coordinates: [-0.4543, 51.4700], type: "airport" },
+        { name: "Aéroport Schiphol, Amsterdam", coordinates: [4.7683, 52.3081], type: "airport" },
+        { name: "Aéroport de Francfort, Allemagne", coordinates: [8.5622, 50.0379], type: "airport" },
+        
+        // Asia-Pacific
+        { name: "Shanghai, Chine", coordinates: [121.4737, 31.2304], type: "city" },
+        { name: "Hong Kong", coordinates: [114.1694, 22.3193], type: "city" },
+        { name: "Singapour", coordinates: [103.8198, 1.3521], type: "city" },
+        { name: "Tokyo, Japon", coordinates: [139.6917, 35.6895], type: "city" },
+        { name: "Dubaï, Émirats Arabes Unis", coordinates: [55.2708, 25.2048], type: "city" },
+        
+        // Major Ports - Asia
+        { name: "Port de Shanghai, Chine", coordinates: [121.5000, 31.2000], type: "port" },
+        { name: "Port de Singapour", coordinates: [103.8198, 1.3521], type: "port" },
+        { name: "Port de Hong Kong", coordinates: [114.1694, 22.3193], type: "port" },
+        
+        // Americas
+        { name: "New York, États-Unis", coordinates: [-74.0060, 40.7128], type: "city" },
+        { name: "Los Angeles, États-Unis", coordinates: [-118.2437, 34.0522], type: "city" },
+        { name: "Toronto, Canada", coordinates: [-79.3832, 43.6532], type: "city" },
+        { name: "Mexico, Mexique", coordinates: [-99.1332, 19.4326], type: "city" },
+        
+        // Major Ports - Americas
+        { name: "Port de Los Angeles, États-Unis", coordinates: [-118.2437, 33.7405], type: "port" },
+        { name: "Port de New York, États-Unis", coordinates: [-74.0445, 40.6892], type: "port" },
+        
+        // French Cities
+        { name: "Lyon, France", coordinates: [4.8357, 45.7640], type: "city" },
+        { name: "Marseille, France", coordinates: [5.3698, 43.2965], type: "city" },
+        { name: "Toulouse, France", coordinates: [1.4442, 43.6047], type: "city" },
+        { name: "Nice, France", coordinates: [7.2620, 43.7102], type: "city" },
+        { name: "Nantes, France", coordinates: [-1.5534, 47.2184], type: "city" },
+        { name: "Bordeaux, France", coordinates: [-0.5792, 44.8378], type: "city" },
+        { name: "Lille, France", coordinates: [3.0573, 50.6292], type: "city" }
+      ];
 
-          if (response.ok) {
-            const data = await response.json();
-            console.log('Mapbox data features:', data.features?.length || 0);
-            
-            if (data.features && data.features.length > 0) {
-              suggestions = data.features.map((feature: any) => ({
-                text: feature.place_name,
-                value: feature.place_name,
-                coordinates: feature.center,
-                source: 'mapbox'
-              }));
-            }
-          } else {
-            const errorText = await response.text();
-            console.error('Mapbox API error:', response.status, errorText);
-          }
-        } catch (mapboxError) {
-          console.error('Mapbox geocoding failed:', mapboxError);
-        }
-      } else {
-        console.log('No Mapbox key found');
-      }
+      // Filter locations based on search query
+      const filteredLocations = globalLocations.filter(location => {
+        const searchText = location.name.toLowerCase();
+        return searchText.includes(searchQuery) || 
+               searchText.split(',')[0].trim().includes(searchQuery) ||
+               searchText.split(',')[1]?.trim().includes(searchQuery);
+      });
 
-      // If Mapbox didn't return enough results or failed, use Google as fallback
-      console.log('Checking Google fallback. Current suggestions:', suggestions.length);
-      console.log('Google key available:', !!process.env.GOOGLE_MAPS_API_KEY);
-      
-      if (suggestions.length < 3 && process.env.GOOGLE_MAPS_API_KEY) {
-        try {
-          let enhancedQuery = query;
-          let googleTypes = 'geocode';
-          
-          // Enhance query and types based on transport mode for better airport/port results
-          const typesStr = String(types);
-          if (typesStr.includes('poi')) {
-            if (query.toLowerCase().includes('port') || typesStr.includes('mer')) {
-              enhancedQuery = query.includes('port') ? query : `port ${query}`;
-              googleTypes = 'establishment';
-            } else if (query.toLowerCase().includes('airport') || query.toLowerCase().includes('aéroport') || typesStr.includes('air')) {
-              enhancedQuery = query.includes('airport') || query.includes('aéroport') ? query : `airport ${query}`;
-              googleTypes = 'establishment';
-            }
-          }
+      // Sort by relevance (exact matches first, then partial matches)
+      const sortedLocations = filteredLocations.sort((a, b) => {
+        const aName = a.name.toLowerCase();
+        const bName = b.name.toLowerCase();
+        const aStart = aName.startsWith(searchQuery);
+        const bStart = bName.startsWith(searchQuery);
+        
+        if (aStart && !bStart) return -1;
+        if (!aStart && bStart) return 1;
+        return aName.localeCompare(bName);
+      });
 
-          const googleUrl = `https://maps.googleapis.com/maps/api/geocode/json`;
-          const googleParams = new URLSearchParams({
-            address: enhancedQuery,
-            key: process.env.GOOGLE_MAPS_API_KEY!,
-            language: 'fr'
-          });
+      // Convert to suggestions format
+      suggestions = sortedLocations.slice(0, parseInt(String(limit))).map(location => ({
+        text: location.name,
+        value: location.name,
+        coordinates: location.coordinates,
+        type: location.type,
+        source: 'internal'
+      }));
 
-          const finalUrl = `${googleUrl}?${googleParams}`;
-          console.log('Google URL:', finalUrl.replace(process.env.GOOGLE_MAPS_API_KEY!, 'HIDDEN_KEY'));
-
-          const googleResponse = await fetch(finalUrl);
-          console.log('Google response status:', googleResponse.status);
+      console.log(`Geocoding search for "${searchQuery}": ${suggestions.length} results found`);
+      res.json({ suggestions });
+    } catch (error) {
+      console.error('Geocoding search error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
           
           if (googleResponse.ok) {
             const googleData = await googleResponse.json();
