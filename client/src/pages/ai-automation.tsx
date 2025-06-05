@@ -349,7 +349,7 @@ export default function AIAutomation() {
                     <SelectValue placeholder="Laisser l'IA choisir (recommandé)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">IA automatique (optimal)</SelectItem>
+                    <SelectItem value="auto">IA automatique (optimal)</SelectItem>
                     <SelectItem value="air">Aérien (rapide)</SelectItem>
                     <SelectItem value="mer">Maritime (économique)</SelectItem>
                     <SelectItem value="terre">Routier (flexible)</SelectItem>
