@@ -208,6 +208,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/quote-requests/:id", authenticateToken, async (req: any, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validatedData = insertQuoteRequestSchema.partial().parse(req.body);
+      
+      const quoteRequest = await storage.updateQuoteRequest(id, validatedData);
+      if (!quoteRequest) {
+        return res.status(404).json({ message: 'Quote request not found' });
+      }
+      
+      res.json(quoteRequest);
+    } catch (error) {
+      console.error('Update quote request error:', error);
+      res.status(400).json({ message: 'Failed to update quote request', error: (error as Error).message });
+    }
+  });
+
+  app.delete("/api/quote-requests/:id", authenticateToken, async (req: any, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      
+      const quoteRequest = await storage.getQuoteRequest(id);
+      if (!quoteRequest) {
+        return res.status(404).json({ message: 'Quote request not found' });
+      }
+      
+      const updatedQuoteRequest = await storage.updateQuoteRequest(id, { status: 'cancelled' });
+      res.json({ message: 'Quote request cancelled successfully', quoteRequest: updatedQuoteRequest });
+    } catch (error) {
+      console.error('Delete quote request error:', error);
+      res.status(500).json({ message: 'Failed to cancel quote request' });
+    }
+  });
+
   // Shipments routes
   app.get("/api/shipments", authenticateToken, async (req: any, res) => {
     try {
