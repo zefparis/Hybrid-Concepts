@@ -119,7 +119,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/quote-requests", authenticateToken, async (req: any, res) => {
     try {
       const quoteRequests = await storage.getQuoteRequests(req.user.companyId);
-      res.json(quoteRequests);
+      
+      // Fix transport mode for existing quotes based on locations
+      const fixedQuotes = quoteRequests.map(quote => {
+        const isPort = (location: string) => {
+          const portKeywords = ['port du', 'port de', 'port of', 'port d\'', 'harbour', 'harbor'];
+          return portKeywords.some(keyword => location.toLowerCase().includes(keyword.toLowerCase()));
+        };
+        
+        const isAirport = (location: string) => {
+          const airportKeywords = ['aéroport', 'airport', 'cdg', 'heathrow', 'changi', 'tambo', 'jfk', 'lax'];
+          return airportKeywords.some(keyword => location.toLowerCase().includes(keyword));
+        };
+        
+        let correctMode = quote.transportMode;
+        if (isPort(quote.origin) || isPort(quote.destination)) {
+          correctMode = 'mer';
+        } else if (isAirport(quote.origin) || isAirport(quote.destination)) {
+          correctMode = 'air';
+        }
+        
+        return {
+          ...quote,
+          transportMode: correctMode
+        };
+      });
+      
+      res.json(fixedQuotes);
     } catch (error) {
       console.error('Quote requests error:', error);
       res.status(500).json({ message: 'Failed to fetch quote requests' });
@@ -175,20 +201,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Auto-detect transport mode based on locations
       const detectTransportMode = (origin: string, destination: string) => {
         const isAirport = (location: string) => {
-          const airportKeywords = ['aéroport', 'airport', 'cdg', 'heathrow', 'changi', 'tambo', 'jfk', 'lax'];
+          const airportKeywords = ['aéroport', 'airport', 'cdg', 'heathrow', 'changi', 'tambo', 'jfk', 'lax', 'orly', 'roissy'];
           return airportKeywords.some(keyword => location.toLowerCase().includes(keyword));
         };
         
         const isPort = (location: string) => {
-          const portKeywords = ['port', 'harbour', 'harbor'];
-          return portKeywords.some(keyword => location.toLowerCase().includes(keyword));
+          const portKeywords = ['port du', 'port de', 'port of', 'port d\'', 'harbour', 'harbor', 'terminal maritime', 'terminal portuaire', 'quai', 'wharf'];
+          return portKeywords.some(keyword => location.toLowerCase().includes(keyword.toLowerCase()));
         };
         
+        console.log(`Detecting transport mode for: "${origin}" → "${destination}"`);
+        console.log(`Origin is port: ${isPort(origin)}, Destination is port: ${isPort(destination)}`);
+        
         if (isAirport(origin) || isAirport(destination)) {
+          console.log('Mode détecté: aérien');
           return 'air';
         } else if (isPort(origin) || isPort(destination)) {
+          console.log('Mode détecté: maritime');
           return 'mer';
         } else {
+          console.log('Mode détecté: routier (par défaut)');
           return req.body.transportMode || 'terre';
         }
       };
