@@ -133,11 +133,23 @@ RÉPONSE EN JSON UNIQUEMENT:`;
   private cleanJsonResponse(text: string): any {
     try {
       // Remove markdown code blocks and extract JSON
-      const jsonMatch = text.match(/```(?:json)?\s*(\{[\s\S]*\})\s*```/) || text.match(/(\{[\s\S]*\})/);
-      if (jsonMatch) {
-        return JSON.parse(jsonMatch[1]);
+      let cleanText = text;
+      
+      // Extract from code blocks if present
+      const codeBlockMatch = cleanText.match(/```(?:json)?\s*(\{[\s\S]*\})\s*```/);
+      if (codeBlockMatch) {
+        cleanText = codeBlockMatch[1];
       }
-      return JSON.parse(text);
+      
+      // Find JSON object boundaries
+      const startIndex = cleanText.indexOf('{');
+      const lastIndex = cleanText.lastIndexOf('}');
+      
+      if (startIndex !== -1 && lastIndex !== -1 && lastIndex > startIndex) {
+        cleanText = cleanText.substring(startIndex, lastIndex + 1);
+      }
+      
+      return JSON.parse(cleanText);
     } catch (error) {
       console.error('JSON parsing error:', error);
       return null;

@@ -16,6 +16,7 @@ import Chat from "@/pages/chat";
 import Invoicing from "@/pages/invoicing";
 import Analytics from "@/pages/analytics";
 import ApiDocs from "@/pages/api-docs";
+import CompetitiveDemo from "@/pages/competitive-demo";
 import Login from "@/pages/login";
 import "./lib/i18n";
 
@@ -58,6 +59,7 @@ function AuthenticatedApp() {
             <Route path="/invoicing" component={Invoicing} />
             <Route path="/analytics" component={Analytics} />
             <Route path="/api-docs" component={ApiDocs} />
+            <Route path="/competitive-demo" component={CompetitiveDemo} />
             <Route component={NotFound} />
           </Switch>
         </div>
