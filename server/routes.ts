@@ -32,6 +32,9 @@ const authenticateToken = (req: any, res: any, next: any) => {
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register Public API routes
+  registerPublicApiRoutes(app);
+
   // Authentication routes
   app.post("/api/auth/register", async (req, res) => {
     try {

@@ -1,0 +1,523 @@
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Copy, Play, Key, Globe, Code, CheckCircle, XCircle } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+interface ApiResponse {
+  success: boolean;
+  data?: any;
+  error?: string;
+  message?: string;
+}
+
+export default function ApiDocs() {
+  const { toast } = useToast();
+  const [apiKey, setApiKey] = useState("");
+  const [testResults, setTestResults] = useState<Record<string, ApiResponse>>({});
+  const [loadingTests, setLoadingTests] = useState<Record<string, boolean>>({});
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copié !",
+      description: "Le code a été copié dans le presse-papiers",
+    });
+  };
+
+  const testEndpoint = async (endpoint: string, method: string, payload?: any) => {
+    if (!apiKey) {
+      toast({
+        title: "Clé API requise",
+        description: "Veuillez saisir votre clé API pour tester les endpoints",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoadingTests(prev => ({ ...prev, [endpoint]: true }));
+
+    try {
+      const response = await fetch(`/public-api${endpoint}`, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': apiKey,
+        },
+        body: payload ? JSON.stringify(payload) : undefined,
+      });
+
+      const result = await response.json();
+      setTestResults(prev => ({ ...prev, [endpoint]: result }));
+
+      toast({
+        title: result.success ? "Test réussi" : "Test échoué",
+        description: result.success ? "L'endpoint fonctionne correctement" : result.message,
+        variant: result.success ? "default" : "destructive",
+      });
+    } catch (error) {
+      const errorResult = { success: false, error: "Network error", message: String(error) };
+      setTestResults(prev => ({ ...prev, [endpoint]: errorResult }));
+      
+      toast({
+        title: "Erreur de test",
+        description: "Impossible de contacter l'API",
+        variant: "destructive",
+      });
+    } finally {
+      setLoadingTests(prev => ({ ...prev, [endpoint]: false }));
+    }
+  };
+
+  const endpoints = [
+    {
+      id: "health",
+      method: "GET",
+      path: "/health",
+      title: "Health Check",
+      description: "Vérifiez le statut de l'API",
+      testPayload: null,
+    },
+    {
+      id: "analyze",
+      method: "POST", 
+      path: "/logistics/analyze",
+      title: "Analyse Logistique",
+      description: "Analysez les besoins logistiques et détectez le mode de transport optimal",
+      testPayload: {
+        origin: "Port de Marseille, France",
+        destination: "Port de Durban, South Africa",
+        cargo: {
+          type: "Produits chimiques",
+          weight: 1000,
+          volume: 5
+        }
+      },
+    },
+    {
+      id: "quotes",
+      method: "POST",
+      path: "/logistics/quotes", 
+      title: "Génération de Cotations",
+      description: "Générez des cotations optimisées par l'IA",
+      testPayload: {
+        origin: "Marseille, France",
+        destination: "Hamburg, Germany",
+        cargo: {
+          type: "Electronics",
+          weight: 500,
+          value: 25000
+        },
+        timeline: {
+          preferred: "7 days",
+          latest: "14 days"
+        }
+      },
+    },
+    {
+      id: "carriers",
+      method: "GET",
+      path: "/carriers",
+      title: "Liste des Transporteurs", 
+      description: "Obtenez la liste des transporteurs disponibles",
+      testPayload: null,
+    },
+    {
+      id: "documents",
+      method: "POST",
+      path: "/documents/generate",
+      title: "Génération de Documents",
+      description: "Générez les documents douaniers et d'expédition",
+      testPayload: {
+        shipment: {
+          origin: "France",
+          destination: "Germany", 
+          cargo: {
+            type: "Electronics",
+            value: 15000
+          },
+          transportMode: "routier"
+        },
+        documentType: "customs"
+      },
+    },
+  ];
+
+  return (
+    <div className="p-4 sm:p-6 space-y-6">
+      {/* Header */}
+      <div className="text-center space-y-4">
+        <div className="flex items-center justify-center gap-3">
+          <Globe className="w-8 h-8 text-blue-600" />
+          <h1 className="text-3xl font-bold">API eMulog</h1>
+        </div>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          API d'automatisation logistique propulsée par l'IA. Intégrez l'optimisation intelligente des transports dans vos applications.
+        </p>
+        <div className="flex flex-wrap justify-center gap-2">
+          <Badge variant="secondary">Version 1.0.0</Badge>
+          <Badge variant="outline">RESTful API</Badge>
+          <Badge variant="outline">Rate Limited</Badge>
+          <Badge variant="outline">JSON</Badge>
+        </div>
+      </div>
+
+      {/* API Key Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Key className="w-5 h-5" />
+            Configuration API
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label htmlFor="apiKey">Clé API (pour tester les endpoints)</Label>
+            <Input
+              id="apiKey"
+              type="password"
+              placeholder="Saisissez votre clé API eMulog"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+            />
+            <p className="text-sm text-muted-foreground mt-1">
+              Contactez support@emulog.com pour obtenir votre clé API
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Documentation Tabs */}
+      <Tabs defaultValue="overview" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+          <TabsTrigger value="endpoints">Endpoints</TabsTrigger>
+          <TabsTrigger value="examples">Exemples</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="space-y-6">
+          {/* Base URL & Authentication */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>URL de Base</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <code className="bg-gray-100 p-2 rounded block">
+                  {window.location.origin}/public-api
+                </code>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Authentification</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-sm">Header requis :</p>
+                <code className="bg-gray-100 p-2 rounded block text-xs">
+                  X-API-Key: votre_cle_api
+                </code>
+                <p className="text-xs text-muted-foreground">
+                  Limite : 100 requêtes/minute
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Quick Start */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Démarrage Rapide</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <h4 className="font-medium mb-2">1. Test de connectivité</h4>
+                <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm">
+                  <pre>{`curl -X GET "${window.location.origin}/public-api/health" \\
+  -H "X-API-Key: votre_cle_api"`}</pre>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-medium mb-2">2. Analyse logistique basique</h4>
+                <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm">
+                  <pre>{`curl -X POST "${window.location.origin}/public-api/logistics/analyze" \\
+  -H "X-API-Key: votre_cle_api" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "origin": "Marseille, France",
+    "destination": "Hamburg, Germany",
+    "cargo": {
+      "type": "Electronics",
+      "weight": 500
+    }
+  }'`}</pre>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="endpoints" className="space-y-6">
+          {endpoints.map((endpoint) => {
+            const result = testResults[endpoint.path];
+            const isLoading = loadingTests[endpoint.path];
+
+            return (
+              <Card key={endpoint.id}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <Badge variant={endpoint.method === 'GET' ? 'default' : 'secondary'}>
+                        {endpoint.method}
+                      </Badge>
+                      {endpoint.title}
+                    </CardTitle>
+                    <Button
+                      size="sm"
+                      onClick={() => testEndpoint(endpoint.path, endpoint.method, endpoint.testPayload)}
+                      disabled={isLoading}
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      {isLoading ? "Test..." : "Tester"}
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{endpoint.description}</p>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-medium mb-2">Endpoint</h4>
+                    <code className="bg-gray-100 p-2 rounded block">
+                      {endpoint.method} /public-api{endpoint.path}
+                    </code>
+                  </div>
+
+                  {endpoint.testPayload && (
+                    <div>
+                      <h4 className="font-medium mb-2">Exemple de payload</h4>
+                      <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
+                        <pre className="text-xs overflow-x-auto">
+                          {JSON.stringify(endpoint.testPayload, null, 2)}
+                        </pre>
+                      </div>
+                    </div>
+                  )}
+
+                  {result && (
+                    <div>
+                      <h4 className="font-medium mb-2 flex items-center gap-2">
+                        Résultat du test
+                        {result.success ? (
+                          <CheckCircle className="w-4 h-4 text-green-500" />
+                        ) : (
+                          <XCircle className="w-4 h-4 text-red-500" />
+                        )}
+                      </h4>
+                      <div className={`p-4 rounded-lg ${result.success ? 'bg-green-50' : 'bg-red-50'}`}>
+                        <pre className="text-xs overflow-x-auto">
+                          {JSON.stringify(result, null, 2)}
+                        </pre>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
+        </TabsContent>
+
+        <TabsContent value="examples" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Exemples d'Intégration</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              
+              {/* JavaScript Example */}
+              <div>
+                <h4 className="font-medium mb-2 flex items-center justify-between">
+                  JavaScript / Fetch API
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyToClipboard(`const response = await fetch('${window.location.origin}/public-api/logistics/quotes', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': 'votre_cle_api'
+  },
+  body: JSON.stringify({
+    origin: 'Marseille, France',
+    destination: 'Hamburg, Germany',
+    cargo: {
+      type: 'Electronics',
+      weight: 500,
+      value: 25000
+    }
+  })
+});
+
+const data = await response.json();
+console.log(data);`)}
+                  >
+                    <Copy className="w-4 h-4 mr-1" />
+                    Copier
+                  </Button>
+                </h4>
+                <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
+                  <pre className="text-xs overflow-x-auto">{`const response = await fetch('${window.location.origin}/public-api/logistics/quotes', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': 'votre_cle_api'
+  },
+  body: JSON.stringify({
+    origin: 'Marseille, France',
+    destination: 'Hamburg, Germany',
+    cargo: {
+      type: 'Electronics',
+      weight: 500,
+      value: 25000
+    }
+  })
+});
+
+const data = await response.json();
+console.log(data);`}</pre>
+                </div>
+              </div>
+
+              {/* Python Example */}
+              <div>
+                <h4 className="font-medium mb-2 flex items-center justify-between">
+                  Python / Requests
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyToClipboard(`import requests
+
+url = '${window.location.origin}/public-api/logistics/quotes'
+headers = {
+    'Content-Type': 'application/json',
+    'X-API-Key': 'votre_cle_api'
+}
+payload = {
+    'origin': 'Marseille, France',
+    'destination': 'Hamburg, Germany',
+    'cargo': {
+        'type': 'Electronics',
+        'weight': 500,
+        'value': 25000
+    }
+}
+
+response = requests.post(url, json=payload, headers=headers)
+data = response.json()
+print(data)`)}
+                  >
+                    <Copy className="w-4 h-4 mr-1" />
+                    Copier
+                  </Button>
+                </h4>
+                <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
+                  <pre className="text-xs overflow-x-auto">{`import requests
+
+url = '${window.location.origin}/public-api/logistics/quotes'
+headers = {
+    'Content-Type': 'application/json',
+    'X-API-Key': 'votre_cle_api'
+}
+payload = {
+    'origin': 'Marseille, France',
+    'destination': 'Hamburg, Germany',
+    'cargo': {
+        'type': 'Electronics',
+        'weight': 500,
+        'value': 25000
+    }
+}
+
+response = requests.post(url, json=payload, headers=headers)
+data = response.json()
+print(data)`}</pre>
+                </div>
+              </div>
+
+              {/* cURL Example */}
+              <div>
+                <h4 className="font-medium mb-2 flex items-center justify-between">
+                  cURL
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => copyToClipboard(`curl -X POST "${window.location.origin}/public-api/logistics/quotes" \\
+  -H "X-API-Key: votre_cle_api" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "origin": "Marseille, France",
+    "destination": "Hamburg, Germany",
+    "cargo": {
+      "type": "Electronics",
+      "weight": 500,
+      "value": 25000
+    }
+  }'`)}
+                  >
+                    <Copy className="w-4 h-4 mr-1" />
+                    Copier
+                  </Button>
+                </h4>
+                <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
+                  <pre className="text-xs overflow-x-auto">{`curl -X POST "${window.location.origin}/public-api/logistics/quotes" \\
+  -H "X-API-Key: votre_cle_api" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "origin": "Marseille, France", 
+    "destination": "Hamburg, Germany",
+    "cargo": {
+      "type": "Electronics",
+      "weight": 500,
+      "value": 25000
+    }
+  }'`}</pre>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* SDK Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle>SDKs Disponibles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="text-center p-4 border rounded-lg">
+                  <Code className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                  <h4 className="font-medium">JavaScript SDK</h4>
+                  <p className="text-sm text-muted-foreground">npm install @emulog/api-sdk</p>
+                </div>
+                <div className="text-center p-4 border rounded-lg">
+                  <Code className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                  <h4 className="font-medium">Python SDK</h4>
+                  <p className="text-sm text-muted-foreground">pip install emulog-api</p>
+                </div>
+                <div className="text-center p-4 border rounded-lg">
+                  <Code className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+                  <h4 className="font-medium">PHP SDK</h4>
+                  <p className="text-sm text-muted-foreground">composer require emulog/api</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

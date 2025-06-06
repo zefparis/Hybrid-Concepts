@@ -15,6 +15,7 @@ import Documents from "@/pages/documents";
 import Chat from "@/pages/chat";
 import Invoicing from "@/pages/invoicing";
 import Analytics from "@/pages/analytics";
+import ApiDocs from "@/pages/api-docs";
 import Login from "@/pages/login";
 import "./lib/i18n";
 
@@ -56,6 +57,7 @@ function AuthenticatedApp() {
             <Route path="/chat" component={Chat} />
             <Route path="/invoicing" component={Invoicing} />
             <Route path="/analytics" component={Analytics} />
+            <Route path="/api-docs" component={ApiDocs} />
             <Route component={NotFound} />
           </Switch>
         </div>

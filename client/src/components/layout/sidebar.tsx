@@ -12,7 +12,8 @@ import {
   Menu,
   X,
   Truck,
-  Brain
+  Brain,
+  Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -28,6 +29,7 @@ const navigation = [
   { name: "Chat", href: "/chat", icon: MessageSquare },
   { name: "Facturation", href: "/invoicing", icon: Calculator },
   { name: "Analytics", href: "/analytics", icon: TrendingUp },
+  { name: "API Publique", href: "/api-docs", icon: Globe },
 ];
 
 function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
