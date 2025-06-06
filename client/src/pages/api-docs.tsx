@@ -146,6 +146,58 @@ export default function ApiDocs() {
         documentType: "customs"
       },
     },
+    {
+      id: "competitive-analyze",
+      method: "POST",
+      path: "/competitive/analyze",
+      title: "Analyse Concurrentielle IA",
+      description: "Analysez une société de fret traditionnelle et générez un rapport d'optimisation complet",
+      testPayload: {
+        companyData: {
+          companyName: "FreightCorp Traditional",
+          quotingProcess: {
+            averageResponseTime: 12,
+            manualSteps: 15,
+            humanInterventions: 10,
+            priceAccuracy: 72
+          },
+          operationalMetrics: {
+            processingCost: 65,
+            errorRate: 18,
+            clientSatisfaction: 65,
+            scalabilityLimit: 20
+          },
+          marketPosition: {
+            averageQuoteValue: 25000,
+            clientRetention: 68,
+            competitivenessScore: 5
+          }
+        }
+      },
+    },
+    {
+      id: "market-analysis",
+      method: "POST",
+      path: "/competitive/market-analysis",
+      title: "Analyse de Marché IA",
+      description: "Générez une analyse comparative du marché logistique",
+      testPayload: {
+        competitors: [
+          {
+            companyName: "TradiFreight A",
+            quotingProcess: { averageResponseTime: 8, priceAccuracy: 75 },
+            operationalMetrics: { processingCost: 45, scalabilityLimit: 30 },
+            marketPosition: { averageQuoteValue: 18000, clientRetention: 72 }
+          },
+          {
+            companyName: "ClassicCargo B", 
+            quotingProcess: { averageResponseTime: 15, priceAccuracy: 68 },
+            operationalMetrics: { processingCost: 70, scalabilityLimit: 15 },
+            marketPosition: { averageQuoteValue: 35000, clientRetention: 60 }
+          }
+        ]
+      },
+    },
   ];
 
   return (

@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { storage } from "./storage";
 import { aiAgent } from "./ai-agent";
+import { competitiveAnalysis, type CompetitorData } from "./competitive-analysis";
 import { insertQuoteRequestSchema } from "@shared/schema";
 import jwt from "jsonwebtoken";
 
@@ -125,6 +126,33 @@ export function registerPublicApiRoutes(app: Express) {
           response: {
             documents: "array - Generated document URLs",
             requirements: "array - Additional requirements"
+          }
+        },
+        "POST /competitive/analyze": {
+          description: "Analyze traditional freight company and generate optimization report",
+          parameters: {
+            companyData: {
+              companyName: "string (required)",
+              quotingProcess: "object - Current quoting metrics",
+              operationalMetrics: "object - Cost and efficiency data",
+              marketPosition: "object - Market positioning data"
+            }
+          },
+          response: {
+            optimizationReport: "object - Complete analysis and recommendations",
+            roiProjection: "number - Return on investment projection",
+            implementationPlan: "object - Phased implementation strategy"
+          }
+        },
+        "POST /competitive/market-analysis": {
+          description: "Generate market analysis for multiple competitors",
+          parameters: {
+            competitors: "array (required) - Array of competitor data objects"
+          },
+          response: {
+            marketOverview: "object - Industry overview and benchmarks",
+            competitorRankings: "array - Ranked analysis results",
+            opportunityMap: "object - Market opportunities identification"
           }
         }
       },
@@ -382,6 +410,127 @@ export function registerPublicApiRoutes(app: Express) {
     }
   });
 
+  // Competitive Analysis Endpoint
+  app.post("/public-api/competitive/analyze", async (req, res) => {
+    try {
+      const { companyData } = req.body;
+
+      if (!companyData || !companyData.companyName) {
+        return res.status(400).json({
+          error: "MISSING_PARAMETERS",
+          message: "Required parameter: companyData with companyName"
+        });
+      }
+
+      // Validate required data structure
+      const competitorData: CompetitorData = {
+        companyName: companyData.companyName,
+        quotingProcess: {
+          averageResponseTime: companyData.quotingProcess?.averageResponseTime || 8,
+          manualSteps: companyData.quotingProcess?.manualSteps || 12,
+          documentsRequired: companyData.quotingProcess?.documentsRequired || ["Invoice", "Packing List"],
+          humanInterventions: companyData.quotingProcess?.humanInterventions || 8,
+          priceAccuracy: companyData.quotingProcess?.priceAccuracy || 75
+        },
+        operationalMetrics: {
+          processingCost: companyData.operationalMetrics?.processingCost || 45,
+          errorRate: companyData.operationalMetrics?.errorRate || 15,
+          clientSatisfaction: companyData.operationalMetrics?.clientSatisfaction || 68,
+          scalabilityLimit: companyData.operationalMetrics?.scalabilityLimit || 25
+        },
+        marketPosition: {
+          averageQuoteValue: companyData.marketPosition?.averageQuoteValue || 15000,
+          clientRetention: companyData.marketPosition?.clientRetention || 72,
+          competitivenessScore: companyData.marketPosition?.competitivenessScore || 6
+        }
+      };
+
+      const optimizationReport = await competitiveAnalysis.analyzeCompetitor(competitorData);
+
+      res.json({
+        success: true,
+        data: {
+          companyName: competitorData.companyName,
+          optimizationReport,
+          summary: {
+            currentEfficiency: Math.round((optimizationReport.currentPerformance.efficiency + 
+                                        optimizationReport.currentPerformance.accuracy + 
+                                        optimizationReport.currentPerformance.speed + 
+                                        optimizationReport.currentPerformance.cost) / 4),
+            potentialGain: optimizationReport.emulogOptimization.roiProjection,
+            implementationTime: optimizationReport.implementationPlan.timeline,
+            investment: optimizationReport.implementationPlan.investmentRequired
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error("Competitive Analysis Error:", error);
+      res.status(500).json({
+        error: "ANALYSIS_FAILED",
+        message: "Failed to analyze competitor data"
+      });
+    }
+  });
+
+  // Market Analysis Endpoint
+  app.post("/public-api/competitive/market-analysis", async (req, res) => {
+    try {
+      const { competitors } = req.body;
+
+      if (!competitors || !Array.isArray(competitors) || competitors.length === 0) {
+        return res.status(400).json({
+          error: "MISSING_PARAMETERS",
+          message: "Required parameter: competitors (array of company data)"
+        });
+      }
+
+      const competitorDataArray: CompetitorData[] = competitors.map(comp => ({
+        companyName: comp.companyName || "Unknown Company",
+        quotingProcess: {
+          averageResponseTime: comp.quotingProcess?.averageResponseTime || 8,
+          manualSteps: comp.quotingProcess?.manualSteps || 12,
+          documentsRequired: comp.quotingProcess?.documentsRequired || ["Invoice", "Packing List"],
+          humanInterventions: comp.quotingProcess?.humanInterventions || 8,
+          priceAccuracy: comp.quotingProcess?.priceAccuracy || 75
+        },
+        operationalMetrics: {
+          processingCost: comp.operationalMetrics?.processingCost || 45,
+          errorRate: comp.operationalMetrics?.errorRate || 15,
+          clientSatisfaction: comp.operationalMetrics?.clientSatisfaction || 68,
+          scalabilityLimit: comp.operationalMetrics?.scalabilityLimit || 25
+        },
+        marketPosition: {
+          averageQuoteValue: comp.marketPosition?.averageQuoteValue || 15000,
+          clientRetention: comp.marketPosition?.clientRetention || 72,
+          competitivenessScore: comp.marketPosition?.competitivenessScore || 6
+        }
+      }));
+
+      const marketAnalysis = await competitiveAnalysis.generateMarketAnalysis(competitorDataArray);
+
+      res.json({
+        success: true,
+        data: {
+          analysisDate: new Date().toISOString(),
+          marketAnalysis,
+          insights: {
+            topOpportunity: marketAnalysis.competitorRankings[0],
+            industryAverage: marketAnalysis.industryBenchmarks.averageResponseTime,
+            transformationPotential: marketAnalysis.marketOverview.transformationPotential
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error("Market Analysis Error:", error);
+      res.status(500).json({
+        error: "MARKET_ANALYSIS_FAILED",
+        message: "Failed to generate market analysis"
+      });
+    }
+  });
+
   // Health check endpoint
   app.get("/public-api/health", (req, res) => {
     res.json({
@@ -391,7 +540,8 @@ export function registerPublicApiRoutes(app: Express) {
       services: {
         ai: "operational",
         database: "operational", 
-        geocoding: "operational"
+        geocoding: "operational",
+        competitiveAnalysis: "operational"
       }
     });
   });
