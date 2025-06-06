@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { storage } from "./storage";
 import { aiAgent } from "./ai-agent";
 import { competitiveAnalysis, type CompetitorData } from "./competitive-analysis";
+import { migrationAIEngine } from "./migration-ai-engine";
 import { insertQuoteRequestSchema } from "@shared/schema";
 import jwt from "jsonwebtoken";
 
@@ -215,6 +216,37 @@ export function registerPublicApiRoutes(app: Express) {
             marketOverview: "object - Industry overview and benchmarks",
             competitorRankings: "array - Ranked analysis results",
             opportunityMap: "object - Market opportunities identification"
+          }
+        },
+        "POST /migration/generate-plan": {
+          description: "Generate comprehensive AI migration plan for freight companies",
+          parameters: {
+            companyData: {
+              companyName: "string (required)",
+              currentOperations: "object - Current operational metrics",
+              targetObjectives: "object - Desired transformation goals",
+              timeline: "string - Preferred implementation timeline",
+              budget: "object - Budget constraints and expectations"
+            }
+          },
+          response: {
+            migrationPlan: "object - Complete 8-phase transformation plan",
+            aiServices: "object - Detailed AI service specifications",
+            timeline: "array - Week-by-week implementation schedule",
+            budgetProjection: "object - Investment and ROI projections",
+            riskAssessment: "object - Risk analysis and mitigation strategies"
+          }
+        },
+        "POST /migration/feasibility-report": {
+          description: "Generate technical feasibility report for AI implementation",
+          parameters: {
+            companyProfile: "object (required) - Company technical profile"
+          },
+          response: {
+            feasibilityScore: "number - Overall feasibility score (0-100)",
+            aiReadiness: "object - AI readiness assessment",
+            recommendedStack: "array - Recommended AI technology stack",
+            implementationRisks: "array - Technical implementation risks"
           }
         }
       },
@@ -670,6 +702,113 @@ export function registerPublicApiRoutes(app: Express) {
     }
   });
 
+  // AI Migration Plan Generation
+  app.post("/public-api/migration/generate-plan", validateApiKey, async (req, res) => {
+    const startTime = Date.now();
+    
+    try {
+      const { companyData } = req.body;
+
+      if (!companyData || !companyData.companyName) {
+        return res.status(400).json({
+          success: false,
+          error: "Missing required company data",
+          message: "companyName is required"
+        });
+      }
+
+      const migrationPlan = await migrationAIEngine.generateComprehensiveMigrationPlan(companyData);
+
+      res.json({
+        success: true,
+        message: "AI migration plan generated successfully",
+        data: {
+          migrationPlan,
+          generatedAt: new Date().toISOString(),
+          companyName: companyData.companyName,
+          estimatedImplementation: "32 weeks",
+          aiTechnologies: [
+            "Anthropic Claude Sonnet-4",
+            "OpenAI GPT-4 Vision", 
+            "Custom ML Models",
+            "Computer Vision AI",
+            "Predictive Analytics"
+          ]
+        },
+        timestamp: new Date().toISOString(),
+        processingTime: `${Date.now() - startTime}ms`
+      });
+
+    } catch (error) {
+      console.error("Migration plan generation error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to generate migration plan",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Demo Migration Plan (no API key required)
+  app.post("/public-api/demo/migration-plan", async (req, res) => {
+    try {
+      const { companyData } = req.body;
+
+      const demoCompanyData = {
+        companyName: companyData?.companyName || "FreightForward Traditional",
+        currentOperations: {
+          quotingTime: companyData?.quotingTime || 8,
+          manualProcesses: 85,
+          staffSize: 25,
+          monthlyQuotes: 150,
+          errorRate: 15,
+          clientSatisfaction: 70
+        },
+        targetObjectives: {
+          automation: 90,
+          responseTime: 0.5,
+          accuracy: 98,
+          scalability: "unlimited"
+        },
+        operationalMetrics: companyData?.operationalMetrics || {
+          processingCost: 50,
+          errorRate: 15,
+          clientSatisfaction: 70,
+          scalabilityLimit: 25
+        }
+      };
+
+      const migrationPlan = await migrationAIEngine.generateComprehensiveMigrationPlan(demoCompanyData);
+
+      res.json({
+        success: true,
+        message: "Demo migration plan generated successfully",
+        data: {
+          migrationPlan,
+          isDemo: true,
+          note: "This is a demonstration plan. Contact sales for a complete assessment.",
+          estimatedROI: `${migrationPlan.budgetProjection.roi2Years}% over 2 years`,
+          keyHighlights: [
+            "95% process automation achievable",
+            "32-week transformation timeline",
+            "5 AI service categories deployment",
+            "Real-time monitoring and optimization",
+            "Enterprise-grade security and compliance"
+          ]
+        },
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error("Demo migration plan error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to generate demo migration plan",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Health check endpoint
   app.get("/public-api/health", (req, res) => {
     res.json({
@@ -680,7 +819,8 @@ export function registerPublicApiRoutes(app: Express) {
         ai: "operational",
         database: "operational", 
         geocoding: "operational",
-        competitiveAnalysis: "operational"
+        competitiveAnalysis: "operational",
+        migrationAI: "operational"
       }
     });
   });
