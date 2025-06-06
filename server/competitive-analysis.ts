@@ -118,7 +118,11 @@ RÉPONSE EN JSON UNIQUEMENT:`;
       // Clean and parse the response
       const cleanedResponse = this.cleanJsonResponse(analysisText);
       
-      // Generate structured optimization report
+      // Generate structured optimization report with fallback if parsing fails
+      if (!cleanedResponse) {
+        return this.generateFallbackReport(competitorData);
+      }
+      
       return this.generateOptimizationReport(competitorData, cleanedResponse);
 
     } catch (error) {

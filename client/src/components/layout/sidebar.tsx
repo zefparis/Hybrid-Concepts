@@ -13,7 +13,8 @@ import {
   X,
   Truck,
   Brain,
-  Globe
+  Globe,
+  Target
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -23,6 +24,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 const navigation = [
   { name: "Tableau de bord", href: "/", icon: LayoutDashboard },
   { name: "Automatisation IA", href: "/ai-automation", icon: Brain },
+  { name: "Analyse Concurrentielle", href: "/competitive-demo", icon: Target },
   { name: "Cotations", href: "/quotes", icon: FileText },
   { name: "Suivi", href: "/tracking", icon: Package },
   { name: "Documents", href: "/documents", icon: FileText },
