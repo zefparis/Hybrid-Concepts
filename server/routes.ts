@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import { insertUserSchema, insertCompanySchema, insertQuoteRequestSchema, insertDocumentSchema, insertChatMessageSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { registerPublicApiRoutes } from "./api-routes";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
