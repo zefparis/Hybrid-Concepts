@@ -61,6 +61,68 @@ const rateLimit = (req: any, res: any, next: any) => {
 };
 
 export function registerPublicApiRoutes(app: Express) {
+  // Demo endpoint (no API key required)
+  app.post("/public-api/demo/competitive-analysis", async (req, res) => {
+    try {
+      const { companyData } = req.body;
+
+      const demoData: CompetitorData = {
+        companyName: companyData?.companyName || "FreightCorp Traditional",
+        quotingProcess: {
+          averageResponseTime: companyData?.quotingProcess?.averageResponseTime || 12,
+          manualSteps: 15,
+          documentsRequired: ["Invoice", "Packing List", "Bill of Lading"],
+          humanInterventions: 10,
+          priceAccuracy: companyData?.quotingProcess?.priceAccuracy || 72
+        },
+        operationalMetrics: {
+          processingCost: companyData?.operationalMetrics?.processingCost || 65,
+          errorRate: 18,
+          clientSatisfaction: 65,
+          scalabilityLimit: 20
+        },
+        marketPosition: {
+          averageQuoteValue: 25000,
+          clientRetention: 68,
+          competitivenessScore: 5
+        }
+      };
+
+      const optimizationReport = await competitiveAnalysis.analyzeCompetitor(demoData);
+
+      res.json({
+        success: true,
+        demo: true,
+        data: {
+          companyName: demoData.companyName,
+          currentState: {
+            efficiency: `${Math.round((optimizationReport.currentPerformance.efficiency + optimizationReport.currentPerformance.accuracy + optimizationReport.currentPerformance.speed + optimizationReport.currentPerformance.cost) / 4)}%`,
+            responseTime: `${demoData.quotingProcess.averageResponseTime} heures`,
+            costPerQuote: `${demoData.operationalMetrics.processingCost}€`,
+            accuracy: `${demoData.quotingProcess.priceAccuracy}%`
+          },
+          withEmulogAI: {
+            efficiency: "95%",
+            responseTime: "30 secondes",
+            costPerQuote: `${Math.round(demoData.operationalMetrics.processingCost * 0.25)}€`,
+            accuracy: "98%",
+            roiProjection: `${optimizationReport.emulogOptimization.roiProjection}% sur 2 ans`
+          },
+          transformationPlan: optimizationReport.implementationPlan,
+          competitiveAdvantage: optimizationReport.competitiveAdvantage,
+          summary: `eMulog peut transformer ${demoData.companyName} avec ${optimizationReport.emulogOptimization.costReduction}% de réduction des coûts et ${optimizationReport.emulogOptimization.speedImprovement}% d'amélioration de la rapidité.`
+        }
+      });
+
+    } catch (error) {
+      console.error("Demo Analysis Error:", error);
+      res.status(500).json({
+        error: "DEMO_ANALYSIS_FAILED",
+        message: "Failed to generate demo analysis"
+      });
+    }
+  });
+
   // API Documentation endpoint
   app.get("/public-api/docs", (req, res) => {
     res.json({
@@ -173,9 +235,24 @@ export function registerPublicApiRoutes(app: Express) {
     });
   });
 
-  // Apply middleware to all API routes
-  app.use("/public-api", validateApiKey);
-  app.use("/public-api", rateLimit);
+  // Apply middleware to protected routes only
+  const protectedRoutes = ["/logistics/", "/carriers", "/documents/", "/competitive/analyze", "/competitive/market-analysis"];
+  
+  app.use("/public-api/*", (req, res, next) => {
+    const isProtected = protectedRoutes.some(route => req.path.includes(route));
+    if (!isProtected) {
+      return next();
+    }
+    validateApiKey(req, res, next);
+  });
+  
+  app.use("/public-api/*", (req, res, next) => {
+    const isProtected = protectedRoutes.some(route => req.path.includes(route));
+    if (!isProtected) {
+      return next();
+    }
+    rateLimit(req, res, next);
+  });
 
   // Logistics Analysis Endpoint
   app.post("/public-api/logistics/analyze", async (req, res) => {
@@ -527,6 +604,68 @@ export function registerPublicApiRoutes(app: Express) {
       res.status(500).json({
         error: "MARKET_ANALYSIS_FAILED",
         message: "Failed to generate market analysis"
+      });
+    }
+  });
+
+  // Demo endpoint (no API key required)
+  app.post("/public-api/demo/competitive-analysis", async (req, res) => {
+    try {
+      const { companyData } = req.body;
+
+      const demoData: CompetitorData = {
+        companyName: companyData?.companyName || "FreightCorp Traditional",
+        quotingProcess: {
+          averageResponseTime: companyData?.quotingProcess?.averageResponseTime || 12,
+          manualSteps: 15,
+          documentsRequired: ["Invoice", "Packing List", "Bill of Lading"],
+          humanInterventions: 10,
+          priceAccuracy: companyData?.quotingProcess?.priceAccuracy || 72
+        },
+        operationalMetrics: {
+          processingCost: companyData?.operationalMetrics?.processingCost || 65,
+          errorRate: 18,
+          clientSatisfaction: 65,
+          scalabilityLimit: 20
+        },
+        marketPosition: {
+          averageQuoteValue: 25000,
+          clientRetention: 68,
+          competitivenessScore: 5
+        }
+      };
+
+      const optimizationReport = await competitiveAnalysis.analyzeCompetitor(demoData);
+
+      res.json({
+        success: true,
+        demo: true,
+        data: {
+          companyName: demoData.companyName,
+          currentState: {
+            efficiency: `${Math.round((optimizationReport.currentPerformance.efficiency + optimizationReport.currentPerformance.accuracy + optimizationReport.currentPerformance.speed + optimizationReport.currentPerformance.cost) / 4)}%`,
+            responseTime: `${demoData.quotingProcess.averageResponseTime} heures`,
+            costPerQuote: `${demoData.operationalMetrics.processingCost}€`,
+            accuracy: `${demoData.quotingProcess.priceAccuracy}%`
+          },
+          withEmulogAI: {
+            efficiency: "95%",
+            responseTime: "30 secondes",
+            costPerQuote: `${Math.round(demoData.operationalMetrics.processingCost * 0.25)}€`,
+            accuracy: "98%",
+            roiProjection: `${optimizationReport.emulogOptimization.roiProjection}% sur 2 ans`
+          },
+          transformationPlan: optimizationReport.implementationPlan,
+          competitiveAdvantage: optimizationReport.competitiveAdvantage,
+          summary: `eMulog peut transformer ${demoData.companyName} avec ${optimizationReport.emulogOptimization.costReduction}% de réduction des coûts et ${optimizationReport.emulogOptimization.speedImprovement}% d'amélioration de la rapidité.`
+        }
+      });
+
+    } catch (error) {
+      console.error("Demo Analysis Error:", error);
+      res.status(500).json({
+        error: "DEMO_ANALYSIS_FAILED",
+        message: "Failed to generate demo analysis"
       });
     }
   });
