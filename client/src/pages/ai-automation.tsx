@@ -67,15 +67,15 @@ export default function AIAutomation() {
       setAutomationResults(data);
       setShowResults(true);
       toast({
-        title: "Automatisation IA Terminée",
-        description: "Le processus logistique a été automatisé avec succès en 30 secondes",
+        title: t("aiAutomationCompleted", "AI Automation Completed"),
+        description: t("logisticsProcessAutomated", "The logistics process has been successfully automated in 30 seconds"),
       });
     },
     onError: (error) => {
       console.error("Automation error:", error);
       toast({
-        title: "Erreur d'automatisation",
-        description: "Une erreur s'est produite lors du processus d'automatisation",
+        title: t("automationError", "Automation error"),
+        description: t("automationErrorOccurred", "An error occurred during the automation process"),
         variant: "destructive",
       });
       setIsProcessing(false);
@@ -85,8 +85,8 @@ export default function AIAutomation() {
   const handleStartAutomation = () => {
     if (!requestData.origin || !requestData.destination || !requestData.weight || !requestData.goodsType) {
       toast({
-        title: "Données manquantes",
-        description: "Veuillez remplir tous les champs obligatoires",
+        title: t("missingData", "Missing data"),
+        description: t("fillAllRequiredFields", "Please fill in all required fields"),
         variant: "destructive",
       });
       return;
@@ -123,9 +123,9 @@ export default function AIAutomation() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold">Automatisation IA Logistique</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">{t("fullLogisticsAutomation", "Complete AI Logistics Automation")}</h1>
           <p className="text-muted-foreground mt-2 text-sm sm:text-base">
-            Démonstration de l'automatisation complète des processus logistiques par l'IA
+            {t("transformLogisticsOperations", "Transform your logistics operations with the most advanced AI on the market. From automatic quoting to real-time tracking, optimize every step.")}
           </p>
         </div>
         <div className="flex items-center gap-2 text-sm">
@@ -199,13 +199,13 @@ export default function AIAutomation() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
               <Bot className="w-5 h-5 text-blue-500" />
-              Données d'entrée pour l'IA
+              {t("aiAutomationPlatform", "AI Automation Platform")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="origin">Port de départ *</Label>
+                <Label htmlFor="origin">{t("originField", "Origin")} *</Label>
                 <AddressAutocomplete
                   id="origin"
                   placeholder="Port de Mombasa, Kenya"
@@ -214,7 +214,7 @@ export default function AIAutomation() {
                 />
               </div>
               <div>
-                <Label htmlFor="destination">Port d'arrivée *</Label>
+                <Label htmlFor="destination">{t("destinationField", "Destination")} *</Label>
                 <AddressAutocomplete
                   id="destination"
                   placeholder="Port de Marseille, France"
