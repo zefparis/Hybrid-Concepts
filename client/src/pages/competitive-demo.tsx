@@ -66,21 +66,21 @@ export default function CompetitiveDemo() {
       });
 
       if (!response.ok) {
-        throw new Error(t("analysisError", "Analysis Error"));
+        throw new Error(t("analysisFailure", "Analysis Error"));
       }
 
       const result = await response.json();
       if (result.success) {
         setAnalysis(result.data);
         toast({
-          title: t("aiAnalysisComplete", "AI Analysis Complete"),
-          description: t("optimizationReportGenerated", "Optimization report generated successfully"),
+          title: t("analysisComplete", "AI Analysis Complete"),
+          description: t("reportGenerated", "Optimization report generated successfully"),
         });
       }
     } catch (error) {
       toast({
         title: t("error", "Error"),
-        description: t("unableToGenerateAnalysis", "Unable to generate analysis"),
+        description: t("analysisGenerationError", "Unable to generate analysis"),
         variant: "destructive",
       });
     } finally {
@@ -182,7 +182,7 @@ export default function CompetitiveDemo() {
               ) : (
                 <div className="flex items-center gap-2">
                   <Brain className="w-4 h-4" />
-                  {t("analyzeWithAI", "Analyze with eMulog AI")}
+                  {t("analyzeWithAiButton", "Analyze with eMulog AI")}
                 </div>
               )}
             </Button>
