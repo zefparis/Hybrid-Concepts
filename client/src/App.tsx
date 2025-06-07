@@ -21,6 +21,7 @@ import MigrationDemo from "@/pages/migration-demo";
 import AIMaturity from "@/pages/ai-maturity";
 import ScenarioSimulator from "@/pages/scenario-simulator";
 import Login from "@/pages/login";
+import Landing from "@/pages/landing";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -31,8 +32,20 @@ function LoadingSpinner() {
   );
 }
 
-function LoginForm() {
-  return <Login />;
+function PublicApp() {
+  return (
+    <div className="min-h-screen">
+      <Switch>
+        <Route path="/" component={Landing} />
+        <Route path="/login" component={Login} />
+        <Route path="/competitive-demo" component={CompetitiveDemo} />
+        <Route path="/ai-maturity" component={AIMaturity} />
+        <Route path="/scenario-simulator" component={ScenarioSimulator} />
+        <Route path="/ai-automation" component={AIAutomation} />
+        <Route component={Landing} />
+      </Switch>
+    </div>
+  );
 }
 
 function AuthenticatedApp() {
@@ -43,7 +56,7 @@ function AuthenticatedApp() {
   }
 
   if (!isAuthenticated) {
-    return <LoginForm />;
+    return <PublicApp />;
   }
 
   return (
