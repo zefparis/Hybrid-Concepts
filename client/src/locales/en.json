@@ -112,6 +112,23 @@
   "autoAnalysisBasedRecommendationStep": "Analysis-based recommendation",
   "autoAutomaticDocumentationStep": "Automatic documentation",
   "autoReadyForClientValidationStep": "Ready for client validation",
+  
+  "competitiveDemoTitle": "Competitive Analysis AI",
+  "competitiveDemoSubtitle": "Analyze traditional freight companies and discover optimization opportunities with eMulog AI",
+  "analysisFailure": "Analysis Error",
+  "analysisComplete": "AI Analysis Complete",
+  "reportGenerated": "Optimization report generated successfully",
+  "error": "Error",
+  "analysisGenerationError": "Unable to generate analysis",
+  
+  "aiMaturityTitle": "AI Maturity Assessment",
+  "aiMaturitySubtitle": "Evaluate your company's AI maturity and get a personalized transformation plan",
+  
+  "scenarioSimulatorTitle": "ROI Scenario Simulator",
+  "scenarioSimulatorSubtitle": "Simulate different growth scenarios and visualize the impact of AI automation",
+  
+  "automationTitle": "Multi-Agent AI Orchestrator",
+  "automationSubtitle": "Live demonstration of complete logistics process automation",
   "inProgress": "In Progress",
   
   "search": "Search...",

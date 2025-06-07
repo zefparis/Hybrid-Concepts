@@ -112,6 +112,23 @@
   "autoAnalysisBasedRecommendationStep": "Recommandation basée sur l'analyse",
   "autoAutomaticDocumentationStep": "Documentation automatique",
   "autoReadyForClientValidationStep": "Prêt pour validation client",
+  
+  "competitiveDemoTitle": "Analyse Concurrentielle IA",
+  "competitiveDemoSubtitle": "Analysez les sociétés de fret traditionnelles et découvrez les opportunités d'optimisation avec eMulog IA",
+  "analysisFailure": "Erreur d'Analyse",
+  "analysisComplete": "Analyse IA Terminée",
+  "reportGenerated": "Rapport d'optimisation généré avec succès",
+  "error": "Erreur",
+  "analysisGenerationError": "Impossible de générer l'analyse",
+  
+  "aiMaturityTitle": "Évaluation Maturité IA",
+  "aiMaturitySubtitle": "Évaluez la maturité IA de votre entreprise et obtenez un plan de transformation personnalisé",
+  
+  "scenarioSimulatorTitle": "Simulateur de Scénarios ROI",
+  "scenarioSimulatorSubtitle": "Simulez différents scénarios de croissance et visualisez l'impact de l'automatisation IA",
+  
+  "automationTitle": "Orchestrateur IA Multi-Agents",
+  "automationSubtitle": "Démonstration live de l'automatisation complète des processus logistiques",
   "inProgress": "En cours",
   
   "search": "Rechercher...",

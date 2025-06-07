@@ -1098,4 +1098,76 @@ export function registerPublicApiRoutes(app: Express) {
       }
     });
   });
+
+  // AI Maturity Assessment Demo
+  app.post("/public-api/demo/ai-maturity", async (req, res) => {
+    try {
+      const { companyData } = req.body;
+
+      const demoMaturityData = {
+        companyName: companyData?.companyName || "Votre Société",
+        quotingTime: companyData?.quotingTime || 10,
+        processingCost: companyData?.processingCost || 60,
+        errorRate: companyData?.errorRate || 12,
+        clientSatisfaction: companyData?.clientSatisfaction || 75,
+        cloudUsage: companyData?.cloudUsage || 25,
+        apiIntegrations: companyData?.apiIntegrations || 2,
+        automationLevel: companyData?.automationLevel || 20,
+        techSkills: companyData?.techSkills || 35,
+        changeReadiness: companyData?.changeReadiness || 60,
+        aiExperience: companyData?.aiExperience || 15
+      };
+
+      const assessment = await aiMaturityEngine.assessAIMaturity(demoMaturityData);
+
+      res.json({
+        success: true,
+        demo: true,
+        data: { assessment }
+      });
+
+    } catch (error) {
+      console.error("AI Maturity Assessment Error:", error);
+      res.status(500).json({
+        error: "MATURITY_ASSESSMENT_FAILED",
+        message: "Failed to generate AI maturity assessment"
+      });
+    }
+  });
+
+  // Scenario Simulation Demo
+  app.post("/public-api/demo/scenario-simulation", async (req, res) => {
+    try {
+      const { companyData, scenarioTypes } = req.body;
+
+      const demoScenarioData = {
+        companyName: companyData?.companyName || "Votre Société",
+        employeeCount: companyData?.employeeCount || 15,
+        currentRevenue: companyData?.currentRevenue || 2500000,
+        quotesPerMonth: companyData?.quotesPerMonth || 150,
+        avgQuoteValue: companyData?.avgQuoteValue || 15000,
+        operationalCosts: companyData?.operationalCosts || 1800000,
+        growthTarget: companyData?.growthTarget || 25,
+        timeframe: companyData?.timeframe || 24
+      };
+
+      const scenarios = await scenarioSimulationEngine.generateScenarios(
+        demoScenarioData,
+        scenarioTypes || ['Conservative', 'Balanced', 'Aggressive']
+      );
+
+      res.json({
+        success: true,
+        demo: true,
+        data: { scenarios }
+      });
+
+    } catch (error) {
+      console.error("Scenario Simulation Error:", error);
+      res.status(500).json({
+        error: "SCENARIO_SIMULATION_FAILED",
+        message: "Failed to generate scenario simulation"
+      });
+    }
+  });
 }
