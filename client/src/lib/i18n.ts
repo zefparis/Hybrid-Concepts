@@ -321,6 +321,9 @@ const resources = {
       // Quotes page
       quoteRequestCreated: "Demande de cotation créée",
       requestSentToCarriers: "Votre demande a été envoyée aux transporteurs",
+      quotesGenerated: "Cotations générées",
+      quotesGeneratedSuccessfully: "Les cotations ont été générées avec succès",
+      unableToGenerateQuotes: "Impossible de générer les cotations",
       
       // Tracking page
       trackingPageInDevelopment: "Page de suivi en cours de développement...",
@@ -360,6 +363,12 @@ const resources = {
       monthlyVolumeField: "Volume mensuel",
       budgetAvailableField: "Budget disponible (€)",
       scenariosToSimulateField: "Scénarios à Simuler",
+      conservativeTransformation: "Transformation Prudente",
+      gradualApproachMinimizedRisks: "Approche graduelle avec risques minimisés",
+      balancedTransformation: "Transformation Équilibrée",
+      optimalRiskBenefitBalance: "Équilibre optimal risque/bénéfice",
+      acceleratedTransformation: "Transformation Accélérée",
+      maximumInnovationCompleteAutomation: "Innovation maximale et automation complète",
       
       // Notifications
       operationSuccessful: "Opération réussie",
@@ -726,6 +735,12 @@ const resources = {
       monthlyVolumeField: "Monthly Volume",
       budgetAvailableField: "Available Budget (€)",
       scenariosToSimulateField: "Scenarios to Simulate",
+      conservativeTransformation: "Conservative Transformation",
+      gradualApproachMinimizedRisks: "Gradual approach with minimized risks",
+      balancedTransformation: "Balanced Transformation",
+      optimalRiskBenefitBalance: "Optimal risk/benefit balance",
+      acceleratedTransformation: "Accelerated Transformation",
+      maximumInnovationCompleteAutomation: "Maximum innovation and complete automation",
       
       // Notifications
       operationSuccessful: "Operation successful",

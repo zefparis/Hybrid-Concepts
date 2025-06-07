@@ -67,14 +67,14 @@ export default function Quotes() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
       toast({
-        title: "Cotations générées",
-        description: data.message || "Les cotations ont été générées avec succès",
+        title: t("quotesGenerated", "Quotes Generated"),
+        description: data.message || t("quotesGeneratedSuccessfully", "Quotes have been generated successfully"),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de générer les cotations",
+        title: t("error", "Error"),
+        description: t("unableToGenerateQuotes", "Unable to generate quotes"),
         variant: "destructive",
       });
     },

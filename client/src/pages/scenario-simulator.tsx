@@ -61,20 +61,20 @@ export default function ScenarioSimulator() {
   const scenarioOptions = [
     { 
       id: 'Conservative', 
-      name: 'Transformation Prudente', 
-      description: 'Approche graduelle avec risques minimisés',
+      name: t("conservativeTransformation", "Conservative Transformation"), 
+      description: t("gradualApproachMinimizedRisks", "Gradual approach with minimized risks"),
       color: 'bg-blue-100 text-blue-800'
     },
     { 
       id: 'Balanced', 
-      name: 'Transformation Équilibrée', 
-      description: 'Équilibre optimal risque/bénéfice',
+      name: t("balancedTransformation", "Balanced Transformation"), 
+      description: t("optimalRiskBenefitBalance", "Optimal risk/benefit balance"),
       color: 'bg-green-100 text-green-800'
     },
     { 
       id: 'Aggressive', 
-      name: 'Transformation Accélérée', 
-      description: 'Innovation maximale et automation complète',
+      name: t("acceleratedTransformation", "Accelerated Transformation"), 
+      description: t("maximumInnovationCompleteAutomation", "Maximum innovation and complete automation"),
       color: 'bg-purple-100 text-purple-800'
     }
   ];
@@ -195,7 +195,7 @@ export default function ScenarioSimulator() {
               <h3 className="text-base sm:text-lg font-semibold">{t("currentMetrics", "Current Metrics")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="quotingTime">{t("quotingTimeHours", "Quoting Time (hours)")}</Label>
+                  <Label htmlFor="quotingTime">{t("quotingTimeHoursField", "Quoting Time (hours)")}</Label>
                   <Input
                     id="quotingTime"
                     type="number"
@@ -242,7 +242,7 @@ export default function ScenarioSimulator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="monthlyVolume">{t("monthlyVolume", "Monthly Volume")}</Label>
+                  <Label htmlFor="monthlyVolume">{t("monthlyVolumeField", "Monthly Volume")}</Label>
                   <Input
                     id="monthlyVolume"
                     type="number"
@@ -253,7 +253,7 @@ export default function ScenarioSimulator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="budgetConstraint">{t("budgetAvailable", "Available Budget (€)")}</Label>
+                  <Label htmlFor="budgetConstraint">{t("budgetAvailableField", "Available Budget (€)")}</Label>
                   <Input
                     id="budgetConstraint"
                     type="number"
@@ -268,7 +268,7 @@ export default function ScenarioSimulator() {
 
             {/* Scenario Selection */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">{t("scenariosToSimulate", "Scenarios to Simulate")}</h3>
+              <h3 className="text-base sm:text-lg font-semibold">{t("scenariosToSimulateField", "Scenarios to Simulate")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {scenarioOptions.map((scenario) => (
                   <div key={scenario.id} className="flex items-start space-x-3 p-4 border rounded-lg">
