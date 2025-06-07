@@ -139,6 +139,19 @@
   "scenarioComparison": "Comparaison des Scénarios",
   "scenarioComparativeOverview": "Vue d'ensemble comparative des {count} scénarios simulés",
   
+  "quotesSelectType": "Sélectionner le type",
+  "quotesElectronics": "Électronique",
+  "quotesFurniture": "Mobilier",
+  "quotesAutomotive": "Automobile",
+  "quotesFood": "Alimentaire",
+  "quotesChemicals": "Produits chimiques",
+  "quotesTextiles": "Textiles",
+  "quotesIndustrial": "Machines industrielles",
+  "quotesGeneral": "Marchandises générales",
+  "quotesCreating": "Création...",
+  "quotesCreateRequest": "Créer la demande",
+  "quotesFilters": "Filtres",
+  
   "common": {
     "search": "Rechercher...",
     "export": "Exporter",

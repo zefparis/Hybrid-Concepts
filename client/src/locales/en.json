@@ -132,6 +132,26 @@
   "invoicingPageInDevelopment": "Invoicing page under development...",
   "analyticsPageInDevelopment": "Analytics page under development...",
   
+  "scenarioSimulationInProgress": "Simulation in progress...",
+  "scenarioSimulationShort": "Simulation...",
+  "scenarioLaunchAiSimulations": "Launch AI Simulations",
+  "scenarioLaunchShort": "Launch",
+  "scenarioComparison": "Scenario Comparison",
+  "scenarioComparativeOverview": "Comparative overview of {count} simulated scenarios",
+  
+  "quotesSelectType": "Select type",
+  "quotesElectronics": "Electronics",
+  "quotesFurniture": "Furniture",
+  "quotesAutomotive": "Automotive",
+  "quotesFood": "Food",
+  "quotesChemicals": "Chemicals",
+  "quotesTextiles": "Textiles",
+  "quotesIndustrial": "Industrial",
+  "quotesGeneral": "General",
+  "quotesCreating": "Creating...",
+  "quotesCreateRequest": "Create Request",
+  "quotesFilters": "Filters",
+  
   "common": {
     "search": "Search...",
     "export": "Export",

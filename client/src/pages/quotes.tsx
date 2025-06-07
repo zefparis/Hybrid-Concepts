@@ -674,17 +674,17 @@ export default function Quotes() {
                 <Label htmlFor="goods-type">{t("quotesGoodsType", "Goods Type")} *</Label>
                 <Select value={newQuote.goodsType} onValueChange={(value) => setNewQuote({...newQuote, goodsType: value})}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez le type" />
+                    <SelectValue placeholder={t("quotesSelectType", "Select type")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Electronics">Électronique</SelectItem>
-                    <SelectItem value="Furniture">Mobilier</SelectItem>
-                    <SelectItem value="Automotive">Automobile</SelectItem>
-                    <SelectItem value="Food">Alimentaire</SelectItem>
-                    <SelectItem value="Chemicals">Produits chimiques</SelectItem>
-                    <SelectItem value="Textiles">Textiles</SelectItem>
-                    <SelectItem value="Industrial">Machines industrielles</SelectItem>
-                    <SelectItem value="General">Marchandises générales</SelectItem>
+                    <SelectItem value="Electronics">{t("quotesElectronics", "Electronics")}</SelectItem>
+                    <SelectItem value="Furniture">{t("quotesFurniture", "Furniture")}</SelectItem>
+                    <SelectItem value="Automotive">{t("quotesAutomotive", "Automotive")}</SelectItem>
+                    <SelectItem value="Food">{t("quotesFood", "Food")}</SelectItem>
+                    <SelectItem value="Chemicals">{t("quotesChemicals", "Chemicals")}</SelectItem>
+                    <SelectItem value="Textiles">{t("quotesTextiles", "Textiles")}</SelectItem>
+                    <SelectItem value="Industrial">{t("quotesIndustrial", "Industrial")}</SelectItem>
+                    <SelectItem value="General">{t("quotesGeneral", "General")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -702,10 +702,10 @@ export default function Quotes() {
 
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button type="button" variant="outline" onClick={() => setIsNewQuoteOpen(false)} className="w-full sm:w-auto">
-                  Annuler
+                  {t("common.cancel", "Cancel")}
                 </Button>
                 <Button type="submit" disabled={createQuoteMutation.isPending} className="w-full sm:w-auto">
-                  {createQuoteMutation.isPending ? "Création..." : "Créer la demande"}
+                  {createQuoteMutation.isPending ? t("quotesCreating", "Creating...") : t("quotesCreateRequest", "Create Request")}
                 </Button>
               </div>
             </form>
@@ -717,7 +717,7 @@ export default function Quotes() {
       <div className="flex flex-col sm:flex-row gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
         <div className="flex items-center gap-2">
           <Filter className="h-4 w-4 text-gray-500" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Filtres:</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t("quotesFilters", "Filters")}:</span>
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
           <Select value={selectedTransportMode} onValueChange={setSelectedTransportMode}>
