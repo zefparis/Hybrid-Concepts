@@ -39,6 +39,8 @@ const mainNavigation = [
 const enterpriseTools = [
   { name: "Partner Portal", href: "/partner-portal", icon: Users, badge: "B2B", key: "partnerPortal" },
   { name: "API Marketplace", href: "/api-marketplace", icon: Store, badge: "Market", key: "apiMarketplace" },
+  { name: "Route Management", href: "/route-management", icon: MapPin, badge: "Multi", key: "routeManagement" },
+  { name: "Advanced Tracking", href: "/advanced-tracking", icon: Search, badge: "Real-time", key: "advancedTracking" },
   { name: "AI Maturity Assessment", href: "/ai-maturity", icon: Zap, badge: "AI", key: "aiMaturity" },
   { name: "ROI Simulator", href: "/scenario-simulator", icon: BarChart3, badge: "ROI", key: "scenarioSimulator" },
   { name: "Competitive Analysis", href: "/competitive-demo", icon: TrendingUp, key: "competitiveDemo" },

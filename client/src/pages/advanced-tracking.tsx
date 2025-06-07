@@ -13,7 +13,7 @@ import {
   AlertTriangle, CheckCircle, Navigation, Zap, Globe,
   BarChart3, Thermometer, Shield, Radio, Wifi
 } from "lucide-react";
-import TopNavbar from "@/components/layout/top-navbar";
+import { TopNavbar } from "@/components/layout/top-navbar";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function AdvancedTracking() {

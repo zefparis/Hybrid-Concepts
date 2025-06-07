@@ -490,6 +490,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Routes API de tracking avancé multi-transporteurs
+  app.post("/api/tracking/real-time", authenticateToken, async (req, res) => {
+    try {
+      const { trackingNumber, provider } = req.body;
+      
+      if (!trackingNumber) {
+        return res.status(400).json({ error: "Numéro de tracking requis" });
+      }
+
+      const result = await trackingService.trackShipment(trackingNumber, provider);
+      res.json(result);
+    } catch (error) {
+      console.error("Erreur tracking:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/tracking/active-shipments", authenticateToken, async (req: any, res) => {
+    try {
+      const shipments = await storage.getShipments(req.user.companyId || 1);
+      const activeShipments = shipments.filter(s => s.status !== "Livré" && s.trackingNumber);
+      
+      // Enrichir avec les données de tracking en temps réel
+      const enrichedShipments = await Promise.all(
+        activeShipments.map(async (shipment) => {
+          try {
+            if (shipment.trackingNumber) {
+              const trackingData = await trackingService.trackShipment(shipment.trackingNumber);
+              return { ...shipment, trackingData };
+            }
+            return shipment;
+          } catch (error) {
+            return shipment;
+          }
+        })
+      );
+      
+      res.json(enrichedShipments);
+    } catch (error) {
+      console.error("Erreur expéditions actives:", error);
+      res.status(500).json({ error: "Erreur lors de la récupération des expéditions" });
+    }
+  });
+
+  app.get("/api/tracking/history/:trackingNumber", authenticateToken, async (req, res) => {
+    try {
+      const { trackingNumber } = req.params;
+      const history = await trackingService.getTrackingHistory(trackingNumber);
+      res.json(history);
+    } catch (error) {
+      console.error("Erreur historique tracking:", error);
+      res.status(500).json({ error: "Erreur lors de la récupération de l'historique" });
+    }
+  });
+
+  app.get("/api/tracking/api-status", authenticateToken, async (req, res) => {
+    try {
+      const status = await trackingService.checkAPIStatus();
+      res.json(status);
+    } catch (error) {
+      console.error("Erreur statut API:", error);
+      res.status(500).json({ error: "Erreur lors de la vérification du statut des APIs" });
+    }
+  });
+
   // AI Agent Automation endpoints
   app.post("/api/ai/process-logistics", authenticateToken, async (req: any, res) => {
     try {

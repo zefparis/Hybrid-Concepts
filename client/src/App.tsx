@@ -25,6 +25,8 @@ import RiskAssessment from "@/pages/risk-assessment";
 import CarbonFootprint from "@/pages/carbon-footprint";
 import PartnerPortal from "@/pages/partner-portal";
 import APIMarketplace from "@/pages/api-marketplace";
+import RouteManagement from "@/pages/route-management";
+import AdvancedTracking from "@/pages/advanced-tracking";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -54,6 +56,8 @@ function App() {
                   <Route path="/carbon-footprint" component={CarbonFootprint} />
                   <Route path="/partner-portal" component={PartnerPortal} />
                   <Route path="/api-marketplace" component={APIMarketplace} />
+                  <Route path="/route-management" component={RouteManagement} />
+                  <Route path="/advanced-tracking" component={AdvancedTracking} />
                   <Route path="/quotes" component={Quotes} />
                   <Route path="/tracking" component={Tracking} />
                   <Route path="/documents" component={Documents} />

@@ -13,7 +13,7 @@ import {
   Navigation, Fuel, Users, Package, Calendar,
   BarChart3, Globe, Zap, Shield
 } from "lucide-react";
-import TopNavbar from "@/components/layout/top-navbar";
+import { TopNavbar } from "@/components/layout/top-navbar";
 
 export default function RouteManagement() {
   const { t } = useTranslation();
