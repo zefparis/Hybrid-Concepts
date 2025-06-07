@@ -18,6 +18,7 @@ interface ApiResponse {
 }
 
 export default function ApiDocs() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [apiKey, setApiKey] = useState("");
   const [testResults, setTestResults] = useState<Record<string, ApiResponse>>({});

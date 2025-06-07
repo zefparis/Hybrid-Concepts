@@ -230,9 +230,9 @@ const resources = {
       phone: "Téléphone",
       logout: "Déconnexion",
       
-      // Scenario Simulator specific
-      testVirtuallyStrategies: "Testez Virtuellement Vos Stratégies IA",
-      simulateTransformationScenarios: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
+      // Scenario Simulator specific keys (avoiding duplicates)
+      testVirtuallyStrategiesSpecific: "Testez Virtuellement Vos Stratégies IA",
+      simulateTransformationScenariosSpecific: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
       
       // AI Automation page
       fullLogisticsAutomation: "Automatisation Logistique Complète IA",
@@ -340,9 +340,9 @@ const resources = {
       // Scenario Simulator page
       yourCompany: "Votre Société",
       aiScenarioSimulation: "Simulation de Scénarios IA",
-      testVirtuallyStrategies: "Testez Virtuellement Vos Stratégies IA",
-      simulateTransformationScenarios: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
-      simulationConfiguration: "Configuration de la Simulation",
+      testVirtuallyStrategiesMain: "Testez Virtuellement Vos Stratégies IA",
+      simulateTransformationScenariosMain: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
+      scenarioSimulationConfiguration: "Configuration de la Simulation",
       defineCompanyParametersForSimulation: "Définissez les paramètres de votre société pour générer des simulations personnalisées",
       
       // Notifications
@@ -690,9 +690,9 @@ const resources = {
       // Scenario Simulator page
       yourCompany: "Your Company",
       aiScenarioSimulation: "AI Scenario Simulation",
-      testVirtuallyStrategies: "Test Virtually Your AI Strategies",
-      simulateTransformationScenarios: "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.",
-      simulationConfiguration: "Simulation Configuration",
+      testVirtuallyStrategiesMain: "Test Virtually Your AI Strategies",
+      simulateTransformationScenariosMain: "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.",
+      scenarioSimulationConfiguration: "Simulation Configuration",
       defineCompanyParametersForSimulation: "Define your company parameters to generate personalized simulations",
       
       // Notifications

@@ -143,11 +143,11 @@ export default function ScenarioSimulator() {
           </div>
           
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white px-2">
-            {t("testVirtuallyStrategies", "Test Virtually Your AI Strategies")}
+            {t("testVirtuallyStrategiesMain", "Test Virtually Your AI Strategies")}
           </h1>
           
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
-            {t("simulateTransformationScenarios", "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.")}
+            {t("simulateTransformationScenariosMain", "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.")}
           </p>
         </div>
 
@@ -156,7 +156,7 @@ export default function ScenarioSimulator() {
           <CardHeader className="px-4 sm:px-6">
             <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
               <Target className="h-5 w-5 sm:h-6 sm:w-6" />
-              <span>{t("simulationConfiguration", "Simulation Configuration")}</span>
+              <span>{t("scenarioSimulationConfiguration", "Simulation Configuration")}</span>
             </CardTitle>
             <CardDescription className="text-sm sm:text-base">
               {t("defineCompanyParametersForSimulation", "Define your company parameters to generate personalized simulations")}
