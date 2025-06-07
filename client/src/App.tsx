@@ -18,6 +18,7 @@ import Analytics from "@/pages/analytics";
 import ApiDocs from "@/pages/api-docs";
 import CompetitiveDemo from "@/pages/competitive-demo";
 import MigrationDemo from "@/pages/migration-demo";
+import AIMaturity from "@/pages/ai-maturity";
 import Login from "@/pages/login";
 import "./lib/i18n";
 
@@ -62,6 +63,7 @@ function AuthenticatedApp() {
             <Route path="/api-docs" component={ApiDocs} />
             <Route path="/competitive-demo" component={CompetitiveDemo} />
             <Route path="/migration-demo" component={MigrationDemo} />
+            <Route path="/ai-maturity" component={AIMaturity} />
             <Route component={NotFound} />
           </Switch>
         </div>

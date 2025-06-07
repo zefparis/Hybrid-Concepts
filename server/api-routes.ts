@@ -3,6 +3,7 @@ import { storage } from "./storage";
 import { aiAgent } from "./ai-agent";
 import { competitiveAnalysis, type CompetitorData } from "./competitive-analysis";
 import { migrationAIEngine } from "./migration-ai-engine";
+import { aiMaturityEngine } from "./ai-maturity-engine";
 import { insertQuoteRequestSchema } from "@shared/schema";
 import jwt from "jsonwebtoken";
 
@@ -247,6 +248,37 @@ export function registerPublicApiRoutes(app: Express) {
             aiReadiness: "object - AI readiness assessment",
             recommendedStack: "array - Recommended AI technology stack",
             implementationRisks: "array - Technical implementation risks"
+          }
+        },
+        "POST /ai-maturity/assess": {
+          description: "Comprehensive AI maturity assessment with scoring",
+          parameters: {
+            companyData: {
+              companyName: "string (required)",
+              operationalMetrics: "object - Current operational performance",
+              technologyProfile: "object - Current technology usage",
+              teamProfile: "object - Team skills and readiness"
+            }
+          },
+          response: {
+            overallScore: "number - AI maturity score (0-100)",
+            maturityLevel: "string - Maturity level classification",
+            categories: "object - Detailed category scores",
+            recommendations: "object - Structured recommendations",
+            quickWins: "array - Immediate opportunities",
+            investmentPriorities: "array - Strategic investment areas"
+          }
+        },
+        "POST /ai-maturity/benchmark": {
+          description: "Industry benchmark comparison for AI maturity",
+          parameters: {
+            sector: "string (required) - Industry sector",
+            companySize: "string (required) - Company size category"
+          },
+          response: {
+            industryAverage: "number - Average maturity score for sector",
+            topPerformers: "array - Leading companies metrics",
+            improvementAreas: "array - Common improvement opportunities"
           }
         }
       },
@@ -809,6 +841,113 @@ export function registerPublicApiRoutes(app: Express) {
     }
   });
 
+  // AI Maturity Assessment
+  app.post("/public-api/ai-maturity/assess", validateApiKey, async (req, res) => {
+    const startTime = Date.now();
+    
+    try {
+      const { companyData } = req.body;
+
+      if (!companyData || !companyData.companyName) {
+        return res.status(400).json({
+          success: false,
+          error: "Missing required company data",
+          message: "companyName is required"
+        });
+      }
+
+      const maturityAssessment = await aiMaturityEngine.assessAIMaturity(companyData);
+
+      res.json({
+        success: true,
+        message: "AI maturity assessment completed successfully",
+        data: {
+          assessment: maturityAssessment,
+          companyName: companyData.companyName,
+          assessmentDate: new Date().toISOString(),
+          benchmarkData: {
+            industryAverage: 45,
+            topQuartile: 72,
+            yourPosition: maturityAssessment.overallScore >= 72 ? "Top Quartile" :
+                         maturityAssessment.overallScore >= 45 ? "Above Average" : "Below Average"
+          }
+        },
+        timestamp: new Date().toISOString(),
+        processingTime: `${Date.now() - startTime}ms`
+      });
+
+    } catch (error) {
+      console.error("AI maturity assessment error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to generate AI maturity assessment",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Demo AI Maturity Assessment (no API key required)
+  app.post("/public-api/demo/ai-maturity", async (req, res) => {
+    try {
+      const { companyData } = req.body;
+
+      const demoCompanyData = {
+        companyName: companyData?.companyName || "LogiTech Traditional",
+        operationalMetrics: {
+          quotingTime: companyData?.quotingTime || 10,
+          processingCost: companyData?.processingCost || 60,
+          errorRate: companyData?.errorRate || 12,
+          clientSatisfaction: companyData?.clientSatisfaction || 75,
+          scalabilityLimit: 30
+        },
+        technologyProfile: {
+          cloudUsage: companyData?.cloudUsage || 25,
+          apiIntegrations: companyData?.apiIntegrations || 2,
+          automationLevel: companyData?.automationLevel || 20
+        },
+        teamProfile: {
+          techSkills: companyData?.techSkills || 35,
+          changeReadiness: companyData?.changeReadiness || 60,
+          aiExperience: companyData?.aiExperience || 15
+        }
+      };
+
+      const maturityAssessment = await aiMaturityEngine.assessAIMaturity(demoCompanyData);
+
+      res.json({
+        success: true,
+        message: "Demo AI maturity assessment completed",
+        data: {
+          assessment: maturityAssessment,
+          isDemo: true,
+          note: "This is a demonstration assessment. Contact us for a comprehensive evaluation.",
+          keyInsights: [
+            `Votre score de maturité IA: ${maturityAssessment.overallScore}/100`,
+            `Niveau: ${maturityAssessment.maturityLevel}`,
+            `${maturityAssessment.quickWins.length} opportunités quick wins identifiées`,
+            `ROI potentiel: ${maturityAssessment.quickWins[0]?.expectedROI || 250}% sur les premiers projets`,
+            `Chemin de transformation: ${maturityAssessment.transformationPath.phases.length} phases sur 18 mois`
+          ],
+          nextSteps: [
+            "Prioriser les quick wins identifiées",
+            "Développer les compétences de l'équipe",
+            "Planifier l'infrastructure IA",
+            "Lancer un projet pilote"
+          ]
+        },
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error("Demo AI maturity assessment error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to generate demo AI maturity assessment",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Health check endpoint
   app.get("/public-api/health", (req, res) => {
     res.json({
@@ -820,7 +959,8 @@ export function registerPublicApiRoutes(app: Express) {
         database: "operational", 
         geocoding: "operational",
         competitiveAnalysis: "operational",
-        migrationAI: "operational"
+        migrationAI: "operational",
+        maturityAssessment: "operational"
       }
     });
   });
