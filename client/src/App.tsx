@@ -31,6 +31,7 @@ import AdvancedTracking from "@/pages/advanced-tracking";
 import AviationMaritime from "@/pages/aviation-maritime";
 import TransformationDemo from "@/pages/transformation-demo";
 import SubscriptionPlans from "@/pages/subscription-plans";
+import Landing from "@/pages/landing";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -46,44 +47,53 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
-          <TopNavbar />
-          <main className="flex-1">
-            <div className="px-4 sm:px-6 lg:px-8 py-6">
-              <Suspense fallback={<LoadingSpinner />}>
-                <Switch>
-                  <Route path="/" component={Dashboard} />
-                  <Route path="/dashboard" component={Dashboard} />
-                  <Route path="/ai-automation" component={AIAutomation} />
-                  <Route path="/fleet-management" component={FleetManagement} />
-                  <Route path="/smart-inventory" component={SmartInventory} />
-                  <Route path="/risk-assessment" component={RiskAssessment} />
-                  <Route path="/carbon-footprint" component={CarbonFootprint} />
-                  <Route path="/partner-portal" component={PartnerPortal} />
-                  <Route path="/api-marketplace" component={APIMarketplace} />
-                  <Route path="/route-management" component={RouteManagement} />
-                  <Route path="/advanced-tracking" component={AdvancedTracking} />
-                  <Route path="/aviation-maritime" component={AviationMaritime} />
-                  <Route path="/transformation-demo" component={TransformationDemo} />
-                  <Route path="/quotes" component={Quotes} />
-                  <Route path="/tracking" component={Tracking} />
-                  <Route path="/documents" component={Documents} />
-                  <Route path="/chat" component={Chat} />
-                  <Route path="/invoicing" component={Invoicing} />
-                  <Route path="/analytics" component={Analytics} />
-                  <Route path="/api-docs" component={ApiDocs} />
-                  <Route path="/competitive-demo" component={CompetitiveDemo} />
-                  <Route path="/migration-demo" component={MigrationDemo} />
-                  <Route path="/ai-maturity" component={AIMaturity} />
-                  <Route path="/scenario-simulator" component={ScenarioSimulator} />
-                  <Route path="/subscription-plans" component={SubscriptionPlans} />
-                  <Route path="/billing" component={SubscriptionPlans} />
-                  <Route path="/plans" component={SubscriptionPlans} />
-                  <Route component={NotFound} />
-                </Switch>
-              </Suspense>
-            </div>
-          </main>
-          <Footer />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Switch>
+              {/* Landing page without navbar/padding */}
+              <Route path="/">
+                <Landing />
+              </Route>
+              
+              {/* All other pages with navbar and layout */}
+              <Route>
+                <TopNavbar />
+                <main className="flex-1">
+                  <div className="px-4 sm:px-6 lg:px-8 py-6">
+                    <Switch>
+                      <Route path="/dashboard" component={Dashboard} />
+                      <Route path="/ai-automation" component={AIAutomation} />
+                      <Route path="/fleet-management" component={FleetManagement} />
+                      <Route path="/smart-inventory" component={SmartInventory} />
+                      <Route path="/risk-assessment" component={RiskAssessment} />
+                      <Route path="/carbon-footprint" component={CarbonFootprint} />
+                      <Route path="/partner-portal" component={PartnerPortal} />
+                      <Route path="/api-marketplace" component={APIMarketplace} />
+                      <Route path="/route-management" component={RouteManagement} />
+                      <Route path="/advanced-tracking" component={AdvancedTracking} />
+                      <Route path="/aviation-maritime" component={AviationMaritime} />
+                      <Route path="/transformation-demo" component={TransformationDemo} />
+                      <Route path="/quotes" component={Quotes} />
+                      <Route path="/tracking" component={Tracking} />
+                      <Route path="/documents" component={Documents} />
+                      <Route path="/chat" component={Chat} />
+                      <Route path="/invoicing" component={Invoicing} />
+                      <Route path="/analytics" component={Analytics} />
+                      <Route path="/api-docs" component={ApiDocs} />
+                      <Route path="/competitive-demo" component={CompetitiveDemo} />
+                      <Route path="/migration-demo" component={MigrationDemo} />
+                      <Route path="/ai-maturity" component={AIMaturity} />
+                      <Route path="/scenario-simulator" component={ScenarioSimulator} />
+                      <Route path="/subscription-plans" component={SubscriptionPlans} />
+                      <Route path="/billing" component={SubscriptionPlans} />
+                      <Route path="/plans" component={SubscriptionPlans} />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </div>
+                </main>
+                <Footer />
+              </Route>
+            </Switch>
+          </Suspense>
         </div>
         <Toaster />
       </TooltipProvider>
