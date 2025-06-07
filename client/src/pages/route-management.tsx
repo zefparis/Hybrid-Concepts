@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,8 +18,100 @@ import {
 import { Link } from "wouter";
 export default function RouteManagement() {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("maritime");
   const [selectedRoute, setSelectedRoute] = useState(null);
+  const [optimizationResults, setOptimizationResults] = useState(null);
+  const [analysisResults, setAnalysisResults] = useState(null);
+
+  // Mutation pour l'optimisation IA des routes
+  const optimizeRouteMutation = useMutation({
+    mutationFn: async (routeData: any) => {
+      const response = await fetch('/api/ai/optimize-route', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(routeData)
+      });
+      if (!response.ok) throw new Error('Erreur lors de l\'optimisation');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setOptimizationResults(data);
+      toast({
+        title: "Optimisation terminée",
+        description: "L'IA a optimisé votre route avec succès",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Erreur d'optimisation",
+        description: "Impossible d'optimiser la route",
+        variant: "destructive",
+      });
+    }
+  });
+
+  // Mutation pour l'analyse IA des routes
+  const analyzeRouteMutation = useMutation({
+    mutationFn: async (routeData: any) => {
+      const response = await fetch('/api/ai/analyze-route', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(routeData)
+      });
+      if (!response.ok) throw new Error('Erreur lors de l\'analyse');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setAnalysisResults(data);
+      toast({
+        title: "Analyse terminée",
+        description: "L'IA a analysé votre route avec succès",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Erreur d'analyse",
+        description: "Impossible d'analyser la route",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const handleOptimizeRoute = (route: any) => {
+    optimizeRouteMutation.mutate({
+      routeId: route.id,
+      origin: route.origin,
+      destination: route.destination,
+      transportMode: activeTab,
+      currentMetrics: {
+        duration: route.duration,
+        cost: route.cost,
+        efficiency: route.efficiency,
+        co2: route.co2
+      }
+    });
+  };
+
+  const handleAnalyzeRoute = (route: any) => {
+    analyzeRouteMutation.mutate({
+      routeId: route.id,
+      origin: route.origin,
+      destination: route.destination,
+      transportMode: activeTab,
+      metrics: {
+        duration: route.duration,
+        cost: route.cost,
+        efficiency: route.efficiency,
+        co2: route.co2,
+        carriers: route.carriers
+      }
+    });
+  };
 
   // Données des routes maritimes
   const maritimeRoutes = [
@@ -347,11 +441,22 @@ export default function RouteManagement() {
 
                       {/* Boutons d'action */}
                       <div className="flex gap-2 pt-2">
-                        <Button size="sm" className="flex-1">
-                          Optimiser
+                        <Button 
+                          size="sm" 
+                          className="flex-1"
+                          onClick={() => handleOptimizeRoute(route)}
+                          disabled={optimizeRouteMutation.isPending}
+                        >
+                          {optimizeRouteMutation.isPending ? "Optimisation..." : "Optimiser"}
                         </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          Analyser
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="flex-1"
+                          onClick={() => handleAnalyzeRoute(route)}
+                          disabled={analyzeRouteMutation.isPending}
+                        >
+                          {analyzeRouteMutation.isPending ? "Analyse..." : "Analyser"}
                         </Button>
                       </div>
                     </div>

@@ -645,6 +645,186 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Fonctions utilitaires pour l'optimisation IA
+  const calculateOptimizedDuration = (currentDuration: string, transportMode: string): string => {
+    const days = parseInt(currentDuration.replace(/[^\d]/g, ''));
+    let optimizedDays = days;
+    
+    switch(transportMode) {
+      case 'maritime':
+        optimizedDays = Math.max(1, Math.floor(days * 0.88)); // 12% reduction
+        break;
+      case 'terrestre':
+        optimizedDays = Math.max(1, Math.floor(days * 0.85)); // 15% reduction
+        break;
+      case 'aerienne':
+        optimizedDays = Math.max(1, Math.floor(days * 0.92)); // 8% reduction
+        break;
+    }
+    
+    return `${optimizedDays} jour${optimizedDays > 1 ? 's' : ''}`;
+  };
+
+  const calculateOptimizedCost = (currentCost: string, transportMode: string): string => {
+    const cost = parseFloat(currentCost.replace(/[^\d.,]/g, '').replace(',', '.'));
+    let optimizedCost = cost;
+    
+    switch(transportMode) {
+      case 'maritime':
+        optimizedCost = cost * 0.85; // 15% reduction
+        break;
+      case 'terrestre':
+        optimizedCost = cost * 0.82; // 18% reduction
+        break;
+      case 'aerienne':
+        optimizedCost = cost * 0.88; // 12% reduction
+        break;
+    }
+    
+    return `${Math.round(optimizedCost).toLocaleString()}€`;
+  };
+
+  const calculateOptimizedCO2 = (currentCO2: string, transportMode: string): string => {
+    const co2Value = parseFloat(currentCO2.replace(/[^\d.,]/g, '').replace(',', '.'));
+    let optimizedCO2 = co2Value;
+    
+    switch(transportMode) {
+      case 'maritime':
+        optimizedCO2 = co2Value * 0.85; // 15% reduction
+        break;
+      case 'terrestre':
+        optimizedCO2 = co2Value * 0.78; // 22% reduction
+        break;
+      case 'aerienne':
+        optimizedCO2 = co2Value * 0.90; // 10% reduction
+        break;
+    }
+    
+    const unit = currentCO2.includes('kg/TEU') ? ' kg/TEU' : 
+                 currentCO2.includes('kg/T') ? ' kg/T' : ' kg';
+    return `${Math.round(optimizedCO2)}${unit}`;
+  };
+
+  // Routes AI pour l'optimisation et l'analyse de routes
+  app.post("/api/ai/optimize-route", authenticateToken, async (req: any, res) => {
+    try {
+      const { routeId, origin, destination, transportMode, currentMetrics } = req.body;
+      
+      // Simulation d'optimisation IA avancée
+      const optimizationResult = {
+        routeId,
+        optimizedMetrics: {
+          duration: calculateOptimizedDuration(currentMetrics.duration, transportMode),
+          cost: calculateOptimizedCost(currentMetrics.cost, transportMode),
+          efficiency: Math.min(100, currentMetrics.efficiency + 8),
+          co2: calculateOptimizedCO2(currentMetrics.co2, transportMode)
+        },
+        improvements: {
+          durationReduction: "12%",
+          costSaving: "850€",
+          efficiencyGain: "8%",
+          co2Reduction: "15%"
+        },
+        recommendations: [
+          "Utiliser le corridor maritime optimisé via Suez",
+          "Consolider avec 2 autres expéditions similaires",
+          "Programmer le départ pendant les heures creuses",
+          "Négocier un contrat volume avec MSC"
+        ],
+        alternativeRoutes: [
+          {
+            name: "Route Alternative 1",
+            duration: "12 jours",
+            cost: "2,150€",
+            efficiency: 94,
+            description: "Via Rotterdam avec transbordement"
+          },
+          {
+            name: "Route Alternative 2", 
+            duration: "16 jours",
+            cost: "1,950€",
+            efficiency: 89,
+            description: "Route directe économique"
+          }
+        ],
+        aiInsights: "L'IA recommande une consolidation de cargo pour optimiser les coûts et réduire l'empreinte carbone de 15%.",
+        implementation: {
+          priority: "Haute",
+          timeframe: "48h",
+          requiredActions: ["Négociation transporteur", "Consolidation cargo", "Mise à jour planning"]
+        }
+      };
+
+      res.json(optimizationResult);
+    } catch (error) {
+      console.error("Erreur optimisation route:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.post("/api/ai/analyze-route", authenticateToken, async (req: any, res) => {
+    try {
+      const { routeId, origin, destination, transportMode, metrics } = req.body;
+      
+      // Simulation d'analyse IA complète
+      const analysisResult = {
+        routeId,
+        performanceAnalysis: {
+          overall: "Très bon",
+          score: 87,
+          strengths: [
+            "Efficacité énergétique élevée",
+            "Réseau de transporteurs fiable", 
+            "Fréquence optimale"
+          ],
+          weaknesses: [
+            "Coût légèrement au-dessus de la moyenne",
+            "Vulnérabilité aux conditions météo",
+            "Délais de dédouanement variables"
+          ]
+        },
+        marketComparison: {
+          positionVsCompetitors: "Top 25%",
+          costBenchmark: "108% de la moyenne marché",
+          speedBenchmark: "115% plus rapide",
+          reliabilityScore: "92%"
+        },
+        riskAssessment: {
+          overallRisk: "Moyen",
+          factors: [
+            { type: "Géopolitique", level: "Faible", impact: "Minimal" },
+            { type: "Météorologique", level: "Moyen", impact: "Délais possibles" },
+            { type: "Économique", level: "Faible", impact: "Fluctuation carburant" },
+            { type: "Opérationnel", level: "Faible", impact: "Congestion portuaire" }
+          ]
+        },
+        sustainability: {
+          carbonScore: "B+",
+          complianceLevel: "100%",
+          greenAlternatives: 2,
+          futureRegulations: "Conforme aux standards 2025"
+        },
+        predictions: {
+          demandForecast: "+12% sur 6 mois",
+          priceEvolution: "Stable avec légère hausse Q3",
+          capacityTrends: "Augmentation prévue",
+          newTechnologies: ["Navires hybrides disponibles 2024", "IA tracking avancé"]
+        },
+        aiRecommendations: [
+          "Négocier des contrats annuels pour stabiliser les coûts",
+          "Intégrer des alternatives vertes dans 6 mois",
+          "Surveiller les développements du canal de Suez",
+          "Planifier une diversification vers l'aérien pour urgences"
+        ]
+      };
+
+      res.json(analysisResult);
+    } catch (error) {
+      console.error("Erreur analyse route:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
   // AI Agent Automation endpoints
   app.post("/api/ai/process-logistics", authenticateToken, async (req: any, res) => {
     try {
@@ -1021,6 +1201,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Arrondir à l'euro près
     return Math.round(basePrice);
   }
+
+
 
   // Fonction pour calculer la progression du voyage
   function calculateProgress(locations: any[]): number {
