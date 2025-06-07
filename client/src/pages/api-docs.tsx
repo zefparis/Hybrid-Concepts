@@ -208,7 +208,7 @@ export default function ApiDocs() {
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <Globe className="w-8 h-8 text-blue-600" />
-          <h1 className="text-3xl font-bold">API Ia-Solution</h1>
+          <h1 className="text-3xl font-bold">API Hybrid Concept</h1>
         </div>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           {t("apiDescription", "AI-powered logistics automation API. Integrate intelligent transport optimization into your applications.")}
@@ -235,12 +235,12 @@ export default function ApiDocs() {
             <Input
               id="apiKey"
               type="password"
-              placeholder={t("enterApiKey", "Enter your Ia-Solution API key")}
+              placeholder={t("enterApiKey", "Enter your Hybrid Concept API key")}
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
             />
             <p className="text-sm text-muted-foreground mt-1">
-              {t("contactSupport", "Contact support@ia-solution.com to get your API key")}
+              {t("contactSupport", "Contact support@hybridconc.com to get your API key")}
             </p>
           </div>
         </CardContent>
