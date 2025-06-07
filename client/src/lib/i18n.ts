@@ -388,7 +388,9 @@ const resources = {
       autoAutomaticDocumentationStep: "Documentation automatique",
       autoReadyForClientValidationStep: "Prêt pour validation client",
       
-
+      // Dashboard page translations
+      dashboardPageTitle: "Tableau de Bord",
+      dashboardPageSubtitle: "Aperçu de votre activité logistique",
       
       // Tracking page
       trackingPageInDevelopment: "Page de suivi en cours de développement...",
@@ -828,7 +830,9 @@ const resources = {
       autoAutomaticDocumentationStep: "Automatic documentation",
       autoReadyForClientValidationStep: "Ready for client validation",
       
-
+      // Dashboard page translations
+      dashboardPageTitle: "Dashboard",
+      dashboardPageSubtitle: "Overview of your logistics activity",
       
       // Tracking page
       trackingPageInDevelopment: "Tracking page under development...",
