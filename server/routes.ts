@@ -504,7 +504,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(result);
     } catch (error) {
       console.error("Erreur tracking:", error);
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 
@@ -573,6 +573,75 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Erreur statut API:", error);
       res.status(500).json({ error: "Erreur lors de la vérification du statut des APIs" });
+    }
+  });
+
+  // Routes API Vizion Maritime Tracking
+  app.post("/api/tracking/vizion/container", authenticateToken, async (req, res) => {
+    try {
+      const { containerNumber } = req.body;
+      
+      if (!containerNumber) {
+        return res.status(400).json({ error: "Numéro de conteneur requis" });
+      }
+
+      const trackingData = await vizionService.trackContainer(containerNumber);
+      if (!trackingData) {
+        // Return demo data if API is not configured
+        const demoData = vizionService.getDemoData().find(d => d.containerNumber === containerNumber);
+        return res.json(demoData || { error: "Conteneur non trouvé" });
+      }
+
+      res.json(trackingData);
+    } catch (error) {
+      console.error("Erreur Vizion tracking:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.post("/api/tracking/vizion/booking", authenticateToken, async (req, res) => {
+    try {
+      const { bookingNumber, scacCode } = req.body;
+      
+      if (!bookingNumber) {
+        return res.status(400).json({ error: "Numéro de booking requis" });
+      }
+
+      const trackingData = await vizionService.trackByBooking(bookingNumber, scacCode);
+      if (!trackingData) {
+        return res.status(404).json({ error: "Booking non trouvé" });
+      }
+
+      res.json(trackingData);
+    } catch (error) {
+      console.error("Erreur Vizion booking tracking:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.get("/api/tracking/vizion/demo", authenticateToken, async (req, res) => {
+    try {
+      const demoData = vizionService.getDemoData();
+      res.json(demoData);
+    } catch (error) {
+      console.error("Erreur demo data:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.get("/api/tracking/vessel/:imo", authenticateToken, async (req, res) => {
+    try {
+      const { imo } = req.params;
+      const vesselData = await vizionService.getVesselPosition(imo);
+      
+      if (!vesselData) {
+        return res.status(404).json({ error: "Navire non trouvé" });
+      }
+
+      res.json(vesselData);
+    } catch (error) {
+      console.error("Erreur vessel tracking:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 
@@ -953,7 +1022,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     return Math.round(basePrice);
   }
 
-  // Fonction pour calculer le délai de livraison
+  // Fonction pour calculer la progression du voyage
+  function calculateProgress(locations: any[]): number {
+    if (!locations || locations.length === 0) return 0;
+    
+    // Simple progress calculation based on journey stages
+    const stages = ['loaded', 'departure', 'transit', 'arrival', 'delivery'];
+    const latestEvent = locations[locations.length - 1]?.event?.toLowerCase() || '';
+    
+    for (let i = 0; i < stages.length; i++) {
+      if (latestEvent.includes(stages[i])) {
+        return Math.min(90, (i + 1) * 20);
+      }
+    }
+    return 25; // Default progress
+  }
+
   function calculateDeliveryTime(quoteRequest: any, carrier: any): number {
     let baseDays = 5; // Route par défaut
     

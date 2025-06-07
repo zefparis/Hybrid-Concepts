@@ -30,8 +30,8 @@ export default function AdvancedTracking() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [activeTab, setActiveTab] = useState("search");
   const [selectedShipment, setSelectedShipment] = useState(null);
-  const [map, setMap] = useState(null);
-  const [markers, setMarkers] = useState([]);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
 
   // Mutation pour le tracking en temps réel
   const trackShipmentMutation = useMutation({
