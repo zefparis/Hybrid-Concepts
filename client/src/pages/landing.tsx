@@ -21,6 +21,7 @@ import {
   PlayCircle
 } from "lucide-react";
 import { Link } from "wouter";
+import deploymentImage from "@assets/dep_1749321248969.jpg";
 
 export default function Landing() {
   const { t } = useTranslation();
@@ -173,6 +174,13 @@ export default function Landing() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white">
         <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 opacity-30">
+          <img 
+            src={deploymentImage} 
+            alt="Container Ship Maritime Logistics" 
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
           <div className="text-center">
             <Badge className="mb-6 bg-white/20 text-white border-white/30 text-lg px-6 py-2">
