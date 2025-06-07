@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { apiRequest } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,6 +37,7 @@ interface MigrationPlan {
 }
 
 export default function MigrationDemo() {
+  const { t } = useTranslation();
   const [companyName, setCompanyName] = useState("");
   const [quotingTime, setQuotingTime] = useState(12);
   const [processingCost, setProcessingCost] = useState(65);
@@ -82,17 +84,16 @@ export default function MigrationDemo() {
         <div className="text-center space-y-6">
           <div className="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900 px-4 py-2 rounded-full">
             <Brain className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-            <span className="text-blue-800 dark:text-blue-200 font-medium">Migration IA Avancée</span>
+            <span className="text-blue-800 dark:text-blue-200 font-medium">{t("advancedAIMigration", "Advanced AI Migration")}</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white">
-            Transformation Complète
-            <span className="block text-blue-600 dark:text-blue-400">par Intelligence Artificielle</span>
+            {t("completeTransformation", "Complete Transformation")}
+            <span className="block text-blue-600 dark:text-blue-400">{t("byArtificialIntelligence", "by Artificial Intelligence")}</span>
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Découvrez comment eMulog peut révolutionner votre société de fret avec un plan de migration 
-            complet sur 32 semaines, utilisant les IA les plus avancées du marché.
+            {t("discoverHowEmulogRevolutionize", "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.")}
           </p>
         </div>
 

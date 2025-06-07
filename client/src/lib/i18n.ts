@@ -306,6 +306,18 @@ const resources = {
       dashboardPage: "Tableau de bord",
       dashboardSubtitle: "Vue d'ensemble de votre activité logistique",
       
+      // AI Maturity page
+      aiMaturityScoring: "Scoring de Maturité IA",
+      assessYourPreparation: "Évaluez Votre Préparation",
+      forArtificialIntelligence: "à l'Intelligence Artificielle",
+      getCompleteAIDiagnostic: "Obtenez un diagnostic complet de votre maturité IA avec scoring détaillé, recommandations personnalisées et plan d'amélioration structuré.",
+      
+      // Migration Demo page
+      advancedAIMigration: "Migration IA Avancée",
+      completeTransformation: "Transformation Complète",
+      byArtificialIntelligence: "par Intelligence Artificielle",
+      discoverHowEmulogRevolutionize: "Découvrez comment eMulog peut révolutionner votre société de fret avec un plan de migration complet sur 32 semaines, utilisant les IA les plus avancées du marché.",
+      
       // Notifications
       operationSuccessful: "Opération réussie",
       operationFailed: "Opération échouée",
@@ -616,6 +628,18 @@ const resources = {
       // Dashboard page
       dashboardPage: "Dashboard",
       dashboardSubtitle: "Overview of your logistics activity",
+      
+      // AI Maturity page
+      aiMaturityScoring: "AI Maturity Scoring",
+      assessYourPreparation: "Assess Your Preparation",
+      forArtificialIntelligence: "for Artificial Intelligence",
+      getCompleteAIDiagnostic: "Get a complete AI maturity diagnostic with detailed scoring, personalized recommendations and structured improvement plan.",
+      
+      // Migration Demo page
+      advancedAIMigration: "Advanced AI Migration",
+      completeTransformation: "Complete Transformation",
+      byArtificialIntelligence: "by Artificial Intelligence",
+      discoverHowEmulogRevolutionize: "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.",
       
       // Notifications
       operationSuccessful: "Operation successful",

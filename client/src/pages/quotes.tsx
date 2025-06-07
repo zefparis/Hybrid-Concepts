@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Header } from "@/components/layout/header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Quotes() {
+  const { t } = useTranslation();
   const [isNewQuoteOpen, setIsNewQuoteOpen] = useState(false);
   const [selectedTransportMode, setSelectedTransportMode] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
