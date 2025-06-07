@@ -22,42 +22,42 @@ import containerShipImage from "@assets/dep_1749321248969.jpg";
 const features = [
   {
     icon: Zap,
-    title: "IA Révolutionnaire",
-    description: "Algorithmes propriétaires d'optimisation logistique autonome"
+    title: "Revolutionary AI",
+    description: "Proprietary algorithms for autonomous logistics optimization"
   },
   {
     icon: Globe,
-    title: "Multimodal Global",
-    description: "Maritime, terrestre, aérien - Une plateforme unifiée"
+    title: "Global Multimodal",
+    description: "Maritime, terrestrial, aerial - One unified platform"
   },
   {
     icon: TrendingUp,
-    title: "ROI Immédiat",
-    description: "Réduction des coûts de 35% dès le premier mois"
+    title: "Immediate ROI",
+    description: "35% cost reduction from the first month"
   },
   {
     icon: Shield,
-    title: "Sécurité Enterprise",
-    description: "Conformité internationale et protection des données"
+    title: "Enterprise Security",
+    description: "International compliance and data protection"
   }
 ];
 
 const stats = [
-  { value: "500M+", label: "€ de marchandises optimisées" },
-  { value: "10,000+", label: "Routes optimisées quotidiennement" },
-  { value: "35%", label: "Réduction moyenne des coûts" },
-  { value: "99.9%", label: "Disponibilité de la plateforme" }
+  { value: "$500M+", label: "Cargo value optimized" },
+  { value: "10,000+", label: "Routes optimized daily" },
+  { value: "35%", label: "Average cost reduction" },
+  { value: "99.9%", label: "Platform uptime" }
 ];
 
 const testimonials = [
   {
-    quote: "Hybrid Concept a transformé notre chaîne logistique. L'IA prédit et optimise mieux que nos experts.",
-    author: "Marie Dubois",
-    role: "Directrice Logistique, LogiCorp International"
+    quote: "Hybrid Concept transformed our supply chain. Their AI predicts and optimizes better than our experts.",
+    author: "Sarah Mitchell",
+    role: "Logistics Director, LogiCorp International"
   },
   {
-    quote: "ROI de 300% en 6 mois. Cette technologie révolutionne l'industrie du transport maritime.",
-    author: "Jean-Pierre Martin",
+    quote: "300% ROI in 6 months. This technology is revolutionizing the maritime transport industry.",
+    author: "David Thompson",
     role: "CEO, Atlantic Shipping Group"
   }
 ];
@@ -84,12 +84,14 @@ export default function Landing() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={containerShipImage} 
-            alt="Cargo maritime moderne"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent"></div>
+          <div className="w-full h-full relative overflow-hidden">
+            <img 
+              src={containerShipImage} 
+              alt="Modern container ship"
+              className="w-full h-full object-cover scale-110 transform translate-y-4"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-blue-800/70 to-blue-700/40"></div>
         </div>
 
         {/* Content */}
@@ -100,7 +102,7 @@ export default function Landing() {
             {/* Badge */}
             <Badge className="mb-6 bg-blue-600/20 text-blue-100 border-blue-400/30 px-4 py-2 text-sm backdrop-blur-sm">
               <Zap className="w-4 h-4 mr-2" />
-              Révolution IA en Logistique
+              AI Logistics Revolution
             </Badge>
 
             {/* Main Title */}
@@ -110,14 +112,14 @@ export default function Landing() {
               </span>
               <br />
               <span className="text-4xl md:text-5xl text-gray-100">
-                L'Avenir de la Logistique
+                The Future of Logistics
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Plateforme SaaS révolutionnaire alimentée par l'IA pour l'optimisation 
-              multimodale des chaînes d'approvisionnement globales
+              Revolutionary AI-powered SaaS platform for multimodal 
+              global supply chain optimization
             </p>
 
             {/* CTA Buttons */}
@@ -128,7 +130,7 @@ export default function Landing() {
                 onClick={handleGetStarted}
               >
                 <BarChart3 className="w-5 h-5 mr-2" />
-                Accéder au Dashboard
+                Access Dashboard
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
@@ -139,7 +141,7 @@ export default function Landing() {
                 onClick={handleDemo}
               >
                 <Play className="w-5 h-5 mr-2" />
-                Voir la Démo
+                Watch Demo
               </Button>
             </div>
 
@@ -151,15 +153,15 @@ export default function Landing() {
               </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Truck className="w-4 h-4 mr-1" />
-                Terrestre
+                Road & Rail
               </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Plane className="w-4 h-4 mr-1" />
-                Aérien
+                Aviation
               </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Zap className="w-4 h-4 mr-1" />
-                IA Autonome
+                Autonomous AI
               </Badge>
             </div>
           </div>
@@ -192,11 +194,11 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Pourquoi Hybrid Concept ?
+              Why Hybrid Concept?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Une plateforme tout-en-un qui révolutionne la gestion logistique 
-              avec des technologies d'IA de pointe
+              An all-in-one platform that revolutionizes logistics management 
+              with cutting-edge AI technologies
             </p>
           </div>
 
@@ -224,10 +226,10 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Témoignages Clients
+              Client Testimonials
             </h2>
             <p className="text-xl text-gray-600">
-              Des leaders de l'industrie nous font confiance
+              Trusted by industry leaders worldwide
             </p>
           </div>
 
@@ -258,11 +260,11 @@ export default function Landing() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Prêt à Révolutionner Votre Logistique ?
+            Ready to Revolutionize Your Logistics?
           </h2>
           <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-            Rejoignez les leaders de l'industrie qui transforment déjà 
-            leur chaîne d'approvisionnement avec Hybrid Concept
+            Join industry leaders who are already transforming 
+            their supply chains with Hybrid Concept
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -272,7 +274,7 @@ export default function Landing() {
               onClick={handleGetStarted}
             >
               <BarChart3 className="w-5 h-5 mr-2" />
-              Commencer Maintenant
+              Get Started Now
             </Button>
             
             <Button 
@@ -282,7 +284,7 @@ export default function Landing() {
               onClick={() => setLocation("/subscription-plans")}
             >
               <Clock className="w-5 h-5 mr-2" />
-              Voir les Tarifs
+              View Pricing
             </Button>
           </div>
 
@@ -290,11 +292,11 @@ export default function Landing() {
           <div className="mt-12 pt-8 border-t border-white/20">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-white">
               <div>
-                <div className="font-semibold">Site Web</div>
+                <div className="font-semibold">Website</div>
                 <div className="text-blue-100">www.hybridconc.com</div>
               </div>
               <div>
-                <div className="font-semibold">Contact Commercial</div>
+                <div className="font-semibold">Sales Contact</div>
                 <div className="text-blue-100">bbogaerts@hybridconc.com</div>
               </div>
               <div>
