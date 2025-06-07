@@ -37,7 +37,7 @@ const mainNavigation = [
 ];
 
 const enterpriseTools = [
-  { name: "Aviation & Maritime", href: "/aviation-maritime", icon: Plane, badge: "Multi", key: "aviationMaritime" },
+  { name: "Aviation & Maritime", href: "/aviation-maritime", icon: MapPin, badge: "Multi", key: "aviationMaritime" },
   { name: "Partner Portal", href: "/partner-portal", icon: Users, badge: "B2B", key: "partnerPortal" },
   { name: "API Marketplace", href: "/api-marketplace", icon: Store, badge: "Market", key: "apiMarketplace" },
   { name: "Route Management", href: "/route-management", icon: MapPin, badge: "Multi", key: "routeManagement" },

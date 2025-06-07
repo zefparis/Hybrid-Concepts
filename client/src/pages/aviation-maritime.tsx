@@ -37,10 +37,10 @@ export default function AviationMaritime() {
     mutationFn: async (data: { flightNumber: string; date?: string }) => {
       return await apiRequest('/api/tracking/aviation/flight', 'POST', data);
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       toast({
         title: "Vol suivi avec succès",
-        description: `Données du vol ${data.flightNumber} récupérées`,
+        description: `Données du vol ${data?.flightNumber || 'N/A'} récupérées`,
       });
     },
     onError: (error) => {
@@ -57,10 +57,10 @@ export default function AviationMaritime() {
     mutationFn: async (data: { mmsi: string }) => {
       return await apiRequest('/api/tracking/maritime/vessel', 'POST', data);
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       toast({
         title: "Navire suivi avec succès",
-        description: `Données du navire ${data.name} récupérées`,
+        description: `Données du navire ${data?.name || 'N/A'} récupérées`,
       });
     },
     onError: (error) => {
@@ -120,8 +120,8 @@ export default function AviationMaritime() {
     }
   };
 
-  const flightData = flightTrackingMutation.data;
-  const vesselData = vesselTrackingMutation.data;
+  const flightData = flightTrackingMutation.data as any;
+  const vesselData = vesselTrackingMutation.data as any;
 
   return (
     <div className="p-6 space-y-6">
@@ -256,25 +256,25 @@ export default function AviationMaritime() {
 
                 {airportInfo && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{airportInfo.name}</h3>
+                    <h3 className="font-semibold text-lg">{(airportInfo as any)?.name || 'Aéroport inconnu'}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">Ville</p>
-                        <p className="font-medium">{airportInfo.city}</p>
+                        <p className="font-medium">{(airportInfo as any)?.city || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Pays</p>
-                        <p className="font-medium">{airportInfo.country}</p>
+                        <p className="font-medium">{(airportInfo as any)?.country || 'N/A'}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">Code IATA</p>
-                        <p className="font-medium">{airportInfo.iata}</p>
+                        <p className="font-medium">{(airportInfo as any)?.iata || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Code ICAO</p>
-                        <p className="font-medium">{airportInfo.icao || 'N/A'}</p>
+                        <p className="font-medium">{(airportInfo as any)?.icao || 'N/A'}</p>
                       </div>
                     </div>
                   </div>
@@ -398,23 +398,23 @@ export default function AviationMaritime() {
 
                 {portInfo && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{portInfo.name}</h3>
+                    <h3 className="font-semibold text-lg">{(portInfo as any)?.name || 'Port inconnu'}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">Pays</p>
-                        <p className="font-medium">{portInfo.country}</p>
+                        <p className="font-medium">{(portInfo as any)?.country || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Coordonnées</p>
-                        <p className="font-medium">{portInfo.coordinates.lat.toFixed(4)}, {portInfo.coordinates.lng.toFixed(4)}</p>
+                        <p className="font-medium">{(portInfo as any)?.coordinates?.lat?.toFixed(4) || '0'}, {(portInfo as any)?.coordinates?.lng?.toFixed(4) || '0'}</p>
                       </div>
                     </div>
                     
-                    {portInfo.facilities && portInfo.facilities.length > 0 && (
+                    {(portInfo as any)?.facilities && (portInfo as any)?.facilities?.length > 0 && (
                       <div>
                         <p className="text-sm text-gray-600 mb-2">Installations</p>
                         <div className="flex flex-wrap gap-1">
-                          {portInfo.facilities.map((facility, index) => (
+                          {(portInfo as any)?.facilities?.map((facility: any, index: number) => (
                             <Badge key={index} variant="outline" className="text-xs">
                               {facility}
                             </Badge>
@@ -423,15 +423,15 @@ export default function AviationMaritime() {
                       </div>
                     )}
 
-                    {portInfo.maxVesselSize && (
+                    {(portInfo as any)?.maxVesselSize && (
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <p className="text-sm text-gray-600">Longueur max</p>
-                          <p className="font-medium">{portInfo.maxVesselSize.length}m</p>
+                          <p className="font-medium">{(portInfo as any)?.maxVesselSize?.length || 'N/A'}m</p>
                         </div>
                         <div>
                           <p className="text-sm text-gray-600">Tirant d'eau max</p>
-                          <p className="font-medium">{portInfo.maxVesselSize.draught}m</p>
+                          <p className="font-medium">{(portInfo as any)?.maxVesselSize?.draught || 'N/A'}m</p>
                         </div>
                       </div>
                     )}
