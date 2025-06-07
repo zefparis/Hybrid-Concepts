@@ -94,7 +94,7 @@ export default function CompetitiveDemo() {
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <Brain className="w-8 h-8 text-purple-600" />
-          <h1 className="text-3xl font-bold">{t("aiCompetitiveAnalysis", "AI Competitive Analysis")}</h1>
+          <h1 className="text-3xl font-bold">{t("competitiveAiAnalysis", "AI Competitive Analysis")}</h1>
         </div>
         <p className="text-muted-foreground max-w-3xl mx-auto">
           {t("discoverEmulogTransformation", "Discover how eMulog can transform your traditional freight company with our logistics optimization AI. No access to sensitive data - analysis based solely on operational metrics.")}
