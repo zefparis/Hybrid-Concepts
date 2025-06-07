@@ -6,7 +6,7 @@ import {
   Truck, BarChart3, FileText, MapPin, FolderOpen, MessageCircle, 
   Receipt, TrendingUp, Settings, LogOut, Bot, Bell, Search, 
   Globe, ChevronDown, User, CreditCard, DollarSign, Zap,
-  Package, Shield, Leaf, Users, Store
+  Package, Shield, Leaf, Users, Store, Plane
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +37,7 @@ const mainNavigation = [
 ];
 
 const enterpriseTools = [
+  { name: "Aviation & Maritime", href: "/aviation-maritime", icon: Plane, badge: "Multi", key: "aviationMaritime" },
   { name: "Partner Portal", href: "/partner-portal", icon: Users, badge: "B2B", key: "partnerPortal" },
   { name: "API Marketplace", href: "/api-marketplace", icon: Store, badge: "Market", key: "apiMarketplace" },
   { name: "Route Management", href: "/route-management", icon: MapPin, badge: "Multi", key: "routeManagement" },

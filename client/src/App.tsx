@@ -27,6 +27,7 @@ import PartnerPortal from "@/pages/partner-portal";
 import APIMarketplace from "@/pages/api-marketplace";
 import RouteManagement from "@/pages/route-management";
 import AdvancedTracking from "@/pages/advanced-tracking";
+import AviationMaritime from "@/pages/aviation-maritime";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -58,6 +59,7 @@ function App() {
                   <Route path="/api-marketplace" component={APIMarketplace} />
                   <Route path="/route-management" component={RouteManagement} />
                   <Route path="/advanced-tracking" component={AdvancedTracking} />
+                  <Route path="/aviation-maritime" component={AviationMaritime} />
                   <Route path="/quotes" component={Quotes} />
                   <Route path="/tracking" component={Tracking} />
                   <Route path="/documents" component={Documents} />

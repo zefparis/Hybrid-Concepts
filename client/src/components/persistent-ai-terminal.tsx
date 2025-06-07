@@ -57,16 +57,20 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
         { text: 'const trackingIntegration = await initializeTracking();', type: 'code' as const, delay: 7000 },
         { text: 'Connecting to Vizion API for maritime tracking...', type: 'processing' as const, delay: 7500 },
         { text: 'SUCCESS: Vizion maritime tracking operational', type: 'success' as const, delay: 8000 },
-        { text: 'Initializing fleet management with Google Maps...', type: 'processing' as const, delay: 8500 },
-        { text: 'SUCCESS: Real-time fleet tracking active', type: 'success' as const, delay: 9000 },
-        { text: 'await fetchRealCarrierRates(analysis);', type: 'code' as const, delay: 9500 },
-        { text: 'AI connecting to carrier databases for live quotes...', type: 'processing' as const, delay: 10000 },
-        { text: 'GENERATED: 3 optimized quotes with risk assessment', type: 'success' as const, delay: 10500 },
-        { text: 'const maturityScore = await aiMaturityEngine.assess();', type: 'code' as const, delay: 11000 },
-        { text: 'Calculating business transformation potential...', type: 'processing' as const, delay: 11500 },
-        { text: 'ANALYSIS COMPLETE: ROI 300-500%, efficiency +400%', type: 'success' as const, delay: 12000 },
-        { text: 'AUTOMATION COMPLETE: Traditional 40min → AI 30sec', type: 'system' as const, delay: 12500 },
-        { text: 'All systems operational - Ready for deployment', type: 'success' as const, delay: 13000 }
+        { text: 'Initializing AviationStack for flight tracking...', type: 'processing' as const, delay: 8200 },
+        { text: 'SUCCESS: Aviation tracking system active', type: 'success' as const, delay: 8400 },
+        { text: 'Connecting to MarineTraffic for vessel monitoring...', type: 'processing' as const, delay: 8600 },
+        { text: 'SUCCESS: Enhanced maritime vessel tracking online', type: 'success' as const, delay: 8800 },
+        { text: 'Initializing fleet management with Google Maps...', type: 'processing' as const, delay: 9000 },
+        { text: 'SUCCESS: Real-time fleet tracking active', type: 'success' as const, delay: 9200 },
+        { text: 'await fetchRealCarrierRates(analysis);', type: 'code' as const, delay: 9800 },
+        { text: 'AI connecting to carrier databases for live quotes...', type: 'processing' as const, delay: 10300 },
+        { text: 'GENERATED: 3 optimized quotes with risk assessment', type: 'success' as const, delay: 10800 },
+        { text: 'const maturityScore = await aiMaturityEngine.assess();', type: 'code' as const, delay: 11300 },
+        { text: 'Calculating business transformation potential...', type: 'processing' as const, delay: 11800 },
+        { text: 'ANALYSIS COMPLETE: ROI 300-500%, efficiency +400%', type: 'success' as const, delay: 12300 },
+        { text: 'AUTOMATION COMPLETE: Traditional 40min → AI 30sec', type: 'system' as const, delay: 12800 },
+        { text: 'All 12/12 systems operational - Full multimodal coverage', type: 'success' as const, delay: 13300 }
       ];
 
       let stepIndex = 0;
