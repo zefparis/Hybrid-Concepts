@@ -388,6 +388,8 @@ const resources = {
       autoAutomaticDocumentationStep: "Documentation automatique",
       autoReadyForClientValidationStep: "Prêt pour validation client",
       
+
+      
       // Tracking page
       trackingPageInDevelopment: "Page de suivi en cours de développement...",
       
@@ -413,15 +415,15 @@ const resources = {
       pageNotFound: "404 Page Non Trouvée",
       pageNotFoundDescription: "Avez-vous oublié d'ajouter la page au routeur ?",
       
-      // Scenario Simulator page
-      yourCompany: "Votre Société",
-      aiScenarioSimulation: "Simulation de Scénarios IA",
-      testVirtuallyStrategiesMain: "Testez Virtuellement Vos Stratégies IA",
-      simulateTransformationScenariosMain: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
-      scenarioSimulationConfiguration: "Configuration de la Simulation",
-      defineCompanyParametersForSimulation: "Définissez les paramètres de votre société pour générer des simulations personnalisées",
-      companyNamePlaceholder: "Ex: InnoLogistics Corp",
-      targetGrowthPercentage: "Croissance cible (%)",
+      // Scenario Simulator page (existing keys)
+      scenarioYourCompany: "Votre Société",
+      scenarioAiSimulation: "Simulation de Scénarios IA",
+      scenarioTestVirtuallyStrategies: "Testez Virtuellement Vos Stratégies IA",
+      scenarioSimulateTransformationScenarios: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
+      scenarioSimulationConfig: "Configuration de la Simulation",
+      scenarioDefineCompanyParameters: "Définissez les paramètres de votre société pour générer des simulations personnalisées",
+      scenarioCompanyNamePlaceholder: "Ex: InnoLogistics Corp",
+      scenarioTargetGrowthPercentage: "Croissance cible (%)",
       quotingTimeHoursField: "Temps cotation (heures)",
       monthlyVolumeField: "Volume mensuel",
       budgetAvailableField: "Budget disponible (€)",
@@ -825,6 +827,8 @@ const resources = {
       autoAnalysisBasedRecommendationStep: "Analysis-based recommendation",
       autoAutomaticDocumentationStep: "Automatic documentation",
       autoReadyForClientValidationStep: "Ready for client validation",
+      
+
       
       // Tracking page
       trackingPageInDevelopment: "Tracking page under development...",

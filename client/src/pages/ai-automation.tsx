@@ -327,23 +327,23 @@ export default function AIAutomation() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Code className="w-5 h-5 text-purple-500" />
-            {t("traditionalVsAiAutomation", "Traditional vs AI Automation Process")}
+            {t("autoTraditionalVsAiTitle", "Traditional vs AI Automation Process")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Traditional Process */}
             <div>
-              <h4 className="font-medium mb-3 text-red-600">{t("traditionalProcess40min", "Traditional Process (40 minutes)")}</h4>
+              <h4 className="font-medium mb-3 text-red-600">{t("autoTraditionalProcessTitle", "Traditional Process (40 minutes)")}</h4>
               <div className="space-y-2">
                 {[
-                  t("manualCarrierSearch", "Manual carrier search"),
-                  t("multiplePhoneCalls", "Multiple phone calls"),
-                  t("waitingEmailResponses", "Waiting for email responses"),
-                  t("manualOfferComparison", "Manual offer comparison"),
-                  t("individualNegotiation", "Individual negotiation"),
-                  t("administrativeValidation", "Administrative validation"),
-                  t("manualDocumentation", "Manual documentation")
+                  t("autoManualCarrierSearchStep", "Manual carrier search"),
+                  t("autoMultiplePhoneCallsStep", "Multiple phone calls"),
+                  t("autoWaitingEmailResponsesStep", "Waiting for email responses"),
+                  t("autoManualOfferComparisonStep", "Manual offer comparison"),
+                  t("autoIndividualNegotiationStep", "Individual negotiation"),
+                  t("autoAdministrativeValidationStep", "Administrative validation"),
+                  t("autoManualDocumentationStep", "Manual documentation")
                 ].map((step, index) => (
                   <div key={index} className="flex items-center gap-2 text-sm">
                     <div className="w-2 h-2 bg-red-400 rounded-full"></div>
@@ -355,16 +355,16 @@ export default function AIAutomation() {
 
             {/* AI Process */}
             <div>
-              <h4 className="font-medium mb-3 text-green-600">{t("aiProcess30sec", "eMulog AI Process (30 seconds)")}</h4>
+              <h4 className="font-medium mb-3 text-green-600">{t("autoAiProcessTitle", "eMulog AI Process (30 seconds)")}</h4>
               <div className="space-y-2">
                 {[
-                  t("aiLogisticsAnalysis", "AI logistics needs analysis"),
-                  t("automaticModeDetection", "Automatic optimal mode detection"),
+                  t("autoAiLogisticsAnalysisStep", "AI logistics needs analysis"),
+                  t("autoAutomaticModeDetectionStep", "Automatic optimal mode detection"),
                   t("intelligentQuoteGeneration", "Intelligent quote generation"),
-                  t("aiComparisonOptimization", "AI comparison and optimization"),
-                  t("analysisBasedRecommendation", "Analysis-based recommendation"),
-                  t("automaticDocumentation", "Automatic documentation"),
-                  t("readyForClientValidation", "Ready for client validation")
+                  t("autoAiComparisonOptimizationStep", "AI comparison and optimization"),
+                  t("autoAnalysisBasedRecommendationStep", "Analysis-based recommendation"),
+                  t("autoAutomaticDocumentationStep", "Automatic documentation"),
+                  t("autoReadyForClientValidationStep", "Ready for client validation")
                 ].map((step, index) => (
                   <motion.div 
                     key={index}
