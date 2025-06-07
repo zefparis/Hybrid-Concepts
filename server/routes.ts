@@ -6,6 +6,7 @@ import { trackingService } from "./tracking-service";
 import { vizionService } from "./vizion-tracking";
 import { aviationTrackingService } from "./aviation-tracking";
 import { marineTrafficService } from "./marine-traffic-service";
+import { supportChatService } from "./support-chat";
 import { insertUserSchema, insertCompanySchema, insertQuoteRequestSchema, insertDocumentSchema, insertChatMessageSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -479,6 +480,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Create message error:', error);
       res.status(400).json({ message: 'Failed to send message', error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  // Support Chat endpoint
+  app.post("/api/chat/support", authenticateToken, async (req, res) => {
+    try {
+      const { message } = req.body;
+      
+      if (!message) {
+        return res.status(400).json({ error: "Message is required" });
+      }
+      
+      const response = await supportChatService.processMessage(message);
+      res.json(response);
+    } catch (error) {
+      console.error("Support chat error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 

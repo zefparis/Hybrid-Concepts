@@ -1,0 +1,265 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { 
+  MessageCircle, 
+  Send, 
+  Bot, 
+  User, 
+  Loader2,
+  HelpCircle,
+  Lightbulb,
+  FileText,
+  Settings
+} from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
+
+interface ChatMessage {
+  id: string;
+  content: string;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+  type?: 'text' | 'suggestion' | 'feature' | 'help';
+}
+
+export default function SupportChat() {
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: '1',
+      content: 'Hello! I\'m your Hybrid Concept assistant. I can help you understand our logistics platform, explore features, and answer questions about AI automation, transport modes, pricing, and more. How can I assist you today?',
+      role: 'assistant',
+      timestamp: new Date(),
+      type: 'text'
+    }
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
+  const chatMutation = useMutation({
+    mutationFn: async (message: string) => {
+      const response = await apiRequest('POST', '/api/chat/support', { message });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      const assistantMessage: ChatMessage = {
+        id: Date.now().toString(),
+        content: data.response,
+        role: 'assistant',
+        timestamp: new Date(),
+        type: data.type || 'text'
+      };
+      setMessages(prev => [...prev, assistantMessage]);
+    },
+    onError: (error) => {
+      toast({
+        title: "Connection Error",
+        description: "Unable to send message. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const handleSendMessage = () => {
+    if (!inputMessage.trim()) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      content: inputMessage,
+      role: 'user',
+      timestamp: new Date(),
+      type: 'text'
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    chatMutation.mutate(inputMessage);
+    setInputMessage('');
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  const suggestedQuestions = [
+    "What AI automation features does Hybrid Concept offer?",
+    "How does multimodal transport optimization work?",
+    "What are the pricing plans and features?",
+    "How does real-time tracking work?",
+    "What integrations are available?",
+    "How do I get started with the platform?"
+  ];
+
+  const handleSuggestionClick = (question: string) => {
+    setInputMessage(question);
+  };
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 space-y-6">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold mb-4">Support & Information</h1>
+        <p className="text-muted-foreground">
+          Get professional assistance about Hybrid Concept's logistics platform
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Quick Access */}
+        <div className="lg:col-span-1 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm flex items-center gap-2">
+                <HelpCircle className="w-4 h-4" />
+                Quick Help
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Button variant="outline" size="sm" className="w-full justify-start">
+                <FileText className="w-4 h-4 mr-2" />
+                Documentation
+              </Button>
+              <Button variant="outline" size="sm" className="w-full justify-start">
+                <Lightbulb className="w-4 h-4 mr-2" />
+                Feature Guide
+              </Button>
+              <Button variant="outline" size="sm" className="w-full justify-start">
+                <Settings className="w-4 h-4 mr-2" />
+                Setup Help
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm">Suggested Questions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {suggestedQuestions.slice(0, 4).map((question, index) => (
+                <Button
+                  key={index}
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-left h-auto p-2 text-xs justify-start"
+                  onClick={() => handleSuggestionClick(question)}
+                >
+                  {question}
+                </Button>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Chat Interface */}
+        <div className="lg:col-span-3">
+          <Card className="h-[600px] flex flex-col">
+            <CardHeader className="border-b">
+              <CardTitle className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-blue-500" />
+                Hybrid Concept Assistant
+                <Badge variant="secondary" className="ml-auto">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  Online
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            
+            <CardContent className="flex-1 flex flex-col p-0">
+              <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
+                <div className="space-y-4">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[80%] rounded-lg p-3 ${
+                          message.role === 'user'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                        }`}
+                      >
+                        <div className="flex items-start gap-2">
+                          {message.role === 'assistant' && (
+                            <Bot className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                          )}
+                          {message.role === 'user' && (
+                            <User className="w-4 h-4 text-white mt-0.5 flex-shrink-0" />
+                          )}
+                          <div className="flex-1">
+                            <p className="text-sm leading-relaxed">{message.content}</p>
+                            <p className="text-xs opacity-70 mt-1">
+                              {message.timestamp.toLocaleTimeString()}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {chatMutation.isPending && (
+                    <div className="flex justify-start">
+                      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
+                        <div className="flex items-center gap-2">
+                          <Bot className="w-4 h-4 text-blue-500" />
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span className="text-sm">Thinking...</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+              
+              <div className="border-t p-4">
+                <div className="flex gap-2">
+                  <Input
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Ask about features, pricing, setup, or any other questions..."
+                    className="flex-1"
+                    disabled={chatMutation.isPending}
+                  />
+                  <Button 
+                    onClick={handleSendMessage}
+                    disabled={!inputMessage.trim() || chatMutation.isPending}
+                    size="icon"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+                
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {suggestedQuestions.slice(4).map((question, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      size="sm"
+                      className="text-xs"
+                      onClick={() => handleSuggestionClick(question)}
+                    >
+                      {question.split(' ').slice(0, 3).join(' ')}...
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
