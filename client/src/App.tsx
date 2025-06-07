@@ -19,6 +19,10 @@ import CompetitiveDemo from "@/pages/competitive-demo";
 import MigrationDemo from "@/pages/migration-demo";
 import AIMaturity from "@/pages/ai-maturity";
 import ScenarioSimulator from "@/pages/scenario-simulator";
+import FleetManagement from "@/pages/fleet-management";
+import SmartInventory from "@/pages/smart-inventory";
+import RiskAssessment from "@/pages/risk-assessment";
+import CarbonFootprint from "@/pages/carbon-footprint";
 import "./lib/i18n";
 
 function LoadingSpinner() {

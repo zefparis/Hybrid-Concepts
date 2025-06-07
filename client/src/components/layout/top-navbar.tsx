@@ -25,13 +25,13 @@ import { useTranslation } from "react-i18next";
 const mainNavigation = [
   { name: "Dashboard", href: "/", icon: BarChart3, key: "dashboard" },
   { name: "AI Orchestrator", href: "/ai-automation", icon: Bot, badge: "AI", key: "aiAutomation" },
-  { name: "AI Maturity", href: "/ai-maturity", icon: Zap, badge: "Score", key: "aiMaturity" },
-  { name: "ROI Simulator", href: "/scenario-simulator", icon: TrendingUp, badge: "ROI", key: "scenarioSimulator" },
+  { name: "Fleet Management", href: "/fleet-management", icon: Truck, badge: "IoT", key: "fleetManagement" },
+  { name: "Smart Inventory", href: "/smart-inventory", icon: Package, badge: "Smart", key: "smartInventory" },
+  { name: "Risk Assessment", href: "/risk-assessment", icon: Shield, badge: "AI", key: "riskAssessment" },
+  { name: "Carbon Footprint", href: "/carbon-footprint", icon: Leaf, badge: "ESG", key: "carbonFootprint" },
   { name: "Analytics", href: "/analytics", icon: BarChart3, key: "analytics" },
   { name: "Quotes", href: "/quotes", icon: FileText, badge: 12, key: "quotes" },
   { name: "Tracking", href: "/tracking", icon: MapPin, key: "tracking" },
-  { name: "Documents", href: "/documents", icon: FolderOpen, key: "documents" },
-  { name: "Invoicing", href: "/invoicing", icon: Receipt, key: "invoicing" },
   { name: "Chat", href: "/chat", icon: MessageCircle, badge: 3, key: "chat" },
 ];
 
