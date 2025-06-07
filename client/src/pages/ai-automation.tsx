@@ -143,7 +143,7 @@ export default function AIAutomation() {
                 <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("processingTimeMetric", "Processing time")}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("autoProcessingTimeMetric", "Processing time")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-blue-600">30s</p>
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function AIAutomation() {
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("timeReductionMetric", "Time reduction")}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("autoTimeReductionMetric", "Time reduction")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-purple-600">98%</p>
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function AIAutomation() {
                 <Target className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("aiAccuracy", "AI Accuracy")}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("autoAiAccuracyMetric", "AI Accuracy")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-emerald-600">99.2%</p>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function AIAutomation() {
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("humanIntervention", "Human Intervention")}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("autoHumanInterventionMetric", "Human Intervention")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-orange-600">0%</p>
               </div>
             </div>
@@ -199,13 +199,13 @@ export default function AIAutomation() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
               <Bot className="w-5 h-5 text-blue-500" />
-              {t("aiAutomationPlatform", "AI Automation Platform")}
+              {t("autoAiPlatformTitle", "AI Automation Platform")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="origin">{t("originField", "Origin")} *</Label>
+                <Label htmlFor="origin">{t("autoOriginFieldLabel", "Origin")} *</Label>
                 <AddressAutocomplete
                   id="origin"
                   placeholder="Port de Mombasa, Kenya"
@@ -214,7 +214,7 @@ export default function AIAutomation() {
                 />
               </div>
               <div>
-                <Label htmlFor="destination">{t("destinationField", "Destination")} *</Label>
+                <Label htmlFor="destination">{t("autoDestinationFieldLabel", "Destination")} *</Label>
                 <AddressAutocomplete
                   id="destination"
                   placeholder="Port de Marseille, France"
@@ -226,7 +226,7 @@ export default function AIAutomation() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="weight">{t("cargoWeight", "Cargo weight (kg)")} *</Label>
+                <Label htmlFor="weight">{t("autoCargoWeightLabel", "Cargo weight (kg)")} *</Label>
                 <Input
                   id="weight"
                   type="number"
@@ -236,7 +236,7 @@ export default function AIAutomation() {
                 />
               </div>
               <div>
-                <Label htmlFor="volume">{t("cargoVolume", "Volume (m³) - Optional")}</Label>
+                <Label htmlFor="volume">{t("autoCargoVolumeLabel", "Volume (m³) - Optional")}</Label>
                 <Input
                   id="volume"
                   type="number"
