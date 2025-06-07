@@ -143,7 +143,7 @@ export default function AIAutomation() {
                 <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">Temps de traitement</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("processingTime", "Processing time")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-blue-600">30s</p>
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function AIAutomation() {
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">Réduction de temps</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("timeReduction", "Time reduction")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-purple-600">98%</p>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function AIAutomation() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              Résultats de l'automatisation
+              {t("automationResults", "Automation Results")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -314,8 +314,8 @@ export default function AIAutomation() {
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <Bot className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Les résultats apparaîtront ici après l'automatisation complète</p>
-                <p className="text-xs mt-2">Analyse transport • Documentation douanière • APIs transporteurs • Évaluation risques</p>
+                <p>{t("resultsWillAppear", "Results will appear here after complete automation")}</p>
+                <p className="text-xs mt-2">{t("analysisFeatures", "Transport analysis • Customs documentation • Carrier APIs • Risk assessment")}</p>
               </div>
             )}
           </CardContent>
