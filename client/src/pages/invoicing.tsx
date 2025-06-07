@@ -15,7 +15,7 @@ export default function Invoicing() {
             <CardTitle>{t("invoicing")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">Page de facturation en cours de développement...</p>
+            <p className="text-gray-500">{t("invoicingPageInDevelopment", "Invoicing page under development...")}</p>
           </CardContent>
         </Card>
       </main>

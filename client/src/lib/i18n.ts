@@ -325,6 +325,26 @@ const resources = {
       // Tracking page
       trackingPageInDevelopment: "Page de suivi en cours de développement...",
       
+      // Analytics page
+      analyticsPageInDevelopment: "Page d'analytics en cours de développement...",
+      
+      // Documents page
+      documentsPageInDevelopment: "Page des documents en cours de développement...",
+      
+      // Chat page
+      chatPageInDevelopment: "Page de chat en cours de développement...",
+      
+      // Invoicing page
+      invoicingPageInDevelopment: "Page de facturation en cours de développement...",
+      
+      // Scenario Simulator page
+      yourCompany: "Votre Société",
+      aiScenarioSimulation: "Simulation de Scénarios IA",
+      testVirtuallyStrategies: "Testez Virtuellement Vos Stratégies IA",
+      simulateTransformationScenarios: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
+      simulationConfiguration: "Configuration de la Simulation",
+      defineCompanyParametersForSimulation: "Définissez les paramètres de votre société pour générer des simulations personnalisées",
+      
       // Notifications
       operationSuccessful: "Opération réussie",
       operationFailed: "Opération échouée",
@@ -654,6 +674,26 @@ const resources = {
       
       // Tracking page
       trackingPageInDevelopment: "Tracking page under development...",
+      
+      // Analytics page
+      analyticsPageInDevelopment: "Analytics page under development...",
+      
+      // Documents page
+      documentsPageInDevelopment: "Documents page under development...",
+      
+      // Chat page
+      chatPageInDevelopment: "Chat page under development...",
+      
+      // Invoicing page
+      invoicingPageInDevelopment: "Invoicing page under development...",
+      
+      // Scenario Simulator page
+      yourCompany: "Your Company",
+      aiScenarioSimulation: "AI Scenario Simulation",
+      testVirtuallyStrategies: "Test Virtually Your AI Strategies",
+      simulateTransformationScenarios: "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.",
+      simulationConfiguration: "Simulation Configuration",
+      defineCompanyParametersForSimulation: "Define your company parameters to generate personalized simulations",
       
       // Notifications
       operationSuccessful: "Operation successful",
