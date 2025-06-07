@@ -66,21 +66,21 @@ export default function CompetitiveDemo() {
       });
 
       if (!response.ok) {
-        throw new Error("Erreur d'analyse");
+        throw new Error(t("analysisError", "Analysis Error"));
       }
 
       const result = await response.json();
       if (result.success) {
         setAnalysis(result.data);
         toast({
-          title: "Analyse terminée",
-          description: "Rapport d'optimisation généré avec succès",
+          title: t("aiAnalysisComplete", "AI Analysis Complete"),
+          description: t("optimizationReportGenerated", "Optimization report generated successfully"),
         });
       }
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Impossible de générer l'analyse",
+        title: t("error", "Error"),
+        description: t("unableToGenerateAnalysis", "Unable to generate analysis"),
         variant: "destructive",
       });
     } finally {
@@ -94,14 +94,13 @@ export default function CompetitiveDemo() {
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <Brain className="w-8 h-8 text-purple-600" />
-          <h1 className="text-3xl font-bold">Analyse Concurrentielle IA</h1>
+          <h1 className="text-3xl font-bold">{t("aiCompetitiveAnalysis", "AI Competitive Analysis")}</h1>
         </div>
         <p className="text-muted-foreground max-w-3xl mx-auto">
-          Découvrez comment eMulog peut transformer votre société de fret traditionnelle avec notre IA d'optimisation logistique. 
-          Aucun accès à vos données sensibles - analyse basée uniquement sur vos métriques opérationnelles.
+          {t("discoverEmulogTransformation", "Discover how eMulog can transform your traditional freight company with our logistics optimization AI. No access to sensitive data - analysis based solely on operational metrics.")}
         </p>
         <Badge variant="outline" className="bg-gradient-to-r from-purple-100 to-blue-100">
-          Démonstration Interactive - Powered by Claude Sonnet-4
+          {t("interactiveDemoPoweredBy", "Interactive Demo - Powered by Claude Sonnet-4")}
         </Badge>
       </div>
 
@@ -111,10 +110,10 @@ export default function CompetitiveDemo() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Target className="w-5 h-5 text-blue-600" />
-              Données de votre société
+              {t("yourCompanyData", "Your Company Data")}
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              Saisissez vos métriques actuelles pour une analyse personnalisée
+              {t("enterCurrentMetrics", "Enter your current metrics for personalized analysis")}
             </p>
           </CardHeader>
           <CardContent className="space-y-4">

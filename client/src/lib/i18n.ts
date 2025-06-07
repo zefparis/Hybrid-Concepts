@@ -696,6 +696,9 @@ const resources = {
       // Quotes page
       quoteRequestCreated: "Quote request created",
       requestSentToCarriers: "Your request has been sent to carriers",
+      quotesGenerated: "Quotes Generated",
+      quotesGeneratedSuccessfully: "Quotes have been generated successfully",
+      unableToGenerateQuotes: "Unable to generate quotes",
       
       // Tracking page
       trackingPageInDevelopment: "Tracking page under development...",

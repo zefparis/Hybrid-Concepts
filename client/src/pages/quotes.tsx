@@ -330,14 +330,14 @@ export default function Quotes() {
     switch (mode?.toLowerCase()) {
       case "air":
       case "aérien":
-        return "Aérien";
+        return t("air", "Air");
       case "mer":
       case "maritime":
-        return "Maritime";
+        return t("sea", "Sea");
       case "terre":
       case "routier":
       default:
-        return "Routier";
+        return t("road", "Road");
     }
   };
 
