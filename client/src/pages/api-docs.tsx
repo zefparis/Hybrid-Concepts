@@ -346,7 +346,7 @@ export default function ApiDocs() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <h4 className="font-medium mb-2">Endpoint</h4>
+                    <h4 className="font-medium mb-2">{t("endpoint", "Endpoint")}</h4>
                     <code className="bg-gray-100 p-2 rounded block">
                       {endpoint.method} /public-api{endpoint.path}
                     </code>
@@ -354,7 +354,7 @@ export default function ApiDocs() {
 
                   {endpoint.testPayload && (
                     <div>
-                      <h4 className="font-medium mb-2">Exemple de payload</h4>
+                      <h4 className="font-medium mb-2">{t("payloadExample", "Payload example")}</h4>
                       <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
                         <pre className="text-xs overflow-x-auto">
                           {JSON.stringify(endpoint.testPayload, null, 2)}
@@ -366,7 +366,7 @@ export default function ApiDocs() {
                   {result && (
                     <div>
                       <h4 className="font-medium mb-2 flex items-center gap-2">
-                        Résultat du test
+                        {t("testResult", "Test result")}
                         {result.success ? (
                           <CheckCircle className="w-4 h-4 text-green-500" />
                         ) : (
@@ -389,7 +389,7 @@ export default function ApiDocs() {
         <TabsContent value="examples" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Exemples d'Intégration</CardTitle>
+              <CardTitle>{t("integrationExamples", "Integration Examples")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               
@@ -404,7 +404,7 @@ export default function ApiDocs() {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'X-API-Key': 'votre_cle_api'
+    'X-API-Key': '${t("yourApiKey", "your_api_key")}'
   },
   body: JSON.stringify({
     origin: 'Marseille, France',
@@ -421,7 +421,7 @@ const data = await response.json();
 console.log(data);`)}
                   >
                     <Copy className="w-4 h-4 mr-1" />
-                    Copier
+                    {t("copy", "Copy")}
                   </Button>
                 </h4>
                 <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
@@ -459,7 +459,7 @@ console.log(data);`}</pre>
 url = '${window.location.origin}/public-api/logistics/quotes'
 headers = {
     'Content-Type': 'application/json',
-    'X-API-Key': 'votre_cle_api'
+    'X-API-Key': '${t("yourApiKey", "your_api_key")}'
 }
 payload = {
     'origin': 'Marseille, France',
@@ -476,7 +476,7 @@ data = response.json()
 print(data)`)}
                   >
                     <Copy className="w-4 h-4 mr-1" />
-                    Copier
+                    {t("copy", "Copy")}
                   </Button>
                 </h4>
                 <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
