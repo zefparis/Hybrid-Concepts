@@ -50,8 +50,8 @@ export function QuickActions() {
                 variant="outline"
                 className="w-full justify-start space-x-3 h-auto p-3"
               >
-                <div className={`w-8 h-8 bg-${action.color} bg-opacity-10 rounded flex items-center justify-center`}>
-                  <Icon className={`text-${action.color} w-4 h-4`} />
+                <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                  <Icon className="text-blue-600 w-4 h-4" />
                 </div>
                 <span className="text-sm font-medium">{action.label}</span>
               </Button>
