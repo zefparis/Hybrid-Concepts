@@ -248,25 +248,25 @@ export default function AIAutomation() {
             </div>
 
             <div>
-              <Label htmlFor="goodsType">{t("goodsTypeField", "Goods type")} *</Label>
+              <Label htmlFor="goodsType">{t("autoGoodsTypeFieldLabel", "Goods type")} *</Label>
               <Select value={requestData.goodsType} onValueChange={(value) => setRequestData(prev => ({ ...prev, goodsType: value }))}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t("selectType", "Select type")} />
+                  <SelectValue placeholder={t("autoSelectTypeOption", "Select type")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="general">{t("generalGoods", "General")}</SelectItem>
-                  <SelectItem value="fragile">{t("fragileGoods", "Fragile")}</SelectItem>
-                  <SelectItem value="dangerous">{t("dangerousGoods", "Dangerous")}</SelectItem>
-                  <SelectItem value="perishable">{t("perishableGoods", "Perishable")}</SelectItem>
+                  <SelectItem value="general">{t("autoGeneralGoodsOption", "General")}</SelectItem>
+                  <SelectItem value="fragile">{t("autoFragileGoodsOption", "Fragile")}</SelectItem>
+                  <SelectItem value="dangerous">{t("autoDangerousGoodsOption", "Dangerous")}</SelectItem>
+                  <SelectItem value="perishable">{t("autoPerishableGoodsOption", "Perishable")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div>
-              <Label htmlFor="description">{t("cargoDescription", "Cargo description")}</Label>
+              <Label htmlFor="description">{t("autoCargoDescriptionLabel", "Cargo description")}</Label>
               <Textarea
                 id="description"
-                placeholder={t("describeShipment", "Describe your shipment, special constraints, etc.")}
+                placeholder={t("autoDescribeShipmentPlaceholder", "Describe your shipment, special constraints, etc.")}
                 value={requestData.description}
                 onChange={(e) => setRequestData(prev => ({ ...prev, description: e.target.value }))}
               />
@@ -281,19 +281,19 @@ export default function AIAutomation() {
                 {isProcessing ? (
                   <>
                     <Sparkles className="w-4 h-4 mr-2 animate-spin" />
-                    {t("aiProcessingInProgress", "AI processing in progress...")}
+                    {t("autoAiProcessingStatus", "AI processing in progress...")}
                   </>
                 ) : (
                   <>
                     <Brain className="w-4 h-4 mr-2" />
-                    {t("startAIAutomation", "Start AI Automation")}
+                    {t("autoStartAIAutomationButton", "Start AI Automation")}
                   </>
                 )}
               </Button>
               
               {showResults && (
                 <Button variant="outline" onClick={handleReset}>
-                  {t("newTest", "New Test")}
+                  {t("autoNewTestButton", "New Test")}
                 </Button>
               )}
             </div>
@@ -305,7 +305,7 @@ export default function AIAutomation() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              {t("automationResults", "Automation Results")}
+              {t("autoAutomationResultsTitle", "Automation Results")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -314,8 +314,8 @@ export default function AIAutomation() {
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <Bot className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>{t("resultsWillAppear", "Results will appear here after complete automation")}</p>
-                <p className="text-xs mt-2">{t("analysisFeatures", "Transport analysis • Customs documentation • Carrier APIs • Risk assessment")}</p>
+                <p>{t("autoResultsWillAppearMessage", "Results will appear here after complete automation")}</p>
+                <p className="text-xs mt-2">{t("autoAnalysisFeaturesText", "Transport analysis • Customs documentation • Carrier APIs • Risk assessment")}</p>
               </div>
             )}
           </CardContent>
