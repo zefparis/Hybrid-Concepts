@@ -18,6 +18,36 @@
   "getStarted": "Commencer",
   "learnMore": "En savoir plus",
   
+  "navbar": {
+    "home": "Accueil",
+    "competitiveAnalysis": "Analyse Concurrentielle",
+    "aiMaturity": "Maturité IA",
+    "scenarioSimulator": "Simulation ROI",
+    "aiAutomation": "Orchestrateur IA",
+    "liveDemo": "Démo Live",
+    "ecosystemDescription": "Écosystème IA Multi-Agents"
+  },
+  
+  "landing": {
+    "revolutionBadge": "🚀 Révolution Logistique IA",
+    "title": "eMulog",
+    "subtitle": "Écosystème IA Multi-Agents",
+    "description": "Révolution Logistique Autonome",
+    "heroText": "Premier écosystème d'IA orchestrée avec 7 agents spécialisés pilotés par un Orchestrateur Maître. Chaque agent IA maîtrise une expertise métier pour une automatisation logistique totale en 30 jours.",
+    "analyzeButton": "Analyser Ma Société",
+    "seeAiButton": "Voir l'IA en Action",
+    "stats": {
+      "agents": "7 Agents IA",
+      "agentsDesc": "Spécialisés",
+      "orchestration": "30 sec",
+      "orchestrationDesc": "Orchestration",
+      "roi": "180%",
+      "roiDesc": "ROI 24 mois",
+      "precision": "99.8%",
+      "precisionDesc": "Précision IA"
+    }
+  },
+  
   "activeShipments": "Envois en Cours",
   "savingsRealized": "Économies Réalisées",
   "pendingQuotes": "Cotations en Attente",

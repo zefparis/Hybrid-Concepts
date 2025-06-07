@@ -23,31 +23,31 @@ export function PublicNavbar() {
   const navItems = [
     {
       href: "/",
-      label: "Accueil",
+      label: t("navbar.home"),
       icon: Rocket,
-      description: "Écosystème IA Multi-Agents"
+      description: t("navbar.ecosystemDescription")
     },
     {
       href: "/competitive-demo",
-      label: "Analyse Concurrentielle",
+      label: t("navbar.competitiveAnalysis"),
       icon: Target,
       description: "Comparez-vous à la concurrence"
     },
     {
       href: "/ai-maturity",
-      label: "Maturité IA",
+      label: t("navbar.aiMaturity"),
       icon: Award,
       description: "Évaluez votre potentiel IA"
     },
     {
       href: "/scenario-simulator",
-      label: "Simulation ROI",
+      label: t("navbar.scenarioSimulator"),
       icon: BarChart3,
       description: "Projections personnalisées"
     },
     {
       href: "/ai-automation",
-      label: "Orchestrateur IA",
+      label: t("navbar.aiAutomation"),
       icon: Brain,
       description: "Démonstration agents IA"
     }
@@ -70,8 +70,8 @@ export function PublicNavbar() {
                 <Brain className="h-6 w-6 text-white" />
               </div>
               <div>
-                <div className="text-xl font-bold text-gray-900">eMulog</div>
-                <div className="text-xs text-gray-500 hidden sm:block">Écosystème IA Multi-Agents</div>
+                <div className="text-xl font-bold text-gray-900">{t("landing.title")}</div>
+                <div className="text-xs text-gray-500 hidden sm:block">{t("navbar.ecosystemDescription")}</div>
               </div>
             </div>
           </Link>
@@ -104,7 +104,7 @@ export function PublicNavbar() {
             <Link href="/login">
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
                 <PlayCircle className="h-4 w-4 mr-2" />
-                Démo Live
+                {t("navbar.liveDemo")}
               </Button>
             </Link>
 

@@ -176,53 +176,51 @@ export default function Landing() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
           <div className="text-center">
             <Badge className="mb-6 bg-white/20 text-white border-white/30 text-lg px-6 py-2">
-              🚀 Révolution Logistique IA
+              {t("landing.revolutionBadge")}
             </Badge>
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-              eMulog
-              <span className="block text-yellow-300">Écosystème IA Multi-Agents</span>
+              {t("landing.title")}
+              <span className="block text-yellow-300">{t("landing.subtitle")}</span>
               <span className="block text-2xl sm:text-3xl lg:text-4xl font-normal mt-4">
-                Révolution Logistique Autonome
+                {t("landing.description")}
               </span>
             </h1>
             
             <p className="text-xl sm:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed text-blue-100">
-              Premier <strong>écosystème d'IA orchestrée</strong> avec 7 agents spécialisés pilotés par 
-              un <strong>Orchestrateur Maître</strong>. Chaque agent IA maîtrise une expertise métier 
-              pour une automatisation logistique totale en 30 jours.
+              {t("landing.heroText")}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <Link href="/competitive-demo">
                 <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold text-lg px-8 py-4 h-auto">
                   <Target className="mr-2 h-6 w-6" />
-                  Analyser Ma Société
+                  {t("landing.analyzeButton")}
                 </Button>
               </Link>
               <Link href="/ai-automation">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-semibold text-lg px-8 py-4 h-auto">
                   <Brain className="mr-2 h-6 w-6" />
-                  Voir l'IA en Action
+                  {t("landing.seeAiButton")}
                 </Button>
               </Link>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 max-w-5xl mx-auto">
               <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold text-yellow-300">7 Agents IA</div>
-                <div className="text-blue-100">Spécialisés</div>
+                <div className="text-2xl font-bold text-yellow-300">{t("landing.stats.agents")}</div>
+                <div className="text-blue-100">{t("landing.stats.agentsDesc")}</div>
               </div>
               <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold text-yellow-300">30 sec</div>
-                <div className="text-blue-100">Orchestration</div>
+                <div className="text-2xl font-bold text-yellow-300">{t("landing.stats.orchestration")}</div>
+                <div className="text-blue-100">{t("landing.stats.orchestrationDesc")}</div>
               </div>
               <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold text-yellow-300">180%</div>
-                <div className="text-blue-100">ROI 24 mois</div>
+                <div className="text-2xl font-bold text-yellow-300">{t("landing.stats.roi")}</div>
+                <div className="text-blue-100">{t("landing.stats.roiDesc")}</div>
               </div>
               <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-2xl font-bold text-yellow-300">99.8%</div>
-                <div className="text-blue-100">Précision IA</div>
+                <div className="text-2xl font-bold text-yellow-300">{t("landing.stats.precision")}</div>
+                <div className="text-blue-100">{t("landing.stats.precisionDesc")}</div>
               </div>
             </div>
           </div>

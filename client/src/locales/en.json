@@ -18,6 +18,36 @@
   "getStarted": "Get Started",
   "learnMore": "Learn More",
   
+  "navbar": {
+    "home": "Home",
+    "competitiveAnalysis": "Competitive Analysis",
+    "aiMaturity": "AI Maturity",
+    "scenarioSimulator": "ROI Simulation",
+    "aiAutomation": "AI Orchestrator",
+    "liveDemo": "Live Demo",
+    "ecosystemDescription": "Multi-Agent AI Ecosystem"
+  },
+  
+  "landing": {
+    "revolutionBadge": "🚀 AI Logistics Revolution",
+    "title": "eMulog",
+    "subtitle": "Multi-Agent AI Ecosystem",
+    "description": "Autonomous Logistics Revolution",
+    "heroText": "First orchestrated AI ecosystem with 7 specialized agents led by a Master Orchestrator. Each AI agent masters a business expertise for total logistics automation in 30 days.",
+    "analyzeButton": "Analyze My Company",
+    "seeAiButton": "See AI in Action",
+    "stats": {
+      "agents": "7 AI Agents",
+      "agentsDesc": "Specialized",
+      "orchestration": "30 sec",
+      "orchestrationDesc": "Orchestration",
+      "roi": "180%",
+      "roiDesc": "24-month ROI",
+      "precision": "99.8%",
+      "precisionDesc": "AI Precision"
+    }
+  },
+  
   "activeShipments": "Active Shipments",
   "savingsRealized": "Cost Savings",
   "pendingQuotes": "Pending Quotes",
