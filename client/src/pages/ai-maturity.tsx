@@ -222,7 +222,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Intégrations API: {apiIntegrations[0]}</Label>
+                  <Label>{t("apiIntegrations", "API integrations")}: {apiIntegrations[0]}</Label>
                   <Slider
                     value={apiIntegrations}
                     onValueChange={setApiIntegrations}
@@ -234,7 +234,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Niveau d'automatisation (%): {automationLevel[0]}%</Label>
+                  <Label>{t("automationLevel", "Automation level")} (%): {automationLevel[0]}%</Label>
                   <Slider
                     value={automationLevel}
                     onValueChange={setAutomationLevel}
@@ -249,11 +249,11 @@ export default function AIMaturity() {
 
             {/* Team Profile */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Profil de l'Équipe</h3>
+              <h3 className="text-lg font-semibold">{t("teamProfile", "Team Profile")}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label>Compétences tech (%): {techSkills[0]}%</Label>
+                  <Label>{t("techSkills", "Tech skills")} (%): {techSkills[0]}%</Label>
                   <Slider
                     value={techSkills}
                     onValueChange={setTechSkills}
@@ -265,7 +265,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Capacité au changement (%): {changeReadiness[0]}%</Label>
+                  <Label>{t("changeReadiness", "Change readiness")} (%): {changeReadiness[0]}%</Label>
                   <Slider
                     value={changeReadiness}
                     onValueChange={setChangeReadiness}
@@ -277,7 +277,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Expérience IA (%): {aiExperience[0]}%</Label>
+                  <Label>{t("aiExperience", "AI experience")} (%): {aiExperience[0]}%</Label>
                   <Slider
                     value={aiExperience}
                     onValueChange={setAiExperience}
@@ -299,12 +299,12 @@ export default function AIMaturity() {
               {generateAssessment.isPending ? (
                 <>
                   <Brain className="mr-2 h-4 w-4 animate-spin" />
-                  Évaluation en cours...
+                  {t("evaluationInProgress", "Evaluation in progress...")}
                 </>
               ) : (
                 <>
                   <Target className="mr-2 h-4 w-4" />
-                  Évaluer la Maturité IA
+                  {t("evaluateAIMaturity", "Evaluate AI Maturity")}
                 </>
               )}
             </Button>
@@ -317,7 +317,7 @@ export default function AIMaturity() {
             {/* Overall Score */}
             <Card className="max-w-4xl mx-auto">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Score de Maturité IA Global</CardTitle>
+                <CardTitle className="text-2xl">{t("globalAIMaturityScore", "Global AI Maturity Score")}</CardTitle>
               </CardHeader>
               <CardContent className="text-center space-y-6">
                 <div className="relative">
