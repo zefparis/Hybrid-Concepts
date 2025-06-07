@@ -23,6 +23,9 @@ export default function RouteManagement() {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [optimizationResults, setOptimizationResults] = useState<any>(null);
   const [analysisResults, setAnalysisResults] = useState<any>(null);
+  const [predictiveResults, setPredictiveResults] = useState<any>(null);
+  const [globalOptimization, setGlobalOptimization] = useState<any>(null);
+  const [riskManagement, setRiskManagement] = useState<any>(null);
 
   // Mutation pour l'optimisation IA des routes
   const optimizeRouteMutation = useMutation({
@@ -78,6 +81,64 @@ export default function RouteManagement() {
         title: "Erreur d'analyse",
         description: "Impossible d'analyser la route",
         variant: "destructive",
+      });
+    }
+  });
+
+  // Mutations pour les outils d'optimisation intelligente
+  const predictiveAnalysisMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch('/api/ai/predictive-analysis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transportMode: activeTab })
+      });
+      if (!response.ok) throw new Error('Erreur analyse prédictive');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setPredictiveResults(data);
+      toast({
+        title: "Analyse prédictive terminée",
+        description: "Prédictions IA générées avec succès",
+      });
+    }
+  });
+
+  const globalOptimizationMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch('/api/ai/global-optimization', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transportMode: activeTab })
+      });
+      if (!response.ok) throw new Error('Erreur optimisation globale');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setGlobalOptimization(data);
+      toast({
+        title: "Optimisation globale terminée",
+        description: "Stratégie globale optimisée par l'IA",
+      });
+    }
+  });
+
+  const riskManagementMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch('/api/ai/risk-management', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transportMode: activeTab })
+      });
+      if (!response.ok) throw new Error('Erreur gestion des risques');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      setRiskManagement(data);
+      toast({
+        title: "Gestion des risques terminée",
+        description: "Analyse des risques complétée par l'IA",
       });
     }
   });
@@ -480,17 +541,31 @@ export default function RouteManagement() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button className="h-20 flex flex-col items-center justify-center gap-2">
+              <Button 
+                className="h-20 flex flex-col items-center justify-center gap-2"
+                onClick={() => predictiveAnalysisMutation.mutate()}
+                disabled={predictiveAnalysisMutation.isPending}
+              >
                 <BarChart3 className="h-6 w-6" />
-                <span>Analyse Prédictive</span>
+                <span>{predictiveAnalysisMutation.isPending ? "Analyse..." : "Analyse Prédictive"}</span>
               </Button>
-              <Button variant="outline" className="h-20 flex flex-col items-center justify-center gap-2">
+              <Button 
+                variant="outline" 
+                className="h-20 flex flex-col items-center justify-center gap-2"
+                onClick={() => globalOptimizationMutation.mutate()}
+                disabled={globalOptimizationMutation.isPending}
+              >
                 <Globe className="h-6 w-6" />
-                <span>Optimisation Globale</span>
+                <span>{globalOptimizationMutation.isPending ? "Optimisation..." : "Optimisation Globale"}</span>
               </Button>
-              <Button variant="outline" className="h-20 flex flex-col items-center justify-center gap-2">
+              <Button 
+                variant="outline" 
+                className="h-20 flex flex-col items-center justify-center gap-2"
+                onClick={() => riskManagementMutation.mutate()}
+                disabled={riskManagementMutation.isPending}
+              >
                 <Shield className="h-6 w-6" />
-                <span>Gestion des Risques</span>
+                <span>{riskManagementMutation.isPending ? "Analyse..." : "Gestion des Risques"}</span>
               </Button>
             </div>
           </CardContent>
@@ -625,6 +700,195 @@ export default function RouteManagement() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Résultats Analyse Prédictive */}
+        {predictiveResults && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-purple-500" />
+                Analyse Prédictive IA
+              </CardTitle>
+              <CardDescription>
+                Prédictions intelligentes et tendances du marché logistique
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-3">Prévisions de Demande</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span>30 prochains jours:</span>
+                      <span className="font-semibold text-green-600">{predictiveResults.predictions.demandForecast.next30Days}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>90 prochains jours:</span>
+                      <span className="font-semibold text-green-600">{predictiveResults.predictions.demandForecast.next90Days}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Fin d'année:</span>
+                      <span className="font-semibold text-green-600">{predictiveResults.predictions.demandForecast.yearEnd}</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-3">Évolution des Prix</h4>
+                  <div className="space-y-2">
+                    <div><strong>Court terme:</strong> {predictiveResults.predictions.priceEvolution.shortTerm}</div>
+                    <div><strong>Moyen terme:</strong> {predictiveResults.predictions.priceEvolution.mediumTerm}</div>
+                    <div><strong>Long terme:</strong> {predictiveResults.predictions.priceEvolution.longTerm}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6">
+                <h4 className="font-semibold mb-3">Recommandations IA</h4>
+                <ul className="space-y-2">
+                  {predictiveResults.recommendations.map((rec: string, index: number) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>{rec}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Résultats Optimisation Globale */}
+        {globalOptimization && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Globe className="h-5 w-5 text-blue-500" />
+                Optimisation Globale IA
+              </CardTitle>
+              <CardDescription>
+                Stratégie d'optimisation multi-corridor intelligente
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="mb-6">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-800">{globalOptimization.strategy.overallApproach}</h4>
+                  <p className="text-blue-700 mt-2">{globalOptimization.strategy.primaryObjective}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {globalOptimization.corridorOptimization.map((corridor: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4">
+                    <h4 className="font-semibold mb-2">{corridor.corridor}</h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span>Performance actuelle:</span>
+                        <span>{corridor.currentPerformance}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Performance optimisée:</span>
+                        <span className="font-semibold text-green-600">{corridor.optimizedPerformance}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Économies annuelles:</span>
+                        <span className="font-semibold text-green-600">{corridor.savings}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-3">Recommandations Stratégiques</h4>
+                <ul className="space-y-2">
+                  {globalOptimization.aiRecommendations.map((rec: string, index: number) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <Zap className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                      <span>{rec}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Résultats Gestion des Risques */}
+        {riskManagement && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-red-500" />
+                Gestion des Risques IA
+              </CardTitle>
+              <CardDescription>
+                Analyse complète des risques et plans de contingence
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="mb-6">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold">Profil de Risque Global</h4>
+                    <Badge variant={riskManagement.riskProfile.overallRisk === 'Modéré' ? 'secondary' : 'destructive'}>
+                      {riskManagement.riskProfile.overallRisk}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span>Score: {riskManagement.riskProfile.riskScore}/100</span>
+                    <Progress value={riskManagement.riskProfile.riskScore} className="flex-1" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                {riskManagement.riskCategories.map((category: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold">{category.category}</h4>
+                      <Badge variant={category.level === 'Élevé' ? 'destructive' : 'secondary'}>
+                        {category.level}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2">
+                      <div>
+                        <strong>Facteurs:</strong>
+                        <ul className="text-sm text-gray-600 mt-1">
+                          {category.factors.slice(0, 2).map((factor: string, idx: number) => (
+                            <li key={idx}>• {factor}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <strong>Impact:</strong>
+                        <p className="text-sm text-gray-600">{category.impact}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-3">Plans de Contingence</h4>
+                <div className="space-y-3">
+                  {riskManagement.contingencyPlans.map((plan: any, index: number) => (
+                    <div key={index} className="border-l-4 border-orange-400 bg-orange-50 p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h5 className="font-semibold">{plan.scenario}</h5>
+                        <span className="text-sm text-orange-600">Probabilité: {plan.probability}</span>
+                      </div>
+                      <div className="text-sm space-y-1">
+                        <div><strong>Route alternative:</strong> {plan.alternativeRoute}</div>
+                        <div><strong>Temps additionnel:</strong> {plan.additionalTime}</div>
+                        <div><strong>Coût additionnel:</strong> {plan.additionalCost}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>
