@@ -76,7 +76,7 @@ function App() {
                       <Route path="/quotes" component={Quotes} />
                       <Route path="/tracking" component={Tracking} />
                       <Route path="/documents" component={Documents} />
-                      <Route path="/chat" component={Chat} />
+                      <Route path="/chat" component={SupportChat} />
                       <Route path="/invoicing" component={Invoicing} />
                       <Route path="/analytics" component={Analytics} />
                       <Route path="/api-docs" component={ApiDocs} />
