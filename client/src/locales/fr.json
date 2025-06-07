@@ -200,6 +200,8 @@
   "payloadExample": "Exemple de payload",
   "testResult": "Résultat du test",
   "integrationExamples": "Exemples d'Intégration",
+  "copy": "Copier",
+  "availableSDKs": "SDKs Disponibles",
   
   "common": {
     "search": "Rechercher...",

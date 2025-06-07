@@ -429,7 +429,7 @@ console.log(data);`)}
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'X-API-Key': 'votre_cle_api'
+    'X-API-Key': '${t("yourApiKey", "your_api_key")}'
   },
   body: JSON.stringify({
     origin: 'Marseille, France',
@@ -485,7 +485,7 @@ print(data)`)}
 url = '${window.location.origin}/public-api/logistics/quotes'
 headers = {
     'Content-Type': 'application/json',
-    'X-API-Key': 'votre_cle_api'
+    'X-API-Key': '${t("yourApiKey", "your_api_key")}'
 }
 payload = {
     'origin': 'Marseille, France',
@@ -511,7 +511,7 @@ print(data)`}</pre>
                     size="sm"
                     variant="outline"
                     onClick={() => copyToClipboard(`curl -X POST "${window.location.origin}/public-api/logistics/quotes" \\
-  -H "X-API-Key: votre_cle_api" \\
+  -H "X-API-Key: ${t("yourApiKey", "your_api_key")}" \\
   -H "Content-Type: application/json" \\
   -d '{
     "origin": "Marseille, France",
@@ -524,12 +524,12 @@ print(data)`}</pre>
   }'`)}
                   >
                     <Copy className="w-4 h-4 mr-1" />
-                    Copier
+                    {t("copy", "Copy")}
                   </Button>
                 </h4>
                 <div className="bg-gray-900 text-green-400 p-4 rounded-lg">
                   <pre className="text-xs overflow-x-auto">{`curl -X POST "${window.location.origin}/public-api/logistics/quotes" \\
-  -H "X-API-Key: votre_cle_api" \\
+  -H "X-API-Key: ${t("yourApiKey", "your_api_key")}" \\
   -H "Content-Type: application/json" \\
   -d '{
     "origin": "Marseille, France", 
@@ -548,7 +548,7 @@ print(data)`}</pre>
           {/* SDK Information */}
           <Card>
             <CardHeader>
-              <CardTitle>SDKs Disponibles</CardTitle>
+              <CardTitle>{t("availableSDKs", "Available SDKs")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
