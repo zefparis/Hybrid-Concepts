@@ -71,20 +71,29 @@ export default function AdvancedTracking() {
         document.head.appendChild(script);
 
         window.initMap = () => {
+          console.log('Initializing Google Maps...');
           const mapElement = document.getElementById('tracking-map');
-          if (mapElement) {
-            const newMap = new window.google.maps.Map(mapElement, {
-              center: { lat: 48.8566, lng: 2.3522 }, // Paris par défaut
-              zoom: 2,
-              styles: [
-                {
-                  featureType: "water",
-                  elementType: "geometry",
-                  stylers: [{ color: "#e9e9e9" }, { lightness: 17 }]
-                }
-              ]
-            });
-            setMap(newMap);
+          console.log('Map element found:', mapElement);
+          if (mapElement && window.google && window.google.maps) {
+            try {
+              const newMap = new window.google.maps.Map(mapElement, {
+                center: { lat: 48.8566, lng: 2.3522 }, // Paris par défaut
+                zoom: 2,
+                styles: [
+                  {
+                    featureType: "water",
+                    elementType: "geometry",
+                    stylers: [{ color: "#e9e9e9" }, { lightness: 17 }]
+                  }
+                ]
+              });
+              console.log('Map created successfully:', newMap);
+              setMap(newMap);
+            } catch (error) {
+              console.error('Error creating map:', error);
+            }
+          } else {
+            console.error('Map element or Google Maps API not available');
           }
         };
       } else {
@@ -103,8 +112,8 @@ export default function AdvancedTracking() {
       
       // Combiner les données d'expéditions actives et Vizion
       const allShipments = [
-        ...(activeShipments || []),
-        ...(vizionData || []).map((v: any) => ({
+        ...(Array.isArray(activeShipments) ? activeShipments : []),
+        ...(Array.isArray(vizionData) ? vizionData : []).map((v: any) => ({
           reference: v.reference,
           type: 'container',
           status: v.status,

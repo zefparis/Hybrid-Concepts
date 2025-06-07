@@ -21,8 +21,8 @@ export default function RouteManagement() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("maritime");
   const [selectedRoute, setSelectedRoute] = useState(null);
-  const [optimizationResults, setOptimizationResults] = useState(null);
-  const [analysisResults, setAnalysisResults] = useState(null);
+  const [optimizationResults, setOptimizationResults] = useState<any>(null);
+  const [analysisResults, setAnalysisResults] = useState<any>(null);
 
   // Mutation pour l'optimisation IA des routes
   const optimizeRouteMutation = useMutation({
