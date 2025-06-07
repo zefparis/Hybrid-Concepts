@@ -496,6 +496,140 @@ export default function RouteManagement() {
           </CardContent>
         </Card>
 
+        {/* Résultats d'optimisation IA */}
+        {optimizationResults && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="h-5 w-5 text-blue-500" />
+                Résultats d'Optimisation IA
+              </CardTitle>
+              <CardDescription>
+                Analyse et recommandations pour la route optimisée
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div className="text-center p-4 bg-green-50 rounded-lg">
+                  <p className="text-sm text-green-600 font-medium">Réduction Durée</p>
+                  <p className="text-2xl font-bold text-green-700">{optimizationResults.improvements.durationReduction}</p>
+                </div>
+                <div className="text-center p-4 bg-blue-50 rounded-lg">
+                  <p className="text-sm text-blue-600 font-medium">Économies</p>
+                  <p className="text-2xl font-bold text-blue-700">{optimizationResults.improvements.costSaving}</p>
+                </div>
+                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                  <p className="text-sm text-purple-600 font-medium">Gain Efficacité</p>
+                  <p className="text-2xl font-bold text-purple-700">{optimizationResults.improvements.efficiencyGain}</p>
+                </div>
+                <div className="text-center p-4 bg-green-50 rounded-lg">
+                  <p className="text-sm text-green-600 font-medium">Réduction CO₂</p>
+                  <p className="text-2xl font-bold text-green-700">{optimizationResults.improvements.co2Reduction}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold mb-2">Recommandations IA:</h4>
+                  <ul className="space-y-1">
+                    {optimizationResults.recommendations.map((rec: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                        {rec}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-4 bg-blue-50 rounded-lg">
+                  <p className="text-sm font-medium text-blue-800 mb-1">Insights IA:</p>
+                  <p className="text-sm text-blue-700">{optimizationResults.aiInsights}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Résultats d'analyse IA */}
+        {analysisResults && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-green-500" />
+                Analyse IA Complète
+              </CardTitle>
+              <CardDescription>
+                Évaluation détaillée de la performance de la route
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-3">Performance Globale</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span>Score global:</span>
+                      <Badge className="bg-green-100 text-green-800">{analysisResults.performanceAnalysis.score}/100</Badge>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-green-600 mb-1">Forces:</p>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        {analysisResults.performanceAnalysis.strengths.map((strength: string, idx: number) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                            {strength}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-orange-600 mb-1">Points d'amélioration:</p>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        {analysisResults.performanceAnalysis.weaknesses.map((weakness: string, idx: number) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                            {weakness}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-3">Comparaison Marché</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Position vs concurrents:</span>
+                      <Badge variant="outline">{analysisResults.marketComparison.positionVsCompetitors}</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Benchmark coût:</span>
+                      <span className="text-sm font-medium">{analysisResults.marketComparison.costBenchmark}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Benchmark vitesse:</span>
+                      <span className="text-sm font-medium text-green-600">{analysisResults.marketComparison.speedBenchmark}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold mb-2">Recommandations IA:</h4>
+                <ul className="space-y-1">
+                  {analysisResults.aiRecommendations.map((rec: string, idx: number) => (
+                    <li key={idx} className="flex items-start gap-2 text-sm">
+                      <TrendingUp className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                      {rec}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Alertes et notifications */}
         <div className="mt-8 space-y-4">
           <Alert>
