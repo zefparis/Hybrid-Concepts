@@ -48,7 +48,7 @@ const enterpriseTools = [
   { name: "API Docs", href: "/api-docs", icon: FileText, key: "apiDocs" },
 ];
 
-export function TopNavbar() {
+export default function TopNavbar() {
   const [location, setLocation] = useLocation();
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);

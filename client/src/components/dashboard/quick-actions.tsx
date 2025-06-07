@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, Upload, Search } from "lucide-react";
+import { Plus, Upload, Search, Route, MapPin, Ship, Truck, Plane } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "wouter";
 
@@ -15,16 +15,22 @@ export function QuickActions() {
       color: "ia-solution-blue",
     },
     {
-      icon: Upload,
-      label: t("importDocuments"),
-      href: "/documents/upload",
+      icon: Route,
+      label: "Gestion Routes Multimodales",
+      href: "/route-management",
       color: "ia-solution-green",
     },
     {
       icon: Search,
-      label: t("trackShipment"),
-      href: "/tracking",
+      label: "Tracking Avancé",
+      href: "/advanced-tracking",
       color: "ia-solution-purple",
+    },
+    {
+      icon: Upload,
+      label: t("importDocuments"),
+      href: "/documents/upload",
+      color: "ia-solution-orange",
     },
   ];
 

@@ -13,7 +13,7 @@ import {
   Navigation, Fuel, Users, Package, Calendar,
   BarChart3, Globe, Zap, Shield
 } from "lucide-react";
-import { TopNavbar } from "@/components/layout/top-navbar";
+import TopNavbar from "@/components/layout/top-navbar";
 
 export default function RouteManagement() {
   const { t } = useTranslation();
@@ -170,7 +170,7 @@ export default function RouteManagement() {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch(status) {
       case "Optimal": return "bg-green-100 text-green-800";
       case "Actif": return "bg-blue-100 text-blue-800";
