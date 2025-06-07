@@ -26,8 +26,10 @@ import {
   DollarSign,
   ArrowUp,
   ArrowDown,
-  Minus
+  Minus,
+  ArrowLeft
 } from "lucide-react";
+import { Link } from "wouter";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface MaturityAssessment {
@@ -110,6 +112,16 @@ export default function AIMaturity() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* Navigation */}
+        <div className="flex items-center">
+          <Link href="/">
+            <Button variant="ghost" size="sm">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Retour au Dashboard
+            </Button>
+          </Link>
+        </div>
+        
         {/* Hero Section */}
         <div className="text-center space-y-6">
           <div className="inline-flex items-center space-x-2 bg-purple-100 dark:bg-purple-900 px-4 py-2 rounded-full">

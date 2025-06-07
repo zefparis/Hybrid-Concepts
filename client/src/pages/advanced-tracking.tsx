@@ -11,16 +11,27 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Package, Search, MapPin, Clock, Truck, Ship, Plane,
   AlertTriangle, CheckCircle, Navigation, Zap, Globe,
-  BarChart3, Thermometer, Shield, Radio, Wifi
+  BarChart3, Thermometer, Shield, Radio, Wifi, ArrowLeft
 } from "lucide-react";
+import { Link } from "wouter";
 
 import { apiRequest } from "@/lib/queryClient";
+
+// Déclaration pour Google Maps
+declare global {
+  interface Window {
+    google: any;
+    initMap: () => void;
+  }
+}
 
 export default function AdvancedTracking() {
   const { t } = useTranslation();
   const [trackingNumber, setTrackingNumber] = useState("");
   const [activeTab, setActiveTab] = useState("search");
   const [selectedShipment, setSelectedShipment] = useState(null);
+  const [map, setMap] = useState(null);
+  const [markers, setMarkers] = useState([]);
 
   // Mutation pour le tracking en temps réel
   const trackShipmentMutation = useMutation({
@@ -191,6 +202,14 @@ export default function AdvancedTracking() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
+          <div className="flex items-center mb-4">
+            <Link href="/">
+              <Button variant="ghost" size="sm" className="mr-4">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Retour au Dashboard
+              </Button>
+            </Link>
+          </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Tracking Avancé Multi-Transporteurs
           </h1>
