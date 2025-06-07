@@ -177,12 +177,12 @@ export default function CompetitiveDemo() {
               {loading ? (
                 <div className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  {t("analysisInProgress", "AI Analysis in Progress...")}
+                  {t("competitiveDemoAnalyzing", "Analyzing...")}
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <Brain className="w-4 h-4" />
-                  {t("analyzeWithAiButton", "Analyze with eMulog AI")}
+                  {t("competitiveDemoAnalyze", "Analyze with eMulog AI")}
                 </div>
               )}
             </Button>
@@ -195,10 +195,10 @@ export default function CompetitiveDemo() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-green-600" />
-                Analyse Comparative
+{t("competitiveDemoResults", "Competitive Analysis Results")}
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                {analysis.companyName} - État actuel vs. Optimisation eMulog IA
+                {analysis.companyName} - {t("competitiveDemoCurrentState", "Current State")} vs. {t("competitiveDemoWithEmulogAI", "With eMulog AI")}
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
