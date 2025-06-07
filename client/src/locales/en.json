@@ -249,6 +249,10 @@
   "scenariosToSimulateField": "Scenarios to Simulate",
   "scenarioTargetGrowthPercentage": "Target Growth (%)",
   "scenarioCompanyNamePlaceholder": "Ex: InnoLogistics Corp",
+  "scenarioSimulationInProgress": "Simulation in progress...",
+  "scenarioSimulationShort": "Simulation...",
+  "scenarioLaunchAiSimulations": "Launch AI Simulations",
+  "scenarioLaunchShort": "Launch",
   
   "common": {
     "search": "Search...",
