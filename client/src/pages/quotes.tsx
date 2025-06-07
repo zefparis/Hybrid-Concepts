@@ -694,7 +694,7 @@ export default function Quotes() {
                 <textarea
                   id="description"
                   className="w-full min-h-[80px] p-3 border rounded-md resize-none"
-                  placeholder="Décrivez votre expédition, contraintes particulières, etc."
+                  placeholder={t("quotesDescriptionPlaceholder", "Describe your shipment, special constraints, etc.")}
                   value={newQuote.description}
                   onChange={(e) => setNewQuote({...newQuote, description: e.target.value})}
                 />
