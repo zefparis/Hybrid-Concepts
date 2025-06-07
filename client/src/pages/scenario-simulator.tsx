@@ -152,7 +152,7 @@ export default function ScenarioSimulator() {
         </div>
 
         {/* Configuration Form */}
-        <Card className="max-w-4xl mx-auto mx-2 sm:mx-auto">
+        <Card className="mx-2 sm:mx-auto max-w-4xl">
           <CardHeader className="px-4 sm:px-6">
             <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
               <Target className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -304,18 +304,20 @@ export default function ScenarioSimulator() {
             <Button 
               onClick={handleGenerateSimulations}
               disabled={generateSimulations.isPending || selectedScenarios.length === 0}
-              className="w-full"
+              className="w-full text-sm sm:text-base"
               size="lg"
             >
               {generateSimulations.isPending ? (
                 <>
                   <PlayCircle className="mr-2 h-4 w-4 animate-spin" />
-                  Simulation en cours...
+                  <span className="hidden sm:inline">Simulation en cours...</span>
+                  <span className="sm:hidden">Simulation...</span>
                 </>
               ) : (
                 <>
                   <PlayCircle className="mr-2 h-4 w-4" />
-                  Lancer les Simulations IA
+                  <span className="hidden sm:inline">Lancer les Simulations IA</span>
+                  <span className="sm:hidden">Lancer ({selectedScenarios.length})</span>
                 </>
               )}
             </Button>
@@ -411,28 +413,28 @@ export default function ScenarioSimulator() {
                             <span>{result.scenario} ({result.timeframe})</span>
                           </h4>
                           
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="text-center p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
-                              <Gauge className="h-6 w-6 text-blue-600 mx-auto mb-1" />
-                              <p className="text-sm font-semibold">{result.projectedMetrics.quotingTime}h</p>
+                          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+                            <div className="text-center p-2 sm:p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                              <Gauge className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600 mx-auto mb-1" />
+                              <p className="text-xs sm:text-sm font-semibold">{result.projectedMetrics.quotingTime}h</p>
                               <p className="text-xs text-gray-600 dark:text-gray-400">Temps cotation</p>
                             </div>
                             
-                            <div className="text-center p-3 bg-green-50 dark:bg-green-900 rounded-lg">
-                              <DollarSign className="h-6 w-6 text-green-600 mx-auto mb-1" />
-                              <p className="text-sm font-semibold">{result.projectedMetrics.processingCost}€</p>
+                            <div className="text-center p-2 sm:p-3 bg-green-50 dark:bg-green-900 rounded-lg">
+                              <DollarSign className="h-4 w-4 sm:h-6 sm:w-6 text-green-600 mx-auto mb-1" />
+                              <p className="text-xs sm:text-sm font-semibold">{result.projectedMetrics.processingCost}€</p>
                               <p className="text-xs text-gray-600 dark:text-gray-400">Coût cotation</p>
                             </div>
                             
-                            <div className="text-center p-3 bg-purple-50 dark:bg-purple-900 rounded-lg">
-                              <Zap className="h-6 w-6 text-purple-600 mx-auto mb-1" />
-                              <p className="text-sm font-semibold">{result.projectedMetrics.automation}%</p>
+                            <div className="text-center p-2 sm:p-3 bg-purple-50 dark:bg-purple-900 rounded-lg">
+                              <Zap className="h-4 w-4 sm:h-6 sm:w-6 text-purple-600 mx-auto mb-1" />
+                              <p className="text-xs sm:text-sm font-semibold">{result.projectedMetrics.automation}%</p>
                               <p className="text-xs text-gray-600 dark:text-gray-400">Automation</p>
                             </div>
                             
-                            <div className="text-center p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
-                              <TrendingUp className="h-6 w-6 text-yellow-600 mx-auto mb-1" />
-                              <p className="text-sm font-semibold">{result.aiImplementation.roi}%</p>
+                            <div className="text-center p-2 sm:p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+                              <TrendingUp className="h-4 w-4 sm:h-6 sm:w-6 text-yellow-600 mx-auto mb-1" />
+                              <p className="text-xs sm:text-sm font-semibold">{result.aiImplementation.roi}%</p>
                               <p className="text-xs text-gray-600 dark:text-gray-400">ROI</p>
                             </div>
                           </div>
@@ -448,7 +450,7 @@ export default function ScenarioSimulator() {
                           
                           <div>
                             <h5 className="font-medium mb-2">Position marché:</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                               <div>
                                 <span className="text-sm text-gray-600 dark:text-gray-400">Avantage concurrentiel:</span>
                                 <p className="font-medium">{result.marketPosition.competitiveAdvantage}</p>
@@ -710,7 +712,7 @@ export default function ScenarioSimulator() {
                       
                       <div>
                         <h4 className="font-semibold mb-3">Opportunités d'expansion:</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                           {simulation.businessImpact.revenueImpact.marketExpansion.map((opportunity: string, oppIdx: number) => (
                             <div key={oppIdx} className="flex items-center space-x-2 p-2 bg-gray-50 dark:bg-gray-800 rounded">
                               <ArrowRight className="h-4 w-4 text-green-500" />
@@ -722,7 +724,7 @@ export default function ScenarioSimulator() {
                       
                       <div>
                         <h4 className="font-semibold mb-3">Facteurs de différentiation:</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {simulation.competitiveAnalysis.differentiationFactors.map((factor: string, factIdx: number) => (
                             <div key={factIdx} className="flex items-center space-x-2">
                               <Trophy className="h-4 w-4 text-yellow-500" />
@@ -738,23 +740,25 @@ export default function ScenarioSimulator() {
             </Tabs>
 
             {/* CTA Section */}
-            <Card className="bg-gradient-to-r from-green-600 to-blue-600 text-white">
-              <CardContent className="p-8 text-center">
+            <Card className="bg-gradient-to-r from-green-600 to-blue-600 text-white mx-2 sm:mx-auto">
+              <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
                 <div className="space-y-4">
-                  <PlayCircle className="h-12 w-12 mx-auto opacity-80" />
-                  <h3 className="text-2xl font-bold">Prêt à Déployer Votre Stratégie Optimale ?</h3>
-                  <p className="text-green-100 max-w-2xl mx-auto">
+                  <PlayCircle className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 mx-auto opacity-80" />
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold">Prêt à Déployer Votre Stratégie Optimale ?</h3>
+                  <p className="text-green-100 max-w-2xl mx-auto text-sm sm:text-base">
                     Ces simulations vous donnent une vision claire des impacts de chaque approche. 
                     Nos experts peuvent vous accompagner dans l'implémentation du scénario optimal.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                    <Button variant="secondary" size="lg">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-4 sm:mt-6">
+                    <Button variant="secondary" size="lg" className="text-sm sm:text-base">
                       <Users className="mr-2 h-4 w-4" />
-                      Consultation Stratégique
+                      <span className="hidden sm:inline">Consultation Stratégique</span>
+                      <span className="sm:hidden">Consultation</span>
                     </Button>
-                    <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-green-600">
+                    <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base">
                       <Target className="mr-2 h-4 w-4" />
-                      Plan d'Implémentation
+                      <span className="hidden sm:inline">Plan d'Implémentation</span>
+                      <span className="sm:hidden">Plan</span>
                     </Button>
                   </div>
                 </div>
