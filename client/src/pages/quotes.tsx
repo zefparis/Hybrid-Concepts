@@ -449,7 +449,7 @@ export default function Quotes() {
                       </div>
                     </div>
                     <div>
-                      <Label htmlFor="destination">Lieu de livraison *</Label>
+                      <Label htmlFor="destination">{t("quotesDestination", "Destination")} *</Label>
                       <div className="relative">
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
@@ -486,7 +486,7 @@ export default function Quotes() {
                 <TabsContent value="mer" className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="origin-port">Port de départ *</Label>
+                      <Label htmlFor="origin-port">{t("quotesOrigin", "Origin")} *</Label>
                       <div className="relative">
                         <Ship className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
@@ -518,7 +518,7 @@ export default function Quotes() {
                       </div>
                     </div>
                     <div>
-                      <Label htmlFor="destination-port">Port d'arrivée *</Label>
+                      <Label htmlFor="destination-port">{t("quotesDestination", "Destination")} *</Label>
                       <div className="relative">
                         <Ship className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
@@ -555,7 +555,7 @@ export default function Quotes() {
                 <TabsContent value="air" className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="origin-airport">Aéroport de départ *</Label>
+                      <Label htmlFor="origin-airport">{t("quotesOrigin", "Origin")} *</Label>
                       <div className="relative">
                         <Plane className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
@@ -587,7 +587,7 @@ export default function Quotes() {
                       </div>
                     </div>
                     <div>
-                      <Label htmlFor="destination-airport">Aéroport d'arrivée *</Label>
+                      <Label htmlFor="destination-airport">{t("quotesDestination", "Destination")} *</Label>
                       <div className="relative">
                         <Plane className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
@@ -624,7 +624,7 @@ export default function Quotes() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="weight">Poids (kg) *</Label>
+                  <Label htmlFor="weight">{t("quotesWeight", "Weight (kg)")} *</Label>
                   <div className="relative">
                     <Weight className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
@@ -640,7 +640,7 @@ export default function Quotes() {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="volume">Volume (m³)</Label>
+                  <Label htmlFor="volume">{t("quotesVolume", "Volume (m³)")}</Label>
                   <div className="relative">
                     <Package className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
@@ -655,7 +655,7 @@ export default function Quotes() {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="requested-date">Date souhaitée *</Label>
+                  <Label htmlFor="requested-date">{t("quotesRequestedDate", "Requested Date")} *</Label>
                   <div className="relative">
                     <Calendar className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
@@ -671,7 +671,7 @@ export default function Quotes() {
               </div>
 
               <div>
-                <Label htmlFor="goods-type">Type de marchandise *</Label>
+                <Label htmlFor="goods-type">{t("quotesGoodsType", "Goods Type")} *</Label>
                 <Select value={newQuote.goodsType} onValueChange={(value) => setNewQuote({...newQuote, goodsType: value})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionnez le type" />
@@ -690,7 +690,7 @@ export default function Quotes() {
               </div>
 
               <div>
-                <Label htmlFor="description">Description détaillée</Label>
+                <Label htmlFor="description">{t("quotesDescription", "Description")}</Label>
                 <textarea
                   id="description"
                   className="w-full min-h-[80px] p-3 border rounded-md resize-none"
