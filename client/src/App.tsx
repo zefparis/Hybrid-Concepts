@@ -65,6 +65,7 @@ function AuthenticatedApp() {
             <Route path="/competitive-demo" component={CompetitiveDemo} />
             <Route path="/migration-demo" component={MigrationDemo} />
             <Route path="/ai-maturity" component={AIMaturity} />
+            <Route path="/scenario-simulator" component={ScenarioSimulator} />
             <Route component={NotFound} />
           </Switch>
         </div>
