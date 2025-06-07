@@ -130,7 +130,7 @@ export default function AIAutomation() {
         </div>
         <div className="flex items-center gap-2 text-sm">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-green-600 font-medium">Claude Sonnet-4 Actif</span>
+          <span className="text-green-600 font-medium">{t("claudeActive", "Claude Sonnet-4 Active")}</span>
         </div>
       </div>
 
@@ -185,7 +185,7 @@ export default function AIAutomation() {
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">Intervention humaine</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("humanIntervention", "Human Intervention")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-orange-600">0%</p>
               </div>
             </div>
@@ -327,23 +327,23 @@ export default function AIAutomation() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Code className="w-5 h-5 text-purple-500" />
-            Processus d'automatisation traditionnel vs IA
+            {t("traditionalVsAiAutomation", "Traditional vs AI Automation Process")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Traditional Process */}
             <div>
-              <h4 className="font-medium mb-3 text-red-600">Processus Traditionnel (40 minutes)</h4>
+              <h4 className="font-medium mb-3 text-red-600">{t("traditionalProcess40min", "Traditional Process (40 minutes)")}</h4>
               <div className="space-y-2">
                 {[
-                  "Recherche manuelle des transporteurs",
-                  "Appels téléphoniques multiples",
-                  "Attente des réponses par email",
-                  "Comparaison manuelle des offres",
-                  "Négociation individuelle",
-                  "Validation administrative",
-                  "Documentation manuelle"
+                  t("manualCarrierSearch", "Manual carrier search"),
+                  t("multiplePhoneCalls", "Multiple phone calls"),
+                  t("waitingEmailResponses", "Waiting for email responses"),
+                  t("manualOfferComparison", "Manual offer comparison"),
+                  t("individualNegotiation", "Individual negotiation"),
+                  t("administrativeValidation", "Administrative validation"),
+                  t("manualDocumentation", "Manual documentation")
                 ].map((step, index) => (
                   <div key={index} className="flex items-center gap-2 text-sm">
                     <div className="w-2 h-2 bg-red-400 rounded-full"></div>
@@ -355,16 +355,16 @@ export default function AIAutomation() {
 
             {/* AI Process */}
             <div>
-              <h4 className="font-medium mb-3 text-green-600">Processus IA eMulog (30 secondes)</h4>
+              <h4 className="font-medium mb-3 text-green-600">{t("aiProcess30sec", "eMulog AI Process (30 seconds)")}</h4>
               <div className="space-y-2">
                 {[
-                  "Analyse IA des besoins logistiques",
-                  "Détection automatique du mode optimal",
-                  "Génération intelligente des cotations",
-                  "Comparaison et optimisation IA",
-                  "Recommandation basée sur l'analyse",
-                  "Documentation automatique",
-                  "Prêt pour validation client"
+                  t("aiLogisticsAnalysis", "AI logistics needs analysis"),
+                  t("automaticModeDetection", "Automatic optimal mode detection"),
+                  t("intelligentQuoteGeneration", "Intelligent quote generation"),
+                  t("aiComparisonOptimization", "AI comparison and optimization"),
+                  t("analysisBasedRecommendation", "Analysis-based recommendation"),
+                  t("automaticDocumentation", "Automatic documentation"),
+                  t("readyForClientValidation", "Ready for client validation")
                 ].map((step, index) => (
                   <motion.div 
                     key={index}
