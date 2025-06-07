@@ -123,14 +123,14 @@ export default function AIAutomation() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold">{t("fullLogisticsAutomation", "Complete AI Logistics Automation")}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">{t("autoFullLogisticsTitle", "Complete AI Logistics Automation")}</h1>
           <p className="text-muted-foreground mt-2 text-sm sm:text-base">
-            {t("transformLogisticsOperations", "Transform your logistics operations with the most advanced AI on the market. From automatic quoting to real-time tracking, optimize every step.")}
+            {t("autoTransformLogisticsDesc", "Transform your logistics operations with the most advanced AI on the market. From automatic quoting to real-time tracking, optimize every step.")}
           </p>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-green-600 font-medium">{t("claudeActive", "Claude Sonnet-4 Active")}</span>
+          <span className="text-green-600 font-medium">{t("autoClaudeActiveStatus", "Claude Sonnet-4 Active")}</span>
         </div>
       </div>
 
@@ -143,7 +143,7 @@ export default function AIAutomation() {
                 <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("processingTime", "Processing time")}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("processingTimeMetric", "Processing time")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-blue-600">30s</p>
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function AIAutomation() {
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("timeReduction", "Time reduction")}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("timeReductionMetric", "Time reduction")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-purple-600">98%</p>
               </div>
             </div>
