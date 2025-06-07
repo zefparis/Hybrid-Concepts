@@ -337,6 +337,16 @@ const resources = {
       // Invoicing page
       invoicingPageInDevelopment: "Page de facturation en cours de développement...",
       
+      // API Docs page
+      copied: "Copié !",
+      codeCopiedToClipboard: "Le code a été copié dans le presse-papiers",
+      apiKeyRequired: "Clé API requise",
+      pleaseEnterApiKeyToTest: "Veuillez saisir votre clé API pour tester les endpoints",
+      
+      // Not Found page
+      pageNotFound: "404 Page Non Trouvée",
+      pageNotFoundDescription: "Avez-vous oublié d'ajouter la page au routeur ?",
+      
       // Scenario Simulator page
       yourCompany: "Votre Société",
       aiScenarioSimulation: "Simulation de Scénarios IA",
@@ -686,6 +696,16 @@ const resources = {
       
       // Invoicing page
       invoicingPageInDevelopment: "Invoicing page under development...",
+      
+      // API Docs page
+      copied: "Copied!",
+      codeCopiedToClipboard: "Code has been copied to clipboard",
+      apiKeyRequired: "API Key Required",
+      pleaseEnterApiKeyToTest: "Please enter your API key to test endpoints",
+      
+      // Not Found page
+      pageNotFound: "404 Page Not Found",
+      pageNotFoundDescription: "Did you forget to add the page to the router?",
       
       // Scenario Simulator page
       yourCompany: "Your Company",

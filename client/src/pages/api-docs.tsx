@@ -27,16 +27,16 @@ export default function ApiDocs() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copié !",
-      description: "Le code a été copié dans le presse-papiers",
+      title: t("copied", "Copied!"),
+      description: t("codeCopiedToClipboard", "Code has been copied to clipboard"),
     });
   };
 
   const testEndpoint = async (endpoint: string, method: string, payload?: any) => {
     if (!apiKey) {
       toast({
-        title: "Clé API requise",
-        description: "Veuillez saisir votre clé API pour tester les endpoints",
+        title: t("apiKeyRequired", "API Key Required"),
+        description: t("pleaseEnterApiKeyToTest", "Please enter your API key to test endpoints"),
         variant: "destructive",
       });
       return;
