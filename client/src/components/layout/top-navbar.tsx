@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { useAuth } from "@/hooks/use-auth";
+// Authentication removed
 import { cn } from "@/lib/utils";
 import { 
   Truck, BarChart3, FileText, MapPin, FolderOpen, MessageCircle, 
@@ -43,7 +43,6 @@ const demoPages = [
 
 export function TopNavbar() {
   const [location, setLocation] = useLocation();
-  const { user, logout } = useAuth();
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
 
@@ -51,10 +50,7 @@ export function TopNavbar() {
     setLocation(href);
   };
 
-  const handleLogout = () => {
-    logout();
-    setLocation("/login");
-  };
+  // Authentication removed - no logout needed
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -210,40 +206,20 @@ export function TopNavbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* User Menu */}
+          {/* Settings Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                <Avatar className="w-7 h-7">
-                  <AvatarFallback className="bg-blue-600 text-white text-xs">
-                    {user?.firstName?.[0]}{user?.lastName?.[0]}
-                  </AvatarFallback>
-                </Avatar>
+                <Settings className="w-4 h-4" />
                 <span className="hidden md:block text-sm font-medium text-gray-700">
-                  {user?.firstName}
+                  Settings
                 </span>
                 <ChevronDown className="w-3 h-3 text-gray-400" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium">{user?.firstName} {user?.lastName}</p>
-                  <p className="text-xs text-gray-500">{user?.email}</p>
-                  <Badge variant="outline" className="self-start text-xs">
-                    {user?.role}
-                  </Badge>
-                </div>
-              </DropdownMenuLabel>
+              <DropdownMenuLabel>Application Settings</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
-                <User className="w-4 h-4 mr-2" />
-                Profile Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <Settings className="w-4 h-4 mr-2" />
-                Account Settings
-              </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => handleNavigation('/invoicing')}
                 className="cursor-pointer"
@@ -251,13 +227,12 @@ export function TopNavbar() {
                 <CreditCard className="w-4 h-4 mr-2" />
                 Billing & Plans
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
               <DropdownMenuItem 
-                onClick={handleLogout}
-                className="cursor-pointer text-red-600"
+                onClick={() => handleNavigation('/api-docs')}
+                className="cursor-pointer"
               >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
+                <FileText className="w-4 h-4 mr-2" />
+                API Documentation
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

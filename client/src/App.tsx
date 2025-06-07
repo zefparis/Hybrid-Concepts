@@ -3,7 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider, useAuth } from "@/hooks/use-auth";
+// Authentication removed
 import { TopNavbar } from "@/components/layout/top-navbar";
 import { Suspense } from "react";
 import NotFound from "@/pages/not-found";
@@ -20,9 +20,7 @@ import CompetitiveDemo from "@/pages/competitive-demo";
 import MigrationDemo from "@/pages/migration-demo";
 import AIMaturity from "@/pages/ai-maturity";
 import ScenarioSimulator from "@/pages/scenario-simulator";
-import Login from "@/pages/login";
-import Landing from "@/pages/landing";
-import { PublicNavbar } from "@/components/layout/public-navbar";
+// Authentication pages removed
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -33,73 +31,40 @@ function LoadingSpinner() {
   );
 }
 
-function PublicApp() {
-  return (
-    <div className="min-h-screen">
-      <PublicNavbar />
-      <Switch>
-        <Route path="/" component={Landing} />
-        <Route path="/login" component={Login} />
-        <Route path="/competitive-demo" component={CompetitiveDemo} />
-        <Route path="/ai-maturity" component={AIMaturity} />
-        <Route path="/scenario-simulator" component={ScenarioSimulator} />
-        <Route path="/ai-automation" component={AIAutomation} />
-        <Route component={Landing} />
-      </Switch>
-    </div>
-  );
-}
-
-function AuthenticatedApp() {
-  const { isAuthenticated, loading } = useAuth();
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  if (!isAuthenticated) {
-    return <PublicApp />;
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <TopNavbar />
-      <main className="min-h-screen">
-        <div className="px-4 sm:px-6 lg:px-8 py-6">
-          <Switch>
-            <Route path="/" component={Dashboard} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/ai-automation" component={AIAutomation} />
-            <Route path="/quotes" component={Quotes} />
-            <Route path="/tracking" component={Tracking} />
-            <Route path="/documents" component={Documents} />
-            <Route path="/chat" component={Chat} />
-            <Route path="/invoicing" component={Invoicing} />
-            <Route path="/analytics" component={Analytics} />
-            <Route path="/api-docs" component={ApiDocs} />
-            <Route path="/competitive-demo" component={CompetitiveDemo} />
-            <Route path="/migration-demo" component={MigrationDemo} />
-            <Route path="/ai-maturity" component={AIMaturity} />
-            <Route path="/scenario-simulator" component={ScenarioSimulator} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </main>
-    </div>
-  );
-}
+// PublicApp removed - direct access to all features
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TooltipProvider>
-          <Suspense fallback={<LoadingSpinner />}>
-            <AuthenticatedApp />
-          </Suspense>
-          <Toaster />
-        </TooltipProvider>
-      </AuthProvider>
+      <TooltipProvider>
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+          <TopNavbar />
+          <main className="min-h-screen">
+            <div className="px-4 sm:px-6 lg:px-8 py-6">
+              <Suspense fallback={<LoadingSpinner />}>
+                <Switch>
+                  <Route path="/" component={Dashboard} />
+                  <Route path="/dashboard" component={Dashboard} />
+                  <Route path="/ai-automation" component={AIAutomation} />
+                  <Route path="/quotes" component={Quotes} />
+                  <Route path="/tracking" component={Tracking} />
+                  <Route path="/documents" component={Documents} />
+                  <Route path="/chat" component={Chat} />
+                  <Route path="/invoicing" component={Invoicing} />
+                  <Route path="/analytics" component={Analytics} />
+                  <Route path="/api-docs" component={ApiDocs} />
+                  <Route path="/competitive-demo" component={CompetitiveDemo} />
+                  <Route path="/migration-demo" component={MigrationDemo} />
+                  <Route path="/ai-maturity" component={AIMaturity} />
+                  <Route path="/scenario-simulator" component={ScenarioSimulator} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Suspense>
+            </div>
+          </main>
+        </div>
+        <Toaster />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }
