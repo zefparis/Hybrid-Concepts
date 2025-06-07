@@ -24,15 +24,15 @@
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
   
-  /* eMulog custom colors */
-  --emulog-blue: 207 90% 54%; /* #0F62FE */
-  --emulog-dark: 0 0% 8.6%; /* #161616 */
-  --emulog-gray: 0 0% 22.4%; /* #393939 */
-  --emulog-light: 0 0% 95.7%; /* #F4F4F4 */
-  --emulog-green: 142 76% 50%; /* #42BE65 */
-  --emulog-red: 357 100% 76%; /* #FF8389 */
-  --emulog-yellow: 48 100% 61%; /* #FDD13A */
-  --emulog-purple: 262 100% 62%; /* #8A3FFC */
+  /* Hybrid Concept custom colors */
+  --hybrid-blue: 207 90% 54%; /* #0F62FE */
+  --hybrid-dark: 0 0% 8.6%; /* #161616 */
+  --hybrid-gray: 0 0% 22.4%; /* #393939 */
+  --hybrid-light: 0 0% 95.7%; /* #F4F4F4 */
+  --hybrid-green: 142 76% 50%; /* #42BE65 */
+  --hybrid-red: 357 100% 76%; /* #FF8389 */
+  --hybrid-yellow: 48 100% 61%; /* #FDD13A */
+  --hybrid-purple: 262 100% 62%; /* #8A3FFC */
 }
 
 .dark {
@@ -70,53 +70,53 @@
 }
 
 @layer utilities {
-  .text-emulog-blue {
-    color: hsl(var(--emulog-blue));
+  .text-hybrid-blue {
+    color: hsl(var(--hybrid-blue));
   }
-  .bg-emulog-blue {
-    background-color: hsl(var(--emulog-blue));
+  .bg-hybrid-blue {
+    background-color: hsl(var(--hybrid-blue));
   }
-  .text-emulog-dark {
-    color: hsl(var(--emulog-dark));
+  .text-hybrid-dark {
+    color: hsl(var(--hybrid-dark));
   }
-  .bg-emulog-dark {
-    background-color: hsl(var(--emulog-dark));
+  .bg-hybrid-dark {
+    background-color: hsl(var(--hybrid-dark));
   }
-  .text-emulog-gray {
-    color: hsl(var(--emulog-gray));
+  .text-hybrid-gray {
+    color: hsl(var(--hybrid-gray));
   }
-  .bg-emulog-gray {
-    background-color: hsl(var(--emulog-gray));
+  .bg-hybrid-gray {
+    background-color: hsl(var(--hybrid-gray));
   }
-  .text-emulog-light {
-    color: hsl(var(--emulog-light));
+  .text-hybrid-light {
+    color: hsl(var(--hybrid-light));
   }
-  .bg-emulog-light {
-    background-color: hsl(var(--emulog-light));
+  .bg-hybrid-light {
+    background-color: hsl(var(--hybrid-light));
   }
-  .text-emulog-green {
-    color: hsl(var(--emulog-green));
+  .text-hybrid-green {
+    color: hsl(var(--hybrid-green));
   }
-  .bg-emulog-green {
-    background-color: hsl(var(--emulog-green));
+  .bg-hybrid-green {
+    background-color: hsl(var(--hybrid-green));
   }
-  .text-emulog-red {
-    color: hsl(var(--emulog-red));
+  .text-hybrid-red {
+    color: hsl(var(--hybrid-red));
   }
-  .bg-emulog-red {
-    background-color: hsl(var(--emulog-red));
+  .bg-hybrid-red {
+    background-color: hsl(var(--hybrid-red));
   }
-  .text-emulog-yellow {
-    color: hsl(var(--emulog-yellow));
+  .text-hybrid-yellow {
+    color: hsl(var(--hybrid-yellow));
   }
-  .bg-emulog-yellow {
-    background-color: hsl(var(--emulog-yellow));
+  .bg-hybrid-yellow {
+    background-color: hsl(var(--hybrid-yellow));
   }
-  .text-emulog-purple {
-    color: hsl(var(--emulog-purple));
+  .text-hybrid-purple {
+    color: hsl(var(--hybrid-purple));
   }
-  .bg-emulog-purple {
-    background-color: hsl(var(--emulog-purple));
+  .bg-hybrid-purple {
+    background-color: hsl(var(--hybrid-purple));
   }
 }
 

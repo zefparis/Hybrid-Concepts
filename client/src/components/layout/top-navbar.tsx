@@ -74,7 +74,7 @@ export default function TopNavbar() {
             <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
               <Truck className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">eMulog</span>
+            <span className="text-xl font-bold text-gray-900">Hybrid Concept</span>
           </div>
 
           {/* Main Navigation */}

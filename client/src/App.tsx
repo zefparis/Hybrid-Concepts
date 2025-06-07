@@ -4,6 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import TopNavbar from "@/components/layout/top-navbar";
+import { Footer } from "@/components/layout/footer";
 import { Suspense } from "react";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
@@ -42,9 +43,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
           <TopNavbar />
-          <main className="min-h-screen">
+          <main className="flex-1">
             <div className="px-4 sm:px-6 lg:px-8 py-6">
               <Suspense fallback={<LoadingSpinner />}>
                 <Switch>
@@ -76,6 +77,7 @@ function App() {
               </Suspense>
             </div>
           </main>
+          <Footer />
         </div>
         <Toaster />
       </TooltipProvider>

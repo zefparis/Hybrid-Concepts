@@ -22,7 +22,7 @@ interface AuthRequest extends Request {
 // Authentication middleware disabled - direct access
 const authenticateToken = (req: any, res: any, next: any) => {
   // Skip authentication - allow direct access
-  req.user = { id: 1, email: "demo@emulog.com", role: "admin" }; // Demo user
+  req.user = { id: 1, email: "demo@hybridconc.com", role: "admin" }; // Demo user
   next();
 };
 
