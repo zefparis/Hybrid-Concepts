@@ -228,6 +228,7 @@ const resources = {
       lastName: "Nom",
       companyName: "Nom de l'entreprise",
       phone: "Téléphone",
+      logout: "Déconnexion",
       
       // Notifications
       operationSuccessful: "Opération réussie",
@@ -462,6 +463,7 @@ const resources = {
       lastName: "Last Name",
       companyName: "Company Name",
       phone: "Phone",
+      logout: "Logout",
       
       // Notifications
       operationSuccessful: "Operation successful",

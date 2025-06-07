@@ -23,26 +23,30 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useTranslation } from "react-i18next";
 
-const navigation = [
-  { name: "Tableau de bord", href: "/", icon: LayoutDashboard },
-  { name: "Automatisation IA", href: "/ai-automation", icon: Brain },
-  { name: "Analyse Concurrentielle", href: "/competitive-demo", icon: Target },
-  { name: "Migration IA", href: "/migration-demo", icon: Rocket },
-  { name: "Maturité IA", href: "/ai-maturity", icon: Award },
-  { name: "Simulation Scénarios", href: "/scenario-simulator", icon: PlayCircle },
-  { name: "Cotations", href: "/quotes", icon: FileText },
-  { name: "Suivi", href: "/tracking", icon: Package },
-  { name: "Documents", href: "/documents", icon: FileText },
-  { name: "Chat", href: "/chat", icon: MessageSquare },
-  { name: "Facturation", href: "/invoicing", icon: Calculator },
-  { name: "Analytics", href: "/analytics", icon: TrendingUp },
-  { name: "API Publique", href: "/api-docs", icon: Globe },
+const getNavigation = (t: any) => [
+  { name: t("dashboard"), href: "/", icon: LayoutDashboard },
+  { name: t("aiAutomation"), href: "/ai-automation", icon: Brain },
+  { name: t("competitiveAnalysis"), href: "/competitive-demo", icon: Target },
+  { name: t("migrationDemo"), href: "/migration-demo", icon: Rocket },
+  { name: t("aiMaturity"), href: "/ai-maturity", icon: Award },
+  { name: t("scenarioSimulator"), href: "/scenario-simulator", icon: PlayCircle },
+  { name: t("quotes"), href: "/quotes", icon: FileText },
+  { name: t("tracking"), href: "/tracking", icon: Package },
+  { name: t("documents"), href: "/documents", icon: FileText },
+  { name: t("chat"), href: "/chat", icon: MessageSquare },
+  { name: t("invoicing"), href: "/invoicing", icon: Calculator },
+  { name: t("analytics"), href: "/analytics", icon: TrendingUp },
+  { name: t("apiDocs"), href: "/api-docs", icon: Globe },
 ];
 
 function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
   const [location] = useLocation();
   const { logout, user } = useAuth();
+  const { t } = useTranslation();
+  const navigation = getNavigation(t);
 
   const handleLogout = () => {
     logout();
@@ -92,15 +96,18 @@ function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleLogout}
-          className="w-full justify-start text-gray-700 dark:text-gray-300"
-        >
-          <LogOut className="w-4 h-4 mr-2" />
-          Déconnexion
-        </Button>
+        <div className="flex items-center justify-between mb-3">
+          <LanguageSwitcher />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            className="text-gray-700 dark:text-gray-300"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            {t("logout", "Logout")}
+          </Button>
+        </div>
       </div>
     </div>
   );
