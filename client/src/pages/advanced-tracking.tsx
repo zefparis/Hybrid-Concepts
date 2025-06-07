@@ -30,8 +30,8 @@ export default function AdvancedTracking() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [activeTab, setActiveTab] = useState("search");
   const [selectedShipment, setSelectedShipment] = useState(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
+  const [map, setMap] = useState<any>(null);
+  const [markers, setMarkers] = useState<any[]>([]);
 
   // Mutation pour le tracking en temps réel
   const trackShipmentMutation = useMutation({
@@ -52,6 +52,12 @@ export default function AdvancedTracking() {
   const { data: activeShipments } = useQuery({
     queryKey: ["/api/tracking/active-shipments"],
     refetchInterval: 30000 // Refresh toutes les 30 secondes
+  });
+
+  // Query pour les données démo Vizion maritime
+  const { data: vizionData } = useQuery({
+    queryKey: ["/api/tracking/vizion/demo"],
+    refetchInterval: 60000 // Refresh toutes les minutes
   });
 
   // Initialisation de Google Maps
@@ -89,13 +95,31 @@ export default function AdvancedTracking() {
     loadGoogleMaps();
   }, []);
 
-  // Mise à jour des marqueurs sur la carte
+  // Mise à jour des marqueurs sur la carte avec données Vizion
   useEffect(() => {
-    if (map && activeShipments) {
+    if (map && (activeShipments || vizionData)) {
       // Nettoyer les anciens marqueurs
       markers.forEach(marker => marker.setMap(null));
       
-      const newMarkers = activeShipments.map((shipment: any) => {
+      // Combiner les données d'expéditions actives et Vizion
+      const allShipments = [
+        ...(activeShipments || []),
+        ...(vizionData || []).map((v: any) => ({
+          reference: v.reference,
+          type: 'container',
+          status: v.status,
+          currentLocation: {
+            name: v.locations[v.locations.length - 1]?.location.name || 'Position maritime',
+            lat: v.locations[v.locations.length - 1]?.location.coordinates?.lat || 48.8566,
+            lng: v.locations[v.locations.length - 1]?.location.coordinates?.lng || 2.3522
+          },
+          vessel: v.vessel,
+          eta: v.estimatedArrival,
+          lastUpdate: v.locations[v.locations.length - 1]?.timestamp || new Date().toISOString()
+        }))
+      ];
+
+      const newMarkers = allShipments.map((shipment: any) => {
         const marker = new window.google.maps.Marker({
           position: { 
             lat: shipment.currentLocation?.lat || 48.8566, 
@@ -131,7 +155,7 @@ export default function AdvancedTracking() {
 
       setMarkers(newMarkers);
     }
-  }, [map, activeShipments]);
+  }, [map, activeShipments, vizionData]);
 
   const getMarkerIcon = (type: string) => {
     switch(type) {
