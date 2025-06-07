@@ -226,21 +226,21 @@ export default function ApiDocs() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Key className="w-5 h-5" />
-            Configuration API
+{t("apiConfiguration", "API Configuration")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="apiKey">Clé API (pour tester les endpoints)</Label>
+            <Label htmlFor="apiKey">{t("apiKeyLabel", "API Key (to test endpoints)")}</Label>
             <Input
               id="apiKey"
               type="password"
-              placeholder="Saisissez votre clé API eMulog"
+              placeholder={t("enterApiKey", "Enter your eMulog API key")}
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
             />
             <p className="text-sm text-muted-foreground mt-1">
-              Contactez support@emulog.com pour obtenir votre clé API
+              {t("contactSupport", "Contact support@emulog.com to get your API key")}
             </p>
           </div>
         </CardContent>
@@ -249,9 +249,9 @@ export default function ApiDocs() {
       {/* Documentation Tabs */}
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
-          <TabsTrigger value="endpoints">Endpoints</TabsTrigger>
-          <TabsTrigger value="examples">Exemples</TabsTrigger>
+          <TabsTrigger value="overview">{t("overview", "Overview")}</TabsTrigger>
+          <TabsTrigger value="endpoints">{t("endpoints", "Endpoints")}</TabsTrigger>
+          <TabsTrigger value="examples">{t("examples", "Examples")}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
@@ -259,7 +259,7 @@ export default function ApiDocs() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>URL de Base</CardTitle>
+                <CardTitle>{t("baseUrl", "Base URL")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <code className="bg-gray-100 p-2 rounded block">
@@ -270,15 +270,15 @@ export default function ApiDocs() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Authentification</CardTitle>
+                <CardTitle>{t("authentication", "Authentication")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <p className="text-sm">Header requis :</p>
+                <p className="text-sm">{t("requiredHeader", "Required header")} :</p>
                 <code className="bg-gray-100 p-2 rounded block text-xs">
-                  X-API-Key: votre_cle_api
+                  X-API-Key: {t("yourApiKey", "your_api_key")}
                 </code>
                 <p className="text-xs text-muted-foreground">
-                  Limite : 100 requêtes/minute
+                  {t("rateLimit", "Limit: 100 requests/minute")}
                 </p>
               </CardContent>
             </Card>
@@ -287,22 +287,22 @@ export default function ApiDocs() {
           {/* Quick Start */}
           <Card>
             <CardHeader>
-              <CardTitle>Démarrage Rapide</CardTitle>
+              <CardTitle>{t("quickStart", "Quick Start")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <h4 className="font-medium mb-2">1. Test de connectivité</h4>
+                <h4 className="font-medium mb-2">1. {t("connectivityTest", "Connectivity test")}</h4>
                 <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm">
                   <pre>{`curl -X GET "${window.location.origin}/public-api/health" \\
-  -H "X-API-Key: votre_cle_api"`}</pre>
+  -H "X-API-Key: ${t("yourApiKey", "your_api_key")}"`}</pre>
                 </div>
               </div>
               
               <div>
-                <h4 className="font-medium mb-2">2. Analyse logistique basique</h4>
+                <h4 className="font-medium mb-2">2. {t("basicLogisticsAnalysis", "Basic logistics analysis")}</h4>
                 <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm">
                   <pre>{`curl -X POST "${window.location.origin}/public-api/logistics/analyze" \\
-  -H "X-API-Key: votre_cle_api" \\
+  -H "X-API-Key: ${t("yourApiKey", "your_api_key")}" \\
   -H "Content-Type: application/json" \\
   -d '{
     "origin": "Marseille, France",
@@ -339,7 +339,7 @@ export default function ApiDocs() {
                       disabled={isLoading}
                     >
                       <Play className="w-4 h-4 mr-2" />
-                      {isLoading ? "Test..." : "Tester"}
+                      {isLoading ? t("testing", "Testing...") : t("test", "Test")}
                     </Button>
                   </div>
                   <p className="text-sm text-muted-foreground">{endpoint.description}</p>
