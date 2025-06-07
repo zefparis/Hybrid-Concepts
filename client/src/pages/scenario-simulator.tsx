@@ -131,42 +131,42 @@ export default function ScenarioSimulator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-green-900 dark:to-blue-900 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-green-900 dark:to-blue-900 p-2 sm:p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Hero Section */}
-        <div className="text-center space-y-6">
-          <div className="inline-flex items-center space-x-2 bg-green-100 dark:bg-green-900 px-4 py-2 rounded-full">
-            <PlayCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
-            <span className="text-green-800 dark:text-green-200 font-medium">Simulation de Scénarios IA</span>
+        <div className="text-center space-y-4 sm:space-y-6">
+          <div className="inline-flex items-center space-x-2 bg-green-100 dark:bg-green-900 px-3 sm:px-4 py-2 rounded-full">
+            <PlayCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 dark:text-green-400" />
+            <span className="text-sm sm:text-base text-green-800 dark:text-green-200 font-medium">Simulation de Scénarios IA</span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white px-2">
             Testez Virtuellement
             <span className="block text-green-600 dark:text-green-400">Vos Stratégies IA</span>
           </h1>
           
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
             Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. 
             Optimisez votre stratégie avec des données précises et des projections réalistes.
           </p>
         </div>
 
         {/* Configuration Form */}
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Target className="h-6 w-6" />
+        <Card className="max-w-4xl mx-auto mx-2 sm:mx-auto">
+          <CardHeader className="px-4 sm:px-6">
+            <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
+              <Target className="h-5 w-5 sm:h-6 sm:w-6" />
               <span>Configuration de la Simulation</span>
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-sm sm:text-base">
               Définissez les paramètres de votre société pour générer des simulations personnalisées
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
             {/* Company Info */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Informations Société</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <h3 className="text-base sm:text-lg font-semibold">Informations Société</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="companyName">Nom de la société</Label>
                   <Input
@@ -192,8 +192,8 @@ export default function ScenarioSimulator() {
 
             {/* Current Metrics */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Métriques Actuelles</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <h3 className="text-base sm:text-lg font-semibold">Métriques Actuelles</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="quotingTime">Temps cotation (heures)</Label>
                   <Input
@@ -229,7 +229,7 @@ export default function ScenarioSimulator() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="clientSatisfaction">Satisfaction client (%)</Label>
                   <Input
@@ -268,8 +268,8 @@ export default function ScenarioSimulator() {
 
             {/* Scenario Selection */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Scénarios à Simuler</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <h3 className="text-base sm:text-lg font-semibold">Scénarios à Simuler</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {scenarioOptions.map((scenario) => (
                   <div key={scenario.id} className="flex items-start space-x-3 p-4 border rounded-lg">
                     <input
