@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,15 +13,33 @@ export function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'fr');
 
+  // Sync with i18n language changes
+  useEffect(() => {
+    const handleLanguageChange = (lng: string) => {
+      setCurrentLanguage(lng);
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
+
   const languages = [
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'en', name: 'English', flag: '🇺🇸' }
   ];
 
-  const handleLanguageChange = (languageCode: string) => {
-    i18n.changeLanguage(languageCode);
-    setCurrentLanguage(languageCode);
-    localStorage.setItem('language', languageCode);
+  const handleLanguageChange = async (languageCode: string) => {
+    try {
+      await i18n.changeLanguage(languageCode);
+      setCurrentLanguage(languageCode);
+      localStorage.setItem('language', languageCode);
+      // Force a page refresh to ensure all components update
+      window.location.reload();
+    } catch (error) {
+      console.error('Language change failed:', error);
+    }
   };
 
   const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0];
