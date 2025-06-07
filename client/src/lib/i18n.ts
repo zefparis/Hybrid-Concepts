@@ -14,13 +14,25 @@ const resources = {
   }
 };
 
+// Fonction pour obtenir la langue depuis localStorage de manière sûre
+const getStoredLanguage = () => {
+  try {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('language') || 'fr';
+    }
+  } catch (error) {
+    console.warn('Could not access localStorage:', error);
+  }
+  return 'fr';
+};
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem('language') || 'fr',
+    lng: getStoredLanguage(),
     fallbackLng: 'fr',
-    debug: false,
+    debug: true, // Activé pour debugging
     interpolation: {
       escapeValue: false
     },
