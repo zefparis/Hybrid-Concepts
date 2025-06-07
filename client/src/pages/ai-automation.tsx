@@ -171,7 +171,7 @@ export default function AIAutomation() {
                 <Target className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs sm:text-sm text-muted-foreground truncate">Précision IA</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{t("aiAccuracy", "AI Accuracy")}</p>
                 <p className="text-lg sm:text-2xl font-bold text-emerald-600">99.2%</p>
               </div>
             </div>
