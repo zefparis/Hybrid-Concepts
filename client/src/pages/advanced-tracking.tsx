@@ -25,10 +25,15 @@ export default function AdvancedTracking() {
   // Mutation pour le tracking en temps réel
   const trackShipmentMutation = useMutation({
     mutationFn: async (trackingData: any) => {
-      return apiRequest(`/api/tracking/real-time`, {
+      const response = await fetch(`/api/tracking/real-time`, {
         method: "POST",
-        body: trackingData
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(trackingData)
       });
+      if (!response.ok) throw new Error("Erreur de tracking");
+      return response.json();
     }
   });
 
@@ -164,7 +169,7 @@ export default function AdvancedTracking() {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch(status) {
       case "Livré": case "Arrivé": return "bg-green-100 text-green-800";
       case "En transit": case "En livraison": return "bg-blue-100 text-blue-800";
@@ -174,7 +179,7 @@ export default function AdvancedTracking() {
     }
   };
 
-  const getCarrierIcon = (type) => {
+  const getCarrierIcon = (type: string) => {
     switch(type) {
       case "container": return <Ship className="h-4 w-4" />;
       case "parcel": return <Package className="h-4 w-4" />;

@@ -179,7 +179,7 @@ export default function RouteManagement() {
     }
   };
 
-  const getTabIcon = (tab) => {
+  const getTabIcon = (tab: string) => {
     switch(tab) {
       case "maritime": return <Ship className="h-4 w-4" />;
       case "terrestre": return <Truck className="h-4 w-4" />;
