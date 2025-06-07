@@ -49,7 +49,7 @@ export default function Login() {
       await login(loginData.email, loginData.password);
       toast({
         title: "Connexion réussie",
-        description: "Bienvenue sur eMulog !",
+        description: "Bienvenue sur Ia-Solution !",
       });
     } catch (error) {
       toast({
@@ -89,10 +89,10 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-12 h-12 bg-emulog-blue rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-ia-solution-blue rounded-lg flex items-center justify-center">
               <Truck className="text-white w-6 h-6" />
             </div>
-            <span className="text-3xl font-bold text-emulog-dark">eMulog</span>
+            <span className="text-3xl font-bold text-ia-solution-dark">Ia-Solution</span>
           </div>
           <p className="text-gray-600">Plateforme d'optimisation logistique</p>
         </div>
@@ -109,7 +109,7 @@ export default function Login() {
               <CardHeader>
                 <CardTitle>Se connecter</CardTitle>
                 <CardDescription>
-                  Accédez à votre tableau de bord eMulog
+                  Accédez à votre tableau de bord Ia-Solution
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -148,7 +148,7 @@ export default function Login() {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-emulog-blue hover:bg-blue-700"
+                    className="w-full bg-ia-solution-blue hover:bg-blue-700"
                     disabled={isSubmitting || loading}
                   >
                     {isSubmitting ? "Connexion..." : "Se connecter"}
@@ -158,7 +158,7 @@ export default function Login() {
                 {/* Demo credentials */}
                 <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                   <p className="text-sm font-medium text-gray-700 mb-2">Compte de démonstration :</p>
-                  <p className="text-xs text-gray-600">Email: demo@emulog.fr</p>
+                  <p className="text-xs text-gray-600">Email: demo@ia-solution.fr</p>
                   <p className="text-xs text-gray-600">Mot de passe: demo123</p>
                 </div>
               </CardContent>
@@ -171,7 +171,7 @@ export default function Login() {
               <CardHeader>
                 <CardTitle>Créer un compte</CardTitle>
                 <CardDescription>
-                  Rejoignez eMulog et optimisez votre logistique
+                  Rejoignez Ia-Solution et optimisez votre logistique
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -339,7 +339,7 @@ export default function Login() {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-emulog-blue hover:bg-blue-700"
+                    className="w-full bg-ia-solution-blue hover:bg-blue-700"
                     disabled={isSubmitting || loading}
                   >
                     {isSubmitting ? "Création du compte..." : "Créer mon compte"}

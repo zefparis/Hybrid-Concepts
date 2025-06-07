@@ -61,7 +61,7 @@ function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <Truck className="text-white w-5 h-5" />
           </div>
-          <span className="text-xl font-bold text-gray-900 dark:text-white">eMulog</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">Ia-Solution</span>
         </div>
       </div>
 

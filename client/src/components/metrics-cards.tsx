@@ -27,7 +27,7 @@ export default function MetricsCards() {
       value: metrics?.activeShipments || 0,
       change: "+12% vs. mois dernier",
       icon: Truck,
-      color: "emulog-blue",
+      color: "ia-solution-blue",
       bgColor: "bg-blue-50",
     },
     {
@@ -35,7 +35,7 @@ export default function MetricsCards() {
       value: `€${metrics?.totalSavings?.toLocaleString() || '0'}`,
       change: "+8.5% ce mois",
       icon: PiggyBank,
-      color: "emulog-green",
+      color: "ia-solution-green",
       bgColor: "bg-green-50",
     },
     {
@@ -43,7 +43,7 @@ export default function MetricsCards() {
       value: metrics?.pendingQuotes || 0,
       change: "Réponse sous 4h",
       icon: Clock,
-      color: "emulog-yellow",
+      color: "ia-solution-yellow",
       bgColor: "bg-yellow-50",
     },
     {
@@ -51,7 +51,7 @@ export default function MetricsCards() {
       value: `${metrics?.performanceScore || 0}%`,
       change: "Excellente",
       icon: PieChart,
-      color: "emulog-purple",
+      color: "ia-solution-purple",
       bgColor: "bg-purple-50",
     },
   ];
@@ -66,7 +66,7 @@ export default function MetricsCards() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                  <p className="text-3xl font-bold text-emulog-dark">{card.value}</p>
+                  <p className="text-3xl font-bold text-ia-solution-dark">{card.value}</p>
                   <p className="text-sm text-green-600">{card.change}</p>
                 </div>
                 <div className={`w-12 h-12 ${card.bgColor} rounded-lg flex items-center justify-center`}>

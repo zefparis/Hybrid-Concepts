@@ -23,7 +23,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
     <header className="bg-white border-b border-gray-200 p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold text-emulog-dark">{title}</h1>
+          <h1 className="text-2xl font-bold text-ia-solution-dark">{title}</h1>
           {subtitle && (
             <span className="text-sm text-gray-500">{subtitle}</span>
           )}
@@ -61,7 +61,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
             <Bell className="h-5 w-5 text-gray-400" />
             <Badge 
               variant="destructive" 
-              className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs bg-emulog-red"
+              className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs bg-ia-solution-red"
             >
               5
             </Badge>

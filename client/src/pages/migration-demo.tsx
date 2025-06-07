@@ -93,7 +93,7 @@ export default function MigrationDemo() {
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            {t("migrationDemoDiscoverHowEmulog", "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.")}
+            {t("migrationDemoDiscoverHowEmulog", "Discover how Ia-Solution can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.")}
           </p>
         </div>
 
@@ -428,7 +428,7 @@ export default function MigrationDemo() {
                           
                           <div className="space-y-2">
                             <div className="flex justify-between">
-                              <span>Objectif avec eMulog</span>
+                              <span>Objectif avec Ia-Solution</span>
                               <span className="font-bold text-green-600">{metric.target}%</span>
                             </div>
                             <Progress value={(metric.target / 100) * 100} className="h-3" />

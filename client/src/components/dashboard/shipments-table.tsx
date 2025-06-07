@@ -19,12 +19,12 @@ export function ShipmentsTable() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "in_transit":
-        return "bg-emulog-green text-white";
+        return "bg-ia-solution-green text-white";
       case "pending":
       case "created":
-        return "bg-emulog-yellow text-white";
+        return "bg-ia-solution-yellow text-white";
       case "delivered":
-        return "bg-emulog-blue text-white";
+        return "bg-ia-solution-blue text-white";
       default:
         return "bg-gray-500 text-white";
     }
@@ -67,7 +67,7 @@ export function ShipmentsTable() {
     <Card className="overflow-hidden mb-6 sm:mb-8">
       <CardHeader className="border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h3 className="text-lg font-semibold text-emulog-dark">
+          <h3 className="text-lg font-semibold text-ia-solution-dark">
             {t("currentShipments")}
           </h3>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -82,7 +82,7 @@ export function ShipmentsTable() {
                 <SelectItem value="delivered">{t("delivered")}</SelectItem>
               </SelectContent>
             </Select>
-            <Button size="sm" className="bg-emulog-blue hover:bg-blue-700 w-full sm:w-auto">
+            <Button size="sm" className="bg-ia-solution-blue hover:bg-blue-700 w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               {t("export")}
             </Button>
@@ -121,7 +121,7 @@ export function ShipmentsTable() {
             {shipments?.map((shipment) => (
               <tr key={shipment.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-emulog-dark">
+                  <div className="text-sm font-medium text-ia-solution-dark">
                     {shipment.reference}
                   </div>
                   <div className="text-sm text-gray-500">
@@ -129,7 +129,7 @@ export function ShipmentsTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-emulog-dark">
+                  <div className="text-sm text-ia-solution-dark">
                     <div className="flex items-center space-x-2">
                       <span>{shipment.quote.quoteRequest.origin}</span>
                       <ArrowRight className="w-4 h-4 text-gray-400" />
@@ -138,7 +138,7 @@ export function ShipmentsTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-emulog-dark">
+                  <div className="text-sm font-medium text-ia-solution-dark">
                     {shipment.quote.carrier.name}
                   </div>
                   {shipment.quote.carrier.rating && (
@@ -153,17 +153,17 @@ export function ShipmentsTable() {
                     {getStatusLabel(shipment.status)}
                   </Badge>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-emulog-dark">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-ia-solution-dark">
                   {shipment.estimatedDelivery
                     ? format(new Date(shipment.estimatedDelivery), 'dd/MM/yyyy HH:mm', { locale })
                     : "-"
                   }
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-emulog-dark">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-ia-solution-dark">
                   €{shipment.quote.price}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <Button variant="ghost" size="sm" className="text-emulog-blue mr-3">
+                  <Button variant="ghost" size="sm" className="text-ia-solution-blue mr-3">
                     <MapPin className="w-4 h-4" />
                   </Button>
                   <Button variant="ghost" size="sm" className="text-gray-400">
@@ -184,7 +184,7 @@ export function ShipmentsTable() {
             </div>
             <div className="flex items-center space-x-2">
               <Button variant="outline" size="sm">Précédent</Button>
-              <Button size="sm" className="bg-emulog-blue text-white">1</Button>
+              <Button size="sm" className="bg-ia-solution-blue text-white">1</Button>
               <Button variant="outline" size="sm">2</Button>
               <Button variant="outline" size="sm">3</Button>
               <Button variant="outline" size="sm">Suivant</Button>

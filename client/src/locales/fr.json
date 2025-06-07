@@ -30,7 +30,7 @@
   
   "landing": {
     "revolutionBadge": "🚀 Révolution Logistique IA",
-    "title": "eMulog",
+    "title": "Ia-Solution",
     "subtitle": "Écosystème IA Multi-Agents",
     "description": "Révolution Logistique Autonome",
     "heroText": "Premier écosystème d'IA orchestrée avec 7 agents spécialisés pilotés par un Orchestrateur Maître. Chaque agent IA maîtrise une expertise métier pour une automatisation logistique totale en 30 jours.",
@@ -104,7 +104,7 @@
   "autoIndividualNegotiationStep": "Négociation individuelle",
   "autoAdministrativeValidationStep": "Validation administrative",
   "autoManualDocumentationStep": "Documentation manuelle",
-  "autoAiProcessTitle": "Processus IA eMulog (30 secondes)",
+  "autoAiProcessTitle": "Processus IA Ia-Solution (30 secondes)",
   "autoAiLogisticsAnalysisStep": "Analyse IA des besoins logistiques",
   "autoAutomaticModeDetectionStep": "Détection automatique du mode optimal",
   "autoIntelligentQuoteGenerationStep": "Génération intelligente de cotations",
@@ -114,7 +114,7 @@
   "autoReadyForClientValidationStep": "Prêt pour validation client",
   
   "competitiveDemoTitle": "Analyse Concurrentielle IA",
-  "competitiveDemoSubtitle": "Analysez les sociétés de fret traditionnelles et découvrez les opportunités d'optimisation avec eMulog IA",
+  "competitiveDemoSubtitle": "Analysez les sociétés de fret traditionnelles et découvrez les opportunités d'optimisation avec Ia-Solution IA",
   "analysisFailure": "Erreur d'Analyse",
   "analysisComplete": "Analyse IA Terminée",
   "reportGenerated": "Rapport d'optimisation généré avec succès",

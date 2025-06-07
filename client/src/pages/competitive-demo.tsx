@@ -97,7 +97,7 @@ export default function CompetitiveDemo() {
           <h1 className="text-3xl font-bold">{t("competitiveDemoTitle", "Competitive Analysis AI")}</h1>
         </div>
         <p className="text-muted-foreground max-w-3xl mx-auto">
-          {t("competitiveDemoSubtitle", "Analyze traditional freight companies and discover optimization opportunities with eMulog AI")}
+          {t("competitiveDemoSubtitle", "Analyze traditional freight companies and discover optimization opportunities with Ia-Solution AI")}
         </p>
         <Badge variant="outline" className="bg-gradient-to-r from-purple-100 to-blue-100">
           {t("interactiveDemoLabel", "Interactive Demo - Powered by Claude Sonnet-4")}
@@ -182,7 +182,7 @@ export default function CompetitiveDemo() {
               ) : (
                 <div className="flex items-center gap-2">
                   <Brain className="w-4 h-4" />
-                  {t("competitiveDemoAnalyze", "Analyze with eMulog AI")}
+                  {t("competitiveDemoAnalyze", "Analyze with Ia-Solution AI")}
                 </div>
               )}
             </Button>
@@ -198,7 +198,7 @@ export default function CompetitiveDemo() {
 {t("competitiveDemoResults", "Competitive Analysis Results")}
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                {analysis.companyName} - {t("competitiveDemoCurrentState", "Current State")} vs. {t("competitiveDemoWithEmulogAI", "With eMulog AI")}
+                {analysis.companyName} - {t("competitiveDemoCurrentState", "Current State")} vs. {t("competitiveDemoWithEmulogAI", "With Ia-Solution AI")}
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -213,7 +213,7 @@ export default function CompetitiveDemo() {
                     </Badge>
                     <ArrowRight className="w-4 h-4 text-gray-400" />
                     <Badge variant="outline" className="text-green-600">
-                      eMulog: {analysis.withEmulogAI.efficiency}
+                      Ia-Solution: {analysis.withEmulogAI.efficiency}
                     </Badge>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export default function CompetitiveDemo() {
                 <div className="text-center p-4 border rounded-lg bg-green-50">
                   <Zap className="w-6 h-6 mx-auto text-green-600 mb-2" />
                   <div className="text-2xl font-bold text-green-600">{analysis.withEmulogAI.responseTime}</div>
-                  <div className="text-sm text-muted-foreground">Avec eMulog IA</div>
+                  <div className="text-sm text-muted-foreground">Avec Ia-Solution IA</div>
                 </div>
               </div>
 
@@ -244,7 +244,7 @@ export default function CompetitiveDemo() {
                 <div className="text-center p-4 border rounded-lg bg-blue-50">
                   <TrendingDown className="w-6 h-6 mx-auto text-blue-600 mb-2" />
                   <div className="text-2xl font-bold text-blue-600">{analysis.withEmulogAI.costPerQuote}</div>
-                  <div className="text-sm text-muted-foreground">Avec eMulog IA</div>
+                  <div className="text-sm text-muted-foreground">Avec Ia-Solution IA</div>
                 </div>
               </div>
 

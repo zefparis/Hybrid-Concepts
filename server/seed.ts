@@ -9,7 +9,7 @@ async function seed() {
     // Create demo company
     const [demoCompany] = await db.insert(companies).values({
       name: "Transport Demo SA",
-      email: "demo@emulog.fr",
+      email: "demo@ia-solution.fr",
       phone: "+33 1 23 45 67 89",
       address: "123 Rue de la Logistique, 75001 Paris",
       type: "pme"
@@ -19,7 +19,7 @@ async function seed() {
     const hashedPassword = await bcrypt.hash("demo123", 10);
     const [demoUser] = await db.insert(users).values({
       username: "demo",
-      email: "demo@emulog.fr",
+      email: "demo@ia-solution.fr",
       password: hashedPassword,
       firstName: "Jean",
       lastName: "Dupont",
@@ -284,7 +284,7 @@ async function seed() {
     await db.insert(activities).values(activitiesData);
 
     console.log("✅ Database seeded successfully!");
-    console.log("📧 Demo login: demo@emulog.fr");
+    console.log("📧 Demo login: demo@ia-solution.fr");
     console.log("🔑 Demo password: demo123");
 
   } catch (error) {

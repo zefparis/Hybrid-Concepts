@@ -41,7 +41,7 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
     if (isProcessing && !isCompleted) {
       // Start automation sequence
       const automationSteps = [
-        { text: '> Initializing eMulog AI Freight Dropshipping Engine...', type: 'system' as const, delay: 500 },
+        { text: '> Initializing Ia-Solution AI Freight Dropshipping Engine...', type: 'system' as const, delay: 500 },
         { text: '🧠 Claude Sonnet-4 analyzing global logistics requirements...', type: 'ai' as const, delay: 1000 },
         { text: 'async function analyzeTransportModes(request) {', type: 'code' as const, delay: 1500 },
         { text: '🌍 Analyzing geographic constraints and optimal routing...', type: 'processing' as const, delay: 2000 },

@@ -92,7 +92,7 @@ Position marché:
 MISSION:
 Générez un rapport JSON structuré avec:
 1. Analyse performance actuelle (scores 0-100)
-2. Gains potentiels avec eMulog IA (pourcentages réalistes)
+2. Gains potentiels avec Ia-Solution IA (pourcentages réalistes)
 3. Plan d'implémentation détaillé (3 phases)
 4. Avantage concurrentiel vs marché
 5. Évaluation des risques et stratégies
@@ -186,13 +186,13 @@ RÉPONSE EN JSON UNIQUEMENT:`;
       emulogOptimization: {
         potentialEfficiencyGain: Math.min(95, currentEfficiency + 45),
         accuracyImprovement: Math.min(98, currentAccuracy + 20),
-        speedImprovement: 98, // eMulog: 30 secondes vs heures
+        speedImprovement: 98, // Ia-Solution: 30 secondes vs heures
         costReduction: 75, // Réduction drastique des coûts manuels
         roiProjection: this.calculateROI(competitorData)
       },
       implementationPlan: {
         phase1: [
-          "Intégration API eMulog",
+          "Intégration API Ia-Solution",
           "Formation équipes commerciales",
           "Tests pilotes sur 20% des cotations"
         ],
@@ -233,7 +233,7 @@ RÉPONSE EN JSON UNIQUEMENT:`;
           "Migration données historiques"
         ],
         mitigationStrategies: [
-          "Support technique eMulog dédié",
+          "Support technique Ia-Solution dédié",
           "Formation progressive et accompagnement",
           "Phase pilote pour validation",
           "Garantie de performance contractuelle"

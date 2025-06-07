@@ -314,14 +314,14 @@ export default function Landing() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div>
-                    <div className="text-sm font-semibold text-red-600 mb-2">AVANT eMulog</div>
+                    <div className="text-sm font-semibold text-red-600 mb-2">AVANT Ia-Solution</div>
                     <div className="text-gray-700 bg-red-50 p-3 rounded-lg">
                       {useCase.before}
                     </div>
                   </div>
                   
                   <div>
-                    <div className="text-sm font-semibold text-green-600 mb-2">APRÈS eMulog</div>
+                    <div className="text-sm font-semibold text-green-600 mb-2">APRÈS Ia-Solution</div>
                     <div className="text-gray-700 bg-green-50 p-3 rounded-lg">
                       {useCase.after}
                     </div>

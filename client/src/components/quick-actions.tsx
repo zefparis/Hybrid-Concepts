@@ -7,21 +7,21 @@ export default function QuickActions() {
     {
       title: "Nouvelle Demande de Cotation",
       icon: Plus,
-      color: "emulog-blue",
+      color: "ia-solution-blue",
       bgColor: "bg-blue-50",
       onClick: () => console.log("Create quote request"),
     },
     {
       title: "Importer Documents",
       icon: Upload,
-      color: "emulog-green",
+      color: "ia-solution-green",
       bgColor: "bg-green-50",
       onClick: () => console.log("Upload document"),
     },
     {
       title: "Suivre un Envoi",
       icon: Search,
-      color: "emulog-purple",
+      color: "ia-solution-purple",
       bgColor: "bg-purple-50",
       onClick: () => console.log("Track shipment"),
     },
@@ -30,7 +30,7 @@ export default function QuickActions() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-emulog-dark">
+        <CardTitle className="text-lg font-semibold text-ia-solution-dark">
           Actions Rapides
         </CardTitle>
       </CardHeader>

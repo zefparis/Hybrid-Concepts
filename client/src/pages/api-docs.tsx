@@ -208,7 +208,7 @@ export default function ApiDocs() {
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <Globe className="w-8 h-8 text-blue-600" />
-          <h1 className="text-3xl font-bold">API eMulog</h1>
+          <h1 className="text-3xl font-bold">API Ia-Solution</h1>
         </div>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           {t("apiDescription", "AI-powered logistics automation API. Integrate intelligent transport optimization into your applications.")}
@@ -235,12 +235,12 @@ export default function ApiDocs() {
             <Input
               id="apiKey"
               type="password"
-              placeholder={t("enterApiKey", "Enter your eMulog API key")}
+              placeholder={t("enterApiKey", "Enter your Ia-Solution API key")}
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
             />
             <p className="text-sm text-muted-foreground mt-1">
-              {t("contactSupport", "Contact support@emulog.com to get your API key")}
+              {t("contactSupport", "Contact support@ia-solution.com to get your API key")}
             </p>
           </div>
         </CardContent>
@@ -555,17 +555,17 @@ print(data)`}</pre>
                 <div className="text-center p-4 border rounded-lg">
                   <Code className="w-8 h-8 mx-auto mb-2 text-blue-600" />
                   <h4 className="font-medium">JavaScript SDK</h4>
-                  <p className="text-sm text-muted-foreground">npm install @emulog/api-sdk</p>
+                  <p className="text-sm text-muted-foreground">npm install @ia-solution/api-sdk</p>
                 </div>
                 <div className="text-center p-4 border rounded-lg">
                   <Code className="w-8 h-8 mx-auto mb-2 text-green-600" />
                   <h4 className="font-medium">Python SDK</h4>
-                  <p className="text-sm text-muted-foreground">pip install emulog-api</p>
+                  <p className="text-sm text-muted-foreground">pip install ia-solution-api</p>
                 </div>
                 <div className="text-center p-4 border rounded-lg">
                   <Code className="w-8 h-8 mx-auto mb-2 text-purple-600" />
                   <h4 className="font-medium">PHP SDK</h4>
-                  <p className="text-sm text-muted-foreground">composer require emulog/api</p>
+                  <p className="text-sm text-muted-foreground">composer require ia-solution/api</p>
                 </div>
               </div>
             </CardContent>

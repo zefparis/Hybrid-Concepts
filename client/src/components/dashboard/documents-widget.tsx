@@ -66,10 +66,10 @@ export function DocumentsWidget() {
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-emulog-dark">
+          <CardTitle className="text-lg font-semibold text-ia-solution-dark">
             {t("recentDocuments")}
           </CardTitle>
-          <Button className="bg-emulog-blue hover:bg-blue-700">
+          <Button className="bg-ia-solution-blue hover:bg-blue-700">
             <Plus className="w-4 h-4 mr-2" />
             {t("addDocument")}
           </Button>
@@ -91,7 +91,7 @@ export function DocumentsWidget() {
                     <Icon className="w-5 h-5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-emulog-dark truncate">
+                    <p className="text-sm font-medium text-ia-solution-dark truncate">
                       {document.name}
                     </p>
                     <p className="text-xs text-gray-500">

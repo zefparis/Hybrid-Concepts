@@ -8,7 +8,7 @@ import { scenarioSimulationEngine } from "./scenario-simulation-engine";
 import { insertQuoteRequestSchema } from "@shared/schema";
 import jwt from "jsonwebtoken";
 
-const API_SECRET = process.env.API_SECRET || "emulog-api-secret-key";
+const API_SECRET = process.env.API_SECRET || "ia-solution-api-secret-key";
 
 // API Key validation middleware
 const validateApiKey = (req: any, res: any, next: any) => {
@@ -113,7 +113,7 @@ export function registerPublicApiRoutes(app: Express) {
           },
           transformationPlan: optimizationReport.implementationPlan,
           competitiveAdvantage: optimizationReport.competitiveAdvantage,
-          summary: `eMulog peut transformer ${demoData.companyName} avec ${optimizationReport.emulogOptimization.costReduction}% de réduction des coûts et ${optimizationReport.emulogOptimization.speedImprovement}% d'amélioration de la rapidité.`
+          summary: `Ia-Solution peut transformer ${demoData.companyName} avec ${optimizationReport.emulogOptimization.costReduction}% de réduction des coûts et ${optimizationReport.emulogOptimization.speedImprovement}% d'amélioration de la rapidité.`
         }
       });
 
@@ -129,14 +129,14 @@ export function registerPublicApiRoutes(app: Express) {
   // API Documentation endpoint
   app.get("/public-api/docs", (req, res) => {
     res.json({
-      name: "eMulog Logistics API",
+      name: "Ia-Solution Logistics API",
       version: "1.0.0",
       description: "AI-powered logistics automation and optimization API",
       baseUrl: `${req.protocol}://${req.get('host')}/public-api`,
       authentication: {
         type: "API Key",
         header: "X-API-Key or Authorization: Bearer <token>",
-        note: "Contact support@emulog.com to get your API key"
+        note: "Contact support@ia-solution.com to get your API key"
       },
       rateLimit: {
         requests: 100,
@@ -555,7 +555,7 @@ export function registerPublicApiRoutes(app: Express) {
     try {
       const apiKey = jwt.sign(
         { 
-          clientName: clientName || "eMulog Client",
+          clientName: clientName || "Ia-Solution Client",
           createdAt: new Date().toISOString(),
           type: "api_key"
         },
@@ -750,7 +750,7 @@ export function registerPublicApiRoutes(app: Express) {
           },
           transformationPlan: optimizationReport.implementationPlan,
           competitiveAdvantage: optimizationReport.competitiveAdvantage,
-          summary: `eMulog peut transformer ${demoData.companyName} avec ${optimizationReport.emulogOptimization.costReduction}% de réduction des coûts et ${optimizationReport.emulogOptimization.speedImprovement}% d'amélioration de la rapidité.`
+          summary: `Ia-Solution peut transformer ${demoData.companyName} avec ${optimizationReport.emulogOptimization.costReduction}% de réduction des coûts et ${optimizationReport.emulogOptimization.speedImprovement}% d'amélioration de la rapidité.`
         }
       });
 

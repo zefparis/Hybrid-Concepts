@@ -43,14 +43,14 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-64 bg-emulog-dark text-white flex flex-col h-screen">
+    <div className="w-64 bg-ia-solution-dark text-white flex flex-col h-screen">
       {/* Logo Section */}
       <div className="p-6 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-emulog-blue rounded flex items-center justify-center">
+          <div className="w-8 h-8 bg-ia-solution-blue rounded flex items-center justify-center">
             <Truck className="w-5 h-5 text-white" />
           </div>
-          <span className="text-xl font-bold">eMulog</span>
+          <span className="text-xl font-bold">Ia-Solution</span>
         </div>
         <p className="text-gray-400 text-xs mt-1">Optimisation Logistique</p>
       </div>
@@ -69,7 +69,7 @@ export default function Sidebar() {
                   className={cn(
                     "w-full flex items-center space-x-3 p-3 rounded-lg transition-colors",
                     isActive 
-                      ? "bg-emulog-blue text-white" 
+                      ? "bg-ia-solution-blue text-white" 
                       : "text-gray-300 hover:bg-gray-700 hover:text-white"
                   )}
                 >
@@ -81,8 +81,8 @@ export default function Sidebar() {
                       className={cn(
                         "text-xs",
                         item.name === "Messages" 
-                          ? "bg-emulog-red text-white" 
-                          : "bg-emulog-green text-white"
+                          ? "bg-ia-solution-red text-white" 
+                          : "bg-ia-solution-green text-white"
                       )}
                     >
                       {item.badge}
@@ -98,7 +98,7 @@ export default function Sidebar() {
         <div className="mt-8 pt-8 border-t border-gray-700">
           <div className="flex items-center space-x-3 p-3">
             <Avatar className="w-8 h-8">
-              <AvatarFallback className="bg-emulog-purple text-white text-sm">
+              <AvatarFallback className="bg-ia-solution-purple text-white text-sm">
                 {user?.firstName?.[0]}{user?.lastName?.[0]}
               </AvatarFallback>
             </Avatar>

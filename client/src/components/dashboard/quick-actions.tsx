@@ -12,26 +12,26 @@ export function QuickActions() {
       icon: Plus,
       label: t("newQuoteRequest"),
       href: "/quotes/new",
-      color: "emulog-blue",
+      color: "ia-solution-blue",
     },
     {
       icon: Upload,
       label: t("importDocuments"),
       href: "/documents/upload",
-      color: "emulog-green",
+      color: "ia-solution-green",
     },
     {
       icon: Search,
       label: t("trackShipment"),
       href: "/tracking",
-      color: "emulog-purple",
+      color: "ia-solution-purple",
     },
   ];
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-emulog-dark">
+        <CardTitle className="text-lg font-semibold text-ia-solution-dark">
           {t("quickActions")}
         </CardTitle>
       </CardHeader>

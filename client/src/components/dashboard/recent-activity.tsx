@@ -28,11 +28,11 @@ export function RecentActivity() {
   const getActivityColor = (action: string) => {
     switch (action) {
       case "create":
-        return "emulog-green";
+        return "ia-solution-green";
       case "update":
-        return "emulog-blue";
+        return "ia-solution-blue";
       default:
-        return "emulog-yellow";
+        return "ia-solution-yellow";
     }
   };
 
@@ -63,10 +63,10 @@ export function RecentActivity() {
     <Card className="lg:col-span-2">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-emulog-dark">
+          <CardTitle className="text-lg font-semibold text-ia-solution-dark">
             {t("recentActivity")}
           </CardTitle>
-          <Button variant="link" className="text-emulog-blue">
+          <Button variant="link" className="text-ia-solution-blue">
             {t("viewAll")}
           </Button>
         </div>
@@ -87,7 +87,7 @@ export function RecentActivity() {
                   <Icon className="text-white w-4 h-4" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-emulog-dark">
+                  <p className="text-sm font-medium text-ia-solution-dark">
                     {activity.description}
                   </p>
                   <p className="text-xs text-gray-500">

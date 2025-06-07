@@ -23,7 +23,7 @@ export default function AITerminal({ isProcessing, onComplete, requestData }: AI
   const automationSteps = [
     {
       type: 'system' as const,
-      text: '> Initializing eMulog AI Freight Dropshipping Engine...',
+      text: '> Initializing Ia-Solution AI Freight Dropshipping Engine...',
       delay: 500
     },
     {
@@ -250,7 +250,7 @@ export default function AITerminal({ isProcessing, onComplete, requestData }: AI
           </div>
           <div className="flex items-center gap-2 text-gray-300">
             <Terminal className="w-4 h-4" />
-            <span className="font-mono text-sm">eMulog AI Automation Engine v4.0</span>
+            <span className="font-mono text-sm">Ia-Solution AI Automation Engine v4.0</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>

@@ -103,7 +103,7 @@ export default function ChatWidget() {
                     <div
                       className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
                         msg.userId === user?.id
-                          ? "bg-[hsl(var(--emulog-blue))] text-white"
+                          ? "bg-[hsl(var(--ia-solution-blue))] text-white"
                           : "bg-gray-100 text-gray-900"
                       }`}
                     >
@@ -133,7 +133,7 @@ export default function ChatWidget() {
                 <Button size="sm" variant="ghost">
                   <Paperclip className="h-4 w-4" />
                 </Button>
-                <Button size="sm" onClick={sendMessage} className="emulog-btn-primary">
+                <Button size="sm" onClick={sendMessage} className="ia-solution-btn-primary">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
@@ -144,10 +144,10 @@ export default function ChatWidget() {
       
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full shadow-lg emulog-btn-primary"
+        className="w-14 h-14 rounded-full shadow-lg ia-solution-btn-primary"
       >
         <MessageSquare className="text-xl w-6 h-6" />
-        <span className="absolute -top-2 -right-2 w-6 h-6 bg-[hsl(var(--emulog-red))] text-white text-xs rounded-full flex items-center justify-center">
+        <span className="absolute -top-2 -right-2 w-6 h-6 bg-[hsl(var(--ia-solution-red))] text-white text-xs rounded-full flex items-center justify-center">
           3
         </span>
       </Button>

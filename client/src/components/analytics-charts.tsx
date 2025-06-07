@@ -11,9 +11,9 @@ import { TrendingUp, TrendingDown } from "lucide-react";
 
 export default function AnalyticsCharts() {
   const carrierPerformance = [
-    { rank: 1, name: "Transport Express SA", shipments: 47, onTimeRate: 98.5, color: "emulog-green" },
-    { rank: 2, name: "Logis Rapid", shipments: 32, onTimeRate: 95.2, color: "emulog-blue" },
-    { rank: 3, name: "Fret Sécurisé", shipments: 28, onTimeRate: 92.1, color: "emulog-yellow" },
+    { rank: 1, name: "Transport Express SA", shipments: 47, onTimeRate: 98.5, color: "ia-solution-green" },
+    { rank: 2, name: "Logis Rapid", shipments: 32, onTimeRate: 95.2, color: "ia-solution-blue" },
+    { rank: 3, name: "Fret Sécurisé", shipments: 28, onTimeRate: 92.1, color: "ia-solution-yellow" },
   ];
 
   return (
@@ -22,7 +22,7 @@ export default function AnalyticsCharts() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-emulog-dark">
+            <CardTitle className="text-lg font-semibold text-ia-solution-dark">
               Évolution des Coûts
             </CardTitle>
             <Select defaultValue="30d">
@@ -53,10 +53,10 @@ export default function AnalyticsCharts() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-emulog-dark">
+            <CardTitle className="text-lg font-semibold text-ia-solution-dark">
               Performance par Transporteur
             </CardTitle>
-            <Button variant="link" size="sm" className="text-emulog-blue">
+            <Button variant="link" size="sm" className="text-ia-solution-blue">
               Voir détails
             </Button>
           </div>
@@ -70,7 +70,7 @@ export default function AnalyticsCharts() {
                     <span className="text-white text-xs font-bold">{carrier.rank}</span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-emulog-dark">{carrier.name}</p>
+                    <p className="text-sm font-medium text-ia-solution-dark">{carrier.name}</p>
                     <p className="text-xs text-gray-500">{carrier.shipments} expéditions ce mois</p>
                   </div>
                 </div>

@@ -249,7 +249,7 @@ Répondez en JSON structuré avec tous les détails techniques et business.`;
             "Audit complet des processus existants",
             "Formation équipes aux technologies IA",
             "Mise en place infrastructure cloud sécurisée",
-            "Intégration APIs eMulog de base"
+            "Intégration APIs Ia-Solution de base"
           ],
           aiCapabilities: [
             "Analyse automatique des workflows existants",
@@ -287,7 +287,7 @@ Répondez en JSON structuré avec tous les détails techniques et business.`;
           successCriteria: [
             "100% équipes formées aux bases IA",
             "Infrastructure cloud opérationnelle",
-            "APIs eMulog intégrées et testées",
+            "APIs Ia-Solution intégrées et testées",
             "Processus documentés et optimisés"
           ],
           resources: [

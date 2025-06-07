@@ -64,7 +64,7 @@ export default function ShipmentsTable() {
     <Card className="overflow-hidden mb-8">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-emulog-dark">
+          <h3 className="text-lg font-semibold text-ia-solution-dark">
             Expéditions en Cours
           </h3>
           <div className="flex items-center space-x-3">
@@ -80,7 +80,7 @@ export default function ShipmentsTable() {
                 <SelectItem value="cancelled">Annulé</SelectItem>
               </SelectContent>
             </Select>
-            <Button size="sm" className="bg-emulog-blue hover:bg-blue-700">
+            <Button size="sm" className="bg-ia-solution-blue hover:bg-blue-700">
               <Download className="w-4 h-4 mr-2" />
               Exporter
             </Button>
@@ -108,7 +108,7 @@ export default function ShipmentsTable() {
                   <TableRow key={shipment.id} className="hover:bg-gray-50">
                     <TableCell>
                       <div>
-                        <div className="text-sm font-medium text-emulog-dark">
+                        <div className="text-sm font-medium text-ia-solution-dark">
                           {shipment.reference}
                         </div>
                         <div className="text-sm text-gray-500">
@@ -129,7 +129,7 @@ export default function ShipmentsTable() {
                       )}
                     </TableCell>
                     <TableCell>
-                      <div className="text-sm font-medium text-emulog-dark">
+                      <div className="text-sm font-medium text-ia-solution-dark">
                         {shipment.carrier?.name || "Non assigné"}
                       </div>
                       {shipment.carrier?.rating && (
@@ -154,7 +154,7 @@ export default function ShipmentsTable() {
                       }
                     </TableCell>
                     <TableCell>
-                      <span className="text-sm font-medium text-emulog-dark">
+                      <span className="text-sm font-medium text-ia-solution-dark">
                         {shipment.cost ? `€${Number(shipment.cost).toLocaleString()}` : 'N/A'}
                       </span>
                     </TableCell>
@@ -191,7 +191,7 @@ export default function ShipmentsTable() {
               </div>
               <div className="flex items-center space-x-2">
                 <Button variant="outline" size="sm">Précédent</Button>
-                <Button size="sm" className="bg-emulog-blue">1</Button>
+                <Button size="sm" className="bg-ia-solution-blue">1</Button>
                 <Button variant="outline" size="sm">2</Button>
                 <Button variant="outline" size="sm">3</Button>
                 <Button variant="outline" size="sm">Suivant</Button>

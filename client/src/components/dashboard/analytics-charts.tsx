@@ -14,21 +14,21 @@ export function AnalyticsCharts() {
       name: "Transport Express SA",
       shipments: 47,
       performance: 98.5,
-      color: "emulog-green",
+      color: "ia-solution-green",
     },
     {
       rank: 2,
       name: "Logis Rapid",
       shipments: 32,
       performance: 95.2,
-      color: "emulog-blue",
+      color: "ia-solution-blue",
     },
     {
       rank: 3,
       name: "Fret Sécurisé",
       shipments: 28,
       performance: 92.1,
-      color: "emulog-yellow",
+      color: "ia-solution-yellow",
     },
   ];
 
@@ -37,7 +37,7 @@ export function AnalyticsCharts() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-emulog-dark">
+            <CardTitle className="text-lg font-semibold text-ia-solution-dark">
 {t("costEvolution", "Cost Evolution")}
             </CardTitle>
             <Select defaultValue="30">
@@ -67,10 +67,10 @@ export function AnalyticsCharts() {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-emulog-dark">
+            <CardTitle className="text-lg font-semibold text-ia-solution-dark">
 {t("carrierPerformance", "Carrier Performance")}
             </CardTitle>
-            <Button variant="link" className="text-emulog-blue">
+            <Button variant="link" className="text-ia-solution-blue">
               {t("viewDetails")}
             </Button>
           </div>
@@ -89,7 +89,7 @@ export function AnalyticsCharts() {
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-emulog-dark">
+                    <p className="text-sm font-medium text-ia-solution-dark">
                       {carrier.name}
                     </p>
                     <p className="text-xs text-gray-500">

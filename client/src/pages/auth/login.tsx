@@ -25,7 +25,7 @@ export default function Login() {
       setLocation("/");
       toast({
         title: "Connexion réussie",
-        description: "Bienvenue sur eMulog !",
+        description: "Bienvenue sur Ia-Solution !",
       });
     } catch (error: any) {
       toast({
@@ -43,10 +43,10 @@ export default function Login() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-10 h-10 bg-emulog-blue rounded flex items-center justify-center">
+            <div className="w-10 h-10 bg-ia-solution-blue rounded flex items-center justify-center">
               <Truck className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-emulog-dark">eMulog</span>
+            <span className="text-2xl font-bold text-ia-solution-dark">Ia-Solution</span>
           </div>
           <CardTitle className="text-2xl">Connexion</CardTitle>
           <CardDescription>
@@ -79,7 +79,7 @@ export default function Login() {
             </div>
             <Button
               type="submit"
-              className="w-full bg-emulog-blue hover:bg-blue-700"
+              className="w-full bg-ia-solution-blue hover:bg-blue-700"
               disabled={isLoading}
             >
               {isLoading ? "Connexion..." : "Se connecter"}
@@ -91,7 +91,7 @@ export default function Login() {
               Pas encore de compte ?{" "}
               <button
                 onClick={() => setLocation("/register")}
-                className="text-emulog-blue hover:underline font-medium"
+                className="text-ia-solution-blue hover:underline font-medium"
               >
                 Créer un compte
               </button>

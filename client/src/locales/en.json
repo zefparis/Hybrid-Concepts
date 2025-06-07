@@ -30,7 +30,7 @@
   
   "landing": {
     "revolutionBadge": "🚀 AI Logistics Revolution",
-    "title": "eMulog",
+    "title": "Ia-Solution",
     "subtitle": "Multi-Agent AI Ecosystem",
     "description": "Autonomous Logistics Revolution",
     "heroText": "First orchestrated AI ecosystem with 7 specialized agents led by a Master Orchestrator. Each AI agent masters a business expertise for total logistics automation in 30 days.",
@@ -104,7 +104,7 @@
   "autoIndividualNegotiationStep": "Individual negotiation",
   "autoAdministrativeValidationStep": "Administrative validation",
   "autoManualDocumentationStep": "Manual documentation",
-  "autoAiProcessTitle": "eMulog AI Process (30 seconds)",
+  "autoAiProcessTitle": "Ia-Solution AI Process (30 seconds)",
   "autoAiLogisticsAnalysisStep": "AI logistics needs analysis",
   "autoAutomaticModeDetectionStep": "Automatic optimal mode detection",
   "autoIntelligentQuoteGenerationStep": "Intelligent quote generation",
@@ -114,7 +114,7 @@
   "autoReadyForClientValidationStep": "Ready for client validation",
   
   "competitiveDemoTitle": "Competitive Analysis AI",
-  "competitiveDemoSubtitle": "Analyze traditional freight companies and discover optimization opportunities with eMulog AI",
+  "competitiveDemoSubtitle": "Analyze traditional freight companies and discover optimization opportunities with Ia-Solution AI",
   "analysisFailure": "Analysis Error",
   "analysisComplete": "AI Analysis Complete",
   "reportGenerated": "Optimization report generated successfully",

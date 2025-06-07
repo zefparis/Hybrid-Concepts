@@ -355,7 +355,7 @@ export default function AIAutomation() {
 
             {/* AI Process */}
             <div>
-              <h4 className="font-medium mb-3 text-green-600">{t("autoAiProcessTitle", "eMulog AI Process (30 seconds)")}</h4>
+              <h4 className="font-medium mb-3 text-green-600">{t("autoAiProcessTitle", "Ia-Solution AI Process (30 seconds)")}</h4>
               <div className="space-y-2">
                 {[
                   t("autoAiLogisticsAnalysisStep", "AI logistics needs analysis"),
