@@ -202,6 +202,7 @@
   "integrationExamples": "Integration Examples",
   "copy": "Copy",
   "availableSDKs": "Available SDKs",
+  "logout": "Logout",
   
   "common": {
     "search": "Search...",
