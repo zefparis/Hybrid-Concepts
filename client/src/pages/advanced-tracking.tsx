@@ -617,11 +617,11 @@ export default function AdvancedTracking() {
                       <div>
                         <p className="text-sm font-medium mb-2">Fonctionnalités:</p>
                         <div className="flex flex-wrap gap-1">
-                          {api.features.map((feature, idx) => (
+                          {api.features?.map((feature, idx) => (
                             <Badge key={idx} variant="outline" className="text-xs">
                               {feature}
                             </Badge>
-                          ))}
+                          )) || <span className="text-sm text-gray-500">Aucune fonctionnalité listée</span>}
                         </div>
                       </div>
                       
