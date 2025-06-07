@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { 
   PlayCircle, 
   Target, 
@@ -272,16 +272,18 @@ export default function ScenarioSimulator() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {scenarioOptions.map((scenario) => (
                   <div key={scenario.id} className="flex items-start space-x-3 p-4 border rounded-lg">
-                    <Checkbox
+                    <input
+                      type="checkbox"
                       id={scenario.id}
                       checked={selectedScenarios.includes(scenario.id)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
+                      onChange={(e) => {
+                        if (e.target.checked) {
                           setSelectedScenarios([...selectedScenarios, scenario.id]);
                         } else {
                           setSelectedScenarios(selectedScenarios.filter(s => s !== scenario.id));
                         }
                       }}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
                     <div className="flex-1">
                       <Label htmlFor={scenario.id} className="font-medium cursor-pointer">
