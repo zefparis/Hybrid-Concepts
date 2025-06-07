@@ -242,10 +242,7 @@ export default function Invoicing() {
     });
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <Header title={t("invoicing")} />
-      
-      <main className="flex-1 overflow-y-auto p-6 space-y-6">
+    <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold">Invoicing & Billing</h1>
@@ -526,7 +523,6 @@ export default function Invoicing() {
             )}
           </DialogContent>
         </Dialog>
-      </main>
     </div>
   );
 }
