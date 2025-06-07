@@ -4,7 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/hooks/use-auth";
-import { Sidebar } from "@/components/layout/sidebar";
+import { TopNavbar } from "@/components/layout/top-navbar";
 import { Suspense } from "react";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
@@ -63,9 +63,9 @@ function AuthenticatedApp() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar />
-      <main className="lg:pl-64">
-        <div className="px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pt-16 lg:pt-8">
+      <TopNavbar />
+      <main className="min-h-screen">
+        <div className="px-4 sm:px-6 lg:px-8 py-6">
           <Switch>
             <Route path="/" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />
