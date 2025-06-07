@@ -54,8 +54,124 @@ export default function AdvancedTracking() {
     refetchInterval: 30000 // Refresh toutes les 30 secondes
   });
 
+  // Initialisation de Google Maps
+  useEffect(() => {
+    const loadGoogleMaps = () => {
+      if (!window.google) {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+
+        window.initMap = () => {
+          const mapElement = document.getElementById('tracking-map');
+          if (mapElement) {
+            const newMap = new window.google.maps.Map(mapElement, {
+              center: { lat: 48.8566, lng: 2.3522 }, // Paris par défaut
+              zoom: 2,
+              styles: [
+                {
+                  featureType: "water",
+                  elementType: "geometry",
+                  stylers: [{ color: "#e9e9e9" }, { lightness: 17 }]
+                }
+              ]
+            });
+            setMap(newMap);
+          }
+        };
+      } else {
+        window.initMap();
+      }
+    };
+
+    loadGoogleMaps();
+  }, []);
+
+  // Mise à jour des marqueurs sur la carte
+  useEffect(() => {
+    if (map && activeShipments) {
+      // Nettoyer les anciens marqueurs
+      markers.forEach(marker => marker.setMap(null));
+      
+      const newMarkers = activeShipments.map((shipment: any) => {
+        const marker = new window.google.maps.Marker({
+          position: { 
+            lat: shipment.currentLocation?.lat || 48.8566, 
+            lng: shipment.currentLocation?.lng || 2.3522 
+          },
+          map: map,
+          title: shipment.reference,
+          icon: {
+            url: getMarkerIcon(shipment.type),
+            scaledSize: new window.google.maps.Size(32, 32)
+          }
+        });
+
+        const infoWindow = new window.google.maps.InfoWindow({
+          content: `
+            <div style="font-family: Arial, sans-serif; max-width: 200px;">
+              <h3 style="margin: 0 0 8px 0; color: #1f2937;">${shipment.reference}</h3>
+              <p style="margin: 4px 0; color: #6b7280;"><strong>Type:</strong> ${shipment.type}</p>
+              <p style="margin: 4px 0; color: #6b7280;"><strong>Statut:</strong> ${shipment.status}</p>
+              <p style="margin: 4px 0; color: #6b7280;"><strong>Position:</strong> ${shipment.currentLocation?.name || 'Position inconnue'}</p>
+              <p style="margin: 4px 0; color: #6b7280;"><strong>Mise à jour:</strong> ${new Date(shipment.lastUpdate).toLocaleString()}</p>
+            </div>
+          `
+        });
+
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker);
+          setSelectedShipment(shipment);
+        });
+
+        return marker;
+      });
+
+      setMarkers(newMarkers);
+    }
+  }, [map, activeShipments]);
+
+  const getMarkerIcon = (type: string) => {
+    switch(type) {
+      case 'container':
+        return 'data:image/svg+xml;base64,' + btoa(`
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#3b82f6">
+            <path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2h18z"/>
+            <path d="M3 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8H3z"/>
+          </svg>
+        `);
+      case 'parcel':
+        return 'data:image/svg+xml;base64,' + btoa(`
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10b981">
+            <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+          </svg>
+        `);
+      case 'aircraft':
+        return 'data:image/svg+xml;base64,' + btoa(`
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8b5cf6">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        `);
+      default:
+        return 'data:image/svg+xml;base64,' + btoa(`
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f59e0b">
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        `);
+    }
+  };
+
   // APIs de tracking disponibles
   const trackingAPIs = [
+    {
+      name: "Vizion Maritime API",
+      type: "container",
+      description: "Tracking conteneurs via Vizion",
+      status: "active",
+      coverage: "Mondial"
+    },
     {
       name: "Maersk Line API",
       type: "container",
@@ -335,6 +451,44 @@ export default function AdvancedTracking() {
 
           {/* Onglet expéditions actives */}
           <TabsContent value="active" className="mt-6">
+            {/* Carte Google Maps */}
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="h-5 w-5" />
+                  Carte de Tracking en Temps Réel
+                </CardTitle>
+                <CardDescription>
+                  Visualisation géographique des expéditions actives
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div 
+                  id="tracking-map" 
+                  className="w-full h-96 rounded-lg border"
+                  style={{ minHeight: '400px' }}
+                />
+                <div className="mt-4 flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <span>Conteneurs maritimes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span>Colis terrestres</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                    <span>Fret aérien</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <span>Autres</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {trackedShipments.map((shipment) => (
                 <Card key={shipment.id} className="hover:shadow-lg transition-shadow">

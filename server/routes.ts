@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { trackingService } from "./tracking-service";
+import { vizionService } from "./vizion-tracking";
 import { insertUserSchema, insertCompanySchema, insertQuoteRequestSchema, insertDocumentSchema, insertChatMessageSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -512,11 +513,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const shipments = await storage.getShipments(req.user.companyId || 1);
       const activeShipments = shipments.filter(s => s.status !== "Livré" && s.trackingNumber);
       
-      // Enrichir avec les données de tracking en temps réel
+      // Enrichir avec les données de tracking en temps réel Vizion et autres APIs
       const enrichedShipments = await Promise.all(
         activeShipments.map(async (shipment) => {
           try {
             if (shipment.trackingNumber) {
+              // Essayer d'abord Vizion pour les conteneurs
+              if (shipment.trackingNumber.match(/^[A-Z]{4}\d{7}$/)) {
+                const vizionData = await vizionService.trackContainer(shipment.trackingNumber);
+                if (vizionData) {
+                  const currentLocation = vizionData.locations[vizionData.locations.length - 1];
+                  return {
+                    ...shipment,
+                    type: 'container',
+                    currentLocation: {
+                      name: currentLocation?.location.name || 'Position inconnue',
+                      lat: currentLocation?.location.coordinates?.lat || 48.8566,
+                      lng: currentLocation?.location.coordinates?.lng || 2.3522
+                    },
+                    vessel: vizionData.vessel,
+                    lastUpdate: currentLocation?.timestamp || new Date().toISOString(),
+                    progress: calculateProgress(vizionData.locations),
+                    eta: vizionData.estimatedArrival
+                  };
+                }
+              }
               const trackingData = await trackingService.trackShipment(shipment.trackingNumber);
               return { ...shipment, trackingData };
             }
