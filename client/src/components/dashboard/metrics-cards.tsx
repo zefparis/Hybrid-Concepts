@@ -29,7 +29,7 @@ export function MetricsCards() {
     {
       title: t("activeShipments"),
       value: metrics?.activeShipments || 0,
-      change: "+12% vs. mois dernier",
+      change: t("metricsLastMonthChange", "+12% vs. last month"),
       icon: Truck,
       color: "emulog-blue",
       bgColor: "bg-emulog-blue",
@@ -38,7 +38,7 @@ export function MetricsCards() {
     {
       title: t("savingsRealized"),
       value: `€${metrics?.totalSavings?.toLocaleString() || 0}`,
-      change: "+8.5% ce mois",
+      change: t("metricsThisMonthChange", "+8.5% this month"),
       icon: PiggyBank,
       color: "emulog-green",
       bgColor: "bg-emulog-green",

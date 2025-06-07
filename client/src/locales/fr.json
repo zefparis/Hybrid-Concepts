@@ -123,6 +123,15 @@
   "acceleratedTransformation": "Transformation Accélérée",
   "maximumInnovationCompleteAutomation": "Innovation maximale et automatisation complète",
   
+  "metricsLastMonthChange": "+12% vs. mois dernier",
+  "metricsThisMonthChange": "+8.5% ce mois",
+  
+  "chatPageInDevelopment": "Page de chat en développement...",
+  "trackingPageInDevelopment": "Page de suivi en développement...",
+  "documentsPageInDevelopment": "Page de documents en développement...",
+  "invoicingPageInDevelopment": "Page de facturation en développement...",
+  "analyticsPageInDevelopment": "Page d'analyses en développement...",
+  
   "common": {
     "search": "Rechercher...",
     "export": "Exporter",
