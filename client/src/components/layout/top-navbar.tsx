@@ -37,6 +37,7 @@ const mainNavigation = [
 ];
 
 const enterpriseTools = [
+  { name: "Transformation Demo", href: "/transformation-demo", icon: Zap, badge: "RÉVOLUTION", key: "transformationDemo" },
   { name: "Aviation & Maritime", href: "/aviation-maritime", icon: MapPin, badge: "Multi", key: "aviationMaritime" },
   { name: "Partner Portal", href: "/partner-portal", icon: Users, badge: "B2B", key: "partnerPortal" },
   { name: "API Marketplace", href: "/api-marketplace", icon: Store, badge: "Market", key: "apiMarketplace" },
