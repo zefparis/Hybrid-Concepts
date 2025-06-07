@@ -164,6 +164,17 @@
   "carrierPerformance": "Carrier Performance",
   "shipmentsThisMonth": "{count} shipments this month",
   
+  "testSuccessful": "Test successful",
+  "testFailed": "Test failed",
+  "endpointWorking": "Endpoint is working correctly",
+  "testError": "Test error",
+  "cannotContactApi": "Unable to contact API",
+  "checkApiStatus": "Check API status",
+  "logisticsAnalysis": "Logistics Analysis",
+  "analyzeLogisticsNeeds": "Analyze logistics needs and detect optimal transport mode",
+  "quoteGeneration": "Quote Generation",
+  "generateOptimizedQuotes": "Generate AI-optimized quotes",
+  
   "common": {
     "search": "Search...",
     "export": "Export",

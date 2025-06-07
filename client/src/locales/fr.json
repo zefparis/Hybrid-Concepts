@@ -164,6 +164,17 @@
   "carrierPerformance": "Performance par Transporteur",
   "shipmentsThisMonth": "{count} expéditions ce mois",
   
+  "testSuccessful": "Test réussi",
+  "testFailed": "Test échoué",
+  "endpointWorking": "L'endpoint fonctionne correctement",
+  "testError": "Erreur de test",
+  "cannotContactApi": "Impossible de contacter l'API",
+  "checkApiStatus": "Vérifiez le statut de l'API",
+  "logisticsAnalysis": "Analyse Logistique",
+  "analyzeLogisticsNeeds": "Analysez les besoins logistiques et détectez le mode de transport optimal",
+  "quoteGeneration": "Génération de Cotations",
+  "generateOptimizedQuotes": "Générez des cotations optimisées par l'IA",
+  
   "common": {
     "search": "Rechercher...",
     "export": "Exporter",

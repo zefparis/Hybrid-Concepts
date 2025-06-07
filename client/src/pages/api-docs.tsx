@@ -67,8 +67,8 @@ export default function ApiDocs() {
       setTestResults(prev => ({ ...prev, [endpoint]: errorResult }));
       
       toast({
-        title: "Erreur de test",
-        description: "Impossible de contacter l'API",
+        title: t("testError", "Test error"),
+        description: t("cannotContactApi", "Unable to contact API"),
         variant: "destructive",
       });
     } finally {
@@ -82,15 +82,15 @@ export default function ApiDocs() {
       method: "GET",
       path: "/health",
       title: "Health Check",
-      description: "Vérifiez le statut de l'API",
+      description: t("checkApiStatus", "Check API status"),
       testPayload: null,
     },
     {
       id: "analyze",
       method: "POST", 
       path: "/logistics/analyze",
-      title: "Analyse Logistique",
-      description: "Analysez les besoins logistiques et détectez le mode de transport optimal",
+      title: t("logisticsAnalysis", "Logistics Analysis"),
+      description: t("analyzeLogisticsNeeds", "Analyze logistics needs and detect optimal transport mode"),
       testPayload: {
         origin: "Port de Marseille, France",
         destination: "Port de Durban, South Africa",
@@ -105,8 +105,8 @@ export default function ApiDocs() {
       id: "quotes",
       method: "POST",
       path: "/logistics/quotes", 
-      title: "Génération de Cotations",
-      description: "Générez des cotations optimisées par l'IA",
+      title: t("quoteGeneration", "Quote Generation"),
+      description: t("generateOptimizedQuotes", "Generate AI-optimized quotes"),
       testPayload: {
         origin: "Marseille, France",
         destination: "Hamburg, Germany",
@@ -152,8 +152,8 @@ export default function ApiDocs() {
       id: "competitive-analyze",
       method: "POST",
       path: "/competitive/analyze",
-      title: "Analyse Concurrentielle IA",
-      description: "Analysez une société de fret traditionnelle et générez un rapport d'optimisation complet",
+      title: t("competitiveAnalysisAI", "AI Competitive Analysis"),
+      description: t("analyzeTraditionalFreight", "Analyze a traditional freight company and generate a complete optimization report"),
       testPayload: {
         companyData: {
           companyName: "FreightCorp Traditional",
@@ -181,8 +181,8 @@ export default function ApiDocs() {
       id: "market-analysis",
       method: "POST",
       path: "/competitive/market-analysis",
-      title: "Analyse de Marché IA",
-      description: "Générez une analyse comparative du marché logistique",
+      title: t("marketAnalysisAI", "AI Market Analysis"),
+      description: t("generateMarketComparison", "Generate comparative logistics market analysis"),
       testPayload: {
         competitors: [
           {
@@ -211,7 +211,7 @@ export default function ApiDocs() {
           <h1 className="text-3xl font-bold">API eMulog</h1>
         </div>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          API d'automatisation logistique propulsée par l'IA. Intégrez l'optimisation intelligente des transports dans vos applications.
+          {t("apiDescription", "AI-powered logistics automation API. Integrate intelligent transport optimization into your applications.")}
         </p>
         <div className="flex flex-wrap justify-center gap-2">
           <Badge variant="secondary">Version 1.0.0</Badge>
