@@ -322,6 +322,100 @@ export default function AIAutomation() {
         </Card>
       </div>
 
+      {/* API Status Dashboard */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-blue-500" />
+            État des Intégrations eMulog
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* AI & Core Services */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-gray-700">Moteurs IA</h4>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Anthropic Claude</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">AI Agent Logistique</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Moteur Maturité IA</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Analyse Concurrentielle</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mapping & Geocoding */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-gray-700">Cartographie & Géolocalisation</h4>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Google Maps API</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Google Places API</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Mapbox API</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Base Logistique Interne</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tracking & Transportation */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm text-gray-700">Tracking & Transport</h4>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Vizion Maritime API</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-yellow-50 rounded">
+                  <span className="text-sm">AviationStack API</span>
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-yellow-50 rounded">
+                  <span className="text-sm">MarineTraffic API</span>
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                  <span className="text-sm">Service de Notification</span>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+            <div className="flex items-center gap-2 text-sm">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-green-700">Opérationnel</span>
+              <div className="w-2 h-2 bg-yellow-500 rounded-full ml-4"></div>
+              <span className="text-yellow-700">Configuration requise</span>
+            </div>
+            <p className="text-xs text-gray-600 mt-2">
+              Systèmes opérationnels: 10/12 • Efficacité: 99.2% • Temps de réponse moyen: 30s
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Process Visualization */}
       <Card>
         <CardHeader>

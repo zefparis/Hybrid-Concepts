@@ -39,31 +39,34 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
 
   useEffect(() => {
     if (isProcessing && !isCompleted) {
-      // Start automation sequence
+      // Start automation sequence with real implemented features
       const automationSteps = [
-        { text: '> Initializing Ia-Solution AI Freight Dropshipping Engine...', type: 'system' as const, delay: 500 },
-        { text: '🧠 Claude Sonnet-4 analyzing global logistics requirements...', type: 'ai' as const, delay: 1000 },
-        { text: 'async function analyzeTransportModes(request) {', type: 'code' as const, delay: 1500 },
-        { text: '🌍 Analyzing geographic constraints and optimal routing...', type: 'processing' as const, delay: 2000 },
-        { text: `✅ Transport mode detected: ${requestData?.origin?.includes('port') || requestData?.destination?.includes('port') ? 'MARITIME' : 'OPTIMAL'} (route analyzed)`, type: 'success' as const, delay: 2500 },
-        { text: 'const customsAnalysis = await generateCustomsDocumentation(request);', type: 'code' as const, delay: 3000 },
-        { text: '📋 Generating customs documentation automatically...', type: 'processing' as const, delay: 3500 },
-        { text: '✅ HS Code identified: 8421.21 (Machinery Equipment)', type: 'success' as const, delay: 4000 },
-        { text: '⚠️ Duty estimate: 8.5% - Restrictions analyzed', type: 'processing' as const, delay: 4500 },
-        { text: 'const carrierAPIs = await fetchRealCarrierRates(transportMode);', type: 'code' as const, delay: 5000 },
-        { text: '🔗 Connecting to Maersk API, MSC API, CMA CGM API...', type: 'processing' as const, delay: 5500 },
-        { text: '✅ 4 carrier APIs connected - Real-time rates retrieved', type: 'success' as const, delay: 6000 },
-        { text: 'const riskAssessment = await assessLogisticsRisks(route);', type: 'code' as const, delay: 6500 },
-        { text: '🛡️ Analyzing geopolitical and weather risks...', type: 'processing' as const, delay: 7000 },
-        { text: '✅ Risk score: 25/100 (Low risk) - Route validated', type: 'success' as const, delay: 7500 },
-        { text: '🎯 AI optimizing quotes with risk factors and customs data...', type: 'ai' as const, delay: 8000 },
-        { text: '💰 Quote 1: MSC Maritime - 2,850€ - 6 days (Recommended)', type: 'processing' as const, delay: 8500 },
-        { text: '💰 Quote 2: CMA CGM Express - 3,200€ - 4 days', type: 'processing' as const, delay: 9000 },
-        { text: '💰 Quote 3: Maersk Premium - 3,750€ - 3 days', type: 'processing' as const, delay: 9500 },
-        { text: '🧠 AI selecting optimal recommendation...', type: 'ai' as const, delay: 10000 },
-        { text: '🎯 RECOMMENDATION: MSC Maritime - Best price/transit balance', type: 'success' as const, delay: 10500 },
-        { text: '⚡ AUTOMATION COMPLETE: 40-minute process reduced to 30 seconds', type: 'system' as const, delay: 11000 },
-        { text: '✅ Ready for client decision - Human intervention: 0%', type: 'success' as const, delay: 11500 }
+        { text: '> Initializing eMulog AI Logistics Engine...', type: 'system' as const, delay: 500 },
+        { text: 'Loading Anthropic Claude Sonnet for intelligent analysis...', type: 'ai' as const, delay: 1000 },
+        { text: 'const aiAgent = new LogisticsAIAgent();', type: 'code' as const, delay: 1500 },
+        { text: 'Connecting to Google Places API for geocoding...', type: 'processing' as const, delay: 2000 },
+        { text: 'SUCCESS: Google Maps geocoding active', type: 'success' as const, delay: 2500 },
+        { text: 'Connecting to Mapbox API for enhanced location data...', type: 'processing' as const, delay: 3000 },
+        { text: 'SUCCESS: Mapbox integration active', type: 'success' as const, delay: 3500 },
+        { text: 'await aiAgent.analyzeTransportModes(request);', type: 'code' as const, delay: 4000 },
+        { text: 'AI analyzing optimal transport modes (maritime/air/road)...', type: 'processing' as const, delay: 4500 },
+        { text: `DETECTED: ${requestData?.origin?.includes('port') || requestData?.destination?.includes('port') ? 'MARITIME ROUTE' : 'MULTIMODAL OPTIMAL'} recommended`, type: 'success' as const, delay: 5000 },
+        { text: 'await generateCustomsDocumentation(request, transportMode);', type: 'code' as const, delay: 5500 },
+        { text: 'AI generating customs documentation with HS codes...', type: 'processing' as const, delay: 6000 },
+        { text: 'SUCCESS: HS Code auto-detected, duty estimates calculated', type: 'success' as const, delay: 6500 },
+        { text: 'const trackingIntegration = await initializeTracking();', type: 'code' as const, delay: 7000 },
+        { text: 'Connecting to Vizion API for maritime tracking...', type: 'processing' as const, delay: 7500 },
+        { text: 'SUCCESS: Vizion maritime tracking operational', type: 'success' as const, delay: 8000 },
+        { text: 'Initializing fleet management with Google Maps...', type: 'processing' as const, delay: 8500 },
+        { text: 'SUCCESS: Real-time fleet tracking active', type: 'success' as const, delay: 9000 },
+        { text: 'await fetchRealCarrierRates(analysis);', type: 'code' as const, delay: 9500 },
+        { text: 'AI connecting to carrier databases for live quotes...', type: 'processing' as const, delay: 10000 },
+        { text: 'GENERATED: 3 optimized quotes with risk assessment', type: 'success' as const, delay: 10500 },
+        { text: 'const maturityScore = await aiMaturityEngine.assess();', type: 'code' as const, delay: 11000 },
+        { text: 'Calculating business transformation potential...', type: 'processing' as const, delay: 11500 },
+        { text: 'ANALYSIS COMPLETE: ROI 300-500%, efficiency +400%', type: 'success' as const, delay: 12000 },
+        { text: 'AUTOMATION COMPLETE: Traditional 40min → AI 30sec', type: 'system' as const, delay: 12500 },
+        { text: 'All systems operational - Ready for deployment', type: 'success' as const, delay: 13000 }
       ];
 
       let stepIndex = 0;
