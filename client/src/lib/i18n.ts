@@ -32,7 +32,7 @@ i18n
     resources,
     lng: getStoredLanguage(),
     fallbackLng: 'fr',
-    debug: true, // Activé pour debugging
+    debug: false,
     interpolation: {
       escapeValue: false
     },
