@@ -22,6 +22,7 @@ import AIMaturity from "@/pages/ai-maturity";
 import ScenarioSimulator from "@/pages/scenario-simulator";
 import Login from "@/pages/login";
 import Landing from "@/pages/landing";
+import { PublicNavbar } from "@/components/layout/public-navbar";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -35,6 +36,7 @@ function LoadingSpinner() {
 function PublicApp() {
   return (
     <div className="min-h-screen">
+      <PublicNavbar />
       <Switch>
         <Route path="/" component={Landing} />
         <Route path="/login" component={Login} />
