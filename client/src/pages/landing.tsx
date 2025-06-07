@@ -451,11 +451,11 @@ export default function Landing() {
       <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold mb-6">
-            Prêt à Révolutionner Votre Société de Fret ?
+            Prêt pour l'Écosystème IA Multi-Agents ?
           </h2>
           <p className="text-xl mb-12 text-blue-100">
-            Rejoignez les centaines d'entreprises qui ont déjà transformé leur activité avec eMulog. 
-            Commencez votre analyse gratuite dès maintenant.
+            Rejoignez les sociétés qui ont adopté nos 7 agents IA orchestrés. 
+            Testez l'Orchestrateur Maître gratuitement et découvrez la puissance de l'automatisation totale.
           </p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
@@ -485,9 +485,27 @@ export default function Landing() {
             </Link>
           </div>
           
-          <p className="text-blue-200">
-            ✅ Analyse gratuite • ✅ Résultats immédiats • ✅ Sans engagement
-          </p>
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-2xl font-bold text-yellow-300">7 Agents IA</div>
+                <div className="text-blue-200 text-sm">Spécialisés + Orchestrateur</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-yellow-300">5 Secondes</div>
+                <div className="text-blue-200 text-sm">Traitement complet</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-yellow-300">99.8%</div>
+                <div className="text-blue-200 text-sm">Précision multi-agents</div>
+              </div>
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-blue-200">
+                ✅ Test gratuit écosystème IA • ✅ Orchestration en temps réel • ✅ Automatisation totale
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
