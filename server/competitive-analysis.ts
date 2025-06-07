@@ -153,9 +153,16 @@ RÉPONSE EN JSON UNIQUEMENT:`;
         cleanText = cleanText.substring(startIndex, lastIndex + 1);
       }
       
+      // Fix common JSON issues before parsing
+      cleanText = cleanText
+        .replace(/,\s*}/g, '}')  // Remove trailing commas
+        .replace(/,\s*]/g, ']')  // Remove trailing commas in arrays
+        .replace(/:\s*,/g, ': null,');  // Fix empty values
+
       return JSON.parse(cleanText);
     } catch (error) {
       console.error('JSON parsing error:', error);
+      // Return null to trigger fallback report generation
       return null;
     }
   }

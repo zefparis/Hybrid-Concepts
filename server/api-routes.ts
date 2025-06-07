@@ -1151,7 +1151,7 @@ export function registerPublicApiRoutes(app: Express) {
         timeframe: companyData?.timeframe || 24
       };
 
-      const scenarios = await scenarioSimulationEngine.generateScenarios(
+      const scenarios = await scenarioSimulationEngine.generateScenarioSimulations(
         demoScenarioData,
         scenarioTypes || ['Conservative', 'Balanced', 'Aggressive']
       );

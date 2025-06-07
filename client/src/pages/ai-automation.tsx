@@ -32,36 +32,37 @@ export default function AIAutomation() {
 
   const automationMutation = useMutation({
     mutationFn: async (data: any) => {
-      // First create the quote request
-      const quoteRequestResponse = await apiRequest("POST", "/api/quote-requests", {
-        origin: data.origin,
-        destination: data.destination,
-        weight: data.weight,
-        volume: data.volume,
-        goodsType: data.goodsType,
-        description: data.description,
-        requestedDate: new Date().toISOString().split('T')[0]
-      });
-      const quoteRequest = await quoteRequestResponse.json();
-
-      // Then trigger automation process
-      const automationResponse = await apiRequest("POST", "/api/ai/process", {
-        quoteRequestId: quoteRequest.id,
-        origin: data.origin,
-        destination: data.destination,
-        cargo: {
-          type: data.goodsType,
-          weight: parseInt(data.weight),
-          volume: data.volume
+      // Use public logistics automation API
+      const response = await fetch("/public-api/logistics/quotes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        timeline: {
-          preferred: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          latest: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-        }
+        body: JSON.stringify({
+          origin: data.origin,
+          destination: data.destination,
+          cargo: {
+            type: data.goodsType,
+            weight: parseInt(data.weight) || 1000,
+            volume: data.volume,
+            description: data.description
+          },
+          timeline: {
+            preferred: "asap",
+            latest: "30 days"
+          },
+          preferences: {
+            transportMode: "auto"
+          }
+        })
       });
-      const automation = await automationResponse.json();
 
-      return { quoteRequest, automation };
+      if (!response.ok) {
+        throw new Error(`API call failed: ${response.status}`);
+      }
+
+      const automation = await response.json();
+      return { automation: automation.data };
     },
     onSuccess: (data) => {
       setAutomationResults(data);
