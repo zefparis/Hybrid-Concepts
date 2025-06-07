@@ -839,7 +839,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   // Routes AI pour l'optimisation et l'analyse de routes
-  app.post("/api/ai/optimize-route", authenticateToken, async (req: any, res) => {
+  app.post("/api/ai/optimize-route", async (req: any, res) => {
     try {
       const { routeId, origin, destination, transportMode, currentMetrics } = req.body;
       
@@ -895,7 +895,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/ai/analyze-route", authenticateToken, async (req: any, res) => {
+  app.post("/api/ai/analyze-route", async (req: any, res) => {
     try {
       const { routeId, origin, destination, transportMode, metrics } = req.body;
       
