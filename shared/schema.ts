@@ -467,6 +467,19 @@ export const activitiesRelations = relations(activities, ({ one }) => ({
   }),
 }));
 
+// Table pour les événements de tracking en temps réel
+export const trackingEvents = pgTable("tracking_events", {
+  id: serial("id").primaryKey(),
+  trackingNumber: varchar("tracking_number", { length: 50 }).notNull(),
+  provider: varchar("provider", { length: 50 }).notNull(),
+  status: varchar("status", { length: 100 }).notNull(),
+  location: text("location"),
+  description: text("description"),
+  eventTime: timestamp("event_time").notNull(),
+  rawData: jsonb("raw_data"),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
 // Schemas for validation
 export const insertCompanySchema = createInsertSchema(companies).omit({ id: true, createdAt: true });
 export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true });
