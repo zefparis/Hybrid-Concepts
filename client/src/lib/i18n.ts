@@ -354,6 +354,12 @@ const resources = {
       simulateTransformationScenariosMain: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
       scenarioSimulationConfiguration: "Configuration de la Simulation",
       defineCompanyParametersForSimulation: "Définissez les paramètres de votre société pour générer des simulations personnalisées",
+      companyNamePlaceholder: "Ex: InnoLogistics Corp",
+      targetGrowthPercentage: "Croissance cible (%)",
+      quotingTimeHoursField: "Temps cotation (heures)",
+      monthlyVolumeField: "Volume mensuel",
+      budgetAvailableField: "Budget disponible (€)",
+      scenariosToSimulateField: "Scénarios à Simuler",
       
       // Notifications
       operationSuccessful: "Opération réussie",
@@ -714,6 +720,12 @@ const resources = {
       simulateTransformationScenariosMain: "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.",
       scenarioSimulationConfiguration: "Simulation Configuration",
       defineCompanyParametersForSimulation: "Define your company parameters to generate personalized simulations",
+      companyNamePlaceholder: "Ex: InnoLogistics Corp",
+      targetGrowthPercentage: "Target Growth (%)",
+      quotingTimeHoursField: "Quoting Time (hours)",
+      monthlyVolumeField: "Monthly Volume",
+      budgetAvailableField: "Available Budget (€)",
+      scenariosToSimulateField: "Scenarios to Simulate",
       
       // Notifications
       operationSuccessful: "Operation successful",

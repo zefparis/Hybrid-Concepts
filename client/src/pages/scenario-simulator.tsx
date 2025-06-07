@@ -165,19 +165,19 @@ export default function ScenarioSimulator() {
           <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
             {/* Company Info */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">Informations Société</h3>
+              <h3 className="text-base sm:text-lg font-semibold">{t("companyInformation", "Company Information")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="companyName">Nom de la société</Label>
+                  <Label htmlFor="companyName">{t("companyNameField", "Company Name")}</Label>
                   <Input
                     id="companyName"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="Ex: InnoLogistics Corp"
+                    placeholder={t("companyNamePlaceholder", "Ex: InnoLogistics Corp")}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="targetGrowth">Croissance cible (%)</Label>
+                  <Label htmlFor="targetGrowth">{t("targetGrowthPercentage", "Target Growth (%)")}</Label>
                   <Input
                     id="targetGrowth"
                     type="number"
@@ -192,10 +192,10 @@ export default function ScenarioSimulator() {
 
             {/* Current Metrics */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">Métriques Actuelles</h3>
+              <h3 className="text-base sm:text-lg font-semibold">{t("currentMetrics", "Current Metrics")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="quotingTime">Temps cotation (heures)</Label>
+                  <Label htmlFor="quotingTime">{t("quotingTimeHours", "Quoting Time (hours)")}</Label>
                   <Input
                     id="quotingTime"
                     type="number"
@@ -206,7 +206,7 @@ export default function ScenarioSimulator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="processingCost">Coût par cotation (€)</Label>
+                  <Label htmlFor="processingCost">{t("costPerQuoteField", "Cost per Quote (€)")}</Label>
                   <Input
                     id="processingCost"
                     type="number"
@@ -217,7 +217,7 @@ export default function ScenarioSimulator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="errorRate">Taux d'erreur (%)</Label>
+                  <Label htmlFor="errorRate">{t("errorRate", "Error Rate (%)")}</Label>
                   <Input
                     id="errorRate"
                     type="number"
@@ -231,7 +231,7 @@ export default function ScenarioSimulator() {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="clientSatisfaction">Satisfaction client (%)</Label>
+                  <Label htmlFor="clientSatisfaction">{t("clientSatisfaction", "Client Satisfaction (%)")}</Label>
                   <Input
                     id="clientSatisfaction"
                     type="number"
@@ -242,7 +242,7 @@ export default function ScenarioSimulator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="monthlyVolume">Volume mensuel</Label>
+                  <Label htmlFor="monthlyVolume">{t("monthlyVolume", "Monthly Volume")}</Label>
                   <Input
                     id="monthlyVolume"
                     type="number"
@@ -253,7 +253,7 @@ export default function ScenarioSimulator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="budgetConstraint">Budget disponible (€)</Label>
+                  <Label htmlFor="budgetConstraint">{t("budgetAvailable", "Available Budget (€)")}</Label>
                   <Input
                     id="budgetConstraint"
                     type="number"
@@ -268,7 +268,7 @@ export default function ScenarioSimulator() {
 
             {/* Scenario Selection */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">Scénarios à Simuler</h3>
+              <h3 className="text-base sm:text-lg font-semibold">{t("scenariosToSimulate", "Scenarios to Simulate")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {scenarioOptions.map((scenario) => (
                   <div key={scenario.id} className="flex items-start space-x-3 p-4 border rounded-lg">
