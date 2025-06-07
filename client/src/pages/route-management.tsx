@@ -13,8 +13,6 @@ import {
   Navigation, Fuel, Users, Package, Calendar,
   BarChart3, Globe, Zap, Shield
 } from "lucide-react";
-import TopNavbar from "@/components/layout/top-navbar";
-
 export default function RouteManagement() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("maritime");
@@ -190,8 +188,6 @@ export default function RouteManagement() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNavbar />
-      
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
