@@ -24,19 +24,22 @@ import { useTranslation } from "react-i18next";
 
 const mainNavigation = [
   { name: "Dashboard", href: "/", icon: BarChart3, key: "dashboard" },
-  { name: "AI Automation", href: "/ai-automation", icon: Bot, badge: "AI", key: "aiAutomation" },
+  { name: "AI Orchestrator", href: "/ai-automation", icon: Bot, badge: "AI", key: "aiAutomation" },
+  { name: "AI Maturity", href: "/ai-maturity", icon: Zap, badge: "Score", key: "aiMaturity" },
+  { name: "ROI Simulator", href: "/scenario-simulator", icon: TrendingUp, badge: "ROI", key: "scenarioSimulator" },
+  { name: "Analytics", href: "/analytics", icon: BarChart3, key: "analytics" },
   { name: "Quotes", href: "/quotes", icon: FileText, badge: 12, key: "quotes" },
-  { name: "Analytics", href: "/analytics", icon: TrendingUp, key: "analytics" },
   { name: "Tracking", href: "/tracking", icon: MapPin, key: "tracking" },
   { name: "Documents", href: "/documents", icon: FolderOpen, key: "documents" },
   { name: "Invoicing", href: "/invoicing", icon: Receipt, key: "invoicing" },
   { name: "Chat", href: "/chat", icon: MessageCircle, badge: 3, key: "chat" },
 ];
 
-const demoPages = [
+const aiTools = [
+  { name: "AI Maturity Assessment", href: "/ai-maturity", icon: Zap, badge: "AI", key: "aiMaturity" },
+  { name: "ROI Simulator", href: "/scenario-simulator", icon: BarChart3, badge: "ROI", key: "scenarioSimulator" },
+  { name: "AI Orchestrator", href: "/ai-automation", icon: Bot, badge: "Smart", key: "aiAutomation" },
   { name: "Competitive Analysis", href: "/competitive-demo", icon: TrendingUp, key: "competitiveDemo" },
-  { name: "AI Maturity", href: "/ai-maturity", icon: Zap, key: "aiMaturity" },
-  { name: "Scenario Simulator", href: "/scenario-simulator", icon: BarChart3, key: "scenarioSimulator" },
   { name: "Migration Demo", href: "/migration-demo", icon: Bot, key: "migrationDemo" },
   { name: "API Docs", href: "/api-docs", icon: FileText, key: "apiDocs" },
 ];
@@ -114,7 +117,7 @@ export function TopNavbar() {
               <DropdownMenuContent align="start" className="w-56">
                 <DropdownMenuLabel>AI Demo Features</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {demoPages.map((item) => {
+                {aiTools.map((item) => {
                   const Icon = item.icon;
                   return (
                     <DropdownMenuItem 
