@@ -49,6 +49,7 @@ const enterpriseTools = [
   { name: "ROI Simulator", href: "/scenario-simulator", icon: BarChart3, badge: "ROI", key: "scenarioSimulator" },
   { name: "Competitive Analysis", href: "/competitive-demo", icon: BarChart3, key: "competitiveDemo" },
   { name: "Migration Demo", href: "/migration-demo", icon: Bot, key: "migrationDemo" },
+  { name: "Support Chat", href: "/support", icon: MessageCircle, badge: "Help", key: "supportChat" },
   { name: "API Docs", href: "/api-docs", icon: FileText, key: "apiDocs" },
 ];
 

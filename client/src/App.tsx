@@ -31,6 +31,7 @@ import AdvancedTracking from "@/pages/advanced-tracking";
 import AviationMaritime from "@/pages/aviation-maritime";
 import TransformationDemo from "@/pages/transformation-demo";
 import SubscriptionPlans from "@/pages/subscription-plans";
+import SupportChat from "@/pages/support-chat";
 import Landing from "@/pages/landing";
 import "./lib/i18n";
 
@@ -86,6 +87,8 @@ function App() {
                       <Route path="/subscription-plans" component={SubscriptionPlans} />
                       <Route path="/billing" component={SubscriptionPlans} />
                       <Route path="/plans" component={SubscriptionPlans} />
+                      <Route path="/support" component={SupportChat} />
+                      <Route path="/chat" component={SupportChat} />
                       <Route component={NotFound} />
                     </Switch>
                   </div>
