@@ -279,9 +279,9 @@ export default function CarbonFootprint() {
                     <div>
                       <label className="text-sm font-medium text-gray-700">Vehicle Type</label>
                       <select className="w-full mt-1 p-2 border border-gray-300 rounded-md">
-                        <option>Heavy Truck (>32t)</option>
+                        <option>Heavy Truck (&gt;32t)</option>
                         <option>Medium Truck (7.5-32t)</option>
-                        <option>Light Vehicle (<7.5t)</option>
+                        <option>Light Vehicle (&lt;7.5t)</option>
                         <option>Electric Vehicle</option>
                       </select>
                     </div>

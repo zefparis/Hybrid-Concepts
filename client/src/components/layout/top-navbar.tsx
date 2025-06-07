@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import { 
   Truck, BarChart3, FileText, MapPin, FolderOpen, MessageCircle, 
   Receipt, TrendingUp, Settings, LogOut, Bot, Bell, Search, 
-  Globe, ChevronDown, User, CreditCard, DollarSign, Zap
+  Globe, ChevronDown, User, CreditCard, DollarSign, Zap,
+  Package, Shield, Leaf, Users, Store
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,10 +36,11 @@ const mainNavigation = [
   { name: "Chat", href: "/chat", icon: MessageCircle, badge: 3, key: "chat" },
 ];
 
-const aiTools = [
+const enterpriseTools = [
+  { name: "Partner Portal", href: "/partner-portal", icon: Users, badge: "B2B", key: "partnerPortal" },
+  { name: "API Marketplace", href: "/api-marketplace", icon: Store, badge: "Market", key: "apiMarketplace" },
   { name: "AI Maturity Assessment", href: "/ai-maturity", icon: Zap, badge: "AI", key: "aiMaturity" },
   { name: "ROI Simulator", href: "/scenario-simulator", icon: BarChart3, badge: "ROI", key: "scenarioSimulator" },
-  { name: "AI Orchestrator", href: "/ai-automation", icon: Bot, badge: "Smart", key: "aiAutomation" },
   { name: "Competitive Analysis", href: "/competitive-demo", icon: TrendingUp, key: "competitiveDemo" },
   { name: "Migration Demo", href: "/migration-demo", icon: Bot, key: "migrationDemo" },
   { name: "API Docs", href: "/api-docs", icon: FileText, key: "apiDocs" },
@@ -117,7 +119,7 @@ export function TopNavbar() {
               <DropdownMenuContent align="start" className="w-56">
                 <DropdownMenuLabel>AI Demo Features</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {aiTools.map((item) => {
+                {enterpriseTools.map((item) => {
                   const Icon = item.icon;
                   return (
                     <DropdownMenuItem 
