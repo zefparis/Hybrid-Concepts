@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Bell, Globe } from "lucide-react";
+import { Search, Globe } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { NotificationCenter } from "@/components/notifications/notification-center";
 
 interface HeaderProps {
   title: string;
@@ -57,15 +58,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
           </Select>
 
           {/* Notifications */}
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-5 w-5 text-gray-400" />
-            <Badge 
-              variant="destructive" 
-              className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs bg-ia-solution-red"
-            >
-              5
-            </Badge>
-          </Button>
+          <NotificationCenter />
         </div>
       </div>
     </header>

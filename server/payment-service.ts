@@ -275,15 +275,15 @@ class PaymentService {
     this.subscriptions.set(companyId, subscription);
 
     // Send confirmation notification
-    const users = await storage.getCompanyUsers(companyId);
-    if (users.length > 0) {
+    const company = await storage.getCompany(companyId);
+    if (company) {
       await notificationService.sendNotification({
         type: 'payment_update',
         title: 'Subscription Activated',
         message: `Your ${plan.name} subscription has been activated successfully.`,
         priority: 'low',
         companyId,
-        userId: users[0].id,
+        userId: 1, // Default to admin user
         data: {
           subscriptionId: subscription.id,
           planName: plan.name

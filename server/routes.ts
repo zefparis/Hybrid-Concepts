@@ -6,6 +6,8 @@ import { insertUserSchema, insertCompanySchema, insertQuoteRequestSchema, insert
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { registerPublicApiRoutes } from "./api-routes";
+import { notificationService } from "./notification-service";
+import { paymentService } from "./payment-service";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
