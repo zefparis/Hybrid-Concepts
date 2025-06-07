@@ -226,7 +226,7 @@ export default function AIAutomation() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="weight">Poids (kg) *</Label>
+                <Label htmlFor="weight">{t("cargoWeight", "Cargo weight (kg)")} *</Label>
                 <Input
                   id="weight"
                   type="number"
@@ -236,7 +236,7 @@ export default function AIAutomation() {
                 />
               </div>
               <div>
-                <Label htmlFor="volume">Volume (m³)</Label>
+                <Label htmlFor="volume">{t("cargoVolume", "Volume (m³) - Optional")}</Label>
                 <Input
                   id="volume"
                   type="number"
@@ -248,27 +248,25 @@ export default function AIAutomation() {
             </div>
 
             <div>
-              <Label htmlFor="goodsType">Type de marchandise *</Label>
+              <Label htmlFor="goodsType">{t("goodsTypeField", "Goods type")} *</Label>
               <Select value={requestData.goodsType} onValueChange={(value) => setRequestData(prev => ({ ...prev, goodsType: value }))}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Sélectionnez le type" />
+                  <SelectValue placeholder={t("selectType", "Select type")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Produits chimiques">Produits chimiques</SelectItem>
-                  <SelectItem value="Machines industrielles">Machines industrielles</SelectItem>
-                  <SelectItem value="Produits alimentaires">Produits alimentaires</SelectItem>
-                  <SelectItem value="Textiles">Textiles</SelectItem>
-                  <SelectItem value="Électronique">Électronique</SelectItem>
-                  <SelectItem value="Matériaux de construction">Matériaux de construction</SelectItem>
+                  <SelectItem value="general">{t("generalGoods", "General")}</SelectItem>
+                  <SelectItem value="fragile">{t("fragileGoods", "Fragile")}</SelectItem>
+                  <SelectItem value="dangerous">{t("dangerousGoods", "Dangerous")}</SelectItem>
+                  <SelectItem value="perishable">{t("perishableGoods", "Perishable")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div>
-              <Label htmlFor="description">Description détaillée</Label>
+              <Label htmlFor="description">{t("cargoDescription", "Cargo description")}</Label>
               <Textarea
                 id="description"
-                placeholder="Décrivez votre expédition, contraintes particulières, etc."
+                placeholder={t("describeShipment", "Describe your shipment, special constraints, etc.")}
                 value={requestData.description}
                 onChange={(e) => setRequestData(prev => ({ ...prev, description: e.target.value }))}
               />
@@ -283,19 +281,19 @@ export default function AIAutomation() {
                 {isProcessing ? (
                   <>
                     <Sparkles className="w-4 h-4 mr-2 animate-spin" />
-                    IA en cours...
+                    {t("aiProcessingInProgress", "AI processing in progress...")}
                   </>
                 ) : (
                   <>
                     <Brain className="w-4 h-4 mr-2" />
-                    Lancer l'Automatisation IA
+                    {t("startAIAutomation", "Start AI Automation")}
                   </>
                 )}
               </Button>
               
               {showResults && (
                 <Button variant="outline" onClick={handleReset}>
-                  Nouveau Test
+                  {t("newTest", "New Test")}
                 </Button>
               )}
             </div>
