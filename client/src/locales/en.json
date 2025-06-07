@@ -226,6 +226,10 @@
   "evaluationInProgress": "Evaluation in progress...",
   "evaluateAIMaturity": "Evaluate AI Maturity",
   "globalAIMaturityScore": "Global AI Maturity Score",
+  "twoYearROI": "2-year ROI",
+  "automation": "Automation",
+  "quotingTime": "Quoting time",
+  "investment": "Investment",
   
   "common": {
     "search": "Search...",

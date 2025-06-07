@@ -226,6 +226,10 @@
   "evaluationInProgress": "Évaluation en cours...",
   "evaluateAIMaturity": "Évaluer la Maturité IA",
   "globalAIMaturityScore": "Score de Maturité IA Global",
+  "twoYearROI": "ROI 2 ans",
+  "automation": "Automatisation",
+  "quotingTime": "Temps cotation",
+  "investment": "Investissement",
   
   "common": {
     "search": "Rechercher...",

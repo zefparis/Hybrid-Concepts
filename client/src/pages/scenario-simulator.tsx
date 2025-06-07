@@ -353,28 +353,28 @@ export default function ScenarioSimulator() {
                       
                       <div className="space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">ROI 2 ans</span>
+                          <span className="text-sm">{t("twoYearROI", "2-year ROI")}</span>
                           <Badge variant="outline">
                             {simulation.simulationResults[1]?.aiImplementation.roi || 0}%
                           </Badge>
                         </div>
                         
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">Automation</span>
+                          <span className="text-sm">{t("automation", "Automation")}</span>
                           <Badge variant="outline">
                             {simulation.simulationResults[1]?.projectedMetrics.automation || 0}%
                           </Badge>
                         </div>
                         
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">Temps cotation</span>
+                          <span className="text-sm">{t("quotingTime", "Quoting time")}</span>
                           <Badge variant="outline">
                             {simulation.simulationResults[1]?.projectedMetrics.quotingTime || 0}h
                           </Badge>
                         </div>
                         
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">Investissement</span>
+                          <span className="text-sm">{t("investment", "Investment")}</span>
                           <Badge variant="outline">
                             {formatCurrency(simulation.simulationResults[1]?.aiImplementation.implementationCost || 0)}
                           </Badge>
