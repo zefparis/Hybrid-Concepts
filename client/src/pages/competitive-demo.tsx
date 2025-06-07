@@ -118,7 +118,7 @@ export default function CompetitiveDemo() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="companyName">Nom de la société</Label>
+              <Label htmlFor="companyName">{t("companyName", "Company Name")}</Label>
               <Input
                 id="companyName"
                 value={companyData.companyName}
@@ -129,7 +129,7 @@ export default function CompetitiveDemo() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="responseTime">Temps de réponse moyen (heures)</Label>
+                <Label htmlFor="responseTime">{t("averageResponseTime", "Average Response Time (hours)")}</Label>
                 <Input
                   id="responseTime"
                   type="number"
@@ -138,7 +138,7 @@ export default function CompetitiveDemo() {
                 />
               </div>
               <div>
-                <Label htmlFor="accuracy">Précision des prix (%)</Label>
+                <Label htmlFor="accuracy">{t("priceAccuracy", "Price Accuracy (%)")}</Label>
                 <Input
                   id="accuracy"
                   type="number"
@@ -150,7 +150,7 @@ export default function CompetitiveDemo() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="costPerQuote">Coût par cotation (€)</Label>
+                <Label htmlFor="costPerQuote">{t("costPerQuote", "Cost per Quote (€)")}</Label>
                 <Input
                   id="costPerQuote"
                   type="number"
@@ -159,7 +159,7 @@ export default function CompetitiveDemo() {
                 />
               </div>
               <div>
-                <Label htmlFor="scalability">Cotations max/jour</Label>
+                <Label htmlFor="scalability">{t("maxQuotesPerDay", "Max Quotes/Day")}</Label>
                 <Input
                   id="scalability"
                   type="number"
@@ -177,12 +177,12 @@ export default function CompetitiveDemo() {
               {loading ? (
                 <div className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Analyse IA en cours...
+                  {t("aiAnalysisInProgress", "AI Analysis in Progress...")}
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <Brain className="w-4 h-4" />
-                  Analyser avec l'IA eMulog
+                  {t("analyzeWithEmulogAI", "Analyze with eMulog AI")}
                 </div>
               )}
             </Button>

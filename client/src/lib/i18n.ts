@@ -324,6 +324,25 @@ const resources = {
       quotesGenerated: "Cotations générées",
       quotesGeneratedSuccessfully: "Les cotations ont été générées avec succès",
       unableToGenerateQuotes: "Impossible de générer les cotations",
+      air: "Aérien",
+      sea: "Maritime", 
+      road: "Routier",
+      
+      // Competitive Demo page
+      aiCompetitiveAnalysis: "Analyse Concurrentielle IA",
+      discoverEmulogTransformation: "Découvrez comment eMulog peut transformer votre société de fret traditionnelle avec notre IA d'optimisation logistique. Aucun accès à vos données sensibles - analyse basée uniquement sur vos métriques opérationnelles.",
+      interactiveDemoPoweredBy: "Démonstration Interactive - Powered by Claude Sonnet-4",
+      yourCompanyData: "Données de votre société",
+      enterCurrentMetrics: "Saisissez vos métriques actuelles pour une analyse personnalisée",
+      averageResponseTime: "Temps de réponse moyen (heures)",
+      priceAccuracy: "Précision des prix (%)",
+      maxQuotesPerDay: "Cotations max/jour",
+      aiAnalysisInProgress: "Analyse IA en cours...",
+      analyzeWithEmulogAI: "Analyser avec l'IA eMulog",
+      aiAnalysisComplete: "Analyse IA terminée",
+      optimizationReportGenerated: "Rapport d'optimisation généré avec succès",
+      unableToGenerateAnalysis: "Impossible de générer l'analyse",
+      analysisError: "Erreur d'analyse",
       
       // Tracking page
       trackingPageInDevelopment: "Page de suivi en cours de développement...",
@@ -699,6 +718,25 @@ const resources = {
       quotesGenerated: "Quotes Generated",
       quotesGeneratedSuccessfully: "Quotes have been generated successfully",
       unableToGenerateQuotes: "Unable to generate quotes",
+      air: "Air",
+      sea: "Sea", 
+      road: "Road",
+      
+      // Competitive Demo page
+      aiCompetitiveAnalysis: "AI Competitive Analysis",
+      discoverEmulogTransformation: "Discover how eMulog can transform your traditional freight company with our logistics optimization AI. No access to sensitive data - analysis based solely on operational metrics.",
+      interactiveDemoPoweredBy: "Interactive Demo - Powered by Claude Sonnet-4",
+      yourCompanyData: "Your Company Data",
+      enterCurrentMetrics: "Enter your current metrics for personalized analysis",
+      averageResponseTime: "Average Response Time (hours)",
+      priceAccuracy: "Price Accuracy (%)",
+      maxQuotesPerDay: "Max Quotes/Day",
+      aiAnalysisInProgress: "AI Analysis in Progress...",
+      analyzeWithEmulogAI: "Analyze with eMulog AI",
+      aiAnalysisComplete: "AI Analysis Complete",
+      optimizationReportGenerated: "Optimization report generated successfully",
+      unableToGenerateAnalysis: "Unable to generate analysis",
+      analysisError: "Analysis Error",
       
       // Tracking page
       trackingPageInDevelopment: "Tracking page under development...",
