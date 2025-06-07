@@ -378,22 +378,22 @@ export default function Quotes() {
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <Header 
-          title="Cotations" 
-          subtitle="Gérez vos demandes de transport multimodal"
+          title={t("quotesPageTitle", "Quote Requests")} 
+          subtitle={t("quotesPageSubtitle", "Manage your quote requests and track responses")}
         />
         
         <Dialog open={isNewQuoteOpen} onOpenChange={setIsNewQuoteOpen}>
           <DialogTrigger asChild>
             <Button className="w-full sm:w-auto">
               <Plus className="mr-2 h-4 w-4" />
-              Nouvelle cotation
+              {t("quotesNewQuoteRequest", "New Quote Request")}
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Demande de cotation</DialogTitle>
+              <DialogTitle>{t("quotesCreateNewRequest", "Create New Quote Request")}</DialogTitle>
               <DialogDescription>
-                Créez une nouvelle demande de cotation pour vos expéditions
+                {t("quotesRequestDetails", "Request Details")}
               </DialogDescription>
             </DialogHeader>
             
@@ -402,22 +402,22 @@ export default function Quotes() {
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="terre" className="flex items-center gap-2">
                     <Truck className="h-4 w-4" />
-                    <span className="hidden sm:inline">Routier</span>
+                    <span className="hidden sm:inline">{t("quotesLand", "Land")}</span>
                   </TabsTrigger>
                   <TabsTrigger value="mer" className="flex items-center gap-2">
                     <Ship className="h-4 w-4" />
-                    <span className="hidden sm:inline">Maritime</span>
+                    <span className="hidden sm:inline">{t("quotesSea", "Sea")}</span>
                   </TabsTrigger>
                   <TabsTrigger value="air" className="flex items-center gap-2">
                     <Plane className="h-4 w-4" />
-                    <span className="hidden sm:inline">Aérien</span>
+                    <span className="hidden sm:inline">{t("quotesAir", "Air")}</span>
                   </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="terre" className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="origin">Lieu d'enlèvement *</Label>
+                      <Label htmlFor="origin">{t("quotesOrigin", "Origin")} *</Label>
                       <div className="relative">
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
