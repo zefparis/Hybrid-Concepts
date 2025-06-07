@@ -15,7 +15,7 @@ export default function Analytics() {
             <CardTitle>{t("analytics")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">Page d'analytics en cours de développement...</p>
+            <p className="text-gray-500">{t("analyticsPageInDevelopment", "Analytics page under development...")}</p>
           </CardContent>
         </Card>
       </main>

@@ -318,6 +318,13 @@ const resources = {
       byArtificialIntelligence: "par Intelligence Artificielle",
       discoverHowEmulogRevolutionize: "Découvrez comment eMulog peut révolutionner votre société de fret avec un plan de migration complet sur 32 semaines, utilisant les IA les plus avancées du marché.",
       
+      // Quotes page
+      quoteRequestCreated: "Demande de cotation créée",
+      requestSentToCarriers: "Votre demande a été envoyée aux transporteurs",
+      
+      // Tracking page
+      trackingPageInDevelopment: "Page de suivi en cours de développement...",
+      
       // Notifications
       operationSuccessful: "Opération réussie",
       operationFailed: "Opération échouée",
@@ -640,6 +647,13 @@ const resources = {
       completeTransformation: "Complete Transformation",
       byArtificialIntelligence: "by Artificial Intelligence",
       discoverHowEmulogRevolutionize: "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.",
+      
+      // Quotes page
+      quoteRequestCreated: "Quote request created",
+      requestSentToCarriers: "Your request has been sent to carriers",
+      
+      // Tracking page
+      trackingPageInDevelopment: "Tracking page under development...",
       
       // Notifications
       operationSuccessful: "Operation successful",

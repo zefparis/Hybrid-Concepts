@@ -15,7 +15,7 @@ export default function Documents() {
             <CardTitle>{t("documents")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">Page des documents en cours de développement...</p>
+            <p className="text-gray-500">{t("documentsPageInDevelopment", "Documents page under development...")}</p>
           </CardContent>
         </Card>
       </main>

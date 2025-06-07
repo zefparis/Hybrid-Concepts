@@ -15,7 +15,7 @@ export default function Chat() {
             <CardTitle>{t("chat")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">Page de chat en cours de développement...</p>
+            <p className="text-gray-500">{t("chatPageInDevelopment", "Chat page under development...")}</p>
           </CardContent>
         </Card>
       </main>

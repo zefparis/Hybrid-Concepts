@@ -15,7 +15,7 @@ export default function Tracking() {
             <CardTitle>{t("tracking")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">Page de suivi en cours de développement...</p>
+            <p className="text-gray-500">{t("trackingPageInDevelopment", "Tracking page under development...")}</p>
           </CardContent>
         </Card>
       </main>

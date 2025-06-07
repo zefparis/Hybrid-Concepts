@@ -35,8 +35,8 @@ export default function Quotes() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
       toast({
-        title: "Demande de cotation créée",
-        description: "Votre demande a été envoyée aux transporteurs",
+        title: t("quoteRequestCreated", "Quote request created"),
+        description: t("requestSentToCarriers", "Your request has been sent to carriers"),
       });
       setIsNewQuoteOpen(false);
       setNewQuote({
