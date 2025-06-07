@@ -84,16 +84,16 @@ export default function MigrationDemo() {
         <div className="text-center space-y-6">
           <div className="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900 px-4 py-2 rounded-full">
             <Brain className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-            <span className="text-blue-800 dark:text-blue-200 font-medium">{t("advancedAIMigration", "Advanced AI Migration")}</span>
+            <span className="text-blue-800 dark:text-blue-200 font-medium">{t("migrationDemoAdvancedAIMigration", "Advanced AI Migration")}</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white">
-            {t("completeTransformation", "Complete Transformation")}
-            <span className="block text-blue-600 dark:text-blue-400">{t("byArtificialIntelligence", "by Artificial Intelligence")}</span>
+            {t("migrationDemoCompleteTransformation", "Complete Transformation")}
+            <span className="block text-blue-600 dark:text-blue-400">{t("migrationDemoByArtificialIntelligence", "by Artificial Intelligence")}</span>
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            {t("discoverHowEmulogRevolutionize", "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.")}
+            {t("migrationDemoDiscoverHowEmulog", "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.")}
           </p>
         </div>
 
@@ -102,16 +102,16 @@ export default function MigrationDemo() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Target className="h-6 w-6" />
-              <span>Paramètres de Votre Société</span>
+              <span>{t("migrationDemoCompanyParameters", "Company Parameters")}</span>
             </CardTitle>
             <CardDescription>
-              Renseignez vos données pour générer un plan de migration personnalisé
+              {t("migrationDemoFillDataForPlan", "Fill in your data to generate a personalized migration plan")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="companyName">Nom de la société</Label>
+                <Label htmlFor="companyName">{t("migrationDemoCompanyName", "Company Name")}</Label>
                 <Input
                   id="companyName"
                   value={companyName}
@@ -120,7 +120,7 @@ export default function MigrationDemo() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="quotingTime">Temps de cotation actuel (heures)</Label>
+                <Label htmlFor="quotingTime">{t("migrationDemoCurrentQuotingTime", "Current quoting time (hours)")}</Label>
                 <Input
                   id="quotingTime"
                   type="number"
@@ -133,7 +133,7 @@ export default function MigrationDemo() {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="processingCost">Coût par cotation (€)</Label>
+              <Label htmlFor="processingCost">{t("migrationDemoCostPerQuote", "Cost per quote (€)")}</Label>
               <Input
                 id="processingCost"
                 type="number"
@@ -153,12 +153,12 @@ export default function MigrationDemo() {
               {generateMigrationPlan.isPending ? (
                 <>
                   <Brain className="mr-2 h-4 w-4 animate-spin" />
-                  Génération du plan IA...
+                  {t("migrationDemoGenerating", "Generating...")}
                 </>
               ) : (
                 <>
                   <Rocket className="mr-2 h-4 w-4" />
-                  Générer le Plan de Migration IA
+                  {t("migrationDemoGenerateAIPlan", "Generate AI Migration Plan")}
                 </>
               )}
             </Button>

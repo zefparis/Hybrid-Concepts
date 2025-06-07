@@ -849,6 +849,28 @@ const resources = {
       // Invoicing page
       invoicingPageInDevelopment: "Invoicing page under development...",
       
+      // Migration Demo page
+      migrationDemoAdvancedAIMigration: "Advanced AI Migration",
+      migrationDemoCompleteTransformation: "Complete Transformation",
+      migrationDemoByArtificialIntelligence: "by Artificial Intelligence",
+      migrationDemoDiscoverHowEmulog: "Discover how eMulog can revolutionize your freight company with a complete 32-week migration plan, using the most advanced AI on the market.",
+      migrationDemoCompanyParameters: "Company Parameters",
+      migrationDemoFillDataForPlan: "Fill in your data to generate a personalized migration plan",
+      migrationDemoCompanyName: "Company Name",
+      migrationDemoCurrentQuotingTime: "Current quoting time (hours)",
+      migrationDemoCostPerQuote: "Cost per quote (€)",
+      migrationDemoGenerateAIPlan: "Generate AI Migration Plan",
+      migrationDemoGenerating: "Generating...",
+      migrationDemoMigrationPlan: "AI Migration Plan",
+      migrationDemoImplementationPhases: "Implementation Phases",
+      migrationDemoAIServices: "AI Services",
+      migrationDemoTimeline: "Timeline",
+      migrationDemoBudget: "Budget",
+      migrationDemoSuccessMetrics: "Success Metrics",
+      migrationDemoOverview: "Overview",
+      migrationDemoEndpoints: "Endpoints",
+      migrationDemoExamples: "Examples",
+      
       // API Docs page
       copied: "Copied!",
       codeCopiedToClipboard: "Code has been copied to clipboard",
