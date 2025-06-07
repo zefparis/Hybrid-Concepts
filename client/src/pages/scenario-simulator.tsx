@@ -310,14 +310,14 @@ export default function ScenarioSimulator() {
               {generateSimulations.isPending ? (
                 <>
                   <PlayCircle className="mr-2 h-4 w-4 animate-spin" />
-                  <span className="hidden sm:inline">Simulation en cours...</span>
-                  <span className="sm:hidden">Simulation...</span>
+                  <span className="hidden sm:inline">{t("scenarioSimulationInProgress", "Simulation in progress...")}</span>
+                  <span className="sm:hidden">{t("scenarioSimulationShort", "Simulation...")}</span>
                 </>
               ) : (
                 <>
                   <PlayCircle className="mr-2 h-4 w-4" />
-                  <span className="hidden sm:inline">Lancer les Simulations IA</span>
-                  <span className="sm:hidden">Lancer ({selectedScenarios.length})</span>
+                  <span className="hidden sm:inline">{t("scenarioLaunchAiSimulations", "Launch AI Simulations")}</span>
+                  <span className="sm:hidden">{t("scenarioLaunchShort", "Launch")} ({selectedScenarios.length})</span>
                 </>
               )}
             </Button>
@@ -332,10 +332,10 @@ export default function ScenarioSimulator() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <BarChart3 className="h-6 w-6" />
-                  <span>Comparaison des Scénarios</span>
+                  <span>{t("scenarioComparison", "Scenario Comparison")}</span>
                 </CardTitle>
                 <CardDescription>
-                  Vue d'ensemble comparative des {simulations.length} scénarios simulés
+                  {t("scenarioComparativeOverview", "Comparative overview of {count} simulated scenarios").replace("{count}", simulations.length.toString())}
                 </CardDescription>
               </CardHeader>
               <CardContent>

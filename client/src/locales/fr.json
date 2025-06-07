@@ -132,6 +132,13 @@
   "invoicingPageInDevelopment": "Page de facturation en développement...",
   "analyticsPageInDevelopment": "Page d'analyses en développement...",
   
+  "scenarioSimulationInProgress": "Simulation en cours...",
+  "scenarioSimulationShort": "Simulation...",
+  "scenarioLaunchAiSimulations": "Lancer les Simulations IA",
+  "scenarioLaunchShort": "Lancer",
+  "scenarioComparison": "Comparaison des Scénarios",
+  "scenarioComparativeOverview": "Vue d'ensemble comparative des {count} scénarios simulés",
+  
   "common": {
     "search": "Rechercher...",
     "export": "Exporter",

@@ -195,7 +195,7 @@ export default function Quotes() {
     setNewQuote({...newQuote, origin: value});
     if (value.length > 1) {
       const suggestions = await searchLocations(value, newQuote.transportMode);
-      setOriginSuggestions(suggestions.map(s => s.text));
+      setOriginSuggestions(suggestions.map((s: any) => s.text));
       setShowOriginSuggestions(suggestions.length > 0);
     } else {
       setShowOriginSuggestions(false);
@@ -206,7 +206,7 @@ export default function Quotes() {
     setNewQuote({...newQuote, destination: value});
     if (value.length > 1) {
       const suggestions = await searchLocations(value, newQuote.transportMode);
-      setDestinationSuggestions(suggestions.map(s => s.text));
+      setDestinationSuggestions(suggestions.map((s: any) => s.text));
       setShowDestinationSuggestions(suggestions.length > 0);
     } else {
       setShowDestinationSuggestions(false);
@@ -367,7 +367,7 @@ export default function Quotes() {
     }
   };
 
-  const filteredQuotes = quoteRequests.filter((quote: any) => {
+  const filteredQuotes = (quoteRequests as any[] || []).filter((quote: any) => {
     const transportModeMatch = selectedTransportMode === "all" || 
       quote.transportMode?.toLowerCase() === selectedTransportMode;
     const statusMatch = filterStatus === "all" || quote.status === filterStatus;
