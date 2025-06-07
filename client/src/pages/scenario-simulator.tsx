@@ -43,6 +43,7 @@ interface ScenarioSimulation {
 }
 
 export default function ScenarioSimulator() {
+  const { t } = useTranslation();
   const [companyName, setCompanyName] = useState("");
   const [quotingTime, setQuotingTime] = useState(14);
   const [processingCost, setProcessingCost] = useState(70);
@@ -142,13 +143,11 @@ export default function ScenarioSimulator() {
           </div>
           
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white px-2">
-            Testez Virtuellement
-            <span className="block text-green-600 dark:text-green-400">Vos Stratégies IA</span>
+            {t("testVirtuallyStrategies", "Test Virtually Your AI Strategies")}
           </h1>
           
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
-            Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. 
-            Optimisez votre stratégie avec des données précises et des projections réalistes.
+            {t("simulateTransformationScenarios", "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.")}
           </p>
         </div>
 

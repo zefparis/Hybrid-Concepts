@@ -230,6 +230,10 @@ const resources = {
       phone: "Téléphone",
       logout: "Déconnexion",
       
+      // Scenario Simulator specific
+      testVirtuallyStrategies: "Testez Virtuellement Vos Stratégies IA",
+      simulateTransformationScenarios: "Simulez différents scénarios de transformation IA et comparez leurs impacts avant implémentation. Optimisez votre stratégie avec des données précises et des projections réalistes.",
+      
       // Notifications
       operationSuccessful: "Opération réussie",
       operationFailed: "Opération échouée",
@@ -464,6 +468,10 @@ const resources = {
       companyName: "Company Name",
       phone: "Phone",
       logout: "Logout",
+      
+      // Scenario Simulator specific
+      testVirtuallyStrategies: "Test Virtually Your AI Strategies",
+      simulateTransformationScenarios: "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.",
       
       // Notifications
       operationSuccessful: "Operation successful",
