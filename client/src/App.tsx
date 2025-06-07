@@ -3,7 +3,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-// Authentication removed
 import { TopNavbar } from "@/components/layout/top-navbar";
 import { Suspense } from "react";
 import NotFound from "@/pages/not-found";
@@ -20,7 +19,6 @@ import CompetitiveDemo from "@/pages/competitive-demo";
 import MigrationDemo from "@/pages/migration-demo";
 import AIMaturity from "@/pages/ai-maturity";
 import ScenarioSimulator from "@/pages/scenario-simulator";
-// Authentication pages removed
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -30,8 +28,6 @@ function LoadingSpinner() {
     </div>
   );
 }
-
-// PublicApp removed - direct access to all features
 
 function App() {
   return (

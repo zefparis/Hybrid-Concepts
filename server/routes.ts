@@ -15,22 +15,11 @@ interface AuthRequest extends Request {
   user?: any;
 }
 
-// Authentication middleware
+// Authentication middleware disabled - direct access
 const authenticateToken = (req: any, res: any, next: any) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ message: 'Access token required' });
-  }
-
-  jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
-    if (err) {
-      return res.status(403).json({ message: 'Invalid or expired token' });
-    }
-    req.user = user;
-    next();
-  });
+  // Skip authentication - allow direct access
+  req.user = { id: 1, email: "demo@emulog.com", role: "admin" }; // Demo user
+  next();
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
