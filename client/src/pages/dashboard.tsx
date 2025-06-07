@@ -13,7 +13,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <Header title="Tableau de bord" subtitle="Vue d'ensemble de votre activité logistique" />
+      <Header title={t("dashboardPage", "Dashboard")} subtitle={t("dashboardSubtitle", "Overview of your logistics activity")} />
       
       <MetricsCards />
       

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -41,6 +42,7 @@ interface MaturityAssessment {
 }
 
 export default function AIMaturity() {
+  const { t } = useTranslation();
   const [companyName, setCompanyName] = useState("");
   const [quotingTime, setQuotingTime] = useState([10]);
   const [processingCost, setProcessingCost] = useState([60]);
@@ -112,17 +114,16 @@ export default function AIMaturity() {
         <div className="text-center space-y-6">
           <div className="inline-flex items-center space-x-2 bg-purple-100 dark:bg-purple-900 px-4 py-2 rounded-full">
             <Brain className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-            <span className="text-purple-800 dark:text-purple-200 font-medium">Scoring de Maturité IA</span>
+            <span className="text-purple-800 dark:text-purple-200 font-medium">{t("aiMaturityScoring", "AI Maturity Scoring")}</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white">
-            Évaluez Votre Préparation
-            <span className="block text-purple-600 dark:text-purple-400">à l'Intelligence Artificielle</span>
+            {t("assessYourPreparation", "Assess Your Preparation")}
+            <span className="block text-purple-600 dark:text-purple-400">{t("forArtificialIntelligence", "for Artificial Intelligence")}</span>
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Obtenez un diagnostic complet de votre maturité IA avec scoring détaillé, 
-            recommandations personnalisées et plan d'amélioration structuré.
+            {t("getCompleteAIDiagnostic", "Get a complete AI maturity diagnostic with detailed scoring, personalized recommendations and structured improvement plan.")}
           </p>
         </div>
 

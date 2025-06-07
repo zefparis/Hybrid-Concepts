@@ -302,6 +302,10 @@ const resources = {
       analysisError: "Erreur d'analyse",
       analysisErrorOccurred: "Une erreur s'est produite lors de l'analyse",
       
+      // Dashboard page
+      dashboardPage: "Tableau de bord",
+      dashboardSubtitle: "Vue d'ensemble de votre activité logistique",
+      
       // Notifications
       operationSuccessful: "Opération réussie",
       operationFailed: "Opération échouée",
@@ -608,6 +612,10 @@ const resources = {
       competitorAnalyzed: "Competitor has been successfully analyzed",
       analysisError: "Analysis error",
       analysisErrorOccurred: "An error occurred during analysis",
+      
+      // Dashboard page
+      dashboardPage: "Dashboard",
+      dashboardSubtitle: "Overview of your logistics activity",
       
       // Notifications
       operationSuccessful: "Operation successful",
