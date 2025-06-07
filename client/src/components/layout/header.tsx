@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Search, Bell, Globe } from "lucide-react";
+import { Search, Bell } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
 
 interface HeaderProps {
@@ -11,7 +10,7 @@ interface HeaderProps {
 }
 
 export function Header({ title, subtitle }: HeaderProps) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [lastUpdate, setLastUpdate] = useState(2);
 
   useEffect(() => {
@@ -21,10 +20,6 @@ export function Header({ title, subtitle }: HeaderProps) {
 
     return () => clearInterval(interval);
   }, []);
-
-  const handleLanguageChange = (language: string) => {
-    i18n.changeLanguage(language);
-  };
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 p-4 sm:p-6">
@@ -52,16 +47,7 @@ export function Header({ title, subtitle }: HeaderProps) {
             />
           </div>
           
-          {/* Language Switcher */}
-          <Select value={i18n.language} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-20 sm:w-24">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="fr">🇫🇷 FR</SelectItem>
-              <SelectItem value="en">🇬🇧 EN</SelectItem>
-            </SelectContent>
-          </Select>
+
           
           {/* Notifications */}
           <Button variant="ghost" size="sm" className="relative">
