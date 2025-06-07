@@ -137,7 +137,7 @@ export default function Landing() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg font-semibold"
+                className="border-2 border-white/80 text-white hover:bg-white hover:text-blue-600 backdrop-blur-sm bg-white/10 px-8 py-4 text-lg font-semibold transition-all duration-300 shadow-lg"
                 onClick={handleDemo}
               >
                 <Play className="w-5 h-5 mr-2" />
@@ -280,7 +280,7 @@ export default function Landing() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold backdrop-blur-sm bg-white/10 transition-all duration-300 shadow-lg"
               onClick={() => setLocation("/subscription-plans")}
             >
               <Clock className="w-5 h-5 mr-2" />
