@@ -855,25 +855,7 @@ const resources = {
       pageNotFound: "404 Page Not Found",
       pageNotFoundDescription: "Did you forget to add the page to the router?",
       
-      // Scenario Simulator page
-      yourCompany: "Your Company",
-      aiScenarioSimulation: "AI Scenario Simulation",
-      testVirtuallyStrategiesMain: "Test Virtually Your AI Strategies",
-      simulateTransformationScenariosMain: "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.",
-      scenarioSimulationConfiguration: "Simulation Configuration",
-      defineCompanyParametersForSimulation: "Define your company parameters to generate personalized simulations",
-      companyNamePlaceholder: "Ex: InnoLogistics Corp",
-      targetGrowthPercentage: "Target Growth (%)",
-      quotingTimeHoursField: "Quoting Time (hours)",
-      monthlyVolumeField: "Monthly Volume",
-      budgetAvailableField: "Available Budget (€)",
-      scenariosToSimulateField: "Scenarios to Simulate",
-      conservativeTransformation: "Conservative Transformation",
-      gradualApproachMinimizedRisks: "Gradual approach with minimized risks",
-      balancedTransformation: "Balanced Transformation",
-      optimalRiskBenefitBalance: "Optimal risk/benefit balance",
-      acceleratedTransformation: "Accelerated Transformation",
-      maximumInnovationCompleteAutomation: "Maximum innovation and complete automation",
+
       
       // Notifications
       operationSuccessful: "Operation successful",

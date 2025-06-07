@@ -97,7 +97,7 @@ export default function ScenarioSimulator() {
   const handleGenerateSimulations = () => {
     generateSimulations.mutate({
       companyData: {
-        companyName: companyName || t("yourCompany", "Your Company"),
+        companyName: companyName || t("scenarioYourCompany", "Your Company"),
         quotingTime,
         processingCost,
         errorRate,
@@ -139,15 +139,15 @@ export default function ScenarioSimulator() {
         <div className="text-center space-y-4 sm:space-y-6">
           <div className="inline-flex items-center space-x-2 bg-green-100 dark:bg-green-900 px-3 sm:px-4 py-2 rounded-full">
             <PlayCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 dark:text-green-400" />
-            <span className="text-sm sm:text-base text-green-800 dark:text-green-200 font-medium">{t("aiScenarioSimulation", "AI Scenario Simulation")}</span>
+            <span className="text-sm sm:text-base text-green-800 dark:text-green-200 font-medium">{t("scenarioAiSimulation", "AI Scenario Simulation")}</span>
           </div>
           
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white px-2">
-            {t("testVirtuallyStrategiesMain", "Test Virtually Your AI Strategies")}
+            {t("scenarioTestVirtuallyStrategies", "Test Virtually Your AI Strategies")}
           </h1>
           
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
-            {t("simulateTransformationScenariosMain", "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.")}
+            {t("scenarioSimulateTransformationScenarios", "Simulate different AI transformation scenarios and compare their impacts before implementation. Optimize your strategy with accurate data and realistic projections.")}
           </p>
         </div>
 
@@ -156,28 +156,28 @@ export default function ScenarioSimulator() {
           <CardHeader className="px-4 sm:px-6">
             <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
               <Target className="h-5 w-5 sm:h-6 sm:w-6" />
-              <span>{t("scenarioSimulationConfiguration", "Simulation Configuration")}</span>
+              <span>{t("scenarioSimulationConfig", "Simulation Configuration")}</span>
             </CardTitle>
             <CardDescription className="text-sm sm:text-base">
-              {t("defineCompanyParametersForSimulation", "Define your company parameters to generate personalized simulations")}
+              {t("scenarioDefineCompanyParameters", "Define your company parameters to generate personalized simulations")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
             {/* Company Info */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">{t("companyInformation", "Company Information")}</h3>
+              <h3 className="text-base sm:text-lg font-semibold">{t("companyInfo", "Company Information")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="companyName">{t("companyNameField", "Company Name")}</Label>
+                  <Label htmlFor="companyName">{t("companyName", "Company Name")}</Label>
                   <Input
                     id="companyName"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder={t("companyNamePlaceholder", "Ex: InnoLogistics Corp")}
+                    placeholder={t("scenarioCompanyNamePlaceholder", "Ex: InnoLogistics Corp")}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="targetGrowth">{t("targetGrowthPercentage", "Target Growth (%)")}</Label>
+                  <Label htmlFor="targetGrowth">{t("scenarioTargetGrowthPercentage", "Target Growth (%)")}</Label>
                   <Input
                     id="targetGrowth"
                     type="number"
