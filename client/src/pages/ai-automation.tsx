@@ -32,7 +32,6 @@ export default function AIAutomation() {
 
   const automationMutation = useMutation({
     mutationFn: async (data: any) => {
-      // Use public logistics automation API
       const response = await fetch("/public-api/logistics/quotes", {
         method: "POST",
         headers: {
@@ -61,8 +60,8 @@ export default function AIAutomation() {
         throw new Error(`API call failed: ${response.status}`);
       }
 
-      const automation = await response.json();
-      return { automation: automation.data };
+      const result = await response.json();
+      return result.data;
     },
     onSuccess: (data) => {
       setAutomationResults(data);
