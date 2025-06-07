@@ -132,15 +132,15 @@ export default function AIMaturity() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Target className="h-6 w-6" />
-              <span>Évaluation de Maturité IA</span>
+              <span>{t("aiMaturityEvaluation", "AI Maturity Evaluation")}</span>
             </CardTitle>
             <CardDescription>
-              Renseignez les informations de votre société pour obtenir un scoring personnalisé
+              {t("enterCompanyInfoForPersonalizedScoring", "Enter your company information to get personalized scoring")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="companyName">Nom de la société</Label>
+              <Label htmlFor="companyName">{t("companyName", "Company name")}</Label>
               <Input
                 id="companyName"
                 value={companyName}
@@ -151,11 +151,11 @@ export default function AIMaturity() {
 
             {/* Operational Metrics */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Métriques Opérationnelles</h3>
+              <h3 className="text-lg font-semibold">{t("operationalMetrics", "Operational Metrics")}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label>Temps de cotation moyen (heures): {quotingTime[0]}h</Label>
+                  <Label>{t("averageQuotingTimeHours", "Average quoting time (hours)")}: {quotingTime[0]}h</Label>
                   <Slider
                     value={quotingTime}
                     onValueChange={setQuotingTime}
@@ -167,7 +167,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Coût par cotation (€): {processingCost[0]}€</Label>
+                  <Label>{t("costPerQuote", "Cost per quote")} (€): {processingCost[0]}€</Label>
                   <Slider
                     value={processingCost}
                     onValueChange={setProcessingCost}
@@ -179,7 +179,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Taux d'erreur (%): {errorRate[0]}%</Label>
+                  <Label>{t("errorRate", "Error rate")} (%): {errorRate[0]}%</Label>
                   <Slider
                     value={errorRate}
                     onValueChange={setErrorRate}
@@ -191,7 +191,7 @@ export default function AIMaturity() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label>Satisfaction client (%): {clientSatisfaction[0]}%</Label>
+                  <Label>{t("clientSatisfaction", "Client satisfaction")} (%): {clientSatisfaction[0]}%</Label>
                   <Slider
                     value={clientSatisfaction}
                     onValueChange={setClientSatisfaction}
@@ -206,11 +206,11 @@ export default function AIMaturity() {
 
             {/* Technology Profile */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Profil Technologique</h3>
+              <h3 className="text-lg font-semibold">{t("technologicalProfile", "Technological Profile")}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label>Usage Cloud (%): {cloudUsage[0]}%</Label>
+                  <Label>{t("cloudUsage", "Cloud usage")} (%): {cloudUsage[0]}%</Label>
                   <Slider
                     value={cloudUsage}
                     onValueChange={setCloudUsage}
