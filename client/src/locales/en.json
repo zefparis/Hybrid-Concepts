@@ -151,6 +151,18 @@
   "quotesCreating": "Creating...",
   "quotesCreateRequest": "Create Request",
   "quotesFilters": "Filters",
+  "quotesLand": "Land",
+  "quotesSea": "Sea", 
+  "quotesAir": "Air",
+  
+  "costEvolution": "Cost Evolution",
+  "last30Days": "Last 30 days",
+  "last90Days": "Last 90 days", 
+  "oneYear": "1 year",
+  "transportCostChart": "Transport Cost Chart",
+  "savingsThisMonth": "Savings: €12,450 this month",
+  "carrierPerformance": "Carrier Performance",
+  "shipmentsThisMonth": "{count} shipments this month",
   
   "common": {
     "search": "Search...",

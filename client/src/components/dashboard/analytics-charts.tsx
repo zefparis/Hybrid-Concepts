@@ -38,16 +38,16 @@ export function AnalyticsCharts() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold text-emulog-dark">
-              Évolution des Coûts
+{t("costEvolution", "Cost Evolution")}
             </CardTitle>
             <Select defaultValue="30">
               <SelectTrigger className="w-40">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="30">30 derniers jours</SelectItem>
-                <SelectItem value="90">90 derniers jours</SelectItem>
-                <SelectItem value="365">1 an</SelectItem>
+                <SelectItem value="30">{t("last30Days", "Last 30 days")}</SelectItem>
+                <SelectItem value="90">{t("last90Days", "Last 90 days")}</SelectItem>
+                <SelectItem value="365">{t("oneYear", "1 year")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -57,8 +57,8 @@ export function AnalyticsCharts() {
           <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
             <div className="text-center">
               <TrendingUp className="w-16 h-16 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-500">Graphique des coûts de transport</p>
-              <p className="text-sm text-gray-400 mt-1">Économies: €12,450 ce mois</p>
+              <p className="text-gray-500">{t("transportCostChart", "Transport Cost Chart")}</p>
+              <p className="text-sm text-gray-400 mt-1">{t("savingsThisMonth", "Savings: €12,450 this month")}</p>
             </div>
           </div>
         </CardContent>
@@ -68,7 +68,7 @@ export function AnalyticsCharts() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold text-emulog-dark">
-              Performance par Transporteur
+{t("carrierPerformance", "Carrier Performance")}
             </CardTitle>
             <Button variant="link" className="text-emulog-blue">
               {t("viewDetails")}
@@ -93,7 +93,7 @@ export function AnalyticsCharts() {
                       {carrier.name}
                     </p>
                     <p className="text-xs text-gray-500">
-                      {carrier.shipments} expéditions ce mois
+{t("shipmentsThisMonth", "{count} shipments this month").replace("{count}", carrier.shipments.toString())}
                     </p>
                   </div>
                 </div>

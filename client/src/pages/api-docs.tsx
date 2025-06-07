@@ -58,8 +58,8 @@ export default function ApiDocs() {
       setTestResults(prev => ({ ...prev, [endpoint]: result }));
 
       toast({
-        title: result.success ? "Test réussi" : "Test échoué",
-        description: result.success ? "L'endpoint fonctionne correctement" : result.message,
+        title: result.success ? t("testSuccessful", "Test successful") : t("testFailed", "Test failed"),
+        description: result.success ? t("endpointWorking", "Endpoint is working correctly") : result.message,
         variant: result.success ? "default" : "destructive",
       });
     } catch (error) {
