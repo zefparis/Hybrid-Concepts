@@ -114,7 +114,7 @@ export default function AIMaturity() {
         <div className="text-center space-y-6">
           <div className="inline-flex items-center space-x-2 bg-purple-100 dark:bg-purple-900 px-4 py-2 rounded-full">
             <Brain className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-            <span className="text-purple-800 dark:text-purple-200 font-medium">{t("aiMaturityScoring", "AI Maturity Scoring")}</span>
+            <span className="text-purple-800 dark:text-purple-200 font-medium">{t("aiMaturityEvaluation", "AI Maturity Evaluation")}</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white">
