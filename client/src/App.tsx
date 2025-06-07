@@ -30,6 +30,7 @@ import RouteManagement from "@/pages/route-management";
 import AdvancedTracking from "@/pages/advanced-tracking";
 import AviationMaritime from "@/pages/aviation-maritime";
 import TransformationDemo from "@/pages/transformation-demo";
+import SubscriptionPlans from "@/pages/subscription-plans";
 import "./lib/i18n";
 
 function LoadingSpinner() {
@@ -74,6 +75,9 @@ function App() {
                   <Route path="/migration-demo" component={MigrationDemo} />
                   <Route path="/ai-maturity" component={AIMaturity} />
                   <Route path="/scenario-simulator" component={ScenarioSimulator} />
+                  <Route path="/subscription-plans" component={SubscriptionPlans} />
+                  <Route path="/billing" component={SubscriptionPlans} />
+                  <Route path="/plans" component={SubscriptionPlans} />
                   <Route component={NotFound} />
                 </Switch>
               </Suspense>

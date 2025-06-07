@@ -257,7 +257,7 @@ export default function TopNavbar() {
                       size="sm" 
                       variant="outline" 
                       className="w-full"
-                      onClick={() => handleNavigation('/billing')}
+                      onClick={() => handleNavigation('/subscription-plans')}
                     >
                       <DollarSign className="w-3 h-3 mr-1" />
                       Billing Settings
