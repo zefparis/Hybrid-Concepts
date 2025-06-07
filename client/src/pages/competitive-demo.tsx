@@ -94,10 +94,10 @@ export default function CompetitiveDemo() {
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <Brain className="w-8 h-8 text-purple-600" />
-          <h1 className="text-3xl font-bold">{t("competitiveAiAnalysis", "AI Competitive Analysis")}</h1>
+          <h1 className="text-3xl font-bold">{t("competitiveDemoTitle", "Competitive Analysis AI")}</h1>
         </div>
         <p className="text-muted-foreground max-w-3xl mx-auto">
-          {t("emulogTransformationDescription", "Discover how eMulog can transform your traditional freight company with our logistics optimization AI. No access to sensitive data - analysis based solely on operational metrics.")}
+          {t("competitiveDemoSubtitle", "Analyze traditional freight companies and discover optimization opportunities with eMulog AI")}
         </p>
         <Badge variant="outline" className="bg-gradient-to-r from-purple-100 to-blue-100">
           {t("interactiveDemoLabel", "Interactive Demo - Powered by Claude Sonnet-4")}
@@ -110,10 +110,10 @@ export default function CompetitiveDemo() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Target className="w-5 h-5 text-blue-600" />
-              {t("companyDataTitle", "Your Company Data")}
+              {t("competitiveDemoCompanyProfile", "Company Profile")}
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              {t("metricsInstructions", "Enter your current metrics for personalized analysis")}
+              {t("competitiveDemoCurrentMetrics", "Current Metrics")}
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -129,7 +129,7 @@ export default function CompetitiveDemo() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="responseTime">{t("responseTimeLabel", "Average Response Time (hours)")}</Label>
+                <Label htmlFor="responseTime">{t("competitiveDemoQuotingTime", "Quoting time (hours)")}</Label>
                 <Input
                   id="responseTime"
                   type="number"
@@ -138,7 +138,7 @@ export default function CompetitiveDemo() {
                 />
               </div>
               <div>
-                <Label htmlFor="accuracy">{t("accuracyLabel", "Price Accuracy (%)")}</Label>
+                <Label htmlFor="accuracy">{t("competitiveDemoAccuracy", "Accuracy (%)")}</Label>
                 <Input
                   id="accuracy"
                   type="number"
@@ -150,7 +150,7 @@ export default function CompetitiveDemo() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="costPerQuote">{t("costPerQuote", "Cost per Quote (€)")}</Label>
+                <Label htmlFor="costPerQuote">{t("competitiveDemoCostPerQuote", "Cost per quote (€)")}</Label>
                 <Input
                   id="costPerQuote"
                   type="number"
@@ -159,7 +159,7 @@ export default function CompetitiveDemo() {
                 />
               </div>
               <div>
-                <Label htmlFor="scalability">{t("quotesPerDayLabel", "Max Quotes/Day")}</Label>
+                <Label htmlFor="scalability">{t("competitiveDemoScalabilityLimit", "Scalability limit (quotes/day)")}</Label>
                 <Input
                   id="scalability"
                   type="number"
