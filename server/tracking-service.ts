@@ -1,6 +1,8 @@
 import { db } from "./db";
 import { trackingEvents, shipments } from "@shared/schema";
 import { eq } from "drizzle-orm";
+import { aviationTrackingService } from './aviation-tracking';
+import { marineTrafficService } from './marine-traffic-service';
 
 interface TrackingProvider {
   name: string;

@@ -4,6 +4,8 @@ import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { trackingService } from "./tracking-service";
 import { vizionService } from "./vizion-tracking";
+import { aviationTrackingService } from "./aviation-tracking";
+import { marineTrafficService } from "./marine-traffic-service";
 import { insertUserSchema, insertCompanySchema, insertQuoteRequestSchema, insertDocumentSchema, insertChatMessageSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -576,7 +578,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Routes API Vizion Maritime Tracking
+  // Routes API Aviation Tracking
+  app.post("/api/tracking/aviation/flight", authenticateToken, async (req, res) => {
+    try {
+      const { flightNumber, date } = req.body;
+      
+      if (!flightNumber) {
+        return res.status(400).json({ error: "Numéro de vol requis" });
+      }
+
+      const flightData = await aviationTrackingService.trackFlight(flightNumber, date);
+      res.json(flightData);
+    } catch (error) {
+      console.error("Erreur tracking aviation:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.get("/api/tracking/aviation/airport/:iataCode", authenticateToken, async (req, res) => {
+    try {
+      const { iataCode } = req.params;
+      const airportInfo = await aviationTrackingService.getAirportInfo(iataCode);
+      res.json(airportInfo);
+    } catch (error) {
+      console.error("Erreur info aéroport:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.get("/api/tracking/aviation/routes/:airlineIata", authenticateToken, async (req, res) => {
+    try {
+      const { airlineIata } = req.params;
+      const routes = await aviationTrackingService.getAirlineRoutes(airlineIata);
+      res.json(routes);
+    } catch (error) {
+      console.error("Erreur routes compagnie:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  // Routes API Maritime Tracking (MarineTraffic)
+  app.post("/api/tracking/maritime/vessel", authenticateToken, async (req, res) => {
+    try {
+      const { mmsi } = req.body;
+      
+      if (!mmsi) {
+        return res.status(400).json({ error: "MMSI requis" });
+      }
+
+      const vesselData = await marineTrafficService.getVesselByMMSI(mmsi);
+      res.json(vesselData);
+    } catch (error) {
+      console.error("Erreur tracking maritime:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.get("/api/tracking/maritime/port/:portId", authenticateToken, async (req, res) => {
+    try {
+      const { portId } = req.params;
+      const portInfo = await marineTrafficService.getPortInfo(portId);
+      res.json(portInfo);
+    } catch (error) {
+      console.error("Erreur info port:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.get("/api/tracking/maritime/port/:portId/vessels", authenticateToken, async (req, res) => {
+    try {
+      const { portId } = req.params;
+      const vessels = await marineTrafficService.getVesselsByPort(portId);
+      res.json(vessels);
+    } catch (error) {
+      console.error("Erreur navires du port:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  app.post("/api/tracking/maritime/vessel/route", authenticateToken, async (req, res) => {
+    try {
+      const { mmsi, fromDate, toDate } = req.body;
+      
+      if (!mmsi || !fromDate || !toDate) {
+        return res.status(400).json({ error: "MMSI, date de début et date de fin requis" });
+      }
+
+      const route = await marineTrafficService.getVesselRoute(mmsi, fromDate, toDate);
+      res.json(route);
+    } catch (error) {
+      console.error("Erreur route navire:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  // Routes API Vizion Maritime Tracking (existing)
   app.post("/api/tracking/vizion/container", authenticateToken, async (req, res) => {
     try {
       const { containerNumber } = req.body;
@@ -587,7 +683,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const trackingData = await vizionService.trackContainer(containerNumber);
       if (!trackingData) {
-        // Return demo data if API is not configured
         const demoData = vizionService.getDemoData().find(d => d.containerNumber === containerNumber);
         return res.json(demoData || { error: "Conteneur non trouvé" });
       }
@@ -595,6 +690,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(trackingData);
     } catch (error) {
       console.error("Erreur Vizion tracking:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
+  // Route API unifiée multimodale
+  app.post("/api/tracking/unified", authenticateToken, async (req, res) => {
+    try {
+      const { identifier, mode } = req.body;
+      
+      if (!identifier) {
+        return res.status(400).json({ error: "Identifiant requis" });
+      }
+
+      let result;
+      
+      // Détection automatique du mode de transport
+      if (!mode || mode === 'auto') {
+        if (/^[A-Z]{2,3}\d{1,4}[A-Z]?$/i.test(identifier)) {
+          // Format numéro de vol
+          result = await aviationTrackingService.trackFlight(identifier);
+        } else if (/^\d{9}$/.test(identifier)) {
+          // Format MMSI
+          result = await marineTrafficService.getVesselByMMSI(identifier);
+        } else {
+          // Format tracking terrestre
+          result = await trackingService.trackShipment(identifier);
+        }
+      } else if (mode === 'aviation') {
+        result = await aviationTrackingService.trackFlight(identifier);
+      } else if (mode === 'maritime') {
+        result = await marineTrafficService.getVesselByMMSI(identifier);
+      } else {
+        result = await trackingService.trackShipment(identifier);
+      }
+
+      res.json(result);
+    } catch (error) {
+      console.error("Erreur tracking unifié:", error);
       res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
