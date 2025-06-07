@@ -64,80 +64,7 @@ interface Driver {
 export default function FleetManagement() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("vehicles");
-  const [fleetMap, setFleetMap] = useState<any>(null);
-  const [vehicleMarkers, setVehicleMarkers] = useState<any[]>([]);
-
-  // Google Maps initialization for fleet tracking
-  useEffect(() => {
-    const loadGoogleMapsForFleet = () => {
-      if (!window.google) {
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'demo-key'}&callback=initFleetMap&loading=async`;
-        script.async = true;
-        script.defer = true;
-        document.head.appendChild(script);
-
-        window.initFleetMap = () => {
-          setTimeout(() => {
-            const mapElement = document.getElementById('fleet-tracking-map');
-            if (mapElement && window.google && window.google.maps) {
-              try {
-                const newMap = new window.google.maps.Map(mapElement, {
-                  center: { lat: 48.8566, lng: 2.3522 }, // Paris center
-                  zoom: 6,
-                  styles: [
-                    {
-                      featureType: "road",
-                      elementType: "geometry",
-                      stylers: [{ color: "#38414e" }]
-                    },
-                    {
-                      featureType: "road",
-                      elementType: "geometry.stroke",
-                      stylers: [{ color: "#212a37" }]
-                    },
-                    {
-                      featureType: "road",
-                      elementType: "labels.text.fill",
-                      stylers: [{ color: "#9ca5b3" }]
-                    }
-                  ]
-                });
-                setFleetMap(newMap);
-              } catch (error) {
-                console.error('Error creating fleet map:', error);
-              }
-            }
-          }, 1000);
-        };
-      } else if (window.google && window.google.maps && activeTab === "tracking") {
-        setTimeout(() => {
-          const mapElement = document.getElementById('fleet-tracking-map');
-          if (mapElement && !fleetMap) {
-            const newMap = new window.google.maps.Map(mapElement, {
-              center: { lat: 48.8566, lng: 2.3522 },
-              zoom: 6,
-              styles: [
-                {
-                  featureType: "road",
-                  elementType: "geometry",
-                  stylers: [{ color: "#38414e" }]
-                }
-              ]
-            });
-            setFleetMap(newMap);
-          }
-        }, 500);
-      }
-    };
-
-    if (activeTab === "tracking") {
-      const timer = setTimeout(() => {
-        loadGoogleMapsForFleet();
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [activeTab, fleetMap]);
+  const [mapInitialized, setMapInitialized] = useState(false);
 
   // Mock data for demonstration
   const vehicles: Vehicle[] = [
@@ -175,61 +102,62 @@ export default function FleetManagement() {
     }
   ];
 
-  // Update vehicle markers on map
+  // Initialize Google Maps when tracking tab is selected
   useEffect(() => {
-    if (fleetMap && vehicles) {
-      // Clear existing markers
-      vehicleMarkers.forEach(marker => marker.setMap(null));
-      
-      const newMarkers = vehicles.map((vehicle: Vehicle) => {
-        const marker = new window.google.maps.Marker({
-          position: { 
-            lat: vehicle.lastLocation?.lat || 48.8566, 
-            lng: vehicle.lastLocation?.lng || 2.3522 
-          },
-          map: fleetMap,
-          title: `${vehicle.make} ${vehicle.model} (${vehicle.licensePlate})`,
-          icon: {
-            url: vehicle.status === 'active' ? 
-              'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
-                  <circle cx="12" cy="12" r="10" fill="#10b981" stroke="#fff" stroke-width="2"/>
-                  <path d="M8 12h8M12 8v8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              `) :
-              'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
-                  <circle cx="12" cy="12" r="10" fill="#ef4444" stroke="#fff" stroke-width="2"/>
-                  <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              `),
-            scaledSize: new window.google.maps.Size(32, 32)
+    if (activeTab === "tracking" && !mapInitialized) {
+      const timer = setTimeout(() => {
+        const mapElement = document.getElementById('fleet-tracking-map');
+        if (mapElement) {
+          if (window.google && window.google.maps) {
+            initializeFleetMap();
+          } else {
+            loadGoogleMapsScript();
           }
-        });
-
-        const infoWindow = new window.google.maps.InfoWindow({
-          content: `
-            <div style="padding: 8px; min-width: 200px;">
-              <h3 style="margin: 0 0 8px 0; font-weight: bold;">${vehicle.make} ${vehicle.model}</h3>
-              <p style="margin: 4px 0;"><strong>Plaque:</strong> ${vehicle.licensePlate}</p>
-              <p style="margin: 4px 0;"><strong>Statut:</strong> ${vehicle.status}</p>
-              <p style="margin: 4px 0;"><strong>Carburant:</strong> ${vehicle.fuelLevel}%</p>
-              <p style="margin: 4px 0;"><strong>Batterie:</strong> ${vehicle.batteryLevel}%</p>
-              <p style="margin: 4px 0;"><strong>Kilométrage:</strong> ${vehicle.mileage.toLocaleString()} km</p>
-            </div>
-          `
-        });
-
-        marker.addListener('click', () => {
-          infoWindow.open(fleetMap, marker);
-        });
-
-        return marker;
-      });
-
-      setVehicleMarkers(newMarkers);
+        }
+      }, 100);
+      
+      return () => clearTimeout(timer);
     }
-  }, [fleetMap, vehicles]);
+  }, [activeTab]);
+
+  const loadGoogleMapsScript = () => {
+    if (document.querySelector('script[src*="maps.googleapis.com"]')) {
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&callback=initFleetMap`;
+    script.async = true;
+    script.defer = true;
+    
+    window.initFleetMap = initializeFleetMap;
+    
+    document.head.appendChild(script);
+  };
+
+  const initializeFleetMap = () => {
+    const mapElement = document.getElementById('fleet-tracking-map');
+    if (!mapElement || !window.google || mapInitialized) return;
+
+    const map = new window.google.maps.Map(mapElement, {
+      center: { lat: 48.8566, lng: 2.3522 },
+      zoom: 6
+    });
+
+    // Add vehicle markers
+    vehicles.forEach((vehicle: Vehicle) => {
+      new window.google.maps.Marker({
+        position: { 
+          lat: vehicle.lastLocation?.lat || 48.8566, 
+          lng: vehicle.lastLocation?.lng || 2.3522 
+        },
+        map: map,
+        title: `${vehicle.make} ${vehicle.model} (${vehicle.licensePlate})`
+      });
+    });
+
+    setMapInitialized(true);
+  };
 
   const drivers: Driver[] = [
     {
