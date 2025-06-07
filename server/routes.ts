@@ -970,5 +970,107 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Notification API endpoints
+  app.get("/api/notifications", authenticateToken, async (req: any, res) => {
+    try {
+      const notifications = notificationService.getNotifications(req.user.companyId, 50, false);
+      res.json(notifications);
+    } catch (error) {
+      console.error('Get notifications error:', error);
+      res.status(500).json({ message: 'Failed to fetch notifications' });
+    }
+  });
+
+  app.post("/api/notifications/mark-read", authenticateToken, async (req: any, res) => {
+    try {
+      const { notificationId } = req.body;
+      const success = notificationService.markAsRead(notificationId, req.user.companyId);
+      res.json({ success });
+    } catch (error) {
+      console.error('Mark notification as read error:', error);
+      res.status(500).json({ message: 'Failed to mark notification as read' });
+    }
+  });
+
+  app.post("/api/notifications/mark-all-read", authenticateToken, async (req: any, res) => {
+    try {
+      const count = notificationService.markAllAsRead(req.user.companyId);
+      res.json({ markedCount: count });
+    } catch (error) {
+      console.error('Mark all notifications as read error:', error);
+      res.status(500).json({ message: 'Failed to mark all notifications as read' });
+    }
+  });
+
+  // Payment and invoice API endpoints
+  app.get("/api/invoices", authenticateToken, async (req: any, res) => {
+    try {
+      const invoices = paymentService.getCompanyInvoices(req.user.companyId);
+      res.json(invoices);
+    } catch (error) {
+      console.error('Get invoices error:', error);
+      res.status(500).json({ message: 'Failed to fetch invoices' });
+    }
+  });
+
+  app.post("/api/payments/create-intent", authenticateToken, async (req: any, res) => {
+    try {
+      const { shipmentId, amount, description } = req.body;
+      const paymentIntent = await paymentService.createShipmentPayment(
+        req.user.companyId,
+        req.user.userId,
+        shipmentId,
+        amount,
+        description
+      );
+      res.json(paymentIntent);
+    } catch (error) {
+      console.error('Create payment intent error:', error);
+      res.status(500).json({ message: 'Failed to create payment intent' });
+    }
+  });
+
+  app.post("/api/payments/process", authenticateToken, async (req: any, res) => {
+    try {
+      const { paymentIntentId, paymentMethodId } = req.body;
+      const result = await paymentService.processPayment(paymentIntentId, paymentMethodId);
+      res.json(result);
+    } catch (error) {
+      console.error('Process payment error:', error);
+      res.status(500).json({ message: 'Failed to process payment' });
+    }
+  });
+
+  app.get("/api/subscription/plans", async (req, res) => {
+    try {
+      const plans = paymentService.getSubscriptionPlans();
+      res.json(plans);
+    } catch (error) {
+      console.error('Get subscription plans error:', error);
+      res.status(500).json({ message: 'Failed to fetch subscription plans' });
+    }
+  });
+
+  app.post("/api/subscription/create", authenticateToken, async (req: any, res) => {
+    try {
+      const { planId } = req.body;
+      const result = await paymentService.createSubscription(req.user.companyId, planId);
+      res.json(result);
+    } catch (error) {
+      console.error('Create subscription error:', error);
+      res.status(500).json({ message: 'Failed to create subscription' });
+    }
+  });
+
+  app.get("/api/subscription", authenticateToken, async (req: any, res) => {
+    try {
+      const subscription = paymentService.getCompanySubscription(req.user.companyId);
+      res.json(subscription);
+    } catch (error) {
+      console.error('Get subscription error:', error);
+      res.status(500).json({ message: 'Failed to fetch subscription' });
+    }
+  });
+
   return httpServer;
 }
