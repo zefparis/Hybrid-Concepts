@@ -16,7 +16,8 @@ import {
   Globe,
   Target,
   Rocket,
-  Award
+  Award,
+  PlayCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -29,6 +30,7 @@ const navigation = [
   { name: "Analyse Concurrentielle", href: "/competitive-demo", icon: Target },
   { name: "Migration IA", href: "/migration-demo", icon: Rocket },
   { name: "Maturité IA", href: "/ai-maturity", icon: Award },
+  { name: "Simulation Scénarios", href: "/scenario-simulator", icon: PlayCircle },
   { name: "Cotations", href: "/quotes", icon: FileText },
   { name: "Suivi", href: "/tracking", icon: Package },
   { name: "Documents", href: "/documents", icon: FileText },

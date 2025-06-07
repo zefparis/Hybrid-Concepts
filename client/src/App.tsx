@@ -19,6 +19,7 @@ import ApiDocs from "@/pages/api-docs";
 import CompetitiveDemo from "@/pages/competitive-demo";
 import MigrationDemo from "@/pages/migration-demo";
 import AIMaturity from "@/pages/ai-maturity";
+import ScenarioSimulator from "@/pages/scenario-simulator";
 import Login from "@/pages/login";
 import "./lib/i18n";
 

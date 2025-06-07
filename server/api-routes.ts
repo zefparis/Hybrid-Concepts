@@ -4,6 +4,7 @@ import { aiAgent } from "./ai-agent";
 import { competitiveAnalysis, type CompetitorData } from "./competitive-analysis";
 import { migrationAIEngine } from "./migration-ai-engine";
 import { aiMaturityEngine } from "./ai-maturity-engine";
+import { scenarioSimulationEngine } from "./scenario-simulation-engine";
 import { insertQuoteRequestSchema } from "@shared/schema";
 import jwt from "jsonwebtoken";
 
@@ -279,6 +280,34 @@ export function registerPublicApiRoutes(app: Express) {
             industryAverage: "number - Average maturity score for sector",
             topPerformers: "array - Leading companies metrics",
             improvementAreas: "array - Common improvement opportunities"
+          }
+        },
+        "POST /scenarios/simulate": {
+          description: "Generate multiple AI transformation scenarios with detailed simulations",
+          parameters: {
+            companyData: {
+              companyName: "string (required)",
+              operationalMetrics: "object - Current performance metrics",
+              businessObjectives: "object - Strategic goals and constraints"
+            },
+            scenarioTypes: "array (required) - Scenario types to simulate ['Conservative', 'Balanced', 'Aggressive']"
+          },
+          response: {
+            simulations: "array - Detailed scenario simulations",
+            comparison: "object - Comparative analysis between scenarios",
+            recommendation: "string - Optimal scenario recommendation",
+            riskAnalysis: "object - Comprehensive risk assessment"
+          }
+        },
+        "POST /scenarios/compare": {
+          description: "Compare multiple scenarios and provide optimization recommendations",
+          parameters: {
+            scenarios: "array (required) - Scenario IDs to compare"
+          },
+          response: {
+            comparison: "object - Side-by-side scenario comparison",
+            optimalChoice: "string - Recommended scenario",
+            reasoning: "string - Decision rationale"
           }
         }
       },
@@ -948,6 +977,110 @@ export function registerPublicApiRoutes(app: Express) {
     }
   });
 
+  // Scenario Simulation
+  app.post("/public-api/scenarios/simulate", validateApiKey, async (req, res) => {
+    const startTime = Date.now();
+    
+    try {
+      const { companyData, scenarioTypes } = req.body;
+
+      if (!companyData || !companyData.companyName || !scenarioTypes) {
+        return res.status(400).json({
+          success: false,
+          error: "Missing required data",
+          message: "companyData and scenarioTypes are required"
+        });
+      }
+
+      const simulations = await scenarioSimulationEngine.generateScenarioSimulations(companyData, scenarioTypes);
+      const comparison = await scenarioSimulationEngine.compareScenarios(simulations);
+
+      res.json({
+        success: true,
+        message: "Scenario simulations generated successfully",
+        data: {
+          simulations,
+          comparison: comparison.comparison,
+          recommendation: comparison.recommendation,
+          optimalScenario: comparison.optimalScenario,
+          companyName: companyData.companyName,
+          scenariosAnalyzed: scenarioTypes.length
+        },
+        timestamp: new Date().toISOString(),
+        processingTime: `${Date.now() - startTime}ms`
+      });
+
+    } catch (error) {
+      console.error("Scenario simulation error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to generate scenario simulations",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Demo Scenario Simulation (no API key required)
+  app.post("/public-api/demo/scenarios", async (req, res) => {
+    try {
+      const { companyData, scenarioTypes } = req.body;
+
+      const demoCompanyData = {
+        companyName: companyData?.companyName || "InnoLogistics Corp",
+        operationalMetrics: {
+          quotingTime: companyData?.quotingTime || 14,
+          processingCost: companyData?.processingCost || 70,
+          errorRate: companyData?.errorRate || 18,
+          clientSatisfaction: companyData?.clientSatisfaction || 68,
+          monthlyVolume: companyData?.monthlyVolume || 120,
+          averageOrderValue: companyData?.averageOrderValue || 28000
+        },
+        businessObjectives: {
+          targetGrowth: companyData?.targetGrowth || 25,
+          budgetConstraint: companyData?.budgetConstraint || 200000,
+          timeframe: companyData?.timeframe || "12 months"
+        }
+      };
+
+      const demoScenarios = scenarioTypes || ['Conservative', 'Balanced', 'Aggressive'];
+      const simulations = await scenarioSimulationEngine.generateScenarioSimulations(demoCompanyData, demoScenarios);
+      const comparison = await scenarioSimulationEngine.compareScenarios(simulations);
+
+      res.json({
+        success: true,
+        message: "Demo scenario simulations completed",
+        data: {
+          simulations,
+          comparison,
+          isDemo: true,
+          note: "This is a demonstration simulation. Contact us for detailed scenario planning.",
+          keyInsights: [
+            `${demoScenarios.length} scénarios de transformation analysés`,
+            `Scénario optimal: ${comparison.optimalScenario}`,
+            `ROI projeté: ${simulations[0]?.simulationResults[1]?.aiImplementation.roi || 300}% sur 2 ans`,
+            `Automation possible: ${simulations[0]?.simulationResults[1]?.projectedMetrics.automation || 85}%`,
+            `Réduction coûts: ${Math.round((1 - (simulations[0]?.simulationResults[1]?.projectedMetrics.processingCost || 30) / 70) * 100)}%`
+          ],
+          nextSteps: [
+            "Analyser le scénario recommandé en détail",
+            "Planifier la phase pilote",
+            "Préparer l'équipe à la transformation",
+            "Valider le budget et les ressources"
+          ]
+        },
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error("Demo scenario simulation error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to generate demo scenario simulations",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Health check endpoint
   app.get("/public-api/health", (req, res) => {
     res.json({
@@ -960,7 +1093,8 @@ export function registerPublicApiRoutes(app: Express) {
         geocoding: "operational",
         competitiveAnalysis: "operational",
         migrationAI: "operational",
-        maturityAssessment: "operational"
+        maturityAssessment: "operational",
+        scenarioSimulation: "operational"
       }
     });
   });
