@@ -60,7 +60,7 @@ export default function AdvancedTracking() {
     refetchInterval: 60000 // Refresh toutes les minutes
   });
 
-  // Initialisation de Google Maps
+  // Initialisation de Google Maps avec délai pour s'assurer que le DOM est prêt
   useEffect(() => {
     const loadGoogleMaps = () => {
       if (!window.google) {
@@ -71,38 +71,63 @@ export default function AdvancedTracking() {
         document.head.appendChild(script);
 
         window.initMap = () => {
-          console.log('Initializing Google Maps...');
-          const mapElement = document.getElementById('tracking-map');
-          console.log('Map element found:', mapElement);
-          if (mapElement && window.google && window.google.maps) {
-            try {
-              const newMap = new window.google.maps.Map(mapElement, {
-                center: { lat: 48.8566, lng: 2.3522 }, // Paris par défaut
-                zoom: 2,
-                styles: [
-                  {
-                    featureType: "water",
-                    elementType: "geometry",
-                    stylers: [{ color: "#e9e9e9" }, { lightness: 17 }]
-                  }
-                ]
-              });
-              console.log('Map created successfully:', newMap);
-              setMap(newMap);
-            } catch (error) {
-              console.error('Error creating map:', error);
+          // Délai pour s'assurer que le DOM est complètement rendu
+          setTimeout(() => {
+            console.log('Initializing Google Maps...');
+            const mapElement = document.getElementById('tracking-map');
+            console.log('Map element found:', mapElement);
+            if (mapElement && window.google && window.google.maps) {
+              try {
+                const newMap = new window.google.maps.Map(mapElement, {
+                  center: { lat: 48.8566, lng: 2.3522 }, // Paris par défaut
+                  zoom: 2,
+                  styles: [
+                    {
+                      featureType: "water",
+                      elementType: "geometry",
+                      stylers: [{ color: "#e9e9e9" }, { lightness: 17 }]
+                    }
+                  ]
+                });
+                console.log('Map created successfully:', newMap);
+                setMap(newMap);
+              } catch (error) {
+                console.error('Error creating map:', error);
+              }
+            } else {
+              console.error('Map element or Google Maps API not available');
             }
-          } else {
-            console.error('Map element or Google Maps API not available');
-          }
+          }, 1000);
         };
-      } else {
-        window.initMap();
+      } else if (window.google && window.google.maps) {
+        // Si Google Maps est déjà chargé, initialiser directement
+        setTimeout(() => {
+          const mapElement = document.getElementById('tracking-map');
+          if (mapElement && !map) {
+            const newMap = new window.google.maps.Map(mapElement, {
+              center: { lat: 48.8566, lng: 2.3522 },
+              zoom: 2,
+              styles: [
+                {
+                  featureType: "water",
+                  elementType: "geometry",
+                  stylers: [{ color: "#e9e9e9" }, { lightness: 17 }]
+                }
+              ]
+            });
+            setMap(newMap);
+          }
+        }, 500);
       }
     };
 
-    loadGoogleMaps();
-  }, []);
+    // Délai pour s'assurer que le composant est monté
+    const timer = setTimeout(() => {
+      loadGoogleMaps();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [activeTab]);
 
   // Mise à jour des marqueurs sur la carte avec données Vizion
   useEffect(() => {
@@ -496,27 +521,106 @@ export default function AdvancedTracking() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div 
-                  id="tracking-map" 
-                  className="w-full h-96 rounded-lg border"
-                  style={{ minHeight: '400px' }}
-                />
-                <div className="mt-4 flex items-center gap-4 text-sm text-gray-600">
+                {/* Données Vizion maritimes */}
+                {Array.isArray(vizionData) && vizionData.length > 0 && (
+                  <div className="mb-6">
+                    <h4 className="font-semibold mb-3 text-blue-600 flex items-center gap-2">
+                      <Ship className="h-4 w-4" />
+                      Conteneurs Maritimes (Vizion API)
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {vizionData.map((container: any, idx: number) => (
+                        <div key={idx} className="p-4 border rounded-lg bg-blue-50">
+                          <div className="flex justify-between items-start mb-3">
+                            <span className="font-medium text-lg">{container.reference}</span>
+                            <Badge className="bg-blue-100 text-blue-800">{container.status}</Badge>
+                          </div>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-2">
+                              <Ship className="h-3 w-3 text-blue-600" />
+                              <span><strong>Navire:</strong> {container.vessel?.name || 'N/A'}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <MapPin className="h-3 w-3 text-blue-600" />
+                              <span><strong>Position:</strong> {container.locations[container.locations.length - 1]?.location.name || 'Position maritime'}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-3 w-3 text-blue-600" />
+                              <span><strong>ETA:</strong> {container.estimatedArrival ? new Date(container.estimatedArrival).toLocaleDateString() : 'En calcul'}</span>
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Dernière MAJ: {new Date(container.locations[container.locations.length - 1]?.timestamp || Date.now()).toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Données expéditions terrestres */}
+                {Array.isArray(activeShipments) && activeShipments.length > 0 && (
+                  <div className="mb-6">
+                    <h4 className="font-semibold mb-3 text-green-600 flex items-center gap-2">
+                      <Truck className="h-4 w-4" />
+                      Expéditions Terrestres
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {activeShipments.map((shipment: any, idx: number) => (
+                        <div key={idx} className="p-4 border rounded-lg bg-green-50">
+                          <div className="flex justify-between items-start mb-3">
+                            <span className="font-medium text-lg">{shipment.reference}</span>
+                            <Badge className="bg-green-100 text-green-800">{shipment.status}</Badge>
+                          </div>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-2">
+                              <Navigation className="h-3 w-3 text-green-600" />
+                              <span><strong>Route:</strong> {shipment.origin} → {shipment.destination}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <MapPin className="h-3 w-3 text-green-600" />
+                              <span><strong>Position:</strong> {shipment.currentLocation?.name || 'En transit'}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-3 w-3 text-green-600" />
+                              <span><strong>ETA:</strong> {new Date(shipment.estimatedDelivery).toLocaleDateString()}</span>
+                            </div>
+                            <div className="mt-3">
+                              <div className="flex justify-between text-xs mb-1">
+                                <span>Progression</span>
+                                <span>{shipment.progress || 0}%</span>
+                              </div>
+                              <Progress value={shipment.progress || 0} className="h-2" />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Message si aucune donnée */}
+                {(!Array.isArray(vizionData) || vizionData.length === 0) && 
+                 (!Array.isArray(activeShipments) || activeShipments.length === 0) && (
+                  <div className="text-center py-12 text-gray-500">
+                    <Globe className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-lg font-medium">Aucune expédition active</p>
+                    <p className="text-sm">Les données de tracking en temps réel apparaîtront ici</p>
+                  </div>
+                )}
+
+                <div className="mt-6 pt-4 border-t flex items-center gap-4 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                     <span>Conteneurs maritimes</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span>Colis terrestres</span>
+                    <span>Expéditions terrestres</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
                     <span>Fret aérien</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <span>Autres</span>
                   </div>
                 </div>
               </CardContent>
