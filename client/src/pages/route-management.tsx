@@ -407,12 +407,12 @@ export default function RouteManagement() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">CO₂ Économisé</p>
+                  <p className="text-sm font-medium text-gray-600">{t("routeManagement.co2Saved")}</p>
                   <p className="text-2xl font-bold text-green-600">12.5T</p>
                 </div>
                 <Fuel className="h-8 w-8 text-green-600" />
               </div>
-              <p className="text-xs text-green-600 mt-2">+18% ce mois</p>
+              <p className="text-xs text-green-600 mt-2">+18% {t("routeManagement.thisMonth")}</p>
             </CardContent>
           </Card>
         </div>
@@ -422,15 +422,15 @@ export default function RouteManagement() {
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="maritime" className="flex items-center gap-2">
               {getTabIcon("maritime")}
-              Maritime
+              {t("routeManagement.maritime")}
             </TabsTrigger>
             <TabsTrigger value="terrestre" className="flex items-center gap-2">
               {getTabIcon("terrestre")}
-              Terrestre
+              {t("routeManagement.terrestrial")}
             </TabsTrigger>
             <TabsTrigger value="aerienne" className="flex items-center gap-2">
               {getTabIcon("aerienne")}
-              Aérienne
+              {t("routeManagement.aerial")}
             </TabsTrigger>
           </TabsList>
 
@@ -476,7 +476,7 @@ export default function RouteManagement() {
                       {/* Efficacité */}
                       <div>
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-medium">Efficacité</span>
+                          <span className="text-sm font-medium">{t("routeManagement.efficiency")}</span>
                           <span className="text-sm text-gray-600">{route.efficiency}%</span>
                         </div>
                         <Progress value={route.efficiency} className="h-2" />
@@ -484,7 +484,7 @@ export default function RouteManagement() {
 
                       {/* Transporteurs */}
                       <div>
-                        <p className="text-sm font-medium mb-2">Transporteurs:</p>
+                        <p className="text-sm font-medium mb-2">{t("routeManagement.carriers")}:</p>
                         <div className="flex flex-wrap gap-1">
                           {route.carriers.map((carrier, index) => (
                             <Badge key={index} variant="outline" className="text-xs">
@@ -508,7 +508,7 @@ export default function RouteManagement() {
                           onClick={() => handleOptimizeRoute(route)}
                           disabled={optimizeRouteMutation.isPending}
                         >
-                          {optimizeRouteMutation.isPending ? "Optimisation..." : "Optimiser"}
+                          {optimizeRouteMutation.isPending ? "..." : t("routeManagement.optimize")}
                         </Button>
                         <Button 
                           size="sm" 
@@ -517,7 +517,7 @@ export default function RouteManagement() {
                           onClick={() => handleAnalyzeRoute(route)}
                           disabled={analyzeRouteMutation.isPending}
                         >
-                          {analyzeRouteMutation.isPending ? "Analyse..." : "Analyser"}
+                          {analyzeRouteMutation.isPending ? "..." : t("routeManagement.analyze")}
                         </Button>
                       </div>
                     </div>

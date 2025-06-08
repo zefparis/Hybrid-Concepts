@@ -23,7 +23,7 @@ export default function Dashboard() {
       <MetricsCards />
       
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200 mb-6">
-        <h2 className="text-xl font-semibold text-blue-900 mb-4">Nouvelles Fonctionnalités IA</h2>
+        <h2 className="text-xl font-semibold text-blue-900 mb-4">{t("dashboard.newAiFeatures", "Nouvelles Fonctionnalités IA")}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <a href="/route-management" className="bg-white p-4 rounded-lg shadow-sm border hover:shadow-md transition-shadow cursor-pointer block">
             <div className="flex items-center space-x-3">
@@ -31,8 +31,8 @@ export default function Dashboard() {
                 <Route className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-medium text-gray-900">Routes Multimodales</h3>
-                <p className="text-sm text-gray-600">Maritime, terrestre, aérienne</p>
+                <h3 className="font-medium text-gray-900">{t("dashboard.multimodalRoutes", "Routes Multimodales")}</h3>
+                <p className="text-sm text-gray-600">{t("dashboard.multimodalDesc", "Maritime, terrestre, aérienne")}</p>
               </div>
             </div>
           </a>
@@ -43,8 +43,8 @@ export default function Dashboard() {
                 <Search className="w-5 h-5 text-green-600" />
               </div>
               <div>
-                <h3 className="font-medium text-gray-900">Tracking Avancé</h3>
-                <p className="text-sm text-gray-600">APIs temps réel</p>
+                <h3 className="font-medium text-gray-900">{t("dashboard.advancedTracking", "Tracking Avancé")}</h3>
+                <p className="text-sm text-gray-600">{t("dashboard.realTimeApis", "APIs temps réel")}</p>
               </div>
             </div>
           </a>
@@ -55,8 +55,8 @@ export default function Dashboard() {
                 <MapPin className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-medium text-gray-900">Analyse IA</h3>
-                <p className="text-sm text-gray-600">Évaluation maturité</p>
+                <h3 className="font-medium text-gray-900">{t("dashboard.aiAnalysis", "Analyse IA")}</h3>
+                <p className="text-sm text-gray-600">{t("dashboard.maturityEvaluation", "Évaluation maturité")}</p>
               </div>
             </div>
           </a>
@@ -67,8 +67,8 @@ export default function Dashboard() {
                 <Ship className="w-5 h-5 text-orange-600" />
               </div>
               <div>
-                <h3 className="font-medium text-gray-900">IoT Flotte</h3>
-                <p className="text-sm text-gray-600">Monitoring temps réel</p>
+                <h3 className="font-medium text-gray-900">{t("dashboard.iotFleet", "IoT Flotte")}</h3>
+                <p className="text-sm text-gray-600">{t("dashboard.realTimeMonitoring", "Monitoring temps réel")}</p>
               </div>
             </div>
           </a>

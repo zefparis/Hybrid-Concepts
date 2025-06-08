@@ -771,5 +771,213 @@
     "arrival": "Arrival",
     "status": "Status",
     "location": "Location"
+  },
+
+  "quotes": {
+    "title": "Quotes",
+    "subtitle": "Quote requests and responses",
+    "requestQuote": "Request Quote",
+    "pendingQuotes": "Pending Quotes",
+    "acceptedQuotes": "Accepted Quotes",
+    "rejectedQuotes": "Rejected Quotes",
+    "quoteDetails": "Quote Details",
+    "viewQuote": "View Quote",
+    "acceptQuote": "Accept Quote",
+    "rejectQuote": "Reject Quote",
+    "downloadQuote": "Download Quote",
+    "quoteReference": "Reference",
+    "origin": "Origin",
+    "destination": "Destination",
+    "transportMode": "Transport Mode",
+    "estimatedCost": "Estimated Cost",
+    "estimatedDuration": "Estimated Duration",
+    "carrier": "Carrier",
+    "validUntil": "Valid Until",
+    "requestDate": "Request Date",
+    "responseDate": "Response Date"
+  },
+
+  "documents": {
+    "title": "Documents",
+    "subtitle": "Centralized document management",
+    "uploadDocument": "Upload Document",
+    "downloadDocument": "Download Document",
+    "deleteDocument": "Delete Document",
+    "documentType": "Document Type",
+    "documentName": "Document Name",
+    "uploadDate": "Upload Date",
+    "fileSize": "File Size",
+    "status": "Status",
+    "actions": "Actions",
+    "searchDocuments": "Search documents...",
+    "filterByType": "Filter by type",
+    "allTypes": "All types",
+    "invoice": "Invoice",
+    "contract": "Contract",
+    "certificate": "Certificate",
+    "report": "Report",
+    "other": "Other"
+  },
+
+  "subscriptionPlans": {
+    "title": "Subscription Plans",
+    "subtitle": "Choose the plan that fits your needs",
+    "currentPlan": "Current Plan",
+    "changePlan": "Change Plan",
+    "billing": "Billing",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save",
+    "mostPopular": "Most Popular",
+    "features": "Features",
+    "includes": "Includes",
+    "upgradeNow": "Upgrade Now",
+    "contactSales": "Contact Sales",
+    "free": "Free",
+    "basic": "Basic",
+    "professional": "Professional",
+    "enterprise": "Enterprise"
+  },
+
+  "invoicing": {
+    "title": "Invoicing",
+    "subtitle": "Invoice history and management",
+    "invoiceHistory": "Invoice History",
+    "downloadInvoice": "Download Invoice",
+    "payInvoice": "Pay Invoice",
+    "invoiceNumber": "Invoice Number",
+    "invoiceDate": "Invoice Date",
+    "dueDate": "Due Date",
+    "amount": "Amount",
+    "paymentMethod": "Payment Method",
+    "paymentStatus": "Payment Status",
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue"
+  },
+
+  "aiAutomation": {
+    "title": "AI Automation",
+    "subtitle": "Artificial intelligence for logistics optimization",
+    "requestOptimization": "Request Optimization",
+    "automationRules": "Automation Rules",
+    "aiInsights": "AI Insights",
+    "predictiveAnalytics": "Predictive Analytics",
+    "routeOptimization": "Route Optimization",
+    "costReduction": "Cost Reduction",
+    "efficiencyImprovement": "Efficiency Improvement",
+    "automatedDecisions": "Automated Decisions",
+    "mlModels": "ML Models",
+    "aiRecommendations": "AI Recommendations"
+  },
+
+  "advancedTracking": {
+    "title": "Advanced Tracking",
+    "subtitle": "Multi-level real-time monitoring",
+    "realTimeTracking": "Real-time Tracking",
+    "historicalData": "Historical Data",
+    "trackingDetails": "Tracking Details",
+    "currentLocation": "Current Location",
+    "estimatedArrival": "Estimated Arrival",
+    "trackingHistory": "Tracking History",
+    "milestones": "Milestones",
+    "alerts": "Alerts",
+    "notifications": "Notifications",
+    "trackingMap": "Tracking Map"
+  },
+
+  "partnerPortal": {
+    "title": "Partner Portal",
+    "subtitle": "Collaboration with logistics partners",
+    "partnerDirectory": "Partner Directory",
+    "partnerPerformance": "Partner Performance",
+    "contractManagement": "Contract Management",
+    "communicationHub": "Communication Hub",
+    "sharedDocuments": "Shared Documents",
+    "partnerRatings": "Partner Ratings",
+    "collaborationTools": "Collaboration Tools",
+    "partnerOnboarding": "Partner Onboarding"
+  },
+
+  "apiMarketplace": {
+    "title": "API Marketplace",
+    "subtitle": "Integration and services ecosystem",
+    "availableApis": "Available APIs",
+    "installedIntegrations": "Installed Integrations",
+    "apiDocumentation": "API Documentation",
+    "installIntegration": "Install Integration",
+    "manageIntegrations": "Manage Integrations",
+    "apiUsage": "API Usage",
+    "rateLimits": "Rate Limits",
+    "authentication": "Authentication",
+    "webhooks": "Webhooks",
+    "sdks": "SDKs"
+  },
+
+  "migrationDemo": {
+    "title": "Migration Demo",
+    "subtitle": "Data migration to eMulog",
+    "startMigration": "Start Migration",
+    "migrationProgress": "Migration Progress",
+    "dataMapping": "Data Mapping",
+    "migrationStatus": "Migration Status",
+    "migrationReport": "Migration Report",
+    "rollback": "Rollback",
+    "complete": "Complete",
+    "inProgress": "In Progress",
+    "failed": "Failed",
+    "success": "Success"
+  },
+
+  "competitiveDemo": {
+    "title": "Competitive Demo",
+    "subtitle": "eMulog vs competitive solutions",
+    "compareFeatures": "Compare Features",
+    "performanceMetrics": "Performance Metrics",
+    "costComparison": "Cost Comparison",
+    "featureMatrix": "Feature Matrix",
+    "competitorAnalysis": "Competitor Analysis",
+    "advantagePoints": "Advantage Points",
+    "migrationPath": "Migration Path",
+    "roiCalculator": "ROI Calculator"
+  },
+
+  "transformationDemo": {
+    "title": "Digital Transformation Demo",
+    "subtitle": "Digital transformation of your logistics",
+    "digitalMaturity": "Digital Maturity",
+    "transformationPath": "Transformation Path",
+    "implementationPlan": "Implementation Plan",
+    "changeManagement": "Change Management",
+    "trainingProgram": "Training Program",
+    "successMetrics": "Success Metrics",
+    "roadmap": "Roadmap",
+    "timeline": "Timeline"
+  },
+
+  "aiMaturity": {
+    "title": "AI Maturity",
+    "subtitle": "Assessment of your AI maturity",
+    "maturityAssessment": "Maturity Assessment",
+    "maturityLevel": "Maturity Level",
+    "improvementAreas": "Improvement Areas",
+    "recommendations": "Recommendations",
+    "actionPlan": "Action Plan",
+    "skillGaps": "Skill Gaps",
+    "technologyReadiness": "Technology Readiness",
+    "organizationalChange": "Organizational Change"
+  },
+
+  "scenarioSimulator": {
+    "title": "Scenario Simulator",
+    "subtitle": "Scenario simulation and planning",
+    "createScenario": "Create Scenario",
+    "runSimulation": "Run Simulation",
+    "scenarioResults": "Scenario Results",
+    "whatIfAnalysis": "What-If Analysis",
+    "riskModeling": "Risk Modeling",
+    "optimizationScenarios": "Optimization Scenarios",
+    "compareScenarios": "Compare Scenarios",
+    "saveScenario": "Save Scenario"
   }
 }

@@ -669,7 +669,16 @@
     "minute": "minute | minutes",
     "hour": "heure | heures",
     "day": "jour | jours",
-    "ago": "il y a"
+    "ago": "il y a",
+    "newAiFeatures": "Nouvelles Fonctionnalités IA",
+    "multimodalRoutes": "Routes Multimodales",
+    "multimodalDesc": "Maritime, terrestre, aérienne",
+    "advancedTracking": "Tracking Avancé",
+    "realTimeApis": "APIs temps réel",
+    "aiAnalysis": "Analyse IA",
+    "maturityEvaluation": "Évaluation maturité",
+    "iotFleet": "IoT Flotte",
+    "realTimeMonitoring": "Monitoring temps réel"
   },
 
   "fleetManagement": {
@@ -771,5 +780,213 @@
     "arrival": "Arrivée",
     "status": "Statut",
     "location": "Position"
+  },
+
+  "quotes": {
+    "title": "Cotations",
+    "subtitle": "Demandes et réponses de cotations",
+    "requestQuote": "Demander Cotation",
+    "pendingQuotes": "Cotations en Attente",
+    "acceptedQuotes": "Cotations Acceptées",
+    "rejectedQuotes": "Cotations Rejetées",
+    "quoteDetails": "Détails de la Cotation",
+    "viewQuote": "Voir Cotation",
+    "acceptQuote": "Accepter Cotation",
+    "rejectQuote": "Rejeter Cotation",
+    "downloadQuote": "Télécharger Cotation",
+    "quoteReference": "Référence",
+    "origin": "Origine",
+    "destination": "Destination",
+    "transportMode": "Mode Transport",
+    "estimatedCost": "Coût Estimé",
+    "estimatedDuration": "Durée Estimée",
+    "carrier": "Transporteur",
+    "validUntil": "Valide jusqu'au",
+    "requestDate": "Date Demande",
+    "responseDate": "Date Réponse"
+  },
+
+  "documents": {
+    "title": "Documents",
+    "subtitle": "Gestion centralisée des documents",
+    "uploadDocument": "Téléverser Document",
+    "downloadDocument": "Télécharger Document",
+    "deleteDocument": "Supprimer Document",
+    "documentType": "Type Document",
+    "documentName": "Nom Document",
+    "uploadDate": "Date Téléversement",
+    "fileSize": "Taille Fichier",
+    "status": "Statut",
+    "actions": "Actions",
+    "searchDocuments": "Rechercher documents...",
+    "filterByType": "Filtrer par type",
+    "allTypes": "Tous types",
+    "invoice": "Facture",
+    "contract": "Contrat",
+    "certificate": "Certificat",
+    "report": "Rapport",
+    "other": "Autre"
+  },
+
+  "subscriptionPlans": {
+    "title": "Plans d'Abonnement",
+    "subtitle": "Choisissez le plan qui convient à vos besoins",
+    "currentPlan": "Plan Actuel",
+    "changePlan": "Changer de Plan",
+    "billing": "Facturation",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "save": "Économisez",
+    "mostPopular": "Plus Populaire",
+    "features": "Fonctionnalités",
+    "includes": "Inclut",
+    "upgradeNow": "Mettre à Niveau",
+    "contactSales": "Contacter Ventes",
+    "free": "Gratuit",
+    "basic": "Basique",
+    "professional": "Professionnel",
+    "enterprise": "Entreprise"
+  },
+
+  "invoicing": {
+    "title": "Facturation",
+    "subtitle": "Historique et gestion des factures",
+    "invoiceHistory": "Historique Factures",
+    "downloadInvoice": "Télécharger Facture",
+    "payInvoice": "Payer Facture",
+    "invoiceNumber": "Numéro Facture",
+    "invoiceDate": "Date Facture",
+    "dueDate": "Date Échéance",
+    "amount": "Montant",
+    "paymentMethod": "Méthode Paiement",
+    "paymentStatus": "Statut Paiement",
+    "paid": "Payé",
+    "pending": "En attente",
+    "overdue": "En retard"
+  },
+
+  "aiAutomation": {
+    "title": "Automatisation IA",
+    "subtitle": "Intelligence artificielle pour l'optimisation logistique",
+    "requestOptimization": "Demander Optimisation",
+    "automationRules": "Règles d'Automatisation",
+    "aiInsights": "Insights IA",
+    "predictiveAnalytics": "Analytics Prédictifs",
+    "routeOptimization": "Optimisation Routes",
+    "costReduction": "Réduction Coûts",
+    "efficiencyImprovement": "Amélioration Efficacité",
+    "automatedDecisions": "Décisions Automatisées",
+    "mlModels": "Modèles ML",
+    "aiRecommendations": "Recommandations IA"
+  },
+
+  "advancedTracking": {
+    "title": "Suivi Avancé",
+    "subtitle": "Surveillance temps réel multi-niveaux",
+    "realTimeTracking": "Suivi Temps Réel",
+    "historicalData": "Données Historiques",
+    "trackingDetails": "Détails du Suivi",
+    "currentLocation": "Position Actuelle",
+    "estimatedArrival": "Arrivée Estimée",
+    "trackingHistory": "Historique Suivi",
+    "milestones": "Étapes Clés",
+    "alerts": "Alertes",
+    "notifications": "Notifications",
+    "trackingMap": "Carte de Suivi"
+  },
+
+  "partnerPortal": {
+    "title": "Portail Partenaires",
+    "subtitle": "Collaboration avec les partenaires logistiques",
+    "partnerDirectory": "Annuaire Partenaires",
+    "partnerPerformance": "Performance Partenaires",
+    "contractManagement": "Gestion Contrats",
+    "communicationHub": "Hub Communication",
+    "sharedDocuments": "Documents Partagés",
+    "partnerRatings": "Évaluations Partenaires",
+    "collaborationTools": "Outils Collaboration",
+    "partnerOnboarding": "Intégration Partenaires"
+  },
+
+  "apiMarketplace": {
+    "title": "Marketplace API",
+    "subtitle": "Écosystème d'intégrations et services",
+    "availableApis": "APIs Disponibles",
+    "installedIntegrations": "Intégrations Installées",
+    "apiDocumentation": "Documentation API",
+    "installIntegration": "Installer Intégration",
+    "manageIntegrations": "Gérer Intégrations",
+    "apiUsage": "Utilisation API",
+    "rateLimits": "Limites de Taux",
+    "authentication": "Authentification",
+    "webhooks": "Webhooks",
+    "sdks": "SDKs"
+  },
+
+  "migrationDemo": {
+    "title": "Démo Migration",
+    "subtitle": "Migration des données vers eMulog",
+    "startMigration": "Démarrer Migration",
+    "migrationProgress": "Progrès Migration",
+    "dataMapping": "Mappage Données",
+    "migrationStatus": "Statut Migration",
+    "migrationReport": "Rapport Migration",
+    "rollback": "Annuler",
+    "complete": "Terminer",
+    "inProgress": "En cours",
+    "failed": "Échoué",
+    "success": "Succès"
+  },
+
+  "competitiveDemo": {
+    "title": "Démonstration Comparative",
+    "subtitle": "eMulog vs solutions concurrentes",
+    "compareFeatures": "Comparer Fonctionnalités",
+    "performanceMetrics": "Métriques Performance",
+    "costComparison": "Comparaison Coûts",
+    "featureMatrix": "Matrice Fonctionnalités",
+    "competitorAnalysis": "Analyse Concurrentielle",
+    "advantagePoints": "Points d'Avantage",
+    "migrationPath": "Chemin Migration",
+    "roiCalculator": "Calculateur ROI"
+  },
+
+  "transformationDemo": {
+    "title": "Démo Transformation Digitale",
+    "subtitle": "Transformation numérique de votre logistique",
+    "digitalMaturity": "Maturité Numérique",
+    "transformationPath": "Chemin Transformation",
+    "implementationPlan": "Plan Implémentation",
+    "changeManagement": "Gestion du Changement",
+    "trainingProgram": "Programme Formation",
+    "successMetrics": "Métriques Succès",
+    "roadmap": "Feuille de Route",
+    "timeline": "Chronologie"
+  },
+
+  "aiMaturity": {
+    "title": "Maturité IA",
+    "subtitle": "Évaluation de votre maturité IA",
+    "maturityAssessment": "Évaluation Maturité",
+    "maturityLevel": "Niveau Maturité",
+    "improvementAreas": "Zones d'Amélioration",
+    "recommendations": "Recommandations",
+    "actionPlan": "Plan d'Action",
+    "skillGaps": "Lacunes Compétences",
+    "technologyReadiness": "Préparation Technologique",
+    "organizationalChange": "Changement Organisationnel"
+  },
+
+  "scenarioSimulator": {
+    "title": "Simulateur de Scénarios",
+    "subtitle": "Simulation et planification de scénarios",
+    "createScenario": "Créer Scénario",
+    "runSimulation": "Lancer Simulation",
+    "scenarioResults": "Résultats Scénario",
+    "whatIfAnalysis": "Analyse 'Et Si'",
+    "riskModeling": "Modélisation Risques",
+    "optimizationScenarios": "Scénarios Optimisation",
+    "compareScenarios": "Comparer Scénarios",
+    "saveScenario": "Sauvegarder Scénario"
   }
 }
