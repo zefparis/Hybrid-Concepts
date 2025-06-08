@@ -26,84 +26,84 @@ export default function TransformationDemo() {
       {/* Visual Comparison */}
       <Card className="bg-white border-gray-200">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Comparaison Visuelle : Obsolète vs Innovation</CardTitle>
+          <CardTitle className="text-2xl">{t("transformationDemo.visualComparison")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-8 rounded-lg">
             <div className="flex items-center justify-center mb-6">
               <div className="flex items-center gap-2 text-2xl font-bold text-gray-800">
                 <Bot className="w-8 h-8 text-blue-600" />
-                Traditional vs AI Automation Process
+                {t("transformationDemo.traditionalProcess")} vs {t("transformationDemo.aiProcess")}
               </div>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Traditional Side */}
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-red-700 mb-4">Traditional Process (40 minutes)</h3>
+                <h3 className="text-xl font-bold text-red-700 mb-4">{t("transformationDemo.traditionalProcess")} ({t("transformationDemo.traditionalTimeline")})</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Manual carrier search</span>
+                    <span>{t("transformationDemo.manualCarrierSearch")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Multiple phone calls</span>
+                    <span>{t("transformationDemo.multipleCalls")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Waiting for email responses</span>
+                    <span>{t("transformationDemo.waitingEmailResponses")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Manual offer comparison</span>
+                    <span>{t("transformationDemo.manualOfferComparison")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Individual negotiation</span>
+                    <span>{t("transformationDemo.phoneNegotiation")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Administrative validation</span>
+                    <span>{t("transformationDemo.administrativeValidation")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
-                    <span>Manual documentation</span>
+                    <span>{t("transformationDemo.paperwork")}</span>
                   </div>
                 </div>
               </div>
               
               {/* Hybrid Concept AI Side */}
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-green-700 mb-4">Hybrid Concept AI Process (30 seconds)</h3>
+                <h3 className="text-xl font-bold text-green-700 mb-4">{t("transformationDemo.hybridConceptAI")} ({t("transformationDemo.aiTimeline")})</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>AI logistics needs analysis</span>
+                    <span>{t("transformationDemo.aiLogisticsAnalysis")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>Automatic optimal mode detection</span>
+                    <span>{t("transformationDemo.automaticModeDetection")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>Intelligent quote generation</span>
+                    <span>{t("transformationDemo.intelligentQuoteGeneration")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>AI comparison and optimization</span>
+                    <span>{t("transformationDemo.aiComparisonOptimization")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>Analysis-based recommendation</span>
+                    <span>{t("transformationDemo.analysisBasedRecommendation")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>Automatic documentation</span>
+                    <span>{t("transformationDemo.automaticDocumentation")}</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600">
                     <CheckCircle className="w-4 h-4" />
-                    <span>Ready for client validation</span>
+                    <span>{t("transformationDemo.instantQuotes")}</span>
                   </div>
                 </div>
               </div>
