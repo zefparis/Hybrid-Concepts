@@ -106,15 +106,15 @@ export default function Tracking() {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case "confirmed":
-        return "Confirmé";
+        return t("statusLabels.confirmed");
       case "picked_up":
-        return "Collecté";
+        return t("statusLabels.pickedUp");
       case "in_transit":
-        return "En transit";
+        return t("statusLabels.inTransit");
       case "delivered":
-        return "Livré";
+        return t("statusLabels.delivered");
       case "delayed":
-        return "Retardé";
+        return t("statusLabels.delayed");
       default:
         return status;
     }
@@ -133,11 +133,11 @@ export default function Tracking() {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-      toast({ title: "Document téléchargé avec succès" });
+      toast({ title: t("tracking.documentDownloadSuccess") });
     } catch (error) {
       toast({ 
-        title: "Erreur",
-        description: "Impossible de télécharger le document",
+        title: t("common.error"),
+        description: t("tracking.documentDownloadError"),
         variant: "destructive"
       });
     }
@@ -159,7 +159,7 @@ export default function Tracking() {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <Header title="Tracking" />
+      <Header title={t("tracking.title")} />
       
       <main className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Search and Filters */}
@@ -167,7 +167,7 @@ export default function Tracking() {
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Rechercher par numéro de suivi, référence..."
+              placeholder={t("tracking.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -179,7 +179,7 @@ export default function Tracking() {
             className="flex items-center gap-2"
           >
             <RefreshCw className="h-4 w-4" />
-            Actualiser
+            {t("tracking.refresh")}
           </Button>
         </div>
 
