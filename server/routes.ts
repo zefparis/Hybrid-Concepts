@@ -20,6 +20,61 @@ interface AuthRequest extends Request {
   user?: any;
 }
 
+// Document generation function
+function generateShipmentDocument(shipment: any): string {
+  const currentDate = new Date().toLocaleDateString('fr-FR');
+  const transportMode = shipment.quote?.quoteRequest?.transportMode || 'terrestre';
+  const carrier = shipment.quote?.carrier;
+  
+  const documentContent = `
+BORDEREAU DE TRANSPORT - ${shipment.reference}
+Date d'émission: ${currentDate}
+
+INFORMATIONS EXPÉDITION:
+----------------------------------------
+Numéro de suivi: ${shipment.trackingNumber}
+Statut: ${shipment.status}
+Mode de transport: ${transportMode}
+
+EXPÉDITEUR:
+${shipment.quote?.quoteRequest?.shipperCompany || 'N/A'}
+${shipment.quote?.quoteRequest?.shipperAddress || 'N/A'}
+
+DESTINATAIRE:
+${shipment.quote?.quoteRequest?.consigneeCompany || 'N/A'}
+${shipment.quote?.quoteRequest?.consigneeAddress || 'N/A'}
+
+ITINÉRAIRE:
+Origine: ${shipment.quote?.quoteRequest?.origin}
+Destination: ${shipment.quote?.quoteRequest?.destination}
+
+TRANSPORTEUR:
+Nom: ${carrier?.name || 'N/A'}
+Email: ${carrier?.email || 'N/A'}
+Téléphone: ${carrier?.phone || 'N/A'}
+Note: ${carrier?.rating || 'N/A'}/5
+
+MARCHANDISE:
+Type: ${shipment.quote?.quoteRequest?.goodsType}
+Poids: ${shipment.quote?.quoteRequest?.weight} kg
+Volume: ${shipment.quote?.quoteRequest?.volume} m³
+Valeur: ${shipment.quote?.quoteRequest?.value || 'N/A'} €
+
+TARIFICATION:
+Prix total: ${shipment.quote?.price} €
+Délai estimé: ${shipment.quote?.estimatedDays} jours
+Livraison estimée: ${shipment.estimatedDelivery ? new Date(shipment.estimatedDelivery).toLocaleDateString('fr-FR') : 'En cours'}
+
+CONDITIONS:
+${shipment.quote?.conditions || 'Conditions standard applicables'}
+
+Document généré automatiquement le ${currentDate}
+Plateforme Hybrid Concept - Solutions logistiques intelligentes
+`;
+  
+  return Buffer.from(documentContent).toString('base64');
+}
+
 // Authentication middleware disabled - direct access
 const authenticateToken = (req: any, res: any, next: any) => {
   // Skip authentication - allow direct access
@@ -467,7 +522,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const shipments = await storage.getShipments(1);
       
       for (const shipment of shipments) {
-        if (!shipment.trackingData || !shipment.trackingData?.events) {
+        if (!shipment.trackingData || !(shipment.trackingData as any)?.events) {
           const transportMode = shipment.quote?.quoteRequest?.transportMode || 'terre';
           const origin = shipment.quote?.quoteRequest?.origin || 'Origin';
           const destination = shipment.quote?.quoteRequest?.destination || 'Destination';
@@ -1793,6 +1848,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     return notes.join(' | ');
   }
+
+  // Download shipment document route
+  app.get("/api/shipments/:id/document", authenticateToken, async (req: any, res) => {
+    try {
+      const shipmentId = parseInt(req.params.id);
+      const shipments = await storage.getShipments(req.user.companyId);
+      const shipment = shipments.find(s => s.id === shipmentId);
+      
+      if (!shipment || shipment.companyId !== req.user.companyId) {
+        return res.status(404).json({ message: 'Shipment not found' });
+      }
+
+      // Generate PDF content for shipment document
+      const pdfContent = generateShipmentDocument(shipment);
+      
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="bordereau_${shipment.reference}.pdf"`);
+      res.send(Buffer.from(pdfContent, 'base64'));
+    } catch (error) {
+      console.error('Document download error:', error);
+      res.status(500).json({ message: 'Failed to generate document' });
+    }
+  });
 
   const httpServer = createServer(app);
 
