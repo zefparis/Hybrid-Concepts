@@ -43,14 +43,14 @@ export default function RouteManagement() {
     onSuccess: (data) => {
       setOptimizationResults(data);
       toast({
-        title: "Optimisation terminée",
-        description: "L'IA a optimisé votre route avec succès",
+        title: t("routeManagement.optimizationComplete"),
+        description: t("routeManagement.optimizationSuccess"),
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur d'optimisation",
-        description: "Impossible d'optimiser la route",
+        title: t("routeManagement.optimizationError"),
+        description: t("routeManagement.optimizationFailed"),
         variant: "destructive",
       });
     }
@@ -72,14 +72,14 @@ export default function RouteManagement() {
     onSuccess: (data) => {
       setAnalysisResults(data);
       toast({
-        title: "Analyse terminée",
-        description: "L'IA a analysé votre route avec succès",
+        title: t("routeManagement.analysisComplete"),
+        description: t("routeManagement.analysisSuccess"),
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur d'analyse",
-        description: "Impossible d'analyser la route",
+        title: t("routeManagement.analysisError"),
+        description: t("routeManagement.analysisFailed"),
         variant: "destructive",
       });
     }
@@ -350,15 +350,15 @@ export default function RouteManagement() {
             <Link href="/">
               <Button variant="ghost" size="sm" className="mr-4">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Retour au Dashboard
+                {t("routeManagement.backToDashboard")}
               </Button>
             </Link>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Gestion des Routes Multimodales
+            {t("routeManagement.title")}
           </h1>
           <p className="text-gray-600">
-            Optimisation intelligente des corridors logistiques maritimes, terrestres et aériens
+            {t("routeManagement.subtitle")}
           </p>
         </div>
 
@@ -368,12 +368,12 @@ export default function RouteManagement() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Routes Actives</p>
+                  <p className="text-sm font-medium text-gray-600">{t("routeManagement.activeRoutes")}</p>
                   <p className="text-2xl font-bold text-blue-600">247</p>
                 </div>
                 <Route className="h-8 w-8 text-blue-600" />
               </div>
-              <p className="text-xs text-green-600 mt-2">+12% ce mois</p>
+              <p className="text-xs text-green-600 mt-2">+12% {t("routeManagement.thisMonth")}</p>
             </CardContent>
           </Card>
           
@@ -381,12 +381,12 @@ export default function RouteManagement() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Efficacité Moyenne</p>
+                  <p className="text-sm font-medium text-gray-600">{t("routeManagement.averageEfficiency")}</p>
                   <p className="text-2xl font-bold text-green-600">91.4%</p>
                 </div>
                 <TrendingUp className="h-8 w-8 text-green-600" />
               </div>
-              <p className="text-xs text-green-600 mt-2">+3.2% ce mois</p>
+              <p className="text-xs text-green-600 mt-2">+3.2% {t("routeManagement.thisMonth")}</p>
             </CardContent>
           </Card>
           
@@ -394,12 +394,12 @@ export default function RouteManagement() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Coût Moyen</p>
+                  <p className="text-sm font-medium text-gray-600">{t("routeManagement.averageCost")}</p>
                   <p className="text-2xl font-bold text-purple-600">3,420€</p>
                 </div>
                 <DollarSign className="h-8 w-8 text-purple-600" />
               </div>
-              <p className="text-xs text-red-600 mt-2">-5.8% ce mois</p>
+              <p className="text-xs text-red-600 mt-2">-5.8% {t("routeManagement.thisMonth")}</p>
             </CardContent>
           </Card>
           
