@@ -1001,27 +1001,27 @@ export default function Quotes() {
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label className="text-sm font-medium">Type de marchandise</Label>
+                  <Label className="text-sm font-medium">{t("quotes.goodsType", "Goods Type")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.goodsType}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Poids</Label>
+                  <Label className="text-sm font-medium">{t("quotes.weight", "Weight")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.weight} kg</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Volume</Label>
+                  <Label className="text-sm font-medium">{t("quotes.volume", "Volume")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.volume} m³</p>
                 </div>
               </div>
               <div>
-                <Label className="text-sm font-medium">Date souhaitée</Label>
+                <Label className="text-sm font-medium">{t("quotes.requestedDate", "Requested Date")}</Label>
                 <p className="text-sm text-gray-600">
                   {new Date(selectedQuote.requestedDate).toLocaleDateString('fr-FR')}
                 </p>
               </div>
               {selectedQuote.description && (
                 <div>
-                  <Label className="text-sm font-medium">Description</Label>
+                  <Label className="text-sm font-medium">{t("quotes.description", "Description")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.description}</p>
                 </div>
               )}
@@ -1034,16 +1034,16 @@ export default function Quotes() {
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Modifier la cotation</DialogTitle>
+            <DialogTitle>{t("quotes.modifyQuote", "Modify Quote")}</DialogTitle>
             <DialogDescription>
-              Modifiez les détails de votre demande de cotation
+              {t("quotes.modifyDetails", "Modify the details of your quote request")}
             </DialogDescription>
           </DialogHeader>
           {editingQuote && (
             <form onSubmit={handleUpdateQuote} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="edit-origin">Origine</Label>
+                  <Label htmlFor="edit-origin">{t("quotes.origin", "Origin")}</Label>
                   <Input
                     id="edit-origin"
                     value={editingQuote.origin}
@@ -1052,7 +1052,7 @@ export default function Quotes() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="edit-destination">Destination</Label>
+                  <Label htmlFor="edit-destination">{t("quotes.destination", "Destination")}</Label>
                   <Input
                     id="edit-destination"
                     value={editingQuote.destination}
@@ -1063,7 +1063,7 @@ export default function Quotes() {
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="edit-goods">Type de marchandise</Label>
+                  <Label htmlFor="edit-goods">{t("quotes.goodsType", "Goods Type")}</Label>
                   <Select 
                     value={editingQuote.goodsType} 
                     onValueChange={(value) => setEditingQuote({...editingQuote, goodsType: value})}
@@ -1072,18 +1072,18 @@ export default function Quotes() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Mobilier">Mobilier</SelectItem>
-                      <SelectItem value="Électronique">Électronique</SelectItem>
-                      <SelectItem value="Vêtements">Vêtements</SelectItem>
-                      <SelectItem value="Automobile">Automobile</SelectItem>
-                      <SelectItem value="Alimentaire">Alimentaire</SelectItem>
-                      <SelectItem value="Chimique">Chimique</SelectItem>
-                      <SelectItem value="Autre">Autre</SelectItem>
+                      <SelectItem value="Electronics">{t("quotesElectronics", "Electronics")}</SelectItem>
+                      <SelectItem value="Furniture">{t("quotesFurniture", "Furniture")}</SelectItem>
+                      <SelectItem value="Automotive">{t("quotesAutomotive", "Automotive")}</SelectItem>
+                      <SelectItem value="Food">{t("quotesFood", "Food")}</SelectItem>
+                      <SelectItem value="Chemicals">{t("quotesChemicals", "Chemicals")}</SelectItem>
+                      <SelectItem value="Textiles">{t("quotesTextiles", "Textiles")}</SelectItem>
+                      <SelectItem value="General">{t("quotesGeneral", "General")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="edit-weight">Poids (kg)</Label>
+                  <Label htmlFor="edit-weight">{t("quotes.weight", "Weight")} (kg)</Label>
                   <Input
                     id="edit-weight"
                     type="number"
@@ -1093,7 +1093,7 @@ export default function Quotes() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="edit-volume">Volume (m³)</Label>
+                  <Label htmlFor="edit-volume">{t("quotes.volume", "Volume")} (m³)</Label>
                   <Input
                     id="edit-volume"
                     type="number"
