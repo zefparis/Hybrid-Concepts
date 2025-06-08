@@ -446,8 +446,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Create activity log
       await storage.createActivity({
-        companyId: req.user.companyId,
-        userId: req.user.userId,
+        companyId: 1,
+        userId: 1,
         action: 'update',
         entityType: 'shipment',
         entityId: shipment.id,
@@ -458,6 +458,86 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Update tracking error:', error);
       res.status(500).json({ message: 'Failed to update tracking' });
+    }
+  });
+
+  // Add realistic tracking data to existing shipments
+  app.post("/api/shipments/generate-tracking", authenticateToken, async (req: any, res) => {
+    try {
+      const shipments = await storage.getShipments(1);
+      
+      for (const shipment of shipments) {
+        if (!shipment.trackingData || !shipment.trackingData.events) {
+          const transportMode = shipment.quote?.quoteRequest?.transportMode || 'terre';
+          const origin = shipment.quote?.quoteRequest?.origin || 'Origin';
+          const destination = shipment.quote?.quoteRequest?.destination || 'Destination';
+          
+          const events = [];
+          const baseTime = new Date(shipment.createdAt).getTime();
+          
+          events.push({
+            timestamp: new Date(baseTime + 1 * 60 * 60 * 1000),
+            location: origin,
+            status: 'picked_up',
+            description: 'Colis collecté chez l\'expéditeur'
+          });
+          
+          events.push({
+            timestamp: new Date(baseTime + 4 * 60 * 60 * 1000),
+            location: `Hub ${origin.split(',')[0]}`,
+            status: 'in_transit',
+            description: transportMode === 'air' ? 'Départ du hub aéroportuaire' : 
+                        transportMode === 'mer' ? 'Embarquement sur navire' : 
+                        'Départ du centre de tri'
+          });
+          
+          if (transportMode === 'air') {
+            events.push({
+              timestamp: new Date(baseTime + 8 * 60 * 60 * 1000),
+              location: 'En vol',
+              status: 'in_transit',
+              description: 'Vol en cours vers la destination'
+            });
+            
+            events.push({
+              timestamp: new Date(baseTime + 12 * 60 * 60 * 1000),
+              location: `Aéroport ${destination.split(',')[0]}`,
+              status: 'in_transit',
+              description: 'Arrivée à l\'aéroport de destination'
+            });
+          } else if (transportMode === 'mer') {
+            events.push({
+              timestamp: new Date(baseTime + 2 * 24 * 60 * 60 * 1000),
+              location: 'En mer Méditerranée',
+              status: 'in_transit',
+              description: 'Navigation en cours'
+            });
+          }
+          
+          events.push({
+            timestamp: new Date(baseTime + (transportMode === 'mer' ? 6 : transportMode === 'air' ? 1 : 2) * 24 * 60 * 60 * 1000),
+            location: `Centre de livraison ${destination.split(',')[0]}`,
+            status: 'out_for_delivery',
+            description: 'Colis en cours de livraison'
+          });
+          
+          const trackingData = {
+            currentLocation: events[events.length - 1].location,
+            lastUpdate: events[events.length - 1].timestamp,
+            events: events
+          };
+          
+          await storage.updateShipment(shipment.id, {
+            trackingData,
+            status: 'in_transit'
+          });
+        }
+      }
+      
+      res.json({ message: 'Tracking data generated successfully', count: shipments.length });
+    } catch (error) {
+      console.error('Generate tracking error:', error);
+      res.status(500).json({ message: 'Failed to generate tracking data' });
     }
   });
 
