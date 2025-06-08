@@ -400,15 +400,15 @@ export default function AviationMaritime() {
 
                 {portInfo && typeof portInfo === 'object' && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{(portInfo as Record<string, any>)?.name || t("aviationMaritime.portName")}</h3>
+                    <h3 className="font-semibold text-lg">{String((portInfo as Record<string, any>)?.name || t("aviationMaritime.portName"))}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.country")}</p>
-                        <p className="font-medium">{(portInfo as Record<string, any>)?.country || 'N/A'}</p>
+                        <p className="font-medium">{String((portInfo as Record<string, any>)?.country || 'N/A')}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.coordinates")}</p>
-                        <p className="font-medium">{(portInfo as Record<string, any>)?.coordinates?.lat?.toFixed(4) || '0'}, {(portInfo as Record<string, any>)?.coordinates?.lng?.toFixed(4) || '0'}</p>
+                        <p className="font-medium">{String((portInfo as Record<string, any>)?.coordinates?.lat?.toFixed(4) || '0')}, {String((portInfo as Record<string, any>)?.coordinates?.lng?.toFixed(4) || '0')}</p>
                       </div>
                     </div>
                     
@@ -418,7 +418,7 @@ export default function AviationMaritime() {
                         <div className="flex flex-wrap gap-1">
                           {(portInfo as Record<string, any>).facilities.map((facility: string, index: number) => (
                             <Badge key={index} variant="outline" className="text-xs">
-                              {facility}
+                              {String(facility)}
                             </Badge>
                           ))}
                         </div>
@@ -429,11 +429,11 @@ export default function AviationMaritime() {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <p className="text-sm text-gray-600">{t("aviationMaritime.maxLength")}</p>
-                          <p className="font-medium">{(portInfo as Record<string, any>)?.maxVesselSize?.length || 'N/A'}m</p>
+                          <p className="font-medium">{String((portInfo as Record<string, any>)?.maxVesselSize?.length || 'N/A')}m</p>
                         </div>
                         <div>
                           <p className="text-sm text-gray-600">{t("aviationMaritime.maxDraught")}</p>
-                          <p className="font-medium">{(portInfo as Record<string, any>)?.maxVesselSize?.draught || 'N/A'}m</p>
+                          <p className="font-medium">{String((portInfo as Record<string, any>)?.maxVesselSize?.draught || 'N/A')}m</p>
                         </div>
                       </div>
                     )}
