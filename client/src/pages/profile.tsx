@@ -28,6 +28,7 @@ import {
   Clock,
   CheckCircle
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface UserProfile {
   id: number;
@@ -54,6 +55,7 @@ interface UserProfile {
 }
 
 export default function Profile() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
@@ -74,14 +76,14 @@ export default function Profile() {
       queryClient.invalidateQueries({ queryKey: ["/api/profile"] });
       setIsEditing(false);
       toast({
-        title: "Profil mis à jour",
-        description: "Vos informations ont été sauvegardées avec succès",
+        title: t("profile.profileUpdated"),
+        description: t("profile.profileUpdatedDesc"),
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur",
-        description: "Impossible de sauvegarder le profil",
+        title: t("common.error"),
+        description: t("profile.profileUpdateError"),
         variant: "destructive",
       });
     },
@@ -96,7 +98,7 @@ export default function Profile() {
   if (profileLoading) {
     return (
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header title="Mon Profil" />
+        <Header title={t("profile.title")} />
         <main className="flex-1 overflow-y-auto p-6">
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
@@ -132,7 +134,7 @@ export default function Profile() {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <Header title="Mon Profil" />
+      <Header title={t("profile.title")} />
       
       <main className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Profile Header */}
@@ -177,7 +179,7 @@ export default function Profile() {
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
-                    Membre depuis {new Date(currentProfile.joinDate).toLocaleDateString('fr-FR')}
+                    {t("profile.memberSince")} {new Date(currentProfile.joinDate).toLocaleDateString()}
                   </div>
                 </div>
               </div>
