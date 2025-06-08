@@ -598,7 +598,105 @@
     "globalOptimizationSuccess": "Global strategy optimized by AI",
     "riskManagementError": "Risk management error",
     "riskManagementComplete": "Risk Management Complete",
-    "riskManagementSuccess": "Risk analysis completed by AI"
+    "riskManagementSuccess": "Risk analysis completed by AI",
+    "maxLength": "Max Length",
+    "maxDraught": "Max Draught"
+  },
+
+  "subscriptionPlans": {
+    "title": "Subscription Plans",
+    "subtitle": "Choose the perfect plan for your logistics needs",
+    "monthlyBilling": "Monthly billing",
+    "yearlyBilling": "Yearly billing",
+    "save": "Save",
+    "popular": "Popular",
+    "premium": "Premium",
+    "getStarted": "Get Started",
+    "currentPlan": "Current Plan",
+    "upgrade": "Upgrade",
+    "whatIncluded": "What's included",
+    "limitations": "Limitations",
+    "allPlansInclude": "All plans include",
+    "securePayment": "Secure SSL payment",
+    "cancelAnytime": "Cancel anytime",
+    "dataBackup": "Data backup",
+    "uptimeGuarantee": "99.9% uptime guarantee",
+    
+    "starter": {
+      "name": "Starter",
+      "description": "Perfect for small logistics operations",
+      "features": [
+        "Up to 50 shipments/month",
+        "Basic AI route optimization",
+        "Standard tracking",
+        "Email support",
+        "Basic analytics dashboard",
+        "2 user accounts",
+        "Mobile app access"
+      ],
+      "limitations": [
+        "No real-time tracking",
+        "Limited API calls",
+        "No custom integrations"
+      ]
+    },
+    
+    "professional": {
+      "name": "Professional",
+      "description": "Ideal for growing logistics companies",
+      "features": [
+        "Up to 500 shipments/month",
+        "Advanced AI optimization",
+        "Real-time tracking",
+        "Priority support",
+        "Advanced analytics",
+        "10 user accounts",
+        "API access",
+        "Custom workflows",
+        "Multi-modal routing",
+        "Carbon footprint tracking"
+      ],
+      "limitations": [
+        "Limited to 10 integrations",
+        "Standard SLA"
+      ]
+    },
+    
+    "enterprise": {
+      "name": "Enterprise",
+      "description": "For large-scale logistics operations",
+      "features": [
+        "Unlimited shipments",
+        "AI-powered automation",
+        "Real-time global tracking",
+        "24/7 dedicated support",
+        "Custom analytics",
+        "Unlimited users",
+        "Full API access",
+        "Custom integrations",
+        "White-label options",
+        "Advanced security",
+        "SLA guarantees",
+        "Custom training"
+      ],
+      "limitations": []
+    },
+    
+    "ultimate": {
+      "name": "Ultimate",
+      "description": "Complete solution with advanced AI",
+      "features": [
+        "Everything in Enterprise",
+        "Advanced predictive AI",
+        "Blockchain optimization",
+        "Concierge support",
+        "Predictive analytics",
+        "Full IoT integration",
+        "Smart automation",
+        "Custom solutions"
+      ],
+      "limitations": []
+    }
   },
 
   "profile": {

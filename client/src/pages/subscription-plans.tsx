@@ -26,125 +26,63 @@ interface YearlyPlan extends BasePlan {
 
 type Plan = BasePlan | YearlyPlan;
 
-const plans = {
+const getPlans = (t: any) => ({
   monthly: [
     {
       id: "starter",
-      name: "Starter",
-      description: "Perfect for small logistics operations",
+      name: t("subscriptionPlans.starter.name"),
+      description: t("subscriptionPlans.starter.description"),
       price: 99,
       icon: Zap,
       color: "blue",
-      features: [
-        "Up to 50 shipments/month",
-        "Basic AI route optimization",
-        "Standard tracking",
-        "Email support",
-        "Basic analytics dashboard",
-        "2 user accounts",
-        "Mobile app access"
-      ],
-      limitations: [
-        "No real-time tracking",
-        "Limited API calls",
-        "No custom integrations"
-      ]
+      features: t("subscriptionPlans.starter.features"),
+      limitations: t("subscriptionPlans.starter.limitations")
     },
     {
       id: "professional",
-      name: "Professional",
-      description: "Ideal for growing logistics companies",
+      name: t("subscriptionPlans.professional.name"),
+      description: t("subscriptionPlans.professional.description"),
       price: 299,
       icon: Crown,
       color: "purple",
       popular: true,
-      features: [
-        "Up to 500 shipments/month",
-        "Advanced AI optimization",
-        "Real-time tracking",
-        "Priority support",
-        "Advanced analytics",
-        "10 user accounts",
-        "API access",
-        "Custom workflows",
-        "Multi-modal routing",
-        "Carbon footprint tracking"
-      ],
-      limitations: [
-        "Limited to 10 integrations",
-        "Standard SLA"
-      ]
+      features: t("subscriptionPlans.professional.features"),
+      limitations: t("subscriptionPlans.professional.limitations")
     },
     {
       id: "enterprise",
-      name: "Enterprise",
-      description: "For large-scale logistics operations",
+      name: t("subscriptionPlans.enterprise.name"),
+      description: t("subscriptionPlans.enterprise.description"),
       price: 799,
       icon: Building2,
       color: "gold",
-      features: [
-        "Unlimited shipments",
-        "AI-powered automation",
-        "Real-time global tracking",
-        "24/7 dedicated support",
-        "Custom analytics",
-        "Unlimited users",
-        "Full API access",
-        "Custom integrations",
-        "White-label options",
-        "Advanced security",
-        "SLA guarantees",
-        "Custom training"
-      ],
-      limitations: []
+      features: t("subscriptionPlans.enterprise.features"),
+      limitations: t("subscriptionPlans.enterprise.limitations")
     },
     {
       id: "ai-revolution",
-      name: "AI Revolution",
-      description: "Next-generation AI logistics platform",
+      name: t("subscriptionPlans.ultimate.name"),
+      description: t("subscriptionPlans.ultimate.description"),
       price: 1499,
       icon: Rocket,
       color: "gradient",
       premium: true,
-      features: [
-        "Everything in Enterprise",
-        "Proprietary AI algorithms",
-        "Predictive analytics",
-        "Autonomous optimization",
-        "Custom AI model training",
-        "Advanced machine learning",
-        "Quantum logistics optimization",
-        "Dedicated AI specialists",
-        "Custom AI development",
-        "Research & development access"
-      ],
-      limitations: []
+      features: t("subscriptionPlans.ultimate.features"),
+      limitations: t("subscriptionPlans.ultimate.limitations")
     }
   ],
   yearly: [
     {
       id: "starter",
-      name: "Starter",
-      description: "Perfect for small logistics operations",
+      name: t("subscriptionPlans.starter.name"),
+      description: t("subscriptionPlans.starter.description"),
       price: 990,
       originalPrice: 1188,
       savings: 198,
       icon: Zap,
       color: "blue",
-      features: [
-        "Up to 50 shipments/month",
-        "Basic AI route optimization",
-        "Standard tracking",
-        "Email support",
-        "Basic analytics dashboard",
-        "2 user accounts",
-        "Mobile app access"
-      ],
-      limitations: [
-        "No real-time tracking",
-        "Limited API calls",
-        "No custom integrations"
-      ]
+      features: t("subscriptionPlans.starter.features"),
+      limitations: t("subscriptionPlans.starter.limitations")
     },
     {
       id: "professional",
@@ -223,7 +161,7 @@ const plans = {
       limitations: []
     }
   ]
-};
+});
 
 const addOns = [
   {

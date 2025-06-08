@@ -580,6 +580,102 @@
     "maxDraught": "Tirant d'eau max"
   },
 
+  "subscriptionPlans": {
+    "title": "Plans d'Abonnement",
+    "subtitle": "Choisissez le plan parfait pour vos besoins logistiques",
+    "monthlyBilling": "Facturation mensuelle",
+    "yearlyBilling": "Facturation annuelle",
+    "save": "Économisez",
+    "popular": "Populaire",
+    "premium": "Premium",
+    "getStarted": "Commencer",
+    "currentPlan": "Plan Actuel",
+    "upgrade": "Mettre à niveau",
+    "whatIncluded": "Ce qui est inclus",
+    "limitations": "Limitations",
+    "allPlansInclude": "Tous les plans incluent",
+    "securePayment": "Paiement sécurisé SSL",
+    "cancelAnytime": "Annuler à tout moment",
+    "dataBackup": "Sauvegarde des données",
+    "uptimeGuarantee": "Garantie de disponibilité 99.9%",
+    
+    "starter": {
+      "name": "Starter",
+      "description": "Parfait pour les petites opérations logistiques",
+      "features": [
+        "Jusqu'à 50 expéditions/mois",
+        "Optimisation AI de base des routes",
+        "Suivi standard",
+        "Support par email",
+        "Tableau de bord analytique de base",
+        "2 comptes utilisateur",
+        "Accès application mobile"
+      ],
+      "limitations": [
+        "Pas de suivi en temps réel",
+        "Appels API limités",
+        "Pas d'intégrations personnalisées"
+      ]
+    },
+    
+    "professional": {
+      "name": "Professionnel",
+      "description": "Idéal pour les entreprises logistiques en croissance",
+      "features": [
+        "Jusqu'à 500 expéditions/mois",
+        "Optimisation AI avancée",
+        "Suivi en temps réel",
+        "Support prioritaire",
+        "Analyses avancées",
+        "10 comptes utilisateur",
+        "Accès API",
+        "Workflows personnalisés",
+        "Routage multimodal",
+        "Suivi empreinte carbone"
+      ],
+      "limitations": [
+        "Limité à 10 intégrations",
+        "SLA standard"
+      ]
+    },
+    
+    "enterprise": {
+      "name": "Entreprise",
+      "description": "Pour les opérations logistiques à grande échelle",
+      "features": [
+        "Expéditions illimitées",
+        "Automatisation AI",
+        "Suivi global temps réel",
+        "Support dédié 24/7",
+        "Analyses personnalisées",
+        "Utilisateurs illimités",
+        "Accès API complet",
+        "Intégrations personnalisées",
+        "Options marque blanche",
+        "Sécurité avancée",
+        "Garanties SLA",
+        "Formation personnalisée"
+      ],
+      "limitations": []
+    },
+    
+    "ultimate": {
+      "name": "Ultimate",
+      "description": "Solution complète avec IA avancée",
+      "features": [
+        "Tout du plan Entreprise",
+        "IA prédictive avancée",
+        "Optimisation blockchain",
+        "Support concierge",
+        "Analyses prédictives",
+        "Intégration IoT complète",
+        "Automatisation intelligente",
+        "Solutions sur mesure"
+      ],
+      "limitations": []
+    }
+  },
+
   "profile": {
     "title": "Profil Utilisateur",
     "personalInfo": "Informations personnelles",
