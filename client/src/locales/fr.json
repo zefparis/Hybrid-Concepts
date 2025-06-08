@@ -522,6 +522,30 @@
     "question6": "Comment commencer avec la plateforme ?"
   },
 
+  "landing": {
+    "badge": "Révolution IA Logistique",
+    "heroTitle": "L'Avenir de la Logistique",
+    "heroSubtitle": "Plateforme SaaS révolutionnaire alimentée par l'IA pour l'optimisation multimodale de la chaîne d'approvisionnement mondiale",
+    "accessDashboard": "Accéder au Tableau de Bord",
+    "watchDemo": "Voir la Démo",
+    "feature1Title": "IA Révolutionnaire",
+    "feature1Desc": "Algorithmes propriétaires pour l'optimisation logistique autonome",
+    "feature2Title": "Multimodal Global",
+    "feature2Desc": "Maritime, terrestre, aérienne - Une plateforme unifiée",
+    "feature3Title": "ROI Immédiat",
+    "feature3Desc": "35% de réduction des coûts dès le premier mois",
+    "feature4Title": "Sécurité Entreprise",
+    "feature4Desc": "Conformité internationale et protection des données",
+    "stat1Label": "Valeur cargo optimisée",
+    "stat2Label": "Routes optimisées quotidiennement",
+    "stat3Label": "Réduction moyenne des coûts",
+    "stat4Label": "Disponibilité de la plateforme",
+    "testimonial1Quote": "Hybrid Concept a transformé notre chaîne d'approvisionnement. Leur IA prédit et optimise mieux que nos experts.",
+    "testimonial1Role": "Directrice Logistique, LogiCorp International",
+    "testimonial2Quote": "300% de ROI en 6 mois. Cette technologie révolutionne l'industrie du transport maritime.",
+    "testimonial2Role": "PDG, Atlantic Shipping Group"
+  },
+
   "profile": {
     "title": "Profil Utilisateur",
     "personalInfo": "Informations personnelles",

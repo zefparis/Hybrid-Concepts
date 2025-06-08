@@ -522,6 +522,53 @@
     "pushNotificationsDesc": "Alerts in the web application"
   },
 
+  "supportChat": {
+    "title": "Support & Information",
+    "subtitle": "Get professional assistance about Hybrid Concept's logistics platform",
+    "welcomeMessage": "Hello! I'm your Hybrid Concept assistant. I can help you understand our logistics platform, explore features, and answer questions about AI automation, transport modes, pricing, and more. How can I assist you today?",
+    "connectionError": "Connection Error",
+    "connectionErrorDesc": "Unable to send message. Please try again.",
+    "quickHelp": "Quick Help",
+    "documentation": "Documentation",
+    "featureGuide": "Feature Guide",
+    "setupHelp": "Setup Help",
+    "suggestedQuestions": "Suggested Questions",
+    "assistantTitle": "Hybrid Concept Assistant",
+    "online": "Online",
+    "thinking": "Thinking...",
+    "placeholder": "Ask about features, pricing, setup, or any other questions...",
+    "question1": "What AI automation features does Hybrid Concept offer?",
+    "question2": "How does multimodal transport optimization work?",
+    "question3": "What are the pricing plans and features?",
+    "question4": "How does real-time tracking work?",
+    "question5": "What integrations are available?",
+    "question6": "How do I get started with the platform?"
+  },
+
+  "landing": {
+    "badge": "AI Logistics Revolution",
+    "heroTitle": "The Future of Logistics",
+    "heroSubtitle": "Revolutionary AI-powered SaaS platform for multimodal global supply chain optimization",
+    "accessDashboard": "Access Dashboard",
+    "watchDemo": "Watch Demo",
+    "feature1Title": "Revolutionary AI",
+    "feature1Desc": "Proprietary algorithms for autonomous logistics optimization",
+    "feature2Title": "Global Multimodal",
+    "feature2Desc": "Maritime, terrestrial, aerial - One unified platform",
+    "feature3Title": "Immediate ROI",
+    "feature3Desc": "35% cost reduction from the first month",
+    "feature4Title": "Enterprise Security",
+    "feature4Desc": "International compliance and data protection",
+    "stat1Label": "Cargo value optimized",
+    "stat2Label": "Routes optimized daily",
+    "stat3Label": "Average cost reduction",
+    "stat4Label": "Platform uptime",
+    "testimonial1Quote": "Hybrid Concept transformed our supply chain. Their AI predicts and optimizes better than our experts.",
+    "testimonial1Role": "Logistics Director, LogiCorp International",
+    "testimonial2Quote": "300% ROI in 6 months. This technology is revolutionizing the maritime transport industry.",
+    "testimonial2Role": "CEO, Atlantic Shipping Group"
+  },
+
   "profile": {
     "title": "User Profile",
     "personalInfo": "Personal Information",

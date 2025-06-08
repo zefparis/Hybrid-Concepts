@@ -17,54 +17,60 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 import containerShipImage from "@assets/dep_1749321248969.jpg";
 
-const features = [
-  {
-    icon: Zap,
-    title: "Revolutionary AI",
-    description: "Proprietary algorithms for autonomous logistics optimization"
-  },
-  {
-    icon: Globe,
-    title: "Global Multimodal",
-    description: "Maritime, terrestrial, aerial - One unified platform"
-  },
-  {
-    icon: TrendingUp,
-    title: "Immediate ROI",
-    description: "35% cost reduction from the first month"
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description: "International compliance and data protection"
-  }
-];
+// Features data moved to component for translation
 
-const stats = [
-  { value: "$500M+", label: "Cargo value optimized" },
-  { value: "10,000+", label: "Routes optimized daily" },
-  { value: "35%", label: "Average cost reduction" },
-  { value: "99.9%", label: "Platform uptime" }
-];
-
-const testimonials = [
-  {
-    quote: "Hybrid Concept transformed our supply chain. Their AI predicts and optimizes better than our experts.",
-    author: "Sarah Mitchell",
-    role: "Logistics Director, LogiCorp International"
-  },
-  {
-    quote: "300% ROI in 6 months. This technology is revolutionizing the maritime transport industry.",
-    author: "David Thompson",
-    role: "CEO, Atlantic Shipping Group"
-  }
-];
+// Stats and testimonials moved to component for translation
 
 export default function Landing() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [isVisible, setIsVisible] = useState(false);
+
+  const features = [
+    {
+      icon: Zap,
+      title: t('landing.feature1Title'),
+      description: t('landing.feature1Desc')
+    },
+    {
+      icon: Globe,
+      title: t('landing.feature2Title'),
+      description: t('landing.feature2Desc')
+    },
+    {
+      icon: TrendingUp,
+      title: t('landing.feature3Title'),
+      description: t('landing.feature3Desc')
+    },
+    {
+      icon: Shield,
+      title: t('landing.feature4Title'),
+      description: t('landing.feature4Desc')
+    }
+  ];
+
+  const stats = [
+    { value: "$500M+", label: t('landing.stat1Label') },
+    { value: "10,000+", label: t('landing.stat2Label') },
+    { value: "35%", label: t('landing.stat3Label') },
+    { value: "99.9%", label: t('landing.stat4Label') }
+  ];
+
+  const testimonials = [
+    {
+      quote: t('landing.testimonial1Quote'),
+      author: "Sarah Mitchell",
+      role: t('landing.testimonial1Role')
+    },
+    {
+      quote: t('landing.testimonial2Quote'),
+      author: "David Thompson",
+      role: t('landing.testimonial2Role')
+    }
+  ];
 
   useEffect(() => {
     setIsVisible(true);
@@ -102,7 +108,7 @@ export default function Landing() {
             {/* Badge */}
             <Badge className="mb-6 bg-blue-600/20 text-blue-100 border-blue-400/30 px-4 py-2 text-sm backdrop-blur-sm">
               <Zap className="w-4 h-4 mr-2" />
-              AI Logistics Revolution
+              {t('landing.badge')}
             </Badge>
 
             {/* Main Title */}
@@ -112,14 +118,13 @@ export default function Landing() {
               </span>
               <br />
               <span className="text-4xl md:text-5xl text-gray-100">
-                The Future of Logistics
+                {t('landing.heroTitle')}
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Revolutionary AI-powered SaaS platform for multimodal 
-              global supply chain optimization
+              {t('landing.heroSubtitle')}
             </p>
 
             {/* CTA Buttons */}
@@ -130,7 +135,7 @@ export default function Landing() {
                 onClick={handleGetStarted}
               >
                 <BarChart3 className="w-5 h-5 mr-2" />
-                Access Dashboard
+                {t('landing.accessDashboard')}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
@@ -141,7 +146,7 @@ export default function Landing() {
                 onClick={handleDemo}
               >
                 <Play className="w-5 h-5 mr-2" />
-                Watch Demo
+                {t('landing.watchDemo')}
               </Button>
             </div>
 
