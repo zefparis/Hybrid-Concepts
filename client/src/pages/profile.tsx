@@ -192,19 +192,19 @@ export default function Profile() {
                       disabled={isLoading}
                     >
                       <Save className="h-4 w-4 mr-2" />
-                      Sauvegarder
+                      {t("common.save")}
                     </Button>
                     <Button
                       variant="outline"
                       onClick={() => setIsEditing(false)}
                     >
-                      Annuler
+                      {t("common.cancel")}
                     </Button>
                   </>
                 ) : (
                   <Button onClick={() => setIsEditing(true)}>
                     <Edit className="h-4 w-4 mr-2" />
-                    Modifier
+                    {t("profile.editProfile")}
                   </Button>
                 )}
               </div>
@@ -218,7 +218,7 @@ export default function Profile() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5" />
-                Informations personnelles
+                {t("profile.personalInfo")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -226,19 +226,19 @@ export default function Profile() {
                 <>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">Prénom</Label>
+                      <Label htmlFor="firstName">{t("profile.firstName")}</Label>
                       <Input
                         id="firstName"
                         defaultValue={currentProfile.firstName}
-                        placeholder="Prénom"
+                        placeholder={t("profile.firstName")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Nom</Label>
+                      <Label htmlFor="lastName">{t("profile.lastName")}</Label>
                       <Input
                         id="lastName"
                         defaultValue={currentProfile.lastName}
-                        placeholder="Nom"
+                        placeholder={t("profile.lastName")}
                       />
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export default function Profile() {
                   <div className="space-y-2">
                     <Label htmlFor="email" className="flex items-center gap-2">
                       <Mail className="h-4 w-4" />
-                      Email
+                      {t("profile.email")}
                     </Label>
                     <Input
                       id="email"
@@ -259,7 +259,7 @@ export default function Profile() {
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="flex items-center gap-2">
                       <Phone className="h-4 w-4" />
-                      Téléphone
+                      {t("profile.phone")}
                     </Label>
                     <Input
                       id="phone"
@@ -269,11 +269,11 @@ export default function Profile() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="position">Poste</Label>
+                    <Label htmlFor="position">{t("profile.position")}</Label>
                     <Input
                       id="position"
                       defaultValue={currentProfile.position}
-                      placeholder="Titre du poste"
+                      placeholder={t("profile.position")}
                     />
                   </div>
 

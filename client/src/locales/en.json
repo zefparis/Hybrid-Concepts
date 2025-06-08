@@ -490,7 +490,10 @@
     "firstLogin": "First Login",
     "hundredQuotes": "100 Quotes",
     "thousandShipments": "1000 Shipments",
-    "expertUser": "Expert User"
+    "expertUser": "Expert User",
+    "memberSince": "Member since",
+    "email": "Email",
+    "phone": "Phone"
   },
 
   "help": {
