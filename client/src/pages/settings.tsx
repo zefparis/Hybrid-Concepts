@@ -359,7 +359,7 @@ export default function Settings() {
                     ) : (
                       <Save className="h-4 w-4 mr-2" />
                     )}
-                    Sauvegarder
+                    {t("common.save")}
                   </Button>
                 </div>
               </CardContent>
@@ -372,20 +372,20 @@ export default function Settings() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Bell className="h-5 w-5" />
-                  Préférences de notification
+                  {t("settings.notificationPreferences")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Communication Channels */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Canaux de communication</h3>
+                  <h3 className="font-semibold">{t("settings.communicationChannels")}</h3>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Mail className="h-5 w-5 text-blue-500" />
                         <div>
-                          <div className="font-medium">Notifications par email</div>
-                          <div className="text-sm text-gray-600">Recevez les alertes importantes par email</div>
+                          <div className="font-medium">{t("settings.emailNotifications")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.emailNotificationsDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.emailNotifications} />
@@ -395,8 +395,8 @@ export default function Settings() {
                       <div className="flex items-center gap-3">
                         <Smartphone className="h-5 w-5 text-green-500" />
                         <div>
-                          <div className="font-medium">Notifications SMS</div>
-                          <div className="text-sm text-gray-600">Alertes urgentes par SMS</div>
+                          <div className="font-medium">{t("settings.smsNotifications")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.smsNotificationsDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.smsNotifications} />
@@ -406,8 +406,8 @@ export default function Settings() {
                       <div className="flex items-center gap-3">
                         <Monitor className="h-5 w-5 text-purple-500" />
                         <div>
-                          <div className="font-medium">Notifications push</div>
-                          <div className="text-sm text-gray-600">Alertes dans l'application web</div>
+                          <div className="font-medium">{t("settings.pushNotifications")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.pushNotificationsDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.pushNotifications} />
