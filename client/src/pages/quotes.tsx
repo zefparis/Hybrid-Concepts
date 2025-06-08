@@ -1104,7 +1104,7 @@ export default function Quotes() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="edit-date">Date souhaitée</Label>
+                <Label htmlFor="edit-date">{t("quotes.requestedDate", "Requested Date")}</Label>
                 <Input
                   id="edit-date"
                   type="date"
@@ -1114,20 +1114,20 @@ export default function Quotes() {
                 />
               </div>
               <div>
-                <Label htmlFor="edit-description">Description</Label>
+                <Label htmlFor="edit-description">{t("quotes.description", "Description")}</Label>
                 <Textarea
                   id="edit-description"
                   value={editingQuote.description || ''}
                   onChange={(e) => setEditingQuote({...editingQuote, description: e.target.value})}
-                  placeholder="Décrivez votre expédition, contraintes particulières, etc."
+                  placeholder={t("quotesDescriptionPlaceholder", "Describe your shipment, special constraints, etc.")}
                 />
               </div>
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={() => setIsEditOpen(false)}>
-                  Annuler
+                  {t("common.cancel", "Cancel")}
                 </Button>
                 <Button type="submit" disabled={updateQuoteMutation.isPending}>
-                  {updateQuoteMutation.isPending ? "Modification..." : "Modifier"}
+                  {updateQuoteMutation.isPending ? t("quotes.modifying", "Modifying...") : t("quotes.modify", "Modify")}
                 </Button>
               </div>
             </form>
