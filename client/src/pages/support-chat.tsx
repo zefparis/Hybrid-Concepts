@@ -18,6 +18,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface ChatMessage {
   id: string;
@@ -28,10 +29,11 @@ interface ChatMessage {
 }
 
 export default function SupportChat() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      content: 'Hello! I\'m your Hybrid Concept assistant. I can help you understand our logistics platform, explore features, and answer questions about AI automation, transport modes, pricing, and more. How can I assist you today?',
+      content: t('supportChat.welcomeMessage'),
       role: 'assistant',
       timestamp: new Date(),
       type: 'text'
