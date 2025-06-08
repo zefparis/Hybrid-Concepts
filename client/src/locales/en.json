@@ -384,11 +384,15 @@
 
   "settings": {
     "title": "Settings",
-    "companyProfile": "Company Profile",
+    "companySettings": "Company Settings",
+    "companySettingsDescription": "Manage your platform preferences and configurations",
+    "accountVerified": "Account Verified",
+    "profile": "Profile",
     "notifications": "Notifications",
-    "preferences": "Preferences",
+    "preferences": "Preferences", 
     "security": "Security",
     "integrations": "Integrations",
+    "companyProfile": "Company Profile",
     "companyName": "Company Name",
     "email": "Email",
     "phone": "Phone",
