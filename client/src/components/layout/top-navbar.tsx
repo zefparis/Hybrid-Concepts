@@ -279,15 +279,15 @@ export default function TopNavbar() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>Account Settings</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => handleNavigation('/profile')}>
+                <DropdownMenuItem onClick={() => handleNavigation('/settings')}>
                   <User className="w-4 h-4 mr-2" />
-                  Profile Settings
+                  Company Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavigation('/preferences')}>
+                <DropdownMenuItem onClick={() => handleNavigation('/settings')}>
                   <Settings className="w-4 h-4 mr-2" />
                   Preferences
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavigation('/security')}>
+                <DropdownMenuItem onClick={() => handleNavigation('/settings')}>
                   <Shield className="w-4 h-4 mr-2" />
                   Security
                 </DropdownMenuItem>
