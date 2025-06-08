@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,28 +19,29 @@ interface ComparisonProps {
 }
 
 export function TransformationComparison({ onComplete }: ComparisonProps) {
+  const { t } = useTranslation();
   const [activeDemo, setActiveDemo] = useState<'traditional' | 'ai' | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
 
   const traditionalSteps: ComparisonStep[] = [
-    { icon: Phone, text: "Recherche manuelle des transporteurs", time: "5 min", status: "manual", delay: 2000 },
-    { icon: Phone, text: "Appels téléphoniques multiples", time: "8 min", status: "manual", delay: 3000 },
-    { icon: Mail, text: "Attente des réponses par email", time: "15 min", status: "waiting", delay: 4000 },
-    { icon: AlertTriangle, text: "Erreurs de saisie détectées", time: "3 min", status: "error", delay: 2000 },
-    { icon: Calculator, text: "Comparaison manuelle des offres", time: "6 min", status: "manual", delay: 3000 },
-    { icon: Phone, text: "Négociation téléphonique", time: "4 min", status: "manual", delay: 2500 },
-    { icon: FileText, text: "Validation administrative", time: "2 min", status: "manual", delay: 1500 },
+    { icon: Phone, text: t("transformationDemo.manualCarrierSearch"), time: "5 min", status: "manual", delay: 2000 },
+    { icon: Phone, text: t("transformationDemo.multipleCalls"), time: "8 min", status: "manual", delay: 3000 },
+    { icon: Mail, text: t("transformationDemo.waitingEmailResponses"), time: "15 min", status: "waiting", delay: 4000 },
+    { icon: AlertTriangle, text: t("transformationDemo.inputErrors"), time: "3 min", status: "error", delay: 2000 },
+    { icon: Calculator, text: t("transformationDemo.manualOfferComparison"), time: "6 min", status: "manual", delay: 3000 },
+    { icon: Phone, text: t("transformationDemo.phoneNegotiation"), time: "4 min", status: "manual", delay: 2500 },
+    { icon: FileText, text: t("transformationDemo.administrativeValidation"), time: "2 min", status: "manual", delay: 1500 },
   ];
 
   const aiSteps: ComparisonStep[] = [
-    { icon: Brain, text: "Analyse IA des besoins logistiques", time: "2 sec", status: "ai", delay: 800 },
-    { icon: Zap, text: "Détection automatique du mode optimal", time: "1 sec", status: "ai", delay: 600 },
-    { icon: Bot, text: "Génération intelligente des cotations", time: "3 sec", status: "ai", delay: 1000 },
-    { icon: CheckCircle, text: "Comparaison et optimisation IA", time: "2 sec", status: "ai", delay: 700 },
-    { icon: Brain, text: "Recommandation basée sur l'analyse", time: "1 sec", status: "ai", delay: 500 },
-    { icon: FileText, text: "Documentation automatique", time: "1 sec", status: "ai", delay: 400 },
+    { icon: Brain, text: t("transformationDemo.aiLogisticsAnalysis"), time: "2 sec", status: "ai", delay: 800 },
+    { icon: Zap, text: t("transformationDemo.automaticModeDetection"), time: "1 sec", status: "ai", delay: 600 },
+    { icon: Bot, text: t("transformationDemo.intelligentQuoteGeneration"), time: "3 sec", status: "ai", delay: 1000 },
+    { icon: CheckCircle, text: t("transformationDemo.aiComparisonOptimization"), time: "2 sec", status: "ai", delay: 700 },
+    { icon: Brain, text: t("transformationDemo.analysisBasedRecommendation"), time: "1 sec", status: "ai", delay: 500 },
+    { icon: FileText, text: t("transformationDemo.automaticDocumentation"), time: "1 sec", status: "ai", delay: 400 },
   ];
 
   const runDemo = (type: 'traditional' | 'ai') => {
@@ -108,10 +110,10 @@ export function TransformationComparison({ onComplete }: ComparisonProps) {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'manual': return <Badge variant="destructive">Manuel</Badge>;
-      case 'ai': return <Badge className="bg-green-600">IA</Badge>;
-      case 'waiting': return <Badge variant="secondary">Attente</Badge>;
-      case 'error': return <Badge variant="destructive">Erreur</Badge>;
+      case 'manual': return <Badge variant="destructive">{t("transformationDemo.manual")}</Badge>;
+      case 'ai': return <Badge className="bg-green-600">{t("transformationDemo.ai")}</Badge>;
+      case 'waiting': return <Badge variant="secondary">{t("transformationDemo.waiting")}</Badge>;
+      case 'error': return <Badge variant="destructive">{t("transformationDemo.error")}</Badge>;
       default: return <Badge variant="outline">-</Badge>;
     }
   };
@@ -123,9 +125,9 @@ export function TransformationComparison({ onComplete }: ComparisonProps) {
         <CardHeader className="text-center">
           <CardTitle className="flex items-center justify-center gap-2 text-red-700">
             <XCircle className="w-6 h-6" />
-            Processus Traditionnel Obsolète
+            {t("transformationDemo.traditionalProcessObsolete")}
           </CardTitle>
-          <Badge variant="destructive" className="mx-auto">40 minutes • Manuel • Inefficace</Badge>
+          <Badge variant="destructive" className="mx-auto">{t("transformationDemo.traditionalTimeline")}</Badge>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-3">
@@ -146,14 +148,14 @@ export function TransformationComparison({ onComplete }: ComparisonProps) {
             className="w-full bg-red-600 hover:bg-red-700"
             disabled={activeDemo === 'traditional'}
           >
-            {activeDemo === 'traditional' ? 'Processus obsolète en cours...' : 'Démontrer le Processus Obsolète'}
+            {activeDemo === 'traditional' ? t("transformationDemo.traditionalInProgress") : t("transformationDemo.demonstrateTraditional")}
           </Button>
           
           {activeDemo === 'traditional' && (
             <div className="space-y-2">
               <Progress value={progress} className="h-3" />
               <p className="text-center text-sm text-gray-600">
-                Étape {currentStep + 1}/{traditionalSteps.length} - {Math.round(progress)}% completé
+                {t("transformationDemo.stepProgress", { current: currentStep + 1, total: traditionalSteps.length, progress: Math.round(progress) })}
               </p>
             </div>
           )}
@@ -165,9 +167,9 @@ export function TransformationComparison({ onComplete }: ComparisonProps) {
         <CardHeader className="text-center">
           <CardTitle className="flex items-center justify-center gap-2 text-green-700">
             <CheckCircle className="w-6 h-6" />
-            Hybrid Concept IA Révolutionnaire
+            {t("transformationDemo.hybridConceptAI")}
           </CardTitle>
-          <Badge className="mx-auto bg-green-600">30 secondes • Automatique • Intelligent</Badge>
+          <Badge className="mx-auto bg-green-600">{t("transformationDemo.aiTimeline")}</Badge>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-3">
@@ -188,14 +190,14 @@ export function TransformationComparison({ onComplete }: ComparisonProps) {
             className="w-full bg-green-600 hover:bg-green-700"
             disabled={activeDemo === 'ai'}
           >
-            {activeDemo === 'ai' ? 'Innovation IA en action...' : 'Démontrer l\'Innovation IA'}
+            {activeDemo === 'ai' ? t("transformationDemo.aiInProgress") : t("transformationDemo.demonstrateAI")}
           </Button>
           
           {activeDemo === 'ai' && (
             <div className="space-y-2">
               <Progress value={progress} className="h-3" />
               <p className="text-center text-sm text-gray-600">
-                Étape {currentStep + 1}/{aiSteps.length} - {Math.round(progress)}% completé
+                {t("transformationDemo.stepProgress", { current: currentStep + 1, total: aiSteps.length, progress: Math.round(progress) })}
               </p>
             </div>
           )}
