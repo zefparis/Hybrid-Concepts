@@ -61,14 +61,14 @@ export default function AviationMaritime() {
     },
     onSuccess: (data: any) => {
       toast({
-        title: "Navire suivi avec succès",
-        description: `Données du navire ${data?.name || 'N/A'} récupérées`,
+        title: t("aviationMaritime.vesselTrackedSuccess"),
+        description: `${t("aviationMaritime.vesselName")}: ${data?.name || 'N/A'}`,
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur de tracking",
-        description: "Impossible de suivre ce navire",
+        title: t("aviationMaritime.trackingError"),
+        description: t("aviationMaritime.vesselNotFound"),
         variant: "destructive",
       });
     }
@@ -89,8 +89,8 @@ export default function AviationMaritime() {
   const handleFlightTracking = () => {
     if (!flightNumber.trim()) {
       toast({
-        title: "Numéro de vol requis",
-        description: "Veuillez saisir un numéro de vol valide",
+        title: t("aviationMaritime.flightNumberRequired"),
+        description: t("aviationMaritime.enterValidFlight"),
         variant: "destructive",
       });
       return;
@@ -101,8 +101,8 @@ export default function AviationMaritime() {
   const handleVesselTracking = () => {
     if (!mmsi.trim()) {
       toast({
-        title: "MMSI requis",
-        description: "Veuillez saisir un numéro MMSI valide",
+        title: t("aviationMaritime.mmsiRequired"),
+        description: t("aviationMaritime.enterValidMmsi"),
         variant: "destructive",
       });
       return;
@@ -138,7 +138,7 @@ export default function AviationMaritime() {
         <div className="flex items-center gap-2">
           <Badge variant="secondary" className="bg-green-100 text-green-800">
             <RadioTower className="w-4 h-4 mr-1" />
-            12/12 APIs Opérationnelles
+            12/12 {t("aviationMaritime.apisOperational")}
           </Badge>
         </div>
       </div>
@@ -147,11 +147,11 @@ export default function AviationMaritime() {
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="aviation" className="flex items-center gap-2">
             <Plane className="w-4 h-4" />
-            Aviation
+            {t("aviationMaritime.aviation")}
           </TabsTrigger>
           <TabsTrigger value="maritime" className="flex items-center gap-2">
             <Ship className="w-4 h-4" />
-            Maritime
+            {t("aviationMaritime.maritime")}
           </TabsTrigger>
         </TabsList>
 
@@ -163,16 +163,16 @@ export default function AviationMaritime() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Plane className="w-5 h-5 text-blue-500" />
-                  Suivi de Vol
+                  {t("aviationMaritime.flightTracking")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="flightNumber">Numéro de Vol</Label>
+                  <Label htmlFor="flightNumber">{t("aviationMaritime.flightNumber")}</Label>
                   <div className="flex gap-2 mt-1">
                     <Input
                       id="flightNumber"
-                      placeholder="AF447, LH441, BA123"
+                      placeholder={t("aviationMaritime.flightNumberPlaceholder")}
                       value={flightNumber}
                       onChange={(e) => setFlightNumber(e.target.value)}
                     />
@@ -188,7 +188,7 @@ export default function AviationMaritime() {
                 {flightTrackingMutation.isPending && (
                   <div className="flex items-center gap-2 text-blue-600">
                     <Activity className="w-4 h-4 animate-spin" />
-                    <span>Recherche du vol en cours...</span>
+                    <span>{t("aviationMaritime.searchInProgress")}</span>
                   </div>
                 )}
 
