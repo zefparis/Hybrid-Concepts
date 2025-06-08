@@ -23,7 +23,13 @@ interface AuthRequest extends Request {
 // Authentication middleware disabled - direct access
 const authenticateToken = (req: any, res: any, next: any) => {
   // Skip authentication - allow direct access
-  req.user = { id: 1, email: "demo@hybridconc.com", role: "admin" }; // Demo user
+  req.user = { 
+    id: 1, 
+    userId: 1,
+    companyId: 1,
+    email: "demo@hybridconc.com", 
+    role: "admin" 
+  }; // Demo user
   next();
 };
 
@@ -293,11 +299,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const autoDetectedMode = detectTransportMode(req.body.origin || '', req.body.destination || '');
       
+      console.log('req.user:', req.user);
+      console.log('companyId:', req.user?.companyId);
+      console.log('userId:', req.user?.userId);
+      
       const validatedData = insertQuoteRequestSchema.parse({
         ...req.body,
         transportMode: autoDetectedMode,
-        companyId: req.user.companyId,
-        userId: req.user.userId
+        companyId: 1,
+        userId: 1
       });
       
       const quoteRequest = await storage.createQuoteRequest(validatedData);

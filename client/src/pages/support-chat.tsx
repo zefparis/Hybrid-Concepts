@@ -115,7 +115,6 @@ export default function SupportChat() {
           Get professional assistance about Hybrid Concept's logistics platform
         </p>
       </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Quick Access */}
         <div className="lg:col-span-1 space-y-4">
@@ -185,11 +184,7 @@ export default function SupportChat() {
                       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[80%] rounded-lg p-3 ${
-                          message.role === 'user'
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                        }`}
+                        className="max-w-[80%] rounded-lg p-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-[14px]"
                       >
                         <div className="flex items-start gap-2">
                           {message.role === 'assistant' && (
