@@ -488,8 +488,8 @@ export const insertQuoteRequestSchema = createInsertSchema(quoteRequests).omit({
   weight: z.union([z.string(), z.number()]).transform(val => typeof val === 'string' ? val : val.toString()),
   volume: z.union([z.string(), z.number()]).transform(val => typeof val === 'string' ? val : val.toString()),
   requestedDate: z.union([z.string(), z.date()]).transform(val => typeof val === 'string' ? new Date(val) : val),
-  companyId: z.number().optional(),
-  userId: z.number().optional()
+  companyId: z.number().default(1),
+  userId: z.number().default(1)
 });
 export const insertQuoteSchema = createInsertSchema(quotes).omit({ id: true, createdAt: true });
 export const insertShipmentSchema = createInsertSchema(shipments).omit({ id: true, createdAt: true, reference: true });
