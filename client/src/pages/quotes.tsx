@@ -565,7 +565,7 @@ export default function Quotes() {
                         <Ship className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="destination-port"
-                          placeholder="Tapez pour rechercher..."
+                          placeholder={t("quotes.searchPlaceholder", "Type to search...")}
                           className="pl-10"
                           value={newQuote.destination}
                           onChange={(e) => handleDestinationChange(e.target.value)}
@@ -602,7 +602,7 @@ export default function Quotes() {
                         <Plane className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="origin-airport"
-                          placeholder="Tapez pour rechercher..."
+                          placeholder={t("quotes.searchPlaceholder", "Type to search...")}
                           className="pl-10"
                           value={newQuote.origin}
                           onChange={(e) => handleOriginChange(e.target.value)}
@@ -634,7 +634,7 @@ export default function Quotes() {
                         <Plane className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="destination-airport"
-                          placeholder="Tapez pour rechercher..."
+                          placeholder={t("quotes.searchPlaceholder", "Type to search...")}
                           className="pl-10"
                           value={newQuote.destination}
                           onChange={(e) => handleDestinationChange(e.target.value)}
@@ -767,10 +767,10 @@ export default function Quotes() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tous les modes</SelectItem>
-              <SelectItem value="terre">Routier</SelectItem>
-              <SelectItem value="mer">Maritime</SelectItem>
-              <SelectItem value="air">Aérien</SelectItem>
+              <SelectItem value="all">{t("quotes.filters.allModes", "All modes")}</SelectItem>
+              <SelectItem value="terre">{t("quotes.filters.road", "Road")}</SelectItem>
+              <SelectItem value="mer">{t("quotes.filters.maritime", "Maritime")}</SelectItem>
+              <SelectItem value="air">{t("quotes.filters.air", "Air")}</SelectItem>
             </SelectContent>
           </Select>
           <Select value={filterStatus} onValueChange={setFilterStatus}>
@@ -778,10 +778,10 @@ export default function Quotes() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tous les statuts</SelectItem>
-              <SelectItem value="pending">En attente</SelectItem>
-              <SelectItem value="quoted">Cotées</SelectItem>
-              <SelectItem value="rejected">Refusées</SelectItem>
+              <SelectItem value="all">{t("quotes.filters.allStatuses", "All statuses")}</SelectItem>
+              <SelectItem value="pending">{t("quotes.status.pending", "Pending")}</SelectItem>
+              <SelectItem value="quoted">{t("quotes.status.quoted", "Quoted")}</SelectItem>
+              <SelectItem value="rejected">{t("quotes.status.rejected", "Rejected")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -804,14 +804,14 @@ export default function Quotes() {
             <CardContent className="p-8 text-center">
               <Package className="h-12 w-12 mx-auto text-gray-400 mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                Aucune cotation trouvée
+                {t("quotes.noQuotesFound", "No quotes found")}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Créez votre première demande de cotation pour commencer
+                {t("quotes.createFirstQuote", "Create your first quote request to get started")}
               </p>
               <Button onClick={() => setIsNewQuoteOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Nouvelle cotation
+                {t("quotes.newQuote", "New Quote")}
               </Button>
             </CardContent>
           </Card>
@@ -867,7 +867,7 @@ export default function Quotes() {
                   <div className="border-t pt-4">
                     <h4 className="font-medium mb-3 flex items-center gap-2">
                       <Building2 className="h-4 w-4" />
-                      Offres reçues ({quote.quotes.length})
+{t("quotes.receivedOffers", "Received offers")} ({quote.quotes.length})
                     </h4>
                     <div className="space-y-3">
                       {quote.quotes.map((offer: any) => (
@@ -875,9 +875,9 @@ export default function Quotes() {
                           <div className="flex-1">
                             <p className="font-medium text-gray-900 dark:text-white">{offer.carrier?.name}</p>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              <span>Délai: {offer.estimatedDays} jours</span>
+                              <span>{t("quotes.deliveryTime", "Delivery time")}: {offer.estimatedDays} {t("quotes.days", "days")}</span>
                               <span className="hidden sm:inline">•</span>
-                              <span>Valide jusqu'au {new Date(offer.validUntil).toLocaleDateString('fr-FR')}</span>
+                              <span>{t("quotes.validUntil", "Valid until")} {new Date(offer.validUntil).toLocaleDateString('fr-FR')}</span>
                             </div>
                             {offer.conditions && (
                               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{offer.conditions}</p>
