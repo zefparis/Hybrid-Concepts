@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,16 +9,17 @@ import { TransformationComparison } from "@/components/transformation-comparison
 import exampleImage from "@assets/image_1749320218426.png";
 
 export default function TransformationDemo() {
+  const { t } = useTranslation();
 
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Transformation Logistique : Obsolète vs Innovation IA
+          {t("transformationDemo.title")}
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Découvrez comment Hybrid Concept révolutionne les processus logistiques traditionnels avec l'intelligence artificielle
+          {t("transformationDemo.subtitle")}
         </p>
       </div>
 

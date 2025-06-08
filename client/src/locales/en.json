@@ -767,8 +767,8 @@
   },
 
   "aviationMaritime": {
-    "title": "Aviation & Maritime",
-    "subtitle": "Real-time multimodal tracking",
+    "title": "Aviation & Maritime Tracking",
+    "subtitle": "Real-time monitoring of flights and vessels with AviationStack and MarineTraffic integrations",
     "flightTracking": "Flight Tracking",
     "marineTracking": "Marine Tracking",
     "realTimeData": "Real-time Data",
@@ -779,7 +779,36 @@
     "departure": "Departure",
     "arrival": "Arrival",
     "status": "Status",
-    "location": "Location"
+    "location": "Location",
+    "aviation": "Aviation",
+    "maritime": "Maritime",
+    "apisOperational": "APIs Operational",
+    "flightNumberPlaceholder": "AF447, LH441, BA123",
+    "searchInProgress": "Flight search in progress...",
+    "vesselTracking": "Vessel Tracking",
+    "mmsiNumber": "MMSI Number",
+    "mmsiPlaceholder": "123456789",
+    "vesselSearchInProgress": "Vessel search in progress...",
+    "airportInfo": "Airport Information",
+    "iataCode": "IATA Code",
+    "iataPlaceholder": "CDG, JFK, LAX",
+    "portInfo": "Port Information",
+    "portCode": "Port Code",
+    "portPlaceholder": "FRMRS, NLRTM",
+    "integrationStatus": "API Integration Status",
+    "aviationStack": "AviationStack",
+    "marineTraffic": "MarineTraffic",
+    "aerialTracking": "Aerial tracking",
+    "maritimeTracking": "Maritime tracking",
+    "flightTrackedSuccess": "Flight tracked successfully",
+    "vesselTrackedSuccess": "Vessel tracked successfully",
+    "trackingError": "Tracking error",
+    "flightNotFound": "Unable to track this flight",
+    "vesselNotFound": "Unable to track this vessel",
+    "flightNumberRequired": "Flight number required",
+    "enterValidFlight": "Please enter a valid flight number",
+    "mmsiRequired": "MMSI number required",
+    "enterValidMmsi": "Please enter a valid MMSI number"
   },
 
   "quotes": {
@@ -952,8 +981,8 @@
   },
 
   "transformationDemo": {
-    "title": "Digital Transformation Demo",
-    "subtitle": "Digital transformation of your logistics",
+    "title": "Logistics Transformation: Obsolete vs AI Innovation",
+    "subtitle": "Discover how Hybrid Concept revolutionizes traditional logistics processes with artificial intelligence",
     "digitalMaturity": "Digital Maturity",
     "transformationPath": "Transformation Path",
     "implementationPlan": "Implementation Plan",
@@ -961,7 +990,18 @@
     "trainingProgram": "Training Program",
     "successMetrics": "Success Metrics",
     "roadmap": "Roadmap",
-    "timeline": "Timeline"
+    "timeline": "Timeline",
+    "visualComparison": "Visual Comparison: Obsolete vs Innovation",
+    "traditionalProcess": "Traditional Process",
+    "aiProcess": "AI Process",
+    "manualSearch": "Manual carrier search",
+    "multipleCalls": "Multiple phone calls",
+    "paperwork": "Manual paperwork",
+    "delays": "Delays and errors",
+    "aiAutomation": "Complete AI automation",
+    "instantQuotes": "Instant quotes",
+    "smartOptimization": "Smart optimization",
+    "realTimeTracking": "Real-time tracking"
   },
 
   "aiMaturity": {

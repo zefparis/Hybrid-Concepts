@@ -767,9 +767,9 @@
   },
 
   "aviationMaritime": {
-    "title": "Aviation & Maritime",
-    "subtitle": "Suivi multimodal temps réel",
-    "flightTracking": "Suivi Aérien",
+    "title": "Suivi Aviation & Maritime",
+    "subtitle": "Surveillance en temps réel des vols et navires avec intégrations AviationStack et MarineTraffic",
+    "flightTracking": "Suivi de Vol",
     "marineTracking": "Suivi Maritime",
     "realTimeData": "Données Temps Réel",
     "trackFlight": "Suivre Vol",
@@ -779,7 +779,36 @@
     "departure": "Départ",
     "arrival": "Arrivée",
     "status": "Statut",
-    "location": "Position"
+    "location": "Position",
+    "aviation": "Aviation",
+    "maritime": "Maritime",
+    "apisOperational": "APIs Opérationnelles",
+    "flightNumberPlaceholder": "AF447, LH441, BA123",
+    "searchInProgress": "Recherche du vol en cours...",
+    "vesselTracking": "Suivi de Navire",
+    "mmsiNumber": "Numéro MMSI",
+    "mmsiPlaceholder": "123456789",
+    "vesselSearchInProgress": "Recherche du navire en cours...",
+    "airportInfo": "Informations Aéroport",
+    "iataCode": "Code IATA",
+    "iataPlaceholder": "CDG, JFK, LAX",
+    "portInfo": "Informations Port",
+    "portCode": "Code Port",
+    "portPlaceholder": "FRMRS, NLRTM",
+    "integrationStatus": "Statut des Intégrations API",
+    "aviationStack": "AviationStack",
+    "marineTraffic": "MarineTraffic",
+    "aerialTracking": "Tracking aérien",
+    "maritimeTracking": "Tracking maritime",
+    "flightTrackedSuccess": "Vol suivi avec succès",
+    "vesselTrackedSuccess": "Navire suivi avec succès",
+    "trackingError": "Erreur de tracking",
+    "flightNotFound": "Impossible de suivre ce vol",
+    "vesselNotFound": "Impossible de suivre ce navire",
+    "flightNumberRequired": "Numéro de vol requis",
+    "enterValidFlight": "Veuillez saisir un numéro de vol valide",
+    "mmsiRequired": "Numéro MMSI requis",
+    "enterValidMmsi": "Veuillez saisir un numéro MMSI valide"
   },
 
   "quotes": {
@@ -952,8 +981,8 @@
   },
 
   "transformationDemo": {
-    "title": "Démo Transformation Digitale",
-    "subtitle": "Transformation numérique de votre logistique",
+    "title": "Transformation Logistique : Obsolète vs Innovation IA",
+    "subtitle": "Découvrez comment Hybrid Concept révolutionne les processus logistiques traditionnels avec l'intelligence artificielle",
     "digitalMaturity": "Maturité Numérique",
     "transformationPath": "Chemin Transformation",
     "implementationPlan": "Plan Implémentation",
@@ -961,7 +990,18 @@
     "trainingProgram": "Programme Formation",
     "successMetrics": "Métriques Succès",
     "roadmap": "Feuille de Route",
-    "timeline": "Chronologie"
+    "timeline": "Chronologie",
+    "visualComparison": "Comparaison Visuelle : Obsolète vs Innovation",
+    "traditionalProcess": "Processus Traditionnel",
+    "aiProcess": "Processus IA",
+    "manualSearch": "Recherche manuelle transporteurs",
+    "multipleCalls": "Multiples appels téléphoniques",
+    "paperwork": "Paperasserie manuelle",
+    "delays": "Retards et erreurs",
+    "aiAutomation": "Automatisation IA complète",
+    "instantQuotes": "Cotations instantanées",
+    "smartOptimization": "Optimisation intelligente",
+    "realTimeTracking": "Suivi temps réel"
   },
 
   "aiMaturity": {

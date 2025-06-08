@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AviationMaritime() {
+  const { t } = useTranslation();
   const [flightNumber, setFlightNumber] = useState("");
   const [mmsi, setMmsi] = useState("");
   const [selectedAirport, setSelectedAirport] = useState("");
@@ -39,14 +41,14 @@ export default function AviationMaritime() {
     },
     onSuccess: (data: any) => {
       toast({
-        title: "Vol suivi avec succès",
-        description: `Données du vol ${data?.flightNumber || 'N/A'} récupérées`,
+        title: t("aviationMaritime.flightTrackedSuccess"),
+        description: `${t("aviationMaritime.flightNumber")}: ${data?.flightNumber || 'N/A'}`,
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur de tracking",
-        description: "Impossible de suivre ce vol",
+        title: t("aviationMaritime.trackingError"),
+        description: t("aviationMaritime.flightNotFound"),
         variant: "destructive",
       });
     }
@@ -128,9 +130,9 @@ export default function AviationMaritime() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Suivi Aviation & Maritime</h1>
+          <h1 className="text-3xl font-bold">{t("aviationMaritime.title")}</h1>
           <p className="text-muted-foreground mt-2">
-            Surveillance en temps réel des vols et navires avec intégrations AviationStack et MarineTraffic
+            {t("aviationMaritime.subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-2">
