@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { NotificationCenter } from "@/components/notifications/notification-center";
+import { LanguageSelector } from "@/components/language-selector";
 import { useTranslation } from "react-i18next";
 
 // Core navigation items - always visible on desktop
@@ -207,22 +208,7 @@ export default function TopNavbar() {
             </Button>
 
             {/* Language Switcher */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-gray-600">
-                  <Globe className="w-4 h-4 mr-1" />
-                  <span className="hidden sm:inline">{language.toUpperCase()}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => changeLanguage('en')}>
-                  🇺🇸 English
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => changeLanguage('fr')}>
-                  🇫🇷 Français
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <LanguageSelector />
 
             {/* Notifications */}
             <NotificationCenter />
