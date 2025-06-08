@@ -186,12 +186,12 @@ export default function Tracking() {
         {/* Status Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="all">Tous</TabsTrigger>
-            <TabsTrigger value="confirmed">Confirmés</TabsTrigger>
-            <TabsTrigger value="picked_up">Collectés</TabsTrigger>
-            <TabsTrigger value="in_transit">En transit</TabsTrigger>
-            <TabsTrigger value="delivered">Livrés</TabsTrigger>
-            <TabsTrigger value="delayed">Retardés</TabsTrigger>
+            <TabsTrigger value="all">{t("tracking.all")}</TabsTrigger>
+            <TabsTrigger value="confirmed">{t("tracking.confirmed")}</TabsTrigger>
+            <TabsTrigger value="picked_up">{t("tracking.pickedUp")}</TabsTrigger>
+            <TabsTrigger value="in_transit">{t("tracking.inTransit")}</TabsTrigger>
+            <TabsTrigger value="delivered">{t("tracking.delivered")}</TabsTrigger>
+            <TabsTrigger value="delayed">{t("tracking.delayed")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value={activeTab} className="space-y-4">
@@ -210,10 +210,10 @@ export default function Tracking() {
                 <CardContent className="p-8 text-center">
                   <Package className="h-12 w-12 mx-auto text-gray-400 mb-4" />
                   <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                    Aucune expédition trouvée
+                    {t("tracking.noShipmentsFound")}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
-                    {searchTerm ? "Aucune expédition ne correspond à votre recherche" : "Aucune expédition en cours"}
+                    {searchTerm ? t("tracking.noShipmentsMatch") : t("tracking.noCurrentShipments")}
                   </p>
                 </CardContent>
               </Card>
@@ -251,7 +251,7 @@ export default function Tracking() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-1">
                             <MapPin className="h-3 w-3" />
-                            Origine
+                            {t("origin")}
                           </div>
                           <p className="font-medium text-gray-900 dark:text-white">
                             {shipment.quote?.quoteRequest?.origin}
@@ -261,7 +261,7 @@ export default function Tracking() {
                         <div className="flex-1 text-right">
                           <div className="flex items-center justify-end gap-2 text-sm text-gray-600 dark:text-gray-400 mb-1">
                             <MapPin className="h-3 w-3" />
-                            Destination
+                            {t("destination")}
                           </div>
                           <p className="font-medium text-gray-900 dark:text-white">
                             {shipment.quote?.quoteRequest?.destination}
@@ -279,14 +279,14 @@ export default function Tracking() {
                           <Clock className="h-4 w-4" />
                           <span>
                             {shipment.estimatedDelivery ? 
-                              `Livraison prévue: ${new Date(shipment.estimatedDelivery).toLocaleDateString('fr-FR')}` :
-                              "Délai en cours de calcul"
+                              `${t("tracking.estimatedDelivery")}: ${new Date(shipment.estimatedDelivery).toLocaleDateString()}` :
+                              t("tracking.calculatingDelivery")
                             }
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <Calendar className="h-4 w-4" />
-                          <span>Créé le {new Date(shipment.createdAt).toLocaleDateString('fr-FR')}</span>
+                          <span>{t("tracking.createdOn")} {new Date(shipment.createdAt).toLocaleDateString()}</span>
                         </div>
                       </div>
 
@@ -297,7 +297,7 @@ export default function Tracking() {
                             {shipment.quote?.carrier?.name}
                           </p>
                           <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Transporteur
+                            {t("carrier")}
                           </p>
                         </div>
                         <div className="text-right">
@@ -305,7 +305,7 @@ export default function Tracking() {
                             {parseFloat(shipment.quote?.price || 0).toLocaleString('fr-FR')} €
                           </p>
                           <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {shipment.quote?.estimatedDays} jours
+                            {shipment.quote?.estimatedDays} {t("tracking.daysDelivery")}
                           </p>
                         </div>
                       </div>

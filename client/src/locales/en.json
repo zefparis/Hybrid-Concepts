@@ -359,7 +359,11 @@
     "estimatedArrival": "Estimated Arrival",
     "nextCheckpoint": "Next Checkpoint",
     "trackingHistory": "Tracking History",
-    "close": "Close"
+    "close": "Close",
+    "calculatingDelivery": "Calculating delivery time",
+    "createdOn": "Created on",
+    "daysDelivery": "days",
+    "trackingHistoryTitle": "Tracking History"
   },
 
   "settings": {

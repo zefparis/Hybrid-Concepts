@@ -359,7 +359,11 @@
     "estimatedArrival": "Arrivée estimée",
     "nextCheckpoint": "Prochain point de contrôle",
     "trackingHistory": "Historique du suivi",
-    "close": "Fermer"
+    "close": "Fermer",
+    "calculatingDelivery": "Délai en cours de calcul",
+    "createdOn": "Créé le",
+    "daysDelivery": "jours",
+    "trackingHistoryTitle": "Historique de suivi"
   },
 
   "settings": {
