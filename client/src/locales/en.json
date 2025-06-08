@@ -669,7 +669,16 @@
     "minute": "minute | minutes",
     "hour": "hour | hours",
     "day": "day | days",
-    "ago": "ago"
+    "ago": "ago",
+    "newAiFeatures": "New AI Features",
+    "multimodalRoutes": "Multimodal Routes",
+    "multimodalDesc": "Maritime, terrestrial, aerial",
+    "advancedTracking": "Advanced Tracking",
+    "realTimeApis": "Real-time APIs",
+    "aiAnalysis": "AI Analysis",
+    "maturityEvaluation": "Maturity evaluation",
+    "iotFleet": "IoT Fleet",
+    "realTimeMonitoring": "Real-time monitoring"
   },
 
   "fleetManagement": {

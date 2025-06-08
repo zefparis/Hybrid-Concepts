@@ -16,8 +16,8 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">{t("dashboardPageTitle", "Dashboard")}</h1>
-        <p className="text-gray-600 mt-2">{t("dashboardPageSubtitle", "Overview of your logistics activity")}</p>
+        <h1 className="text-3xl font-bold text-gray-900">{t("dashboard.title")}</h1>
+        <p className="text-gray-600 mt-2">{t("dashboard.overview")}</p>
       </div>
       
       <MetricsCards />
