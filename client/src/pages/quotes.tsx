@@ -231,12 +231,12 @@ export default function Quotes() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
-      toast({ title: "Cotation annulée avec succès" });
+      toast({ title: t("quotes.quoteCancelled", "Quote cancelled successfully") });
     },
     onError: () => {
       toast({ 
-        title: "Erreur",
-        description: "Impossible d'annuler la cotation",
+        title: t("quotes.error"),
+        description: t("quotes.unableToCancel", "Unable to cancel quote"),
         variant: "destructive"
       });
     },
@@ -252,14 +252,14 @@ export default function Quotes() {
       queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
       queryClient.invalidateQueries({ queryKey: ["/api/shipments"] });
       toast({ 
-        title: "Cotation acceptée avec succès",
-        description: data.shipment ? `Expédition créée: ${data.shipment.trackingNumber}` : undefined
+        title: t("quotes.quoteAccepted", "Quote accepted successfully"),
+        description: data.shipment ? t("quotes.shipmentCreated", "Shipment created: {{trackingNumber}}", { trackingNumber: data.shipment.trackingNumber }) : undefined
       });
     },
     onError: () => {
       toast({ 
-        title: "Erreur",
-        description: "Impossible d'accepter la cotation",
+        title: t("quotes.error"),
+        description: t("quotes.unableToAccept", "Unable to accept quote"),
         variant: "destructive"
       });
     },
@@ -273,7 +273,7 @@ export default function Quotes() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
-      toast({ title: "Cotation refusée" });
+      toast({ title: t("quotes.quoteRejected", "Quote rejected") });
     },
     onError: () => {
       toast({ 
