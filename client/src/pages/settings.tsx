@@ -575,27 +575,27 @@ export default function Settings() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5" />
-                  Sécurité et accès
+                  {t("settings.securityAccess")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium">Authentification à deux facteurs</div>
-                      <div className="text-sm text-gray-600">Sécurité renforcée pour votre compte</div>
+                      <div className="font-medium">{t("settings.twoFactorAuth")}</div>
+                      <div className="text-sm text-gray-600">{t("settings.twoFactorAuthDesc")}</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Switch defaultChecked={currentSettings.preferences.twoFactorAuth} />
                       {currentSettings.preferences.twoFactorAuth ? (
                         <Badge variant="secondary" className="text-green-600">
                           <CheckCircle className="h-3 w-3 mr-1" />
-                          Activé
+                          {t("settings.enabled")}
                         </Badge>
                       ) : (
                         <Badge variant="secondary" className="text-orange-600">
                           <AlertTriangle className="h-3 w-3 mr-1" />
-                          Désactivé
+                          {t("settings.disabled")}
                         </Badge>
                       )}
                     </div>
@@ -605,15 +605,15 @@ export default function Settings() {
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Gestion des mots de passe</h3>
+                  <h3 className="font-semibold">{t("settings.passwordManagement")}</h3>
                   <div className="space-y-3">
                     <Button variant="outline" className="w-full justify-start">
                       <Key className="h-4 w-4 mr-2" />
-                      Changer le mot de passe
+                      {t("settings.changePassword")}
                     </Button>
                     <Button variant="outline" className="w-full justify-start">
                       <RefreshCw className="h-4 w-4 mr-2" />
-                      Régénérer les clés API
+                      {t("settings.regenerateApiKeys")}
                     </Button>
                   </div>
                 </div>
@@ -621,17 +621,17 @@ export default function Settings() {
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Sessions actives</h3>
+                  <h3 className="font-semibold">{t("settings.activeSessions")}</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 border rounded-lg">
                       <div className="flex items-center gap-3">
                         <Monitor className="h-5 w-5 text-blue-500" />
                         <div>
                           <div className="font-medium">Chrome - Cap Town</div>
-                          <div className="text-sm text-gray-600">Session actuelle • il y a 5 min</div>
+                          <div className="text-sm text-gray-600">{t("settings.currentSession")} • {t("settings.fiveMinutesAgo")}</div>
                         </div>
                       </div>
-                      <Badge variant="secondary">Actuelle</Badge>
+                      <Badge variant="secondary">{t("settings.current")}</Badge>
                     </div>
                     
                     <div className="flex items-center justify-between p-3 border rounded-lg">
@@ -639,11 +639,11 @@ export default function Settings() {
                         <Smartphone className="h-5 w-5 text-green-500" />
                         <div>
                           <div className="font-medium">Mobile App - Cap Town</div>
-                          <div className="text-sm text-gray-600">il y a 2 heures</div>
+                          <div className="text-sm text-gray-600">{t("settings.twoHoursAgo")}</div>
                         </div>
                       </div>
                       <Button variant="outline" size="sm">
-                        Déconnecter
+                        {t("settings.disconnect")}
                       </Button>
                     </div>
                   </div>
@@ -659,7 +659,7 @@ export default function Settings() {
                     ) : (
                       <Save className="h-4 w-4 mr-2" />
                     )}
-                    Sauvegarder la sécurité
+                    {t("settings.saveSecurity")}
                   </Button>
                 </div>
               </CardContent>
@@ -672,59 +672,59 @@ export default function Settings() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Key className="h-5 w-5" />
-                  API et intégrations
+                  {t("settings.apiIntegrations")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium">API REST activée</div>
-                      <div className="text-sm text-gray-600">Accès programmatique à la plateforme</div>
+                      <div className="font-medium">{t("settings.restApiEnabled")}</div>
+                      <div className="text-sm text-gray-600">{t("settings.restApiDesc")}</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Switch defaultChecked={currentSettings.integrations.apiEnabled} />
                       <Badge variant={currentSettings.integrations.apiEnabled ? "default" : "secondary"}>
-                        {currentSettings.integrations.apiEnabled ? "Activé" : "Désactivé"}
+                        {currentSettings.integrations.apiEnabled ? t("settings.enabled") : t("settings.disabled")}
                       </Badge>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium">Webhooks</div>
-                      <div className="text-sm text-gray-600">Notifications en temps réel vers vos systèmes</div>
+                      <div className="font-medium">{t("settings.webhooks")}</div>
+                      <div className="text-sm text-gray-600">{t("settings.webhooksDesc")}</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Switch defaultChecked={currentSettings.integrations.webhooksEnabled} />
                       <Badge variant={currentSettings.integrations.webhooksEnabled ? "default" : "secondary"}>
-                        {currentSettings.integrations.webhooksEnabled ? "Activé" : "Désactivé"}
+                        {currentSettings.integrations.webhooksEnabled ? t("settings.enabled") : t("settings.disabled")}
                       </Badge>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium">API de tracking</div>
-                      <div className="text-sm text-gray-600">Intégration du suivi d'expéditions</div>
+                      <div className="font-medium">{t("settings.trackingApi")}</div>
+                      <div className="text-sm text-gray-600">{t("settings.trackingApiDesc")}</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Switch defaultChecked={currentSettings.integrations.trackingApi} />
                       <Badge variant={currentSettings.integrations.trackingApi ? "default" : "secondary"}>
-                        {currentSettings.integrations.trackingApi ? "Activé" : "Désactivé"}
+                        {currentSettings.integrations.trackingApi ? t("settings.enabled") : t("settings.disabled")}
                       </Badge>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium">API de paiements</div>
-                      <div className="text-sm text-gray-600">Intégration des systèmes de paiement</div>
+                      <div className="font-medium">{t("settings.paymentsApi")}</div>
+                      <div className="text-sm text-gray-600">{t("settings.paymentsApiDesc")}</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Switch defaultChecked={currentSettings.integrations.paymentsApi} />
                       <Badge variant={currentSettings.integrations.paymentsApi ? "default" : "secondary"}>
-                        {currentSettings.integrations.paymentsApi ? "Activé" : "Désactivé"}
+                        {currentSettings.integrations.paymentsApi ? t("settings.enabled") : t("settings.disabled")}
                       </Badge>
                     </div>
                   </div>
@@ -733,19 +733,19 @@ export default function Settings() {
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Clés d'API</h3>
+                  <h3 className="font-semibold">{t("settings.apiKeys")}</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
-                        <div className="font-medium">Clé de production</div>
+                        <div className="font-medium">{t("settings.productionKey")}</div>
                         <div className="text-sm text-gray-600 font-mono">hc_prod_••••••••••••••••</div>
                       </div>
                       <div className="flex gap-2">
                         <Button variant="outline" size="sm">
-                          Copier
+                          {t("settings.copy")}
                         </Button>
                         <Button variant="outline" size="sm">
-                          Régénérer
+                          {t("settings.regenerate")}
                         </Button>
                       </div>
                     </div>
