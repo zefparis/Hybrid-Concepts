@@ -368,6 +368,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Quote management routes
+  app.patch("/api/quotes/:id", authenticateToken, async (req: any, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      if (!['accepted', 'rejected'].includes(status)) {
+        return res.status(400).json({ message: 'Invalid status. Must be "accepted" or "rejected"' });
+      }
+      
+      const quote = await storage.getQuote(id);
+      if (!quote) {
+        return res.status(404).json({ message: 'Quote not found' });
+      }
+      
+      const updatedQuote = await storage.updateQuote(id, { status });
+      
+      if (!updatedQuote) {
+        return res.status(500).json({ message: 'Failed to update quote' });
+      }
+      
+      // If quote is accepted, create a shipment
+      if (status === 'accepted') {
+        const shipment = await storage.createShipment({
+          quoteId: id,
+          status: 'confirmed',
+          trackingNumber: `TRK-${Date.now()}`,
+          estimatedDelivery: new Date(Date.now() + updatedQuote.estimatedDays * 24 * 60 * 60 * 1000)
+        });
+        
+        // Update quote request status
+        await storage.updateQuoteRequest(quote.quoteRequestId, { status: 'accepted' });
+        
+        res.json({ 
+          message: 'Quote accepted successfully', 
+          quote: updatedQuote,
+          shipment 
+        });
+      } else {
+        res.json({ 
+          message: 'Quote rejected', 
+          quote: updatedQuote 
+        });
+      }
+      
+    } catch (error) {
+      console.error('Update quote error:', error);
+      res.status(500).json({ message: 'Failed to update quote' });
+    }
+  });
+
   // Shipments routes
   app.get("/api/shipments", authenticateToken, async (req: any, res) => {
     try {

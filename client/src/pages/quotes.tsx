@@ -242,6 +242,48 @@ export default function Quotes() {
     },
   });
 
+  // Mutation pour accepter une cotation
+  const acceptQuoteMutation = useMutation({
+    mutationFn: async (quoteId: number) => {
+      const response = await apiRequest("PATCH", `/api/quotes/${quoteId}`, { status: "accepted" });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/shipments"] });
+      toast({ 
+        title: "Cotation acceptée avec succès",
+        description: data.shipment ? `Expédition créée: ${data.shipment.trackingNumber}` : undefined
+      });
+    },
+    onError: () => {
+      toast({ 
+        title: "Erreur",
+        description: "Impossible d'accepter la cotation",
+        variant: "destructive"
+      });
+    },
+  });
+
+  // Mutation pour refuser une cotation
+  const rejectQuoteMutation = useMutation({
+    mutationFn: async (quoteId: number) => {
+      const response = await apiRequest("PATCH", `/api/quotes/${quoteId}`, { status: "rejected" });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
+      toast({ title: "Cotation refusée" });
+    },
+    onError: () => {
+      toast({ 
+        title: "Erreur",
+        description: "Impossible de refuser la cotation",
+        variant: "destructive"
+      });
+    },
+  });
+
   // Mutation pour modifier une cotation
   const updateQuoteMutation = useMutation({
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
@@ -853,11 +895,21 @@ export default function Quotes() {
                             </div>
                             {offer.status === "pending" && (
                               <div className="flex gap-2">
-                                <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700">
-                                  Refuser
+                                <Button 
+                                  size="sm" 
+                                  variant="outline" 
+                                  className="text-red-600 hover:text-red-700"
+                                  onClick={() => rejectQuoteMutation.mutate(offer.id)}
+                                  disabled={rejectQuoteMutation.isPending}
+                                >
+                                  {rejectQuoteMutation.isPending ? "..." : "Refuser"}
                                 </Button>
-                                <Button size="sm">
-                                  Accepter
+                                <Button 
+                                  size="sm"
+                                  onClick={() => acceptQuoteMutation.mutate(offer.id)}
+                                  disabled={acceptQuoteMutation.isPending}
+                                >
+                                  {acceptQuoteMutation.isPending ? "..." : "Accepter"}
                                 </Button>
                               </div>
                             )}
