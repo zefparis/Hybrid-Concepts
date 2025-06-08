@@ -57,7 +57,7 @@ export default function Tracking() {
     return matchesSearch && matchesTab;
   });
 
-  const getStatusIcon = (status: string) => {
+  const getTrackingStatusIcon = (status: string) => {
     switch (status) {
       case "confirmed":
       case "picked_up":
@@ -155,6 +155,8 @@ export default function Tracking() {
     setIsRealTimeOpen(true);
   };
 
+
+
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       <Header title="Tracking" />
@@ -236,7 +238,7 @@ export default function Tracking() {
                         </div>
                         <Badge className={getStatusColor(shipment.status)}>
                           <div className="flex items-center gap-1">
-                            {getStatusIcon(shipment.status)}
+                            {getTrackingStatusIcon(shipment.status)}
                             {getStatusLabel(shipment.status)}
                           </div>
                         </Badge>
@@ -538,7 +540,7 @@ export default function Tracking() {
                   </div>
                   <Badge className={getStatusColor(selectedShipment.status)}>
                     <div className="flex items-center gap-1">
-                      {getStatusIcon(selectedShipment.status)}
+                      {getTrackingStatusIcon(selectedShipment.status)}
                       {getStatusLabel(selectedShipment.status)}
                     </div>
                   </Badge>

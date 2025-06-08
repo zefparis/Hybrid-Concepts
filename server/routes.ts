@@ -1856,7 +1856,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const shipments = await storage.getShipments(req.user.companyId);
       const shipment = shipments.find(s => s.id === shipmentId);
       
-      if (!shipment || shipment.companyId !== req.user.companyId) {
+      if (!shipment) {
         return res.status(404).json({ message: 'Shipment not found' });
       }
 
