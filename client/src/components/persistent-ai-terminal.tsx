@@ -41,7 +41,7 @@ export default function PersistentAITerminal({ isProcessing, requestData, onComp
     if (isProcessing && !isCompleted) {
       // Start automation sequence with real implemented features
       const automationSteps = [
-        { text: '> Initializing Hybrid Concept AI Logistics Engine...', type: 'system' as const, delay: 500 },
+        { text: '> Initializing Hybrid Concepts AI Logistics Engine...', type: 'system' as const, delay: 500 },
         { text: 'Loading Anthropic Claude Sonnet for intelligent analysis...', type: 'ai' as const, delay: 1000 },
         { text: 'const aiAgent = new LogisticsAIAgent();', type: 'code' as const, delay: 1500 },
         { text: 'Connecting to Google Places API for geocoding...', type: 'processing' as const, delay: 2000 },

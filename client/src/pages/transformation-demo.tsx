@@ -73,7 +73,7 @@ export default function TransformationDemo() {
                 </div>
               </div>
               
-              {/* Hybrid Concept AI Side */}
+              {/* Hybrid Concepts AI Side */}
               <div className="space-y-4">
                 <h3 className="text-xl font-bold text-green-700 mb-4">{t("transformationDemo.hybridConceptAI")} ({t("transformationDemo.aiTimeline")})</h3>
                 <div className="space-y-2">
@@ -188,7 +188,7 @@ export default function TransformationDemo() {
 
         <Card className="border-green-300">
           <CardHeader>
-            <CardTitle className="text-green-700">Solutions Hybrid Concept IA</CardTitle>
+            <CardTitle className="text-green-700">Solutions Hybrid Concepts IA</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -233,7 +233,7 @@ export default function TransformationDemo() {
             Arrêtez de Subir les Processus Obsolètes
           </h2>
           <p className="text-xl mb-6 opacity-90">
-            Rejoignez la révolution logistique avec Hybrid Concept
+            Rejoignez la révolution logistique avec Hybrid Concepts
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" className="text-blue-600">

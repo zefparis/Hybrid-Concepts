@@ -127,7 +127,7 @@ export default function Settings() {
 
   const defaultSettings: CompanySettings = {
     id: 1,
-    name: "Hybrid Concept",
+    name: "Hybrid Concepts",
     email: "bbogaerts@hybridconc.com",
     phone: "+27727768777",
     address: "Cape Town, South Africa",
@@ -220,7 +220,7 @@ export default function Settings() {
                     <Input
                       id="company-name"
                       defaultValue={currentSettings.name}
-                      placeholder="Hybrid Concept"
+                      placeholder="Hybrid Concepts"
                     />
                   </div>
                   <div className="space-y-2">

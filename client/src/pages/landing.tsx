@@ -114,7 +114,7 @@ export default function Landing() {
             {/* Main Title */}
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Hybrid Concept
+                Hybrid Concepts
               </span>
               <br />
               <span className="text-4xl md:text-5xl text-gray-100">
