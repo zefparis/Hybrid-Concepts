@@ -154,19 +154,19 @@ export default function Landing() {
             <div className="flex flex-wrap justify-center gap-3">
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Anchor className="w-4 h-4 mr-1" />
-                Maritime
+                {t('landing.maritime')}
               </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Truck className="w-4 h-4 mr-1" />
-                Road & Rail
+                {t('landing.roadRail')}
               </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Plane className="w-4 h-4 mr-1" />
-                Aviation
+                {t('landing.aviation')}
               </Badge>
               <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1">
                 <Zap className="w-4 h-4 mr-1" />
-                Autonomous AI
+                {t('landing.autonomousAI')}
               </Badge>
             </div>
           </div>
@@ -199,11 +199,10 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Hybrid Concept?
+              {t('landing.whyHybridConcept')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              An all-in-one platform that revolutionizes logistics management 
-              with cutting-edge AI technologies
+              {t('landing.whyDescription')}
             </p>
           </div>
 
@@ -231,10 +230,10 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Client Testimonials
+              {t('landing.clientTestimonials')}
             </h2>
             <p className="text-xl text-gray-600">
-              Trusted by industry leaders worldwide
+              {t('landing.trustedByLeaders')}
             </p>
           </div>
 
@@ -265,11 +264,10 @@ export default function Landing() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Revolutionize Your Logistics?
+            {t('landing.ctaTitle')}
           </h2>
           <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-            Join industry leaders who are already transforming 
-            their supply chains with Hybrid Concept
+            {t('landing.ctaDescription')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -279,7 +277,7 @@ export default function Landing() {
               onClick={handleGetStarted}
             >
               <BarChart3 className="w-5 h-5 mr-2" />
-              Get Started Now
+              {t('landing.getStartedNow')}
             </Button>
             
             <Button 
@@ -289,7 +287,7 @@ export default function Landing() {
               onClick={() => setLocation("/subscription-plans")}
             >
               <Clock className="w-5 h-5 mr-2" />
-              View Pricing
+              {t('landing.viewPricing')}
             </Button>
           </div>
 

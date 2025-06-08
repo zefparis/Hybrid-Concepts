@@ -566,7 +566,19 @@
     "testimonial1Quote": "Hybrid Concept transformed our supply chain. Their AI predicts and optimizes better than our experts.",
     "testimonial1Role": "Logistics Director, LogiCorp International",
     "testimonial2Quote": "300% ROI in 6 months. This technology is revolutionizing the maritime transport industry.",
-    "testimonial2Role": "CEO, Atlantic Shipping Group"
+    "testimonial2Role": "CEO, Atlantic Shipping Group",
+    "maritime": "Maritime",
+    "roadRail": "Road & Rail",
+    "aviation": "Aviation",
+    "autonomousAI": "Autonomous AI",
+    "whyHybridConcept": "Why Hybrid Concept?",
+    "whyDescription": "An all-in-one platform that revolutionizes logistics management with cutting-edge AI technologies",
+    "clientTestimonials": "Client Testimonials",
+    "trustedByLeaders": "Trusted by industry leaders worldwide",
+    "ctaTitle": "Ready to Revolutionize Your Logistics?",
+    "ctaDescription": "Join industry leaders who are already transforming their supply chains with Hybrid Concept",
+    "getStartedNow": "Get Started Now",
+    "viewPricing": "View Pricing"
   },
 
   "profile": {
