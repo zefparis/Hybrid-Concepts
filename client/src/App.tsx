@@ -32,6 +32,7 @@ import AviationMaritime from "@/pages/aviation-maritime";
 import TransformationDemo from "@/pages/transformation-demo";
 import SubscriptionPlans from "@/pages/subscription-plans";
 import SupportChat from "@/pages/support-chat";
+import Settings from "@/pages/settings";
 import Landing from "@/pages/landing";
 import "./lib/i18n";
 
@@ -89,6 +90,7 @@ function App() {
                       <Route path="/plans" component={SubscriptionPlans} />
                       <Route path="/support" component={SupportChat} />
                       <Route path="/chat" component={SupportChat} />
+                      <Route path="/settings" component={Settings} />
                       <Route component={NotFound} />
                     </Switch>
                   </div>

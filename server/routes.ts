@@ -1849,6 +1849,75 @@ export async function registerRoutes(app: Express): Promise<Server> {
     return notes.join(' | ');
   }
 
+  // Settings routes
+  app.get("/api/settings", authenticateToken, async (req: any, res) => {
+    try {
+      // Return company settings for the authenticated user
+      const settings = {
+        id: req.user.companyId,
+        name: "Hybrid Concept",
+        email: "bbogaerts@hybridconc.com",
+        phone: "+27727768777",
+        address: "Cape Town, South Africa",
+        website: "www.hybridconc.com",
+        industry: "Logistics & Transportation",
+        timezone: "Africa/Johannesburg",
+        currency: "ZAR",
+        language: "en",
+        notifications: {
+          emailNotifications: true,
+          smsNotifications: true,
+          pushNotifications: true,
+          quotesAlerts: true,
+          shipmentsAlerts: true,
+          deliveryAlerts: true,
+          paymentAlerts: true,
+        },
+        preferences: {
+          defaultTransportMode: "auto",
+          autoQuoteGeneration: true,
+          trackingVisibility: "public",
+          dataRetention: 24,
+          twoFactorAuth: false,
+        },
+        integrations: {
+          apiEnabled: true,
+          webhooksEnabled: true,
+          trackingApi: true,
+          paymentsApi: false,
+        },
+      };
+      
+      res.json(settings);
+    } catch (error) {
+      console.error('Settings fetch error:', error);
+      res.status(500).json({ message: 'Failed to fetch settings' });
+    }
+  });
+
+  app.put("/api/settings", authenticateToken, async (req: any, res) => {
+    try {
+      // Update company settings
+      const updatedSettings = req.body;
+      
+      // Log the update activity
+      await storage.createActivity({
+        companyId: req.user.companyId,
+        userId: req.user.userId,
+        action: 'update',
+        entityType: 'settings',
+        entityId: req.user.companyId,
+        description: 'Paramètres de l\'entreprise mis à jour'
+      });
+
+      // Return the updated settings
+      res.json({ message: 'Settings updated successfully', settings: updatedSettings });
+    } catch (error) {
+      console.error('Settings update error:', error);
+      res.status(500).json({ message: 'Failed to update settings' });
+    }
+  });
+
   // Download shipment document route
   app.get("/api/shipments/:id/document", authenticateToken, async (req: any, res) => {
     try {
