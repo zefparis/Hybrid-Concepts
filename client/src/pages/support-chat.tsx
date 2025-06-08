@@ -60,8 +60,8 @@ export default function SupportChat() {
     },
     onError: (error) => {
       toast({
-        title: "Connection Error",
-        description: "Unable to send message. Please try again.",
+        title: t('supportChat.connectionError'),
+        description: t('supportChat.connectionErrorDesc'),
         variant: "destructive",
       });
     }
@@ -91,12 +91,12 @@ export default function SupportChat() {
   };
 
   const suggestedQuestions = [
-    "What AI automation features does Hybrid Concept offer?",
-    "How does multimodal transport optimization work?",
-    "What are the pricing plans and features?",
-    "How does real-time tracking work?",
-    "What integrations are available?",
-    "How do I get started with the platform?"
+    t('supportChat.question1'),
+    t('supportChat.question2'),
+    t('supportChat.question3'),
+    t('supportChat.question4'),
+    t('supportChat.question5'),
+    t('supportChat.question6')
   ];
 
   const handleSuggestionClick = (question: string) => {
