@@ -315,7 +315,7 @@ export default function Tracking() {
                         <div className="border-t pt-4">
                           <h4 className="font-medium mb-3 flex items-center gap-2">
                             <Navigation className="h-4 w-4" />
-                            Historique de suivi
+                            {t("tracking.trackingHistoryTitle")}
                           </h4>
                           <div className="space-y-2">
                             {shipment.trackingData.events?.map((event: any, index: number) => (
@@ -344,7 +344,7 @@ export default function Tracking() {
                           onClick={() => viewDetails(shipment)}
                         >
                           <Eye className="h-4 w-4 mr-2" />
-                          Voir détails
+{t("tracking.viewDetails")}
                         </Button>
                         <Button 
                           variant="outline" 
@@ -353,7 +353,7 @@ export default function Tracking() {
                           onClick={() => downloadDocument(shipment)}
                         >
                           <Download className="h-4 w-4 mr-2" />
-                          Télécharger bordereau
+{t("tracking.downloadDocument")}
                         </Button>
                         {shipment.status === "in_transit" && (
                           <Button 
@@ -363,7 +363,7 @@ export default function Tracking() {
                             onClick={() => openRealTimeTracking(shipment)}
                           >
                             <ExternalLink className="h-4 w-4 mr-2" />
-                            Suivre en temps réel
+{t("tracking.realTimeTracking")}
                           </Button>
                         )}
                       </div>
@@ -381,7 +381,7 @@ export default function Tracking() {
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <Package className="h-5 w-5" />
-                Détails de l'expédition {selectedShipment?.reference}
+{t("tracking.shipmentDetails")} {selectedShipment?.reference}
               </DialogTitle>
             </DialogHeader>
             {selectedShipment && (
@@ -389,24 +389,24 @@ export default function Tracking() {
                 {/* Shipment Overview */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h3 className="font-semibold text-lg">Informations générales</h3>
+                    <h3 className="font-semibold text-lg">{t("tracking.generalInfo")}</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Référence:</span>
+                        <span className="text-gray-600">{t("tracking.reference")}:</span>
                         <span className="font-medium">{selectedShipment.reference}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Numéro de suivi:</span>
+                        <span className="text-gray-600">{t("tracking.trackingNumber")}:</span>
                         <span className="font-medium">{selectedShipment.trackingNumber}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Statut:</span>
+                        <span className="text-gray-600">{t("status")}:</span>
                         <Badge className={getStatusColor(selectedShipment.status)}>
                           {getStatusLabel(selectedShipment.status)}
                         </Badge>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Mode de transport:</span>
+                        <span className="text-gray-600">{t("tracking.transportMode")}:</span>
                         <div className="flex items-center gap-2">
                           {getTransportIcon(selectedShipment.quote?.quoteRequest?.transportMode)}
                           <span className="capitalize">{selectedShipment.quote?.quoteRequest?.transportMode}</span>

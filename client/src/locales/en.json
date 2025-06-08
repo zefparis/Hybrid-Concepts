@@ -363,7 +363,23 @@
     "calculatingDelivery": "Calculating delivery time",
     "createdOn": "Created on",
     "daysDelivery": "days",
-    "trackingHistoryTitle": "Tracking History"
+    "trackingHistoryTitle": "Tracking History",
+    "generalInfo": "General Information",
+    "reference": "Reference",
+    "transportMode": "Transport Mode",
+    "carrierInfo": "Carrier",
+    "name": "Name",
+    "rating": "Rating",
+    "route": "Route",
+    "cargoDetails": "Cargo Details",
+    "goodsType": "Goods Type",
+    "timeline": "Timeline",
+    "estimatedPickup": "Estimated Pickup",
+    "estimatedDelivery": "Estimated Delivery",
+    "realTimeLocation": "Real-time Location",
+    "speed": "Speed",
+    "direction": "Direction",
+    "lastPosition": "Last known position"
   },
 
   "settings": {

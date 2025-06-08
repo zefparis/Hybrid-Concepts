@@ -363,7 +363,23 @@
     "calculatingDelivery": "Délai en cours de calcul",
     "createdOn": "Créé le",
     "daysDelivery": "jours",
-    "trackingHistoryTitle": "Historique de suivi"
+    "trackingHistoryTitle": "Historique de suivi",
+    "generalInfo": "Informations générales",
+    "reference": "Référence",
+    "transportMode": "Mode de transport",
+    "carrierInfo": "Transporteur",
+    "name": "Nom",
+    "rating": "Note",
+    "route": "Itinéraire",
+    "cargoDetails": "Détails du fret",
+    "goodsType": "Type de marchandises",
+    "timeline": "Délais",
+    "estimatedPickup": "Collecte estimée",
+    "estimatedDelivery": "Livraison estimée",
+    "realTimeLocation": "Position temps réel",
+    "speed": "Vitesse",
+    "direction": "Direction",
+    "lastPosition": "Dernière position connue"
   },
 
   "settings": {
