@@ -459,14 +459,14 @@ export default function AviationMaritime() {
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <div>
                 <p className="font-medium">AviationStack</p>
-                <p className="text-sm text-gray-600">Tracking aérien</p>
+                <p className="text-sm text-gray-600">{t("aviationMaritime.aerialTracking")}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <div>
-                <p className="font-medium">MarineTraffic</p>
-                <p className="text-sm text-gray-600">Tracking maritime</p>
+                <p className="font-medium">{t("aviationMaritime.marineTraffic")}</p>
+                <p className="text-sm text-gray-600">{t("aviationMaritime.maritimeTracking")}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
