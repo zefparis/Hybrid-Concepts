@@ -7,11 +7,13 @@ import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 
 const app = express();
 
-// Apply security middleware first
-applySecurity(app);
-
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+
+// Apply security middleware after basic Express setup
+if (process.env.NODE_ENV === 'production') {
+  applySecurity(app);
+}
 
 app.use((req, res, next) => {
   const start = Date.now();
