@@ -115,7 +115,7 @@ export default function Settings() {
   if (settingsLoading) {
     return (
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header title="Paramètres" />
+        <Header title={t("settings.title")} />
         <main className="flex-1 overflow-y-auto p-6">
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
@@ -164,19 +164,19 @@ export default function Settings() {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <Header title="Paramètres" />
+      <Header title={t("settings.title")} />
       
       <main className="flex-1 overflow-y-auto p-6 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Paramètres de l'entreprise</h1>
+            <h1 className="text-2xl font-bold">{t("settings.companySettings")}</h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Gérez vos préférences et configurations de la plateforme
+              {t("settings.companySettingsDescription")}
             </p>
           </div>
           <Badge variant="secondary" className="flex items-center gap-2">
             <CheckCircle className="h-4 w-4 text-green-500" />
-            Compte vérifié
+            {t("settings.accountVerified")}
           </Badge>
         </div>
 
@@ -184,23 +184,23 @@ export default function Settings() {
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="profile" className="flex items-center gap-2">
               <Building className="h-4 w-4" />
-              Profil
+              {t("settings.profile")}
             </TabsTrigger>
             <TabsTrigger value="notifications" className="flex items-center gap-2">
               <Bell className="h-4 w-4" />
-              Notifications
+              {t("settings.notifications")}
             </TabsTrigger>
             <TabsTrigger value="preferences" className="flex items-center gap-2">
               <SettingsIcon className="h-4 w-4" />
-              Préférences
+              {t("settings.preferences")}
             </TabsTrigger>
             <TabsTrigger value="security" className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
-              Sécurité
+              {t("settings.security")}
             </TabsTrigger>
             <TabsTrigger value="integrations" className="flex items-center gap-2">
               <Key className="h-4 w-4" />
-              Intégrations
+              {t("settings.integrations")}
             </TabsTrigger>
           </TabsList>
 
@@ -210,13 +210,13 @@ export default function Settings() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Building className="h-5 w-5" />
-                  Informations de l'entreprise
+                  {t("settings.companyInformation")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="company-name">Nom de l'entreprise</Label>
+                    <Label htmlFor="company-name">{t("settings.companyName")}</Label>
                     <Input
                       id="company-name"
                       defaultValue={currentSettings.name}
@@ -224,18 +224,18 @@ export default function Settings() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="industry">Secteur d'activité</Label>
+                    <Label htmlFor="industry">{t("settings.industry")}</Label>
                     <Select defaultValue={currentSettings.industry}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Logistics & Transportation">Logistique & Transport</SelectItem>
-                        <SelectItem value="Manufacturing">Fabrication</SelectItem>
-                        <SelectItem value="Retail">Commerce de détail</SelectItem>
-                        <SelectItem value="Technology">Technologie</SelectItem>
-                        <SelectItem value="Healthcare">Santé</SelectItem>
-                        <SelectItem value="Other">Autre</SelectItem>
+                        <SelectItem value="Logistics & Transportation">{t("settings.logisticsTransport")}</SelectItem>
+                        <SelectItem value="Manufacturing">{t("settings.manufacturing")}</SelectItem>
+                        <SelectItem value="Retail">{t("settings.retail")}</SelectItem>
+                        <SelectItem value="Technology">{t("settings.technology")}</SelectItem>
+                        <SelectItem value="Healthcare">{t("settings.healthcare")}</SelectItem>
+                        <SelectItem value="Other">{t("settings.other")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -245,7 +245,7 @@ export default function Settings() {
                   <div className="space-y-2">
                     <Label htmlFor="email" className="flex items-center gap-2">
                       <Mail className="h-4 w-4" />
-                      Email professionnel
+                      {t("settings.professionalEmail")}
                     </Label>
                     <Input
                       id="email"
@@ -257,7 +257,7 @@ export default function Settings() {
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="flex items-center gap-2">
                       <Phone className="h-4 w-4" />
-                      Téléphone
+                      {t("settings.phone")}
                     </Label>
                     <Input
                       id="phone"
@@ -271,7 +271,7 @@ export default function Settings() {
                   <div className="space-y-2">
                     <Label htmlFor="address" className="flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
-                      Adresse
+                      {t("settings.address")}
                     </Label>
                     <Textarea
                       id="address"
@@ -283,7 +283,7 @@ export default function Settings() {
                   <div className="space-y-2">
                     <Label htmlFor="website" className="flex items-center gap-2">
                       <Globe className="h-4 w-4" />
-                      Site web
+                      {t("settings.website")}
                     </Label>
                     <Input
                       id="website"
@@ -295,36 +295,36 @@ export default function Settings() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="timezone">Fuseau horaire</Label>
+                    <Label htmlFor="timezone">{t("settings.timezone")}</Label>
                     <Select defaultValue={currentSettings.timezone}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Africa/Johannesburg">Afrique du Sud (SAST)</SelectItem>
-                        <SelectItem value="Europe/Paris">Europe/Paris (CET)</SelectItem>
+                        <SelectItem value="Africa/Johannesburg">{t("settings.southAfricaSAST")}</SelectItem>
+                        <SelectItem value="Europe/Paris">{t("settings.europeParisCET")}</SelectItem>
                         <SelectItem value="UTC">UTC</SelectItem>
-                        <SelectItem value="America/New_York">New York (EST)</SelectItem>
-                        <SelectItem value="Asia/Shanghai">Shanghai (CST)</SelectItem>
+                        <SelectItem value="America/New_York">{t("settings.newYorkEST")}</SelectItem>
+                        <SelectItem value="Asia/Shanghai">{t("settings.shanghaiCST")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="currency">Devise</Label>
+                    <Label htmlFor="currency">{t("settings.currency")}</Label>
                     <Select defaultValue={currentSettings.currency}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="ZAR">ZAR (Rand sud-africain)</SelectItem>
-                        <SelectItem value="EUR">EUR (Euro)</SelectItem>
-                        <SelectItem value="USD">USD (Dollar américain)</SelectItem>
-                        <SelectItem value="GBP">GBP (Livre sterling)</SelectItem>
+                        <SelectItem value="ZAR">{t("settings.zarSouthAfrican")}</SelectItem>
+                        <SelectItem value="EUR">{t("settings.eurEuro")}</SelectItem>
+                        <SelectItem value="USD">{t("settings.usdDollar")}</SelectItem>
+                        <SelectItem value="GBP">{t("settings.gbpPound")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="language">Langue</Label>
+                    <Label htmlFor="language">{t("settings.language")}</Label>
                     <Select defaultValue={currentSettings.language}>
                       <SelectTrigger>
                         <SelectValue />
