@@ -35,6 +35,7 @@ import {
   Users,
   Package
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface CompanySettings {
   id: number;
@@ -72,6 +73,7 @@ interface CompanySettings {
 }
 
 export default function Settings() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState("profile");
@@ -91,14 +93,14 @@ export default function Settings() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
       toast({
-        title: "Paramètres mis à jour",
-        description: "Vos paramètres ont été sauvegardés avec succès",
+        title: t("settings.settingsUpdated"),
+        description: t("settings.settingsUpdatedDesc"),
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur",
-        description: "Impossible de sauvegarder les paramètres",
+        title: t("common.error"),
+        description: t("settings.updateError"),
         variant: "destructive",
       });
     },

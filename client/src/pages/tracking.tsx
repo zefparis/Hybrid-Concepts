@@ -416,22 +416,22 @@ export default function Tracking() {
                   </div>
                   
                   <div className="space-y-4">
-                    <h3 className="font-semibold text-lg">Transporteur</h3>
+                    <h3 className="font-semibold text-lg">{t("tracking.carrierInfo")}</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Nom:</span>
+                        <span className="text-gray-600">{t("tracking.name")}:</span>
                         <span className="font-medium">{selectedShipment.quote?.carrier?.name}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Email:</span>
+                        <span className="text-gray-600">{t("email")}:</span>
                         <span className="font-medium">{selectedShipment.quote?.carrier?.email}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Téléphone:</span>
+                        <span className="text-gray-600">{t("phone")}:</span>
                         <span className="font-medium">{selectedShipment.quote?.carrier?.phone}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Note:</span>
+                        <span className="text-gray-600">{t("tracking.rating")}:</span>
                         <span className="font-medium">{selectedShipment.quote?.carrier?.rating}/5</span>
                       </div>
                     </div>
