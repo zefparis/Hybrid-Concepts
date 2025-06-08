@@ -1918,6 +1918,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Profile routes
+  app.get("/api/profile", authenticateToken, async (req: any, res) => {
+    try {
+      const userProfile = {
+        id: req.user.userId,
+        firstName: "Benoît",
+        lastName: "Bogaerts",
+        email: "bbogaerts@hybridconc.com",
+        phone: "+27727768777",
+        position: "Chairman & CEO",
+        department: "Executive",
+        location: "Cape Town, South Africa",
+        timezone: "Africa/Johannesburg",
+        language: "en",
+        avatar: "/avatars/ceo-avatar.jpg",
+        joinDate: "2023-01-15",
+        lastLogin: new Date().toISOString(),
+        permissions: ["admin", "quotes", "shipments", "analytics", "settings"],
+        achievements: ["First Login", "100 Quotes", "1000 Shipments", "Expert User"],
+        stats: {
+          quotesManaged: 1247,
+          shipmentsTracked: 3892,
+          documentsProcessed: 756,
+          loginStreak: 45,
+        },
+      };
+      
+      res.json(userProfile);
+    } catch (error) {
+      console.error('Profile fetch error:', error);
+      res.status(500).json({ message: 'Failed to fetch profile' });
+    }
+  });
+
+  app.put("/api/profile", authenticateToken, async (req: any, res) => {
+    try {
+      const updatedProfile = req.body;
+      
+      // Log the profile update activity
+      await storage.createActivity({
+        companyId: req.user.companyId,
+        userId: req.user.userId,
+        action: 'update',
+        entityType: 'profile',
+        entityId: req.user.userId,
+        description: 'Profil utilisateur mis à jour'
+      });
+
+      res.json({ message: 'Profile updated successfully', profile: updatedProfile });
+    } catch (error) {
+      console.error('Profile update error:', error);
+      res.status(500).json({ message: 'Failed to update profile' });
+    }
+  });
+
   // Download shipment document route
   app.get("/api/shipments/:id/document", authenticateToken, async (req: any, res) => {
     try {
