@@ -237,12 +237,12 @@ export default function AviationMaritime() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-green-500" />
-                  Informations Aéroport
+                  {t("aviationMaritime.airportInfo")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="airportCode">Code IATA</Label>
+                  <Label htmlFor="airportCode">{t("aviationMaritime.iataCode")}</Label>
                   <div className="flex gap-2 mt-1">
                     <Input
                       id="airportCode"
@@ -258,24 +258,24 @@ export default function AviationMaritime() {
 
                 {airportInfo && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{(airportInfo as any)?.name || 'Aéroport inconnu'}</h3>
+                    <h3 className="font-semibold text-lg">{(airportInfo as any)?.name || t("aviationMaritime.airportName")}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">Ville</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.city")}</p>
                         <p className="font-medium">{(airportInfo as any)?.city || 'N/A'}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Pays</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.country")}</p>
                         <p className="font-medium">{(airportInfo as any)?.country || 'N/A'}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">Code IATA</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.iataCode")}</p>
                         <p className="font-medium">{(airportInfo as any)?.iata || 'N/A'}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Code ICAO</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.icaoCode")}</p>
                         <p className="font-medium">{(airportInfo as any)?.icao || 'N/A'}</p>
                       </div>
                     </div>
@@ -294,7 +294,7 @@ export default function AviationMaritime() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Ship className="w-5 h-5 text-blue-500" />
-                  Suivi de Navire
+                  {t("aviationMaritime.vesselTracking")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
