@@ -558,6 +558,26 @@
     "viewPricing": "Voir les Tarifs"
   },
 
+  "routeManagement": {
+    "optimizationError": "Erreur lors de l'optimisation",
+    "optimizationComplete": "Optimisation terminée",
+    "optimizationSuccess": "Route optimisée avec succès",
+    "optimizationFailed": "Échec de l'optimisation",
+    "analysisError": "Erreur lors de l'analyse",
+    "analysisComplete": "Analyse terminée",
+    "analysisSuccess": "Analyse complétée avec succès",
+    "analysisFailed": "Échec de l'analyse",
+    "predictiveError": "Erreur analyse prédictive",
+    "predictiveComplete": "Analyse prédictive terminée",
+    "predictiveSuccess": "Prédictions IA générées avec succès",
+    "globalOptimizationError": "Erreur optimisation globale",
+    "globalOptimizationComplete": "Optimisation globale terminée",
+    "globalOptimizationSuccess": "Stratégie globale optimisée par l'IA",
+    "riskManagementError": "Erreur gestion des risques",
+    "riskManagementComplete": "Gestion des risques terminée",
+    "riskManagementSuccess": "Analyse des risques complétée par l'IA"
+  },
+
   "profile": {
     "title": "Profil Utilisateur",
     "personalInfo": "Informations personnelles",

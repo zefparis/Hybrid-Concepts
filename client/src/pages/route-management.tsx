@@ -27,7 +27,6 @@ export default function RouteManagement() {
   const [globalOptimization, setGlobalOptimization] = useState<any>(null);
   const [riskManagement, setRiskManagement] = useState<any>(null);
 
-  // Mutation pour l'optimisation IA des routes
   const optimizeRouteMutation = useMutation({
     mutationFn: async (routeData: any) => {
       const response = await fetch('/api/ai/optimize-route', {
@@ -37,7 +36,7 @@ export default function RouteManagement() {
         },
         body: JSON.stringify(routeData)
       });
-      if (!response.ok) throw new Error('Erreur lors de l\'optimisation');
+      if (!response.ok) throw new Error(t('routeManagement.optimizationError'));
       return response.json();
     },
     onSuccess: (data) => {
@@ -56,7 +55,6 @@ export default function RouteManagement() {
     }
   });
 
-  // Mutation pour l'analyse IA des routes
   const analyzeRouteMutation = useMutation({
     mutationFn: async (routeData: any) => {
       const response = await fetch('/api/ai/analyze-route', {
@@ -66,7 +64,7 @@ export default function RouteManagement() {
         },
         body: JSON.stringify(routeData)
       });
-      if (!response.ok) throw new Error('Erreur lors de l\'analyse');
+      if (!response.ok) throw new Error(t('routeManagement.analysisError'));
       return response.json();
     },
     onSuccess: (data) => {
@@ -85,7 +83,6 @@ export default function RouteManagement() {
     }
   });
 
-  // Mutations pour les outils d'optimisation intelligente
   const predictiveAnalysisMutation = useMutation({
     mutationFn: async () => {
       const response = await fetch('/api/ai/predictive-analysis', {
@@ -93,14 +90,14 @@ export default function RouteManagement() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transportMode: activeTab })
       });
-      if (!response.ok) throw new Error('Erreur analyse prédictive');
+      if (!response.ok) throw new Error(t('routeManagement.predictiveError'));
       return response.json();
     },
     onSuccess: (data) => {
       setPredictiveResults(data);
       toast({
-        title: "Analyse prédictive terminée",
-        description: "Prédictions IA générées avec succès",
+        title: t("routeManagement.predictiveComplete"),
+        description: t("routeManagement.predictiveSuccess"),
       });
     }
   });
@@ -112,14 +109,14 @@ export default function RouteManagement() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transportMode: activeTab })
       });
-      if (!response.ok) throw new Error('Erreur optimisation globale');
+      if (!response.ok) throw new Error(t('routeManagement.globalOptimizationError'));
       return response.json();
     },
     onSuccess: (data) => {
       setGlobalOptimization(data);
       toast({
-        title: "Optimisation globale terminée",
-        description: "Stratégie globale optimisée par l'IA",
+        title: t("routeManagement.globalOptimizationComplete"),
+        description: t("routeManagement.globalOptimizationSuccess"),
       });
     }
   });
@@ -131,14 +128,14 @@ export default function RouteManagement() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transportMode: activeTab })
       });
-      if (!response.ok) throw new Error('Erreur gestion des risques');
+      if (!response.ok) throw new Error(t('routeManagement.riskManagementError'));
       return response.json();
     },
     onSuccess: (data) => {
       setRiskManagement(data);
       toast({
-        title: "Gestion des risques terminée",
-        description: "Analyse des risques complétée par l'IA",
+        title: t("routeManagement.riskManagementComplete"),
+        description: t("routeManagement.riskManagementSuccess"),
       });
     }
   });
