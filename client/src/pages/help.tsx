@@ -467,7 +467,7 @@ export default function Help() {
                   
                   <div className="flex items-center justify-between">
                     <span>Temps de réponse moyen</span>
-                    <span className="text-sm font-medium">&lt; 15 min</span>
+                    <span className="text-sm font-medium">{"< 15 min"}</span>
                   </div>
                 </CardContent>
               </Card>
