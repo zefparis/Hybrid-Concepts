@@ -299,7 +299,7 @@ export default function AviationMaritime() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="mmsi">MMSI (Maritime Mobile Service Identity)</Label>
+                  <Label htmlFor="mmsi">{t("aviationMaritime.mmsi")}</Label>
                   <div className="flex gap-2 mt-1">
                     <Input
                       id="mmsi"
@@ -319,7 +319,7 @@ export default function AviationMaritime() {
                 {vesselTrackingMutation.isPending && (
                   <div className="flex items-center gap-2 text-blue-600">
                     <Activity className="w-4 h-4 animate-spin" />
-                    <span>Recherche du navire en cours...</span>
+                    <span>{t("aviationMaritime.vesselSearchProgress")}</span>
                   </div>
                 )}
 
@@ -336,25 +336,25 @@ export default function AviationMaritime() {
                         <p className="font-medium">{vesselData.mmsi}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Pavillon</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.flag")}</p>
                         <p className="font-medium">{vesselData.flag}</p>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">Position</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.position")}</p>
                         <p className="font-medium">{vesselData.position.lat.toFixed(4)}, {vesselData.position.lng.toFixed(4)}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Vitesse</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.speed")}</p>
                         <p className="font-medium">{vesselData.position.speed} nœuds</p>
                       </div>
                     </div>
 
                     {vesselData.destination && (
                       <div>
-                        <p className="text-sm text-gray-600">Destination</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.destination")}</p>
                         <p className="font-medium">{vesselData.destination}</p>
                       </div>
                     )}
@@ -362,7 +362,7 @@ export default function AviationMaritime() {
                     <div className="flex items-center gap-4 text-sm">
                       <div className="flex items-center gap-1">
                         <Navigation className="w-4 h-4" />
-                        <span>Cap: {vesselData.position.course}°</span>
+                        <span>{t("aviationMaritime.course")}: {vesselData.position.course}°</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
@@ -379,12 +379,12 @@ export default function AviationMaritime() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Anchor className="w-5 h-5 text-green-500" />
-                  Informations Port
+                  {t("aviationMaritime.portInfo")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="portId">ID Port</Label>
+                  <Label htmlFor="portId">{t("aviationMaritime.portId")}</Label>
                   <div className="flex gap-2 mt-1">
                     <Input
                       id="portId"
@@ -400,21 +400,21 @@ export default function AviationMaritime() {
 
                 {portInfo && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{(portInfo as any)?.name || 'Port inconnu'}</h3>
+                    <h3 className="font-semibold text-lg">{(portInfo as any)?.name || t("aviationMaritime.portName")}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">Pays</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.country")}</p>
                         <p className="font-medium">{(portInfo as any)?.country || 'N/A'}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Coordonnées</p>
+                        <p className="text-sm text-gray-600">{t("aviationMaritime.coordinates")}</p>
                         <p className="font-medium">{(portInfo as any)?.coordinates?.lat?.toFixed(4) || '0'}, {(portInfo as any)?.coordinates?.lng?.toFixed(4) || '0'}</p>
                       </div>
                     </div>
                     
                     {(portInfo as any)?.facilities && (portInfo as any)?.facilities?.length > 0 && (
                       <div>
-                        <p className="text-sm text-gray-600 mb-2">Installations</p>
+                        <p className="text-sm text-gray-600 mb-2">{t("aviationMaritime.facilities")}</p>
                         <div className="flex flex-wrap gap-1">
                           {(portInfo as any)?.facilities?.map((facility: any, index: number) => (
                             <Badge key={index} variant="outline" className="text-xs">
@@ -450,7 +450,7 @@ export default function AviationMaritime() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Globe className="w-5 h-5 text-purple-500" />
-            Statut des Intégrations API
+            {t("aviationMaritime.apiIntegrationsStatus")}
           </CardTitle>
         </CardHeader>
         <CardContent>

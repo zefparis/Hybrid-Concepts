@@ -1113,6 +1113,7 @@
     "trackFlight": "Suivre Vol",
     "flightTrackedSuccess": "Vol suivi avec succès",
     "trackingError": "Erreur de suivi",
+    "vesselSearchProgress": "Recherche du navire en cours...",
     "vesselTracking": "Suivi de Navire",
     "mmsi": "MMSI (Maritime Mobile Service Identity)",
     "mmsiRequired": "MMSI requis",
