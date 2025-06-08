@@ -889,8 +889,8 @@ export default function Quotes() {
                                 {parseFloat(offer.price).toLocaleString('fr-FR')} €
                               </div>
                               <div className="text-xs text-gray-500">
-                                {offer.status === "pending" ? "En attente" : 
-                                 offer.status === "accepted" ? "Acceptée" : offer.status}
+                                {offer.status === "pending" ? t("quotes.status.pending", "Pending") : 
+                                 offer.status === "accepted" ? t("quotes.status.accepted", "Accepted") : offer.status}
                               </div>
                             </div>
                             {offer.status === "pending" && (
@@ -902,14 +902,14 @@ export default function Quotes() {
                                   onClick={() => rejectQuoteMutation.mutate(offer.id)}
                                   disabled={rejectQuoteMutation.isPending}
                                 >
-                                  {rejectQuoteMutation.isPending ? "..." : "Refuser"}
+                                  {rejectQuoteMutation.isPending ? "..." : t("quotes.reject", "Reject")}
                                 </Button>
                                 <Button 
                                   size="sm"
                                   onClick={() => acceptQuoteMutation.mutate(offer.id)}
                                   disabled={acceptQuoteMutation.isPending}
                                 >
-                                  {acceptQuoteMutation.isPending ? "..." : "Accepter"}
+                                  {acceptQuoteMutation.isPending ? "..." : t("quotes.accept", "Accept")}
                                 </Button>
                               </div>
                             )}
@@ -927,7 +927,7 @@ export default function Quotes() {
                     className="w-full sm:w-auto"
                     onClick={() => handleViewDetails(quote)}
                   >
-                    Voir détails
+{t("quotes.viewDetails", "View Details")}
                   </Button>
                   <Button 
                     variant="outline" 
@@ -935,7 +935,7 @@ export default function Quotes() {
                     className="w-full sm:w-auto"
                     onClick={() => handleEditQuote(quote)}
                   >
-                    Modifier
+{t("quotes.modify", "Modify")}
                   </Button>
                   {quote.status === "pending" && !quote.quotes?.length && (
                     <Button 
@@ -945,7 +945,7 @@ export default function Quotes() {
                       onClick={() => generateQuotesMutation.mutate(quote.id)}
                       disabled={generateQuotesMutation.isPending}
                     >
-                      {generateQuotesMutation.isPending ? "Génération..." : "Générer cotations"}
+                      {generateQuotesMutation.isPending ? t("quotes.generating", "Generating...") : t("quotes.generateQuotes", "Generate Quotes")}
                     </Button>
                   )}
                   {quote.status === "pending" && (
@@ -956,7 +956,7 @@ export default function Quotes() {
                       onClick={() => handleDeleteQuote(quote.id)}
                       disabled={deleteQuoteMutation.isPending}
                     >
-                      {deleteQuoteMutation.isPending ? "Annulation..." : "Annuler"}
+                      {deleteQuoteMutation.isPending ? t("quotes.canceling", "Canceling...") : t("quotes.cancel", "Cancel")}
                     </Button>
                   )}
                 </div>
@@ -970,32 +970,32 @@ export default function Quotes() {
       <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Détails de la cotation</DialogTitle>
+            <DialogTitle>{t("quotes.quoteDetails", "Quote Details")}</DialogTitle>
             <DialogDescription>
-              Informations complètes sur votre demande de cotation
+              {t("quotes.completeInformation", "Complete information about your quote request")}
             </DialogDescription>
           </DialogHeader>
           {selectedQuote && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium">Référence</Label>
+                  <Label className="text-sm font-medium">{t("quotes.reference", "Reference")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.reference}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Statut</Label>
+                  <Label className="text-sm font-medium">{t("quotes.status.title", "Status")}</Label>
                   <p className="text-sm text-gray-600">
-                    {selectedQuote.status === "pending" ? "En attente" : selectedQuote.status}
+                    {getStatusLabel(selectedQuote.status)}
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium">Origine</Label>
+                  <Label className="text-sm font-medium">{t("quotes.origin", "Origin")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.origin}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Destination</Label>
+                  <Label className="text-sm font-medium">{t("quotes.destination", "Destination")}</Label>
                   <p className="text-sm text-gray-600">{selectedQuote.destination}</p>
                 </div>
               </div>
