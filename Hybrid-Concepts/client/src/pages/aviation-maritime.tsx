@@ -256,27 +256,27 @@ export default function AviationMaritime() {
                   </div>
                 </div>
 
-                {airportInfo && typeof airportInfo === 'object' && (
+                {airportInfo && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{(airportInfo as Record<string, any>)?.name || t("aviationMaritime.airportName")}</h3>
+                    <h3 className="font-semibold text-lg">{(airportInfo as any)?.name || t("aviationMaritime.airportName")}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.city")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.city || 'N/A'}</p>
+                        <p className="font-medium">{(airportInfo as any)?.city || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.country")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.country || 'N/A'}</p>
+                        <p className="font-medium">{(airportInfo as any)?.country || 'N/A'}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.iataCode")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.iata || 'N/A'}</p>
+                        <p className="font-medium">{(airportInfo as any)?.iata || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.icaoCode")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.icao || 'N/A'}</p>
+                        <p className="font-medium">{(airportInfo as any)?.icao || 'N/A'}</p>
                       </div>
                     </div>
                   </div>
@@ -398,25 +398,25 @@ export default function AviationMaritime() {
                   </div>
                 </div>
 
-                {portInfo && typeof portInfo === 'object' && (
+                {portInfo && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{(portInfo as Record<string, any>)?.name || t("aviationMaritime.portName")}</h3>
+                    <h3 className="font-semibold text-lg">{(portInfo as any)?.name || t("aviationMaritime.portName")}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.country")}</p>
-                        <p className="font-medium">{(portInfo as Record<string, any>)?.country || 'N/A'}</p>
+                        <p className="font-medium">{(portInfo as any)?.country || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.coordinates")}</p>
-                        <p className="font-medium">{(portInfo as Record<string, any>)?.coordinates?.lat?.toFixed(4) || '0'}, {(portInfo as Record<string, any>)?.coordinates?.lng?.toFixed(4) || '0'}</p>
+                        <p className="font-medium">{(portInfo as any)?.coordinates?.lat?.toFixed(4) || '0'}, {(portInfo as any)?.coordinates?.lng?.toFixed(4) || '0'}</p>
                       </div>
                     </div>
                     
-                    {(portInfo as Record<string, any>)?.facilities && Array.isArray((portInfo as Record<string, any>).facilities) && (portInfo as Record<string, any>).facilities.length > 0 && (
+                    {(portInfo as any)?.facilities && (portInfo as any)?.facilities?.length > 0 && (
                       <div>
                         <p className="text-sm text-gray-600 mb-2">{t("aviationMaritime.facilities")}</p>
                         <div className="flex flex-wrap gap-1">
-                          {(portInfo as Record<string, any>).facilities.map((facility: string, index: number) => (
+                          {(portInfo as any)?.facilities?.map((facility: any, index: number) => (
                             <Badge key={index} variant="outline" className="text-xs">
                               {facility}
                             </Badge>
@@ -425,15 +425,15 @@ export default function AviationMaritime() {
                       </div>
                     )}
 
-                    {(portInfo as Record<string, any>)?.maxVesselSize && (
+                    {(portInfo as any)?.maxVesselSize && (
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <p className="text-sm text-gray-600">{t("aviationMaritime.maxLength")}</p>
-                          <p className="font-medium">{(portInfo as Record<string, any>)?.maxVesselSize?.length || 'N/A'}m</p>
+                          <p className="text-sm text-gray-600">Longueur max</p>
+                          <p className="font-medium">{(portInfo as any)?.maxVesselSize?.length || 'N/A'}m</p>
                         </div>
                         <div>
-                          <p className="text-sm text-gray-600">{t("aviationMaritime.maxDraught")}</p>
-                          <p className="font-medium">{(portInfo as Record<string, any>)?.maxVesselSize?.draught || 'N/A'}m</p>
+                          <p className="text-sm text-gray-600">Tirant d'eau max</p>
+                          <p className="font-medium">{(portInfo as any)?.maxVesselSize?.draught || 'N/A'}m</p>
                         </div>
                       </div>
                     )}

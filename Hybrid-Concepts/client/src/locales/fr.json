@@ -575,9 +575,7 @@
     "globalOptimizationSuccess": "Stratégie globale optimisée par l'IA",
     "riskManagementError": "Erreur gestion des risques",
     "riskManagementComplete": "Gestion des risques terminée",
-    "riskManagementSuccess": "Analyse des risques complétée par l'IA",
-    "maxLength": "Longueur max",
-    "maxDraught": "Tirant d'eau max"
+    "riskManagementSuccess": "Analyse des risques complétée par l'IA"
   },
 
   "profile": {
