@@ -581,6 +581,26 @@
     "viewPricing": "View Pricing"
   },
 
+  "routeManagement": {
+    "optimizationError": "Optimization error",
+    "optimizationComplete": "Optimization Complete",
+    "optimizationSuccess": "Route optimized successfully",
+    "optimizationFailed": "Optimization failed",
+    "analysisError": "Analysis error",
+    "analysisComplete": "Analysis Complete",
+    "analysisSuccess": "Analysis completed successfully",
+    "analysisFailed": "Analysis failed",
+    "predictiveError": "Predictive analysis error",
+    "predictiveComplete": "Predictive Analysis Complete",
+    "predictiveSuccess": "AI predictions generated successfully",
+    "globalOptimizationError": "Global optimization error",
+    "globalOptimizationComplete": "Global Optimization Complete",
+    "globalOptimizationSuccess": "Global strategy optimized by AI",
+    "riskManagementError": "Risk management error",
+    "riskManagementComplete": "Risk Management Complete",
+    "riskManagementSuccess": "Risk analysis completed by AI"
+  },
+
   "profile": {
     "title": "User Profile",
     "personalInfo": "Personal Information",
