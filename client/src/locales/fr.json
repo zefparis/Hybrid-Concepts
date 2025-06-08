@@ -131,7 +131,7 @@
   "fillAllRequiredFields": "Veuillez remplir tous les champs requis",
   
   "competitiveDemoTitle": "Analyse Concurrentielle IA",
-  "competitiveDemoSubtitle": "Analysez les sociétés de fret traditionnelles et découvrez les opportunités d'optimisation avec Hybrid Concept IA",
+  "competitiveDemoSubtitle": "Analysez les sociétés de fret traditionnelles et découvrez les opportunités d'optimisation avec Hybrid Concepts IA",
   "analysisFailure": "Erreur d'Analyse",
   "analysisComplete": "Analyse IA Terminée",
   "reportGenerated": "Rapport d'optimisation généré avec succès",
@@ -501,8 +501,8 @@
 
   "supportChat": {
     "title": "Support & Information",
-    "subtitle": "Obtenez une assistance professionnelle sur la plateforme logistique Hybrid Concept",
-    "welcomeMessage": "Bonjour ! Je suis votre assistant Hybrid Concept. Je peux vous aider à comprendre notre plateforme logistique, explorer les fonctionnalités et répondre aux questions sur l'automatisation IA, les modes de transport, les prix, et plus encore. Comment puis-je vous assister aujourd'hui ?",
+    "subtitle": "Obtenez une assistance professionnelle sur la plateforme logistique Hybrid Concepts",
+    "welcomeMessage": "Bonjour ! Je suis votre assistant Hybrid Concepts. Je peux vous aider à comprendre notre plateforme logistique, explorer les fonctionnalités et répondre aux questions sur l'automatisation IA, les modes de transport, les prix, et plus encore. Comment puis-je vous assister aujourd'hui ?",
     "connectionError": "Erreur de Connexion",
     "connectionErrorDesc": "Impossible d'envoyer le message. Veuillez réessayer.",
     "quickHelp": "Aide Rapide",
@@ -510,11 +510,11 @@
     "featureGuide": "Guide Fonctionnalités",
     "setupHelp": "Aide Configuration",
     "suggestedQuestions": "Questions Suggérées",
-    "assistantTitle": "Assistant Hybrid Concept",
+    "assistantTitle": "Assistant Hybrid Concepts",
     "online": "En ligne",
     "thinking": "Réflexion...",
     "placeholder": "Posez des questions sur les fonctionnalités, les prix, la configuration, ou toute autre question...",
-    "question1": "Quelles fonctionnalités d'automatisation IA offre Hybrid Concept ?",
+    "question1": "Quelles fonctionnalités d'automatisation IA offre Hybrid Concepts ?",
     "question2": "Comment fonctionne l'optimisation du transport multimodal ?",
     "question3": "Quels sont les plans tarifaires et les fonctionnalités ?",
     "question4": "Comment fonctionne le suivi en temps réel ?",
