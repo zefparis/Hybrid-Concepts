@@ -431,7 +431,18 @@
     "apiAccess": "Accès API",
     "generateApiKey": "Générer une clé API",
     "webhooks": "Webhooks",
-    "addWebhook": "Ajouter un webhook"
+    "addWebhook": "Ajouter un webhook",
+    "saveNotifications": "Sauvegarder les notifications",
+    "savePreferences": "Sauvegarder les préférences",
+    "alertTypes": "Types d'alertes",
+    "newQuotes": "Nouvelles cotations",
+    "newQuotesDesc": "Alertes pour les nouveaux devis",
+    "shipmentUpdates": "Mises à jour d'expéditions",
+    "shipmentUpdatesDesc": "Changements de statut des expéditions",
+    "deliveryConfirmations": "Confirmations de livraison",
+    "deliveryConfirmationsDesc": "Notifications de livraison réussie",
+    "paymentAlerts": "Alertes de paiement",
+    "paymentAlertsDesc": "Confirmations et échéances de paiement"
   },
 
   "profile": {
@@ -465,7 +476,11 @@
     "firstLogin": "Première connexion",
     "hundredQuotes": "100 cotations",
     "thousandShipments": "1000 expéditions",
-    "expertUser": "Utilisateur expert"
+    "expertUser": "Utilisateur expert",
+    "memberSince": "Membre depuis",
+    "email": "Email",
+    "phone": "Téléphone",
+    "profileUpdatedDesc": "Vos informations ont été sauvegardées avec succès"
   },
 
   "help": {

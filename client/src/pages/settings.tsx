@@ -419,14 +419,14 @@ export default function Settings() {
 
                 {/* Alert Types */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Types d'alertes</h3>
+                  <h3 className="font-semibold">{t("settings.alertTypes")}</h3>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Package className="h-5 w-5 text-orange-500" />
                         <div>
-                          <div className="font-medium">Nouvelles cotations</div>
-                          <div className="text-sm text-gray-600">Alertes pour les nouveaux devis</div>
+                          <div className="font-medium">{t("settings.newQuotes")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.newQuotesDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.quotesAlerts} />
@@ -436,8 +436,8 @@ export default function Settings() {
                       <div className="flex items-center gap-3">
                         <Truck className="h-5 w-5 text-blue-500" />
                         <div>
-                          <div className="font-medium">Mises à jour d'expéditions</div>
-                          <div className="text-sm text-gray-600">Changements de statut des expéditions</div>
+                          <div className="font-medium">{t("settings.shipmentUpdates")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.shipmentUpdatesDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.shipmentsAlerts} />
@@ -447,8 +447,8 @@ export default function Settings() {
                       <div className="flex items-center gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500" />
                         <div>
-                          <div className="font-medium">Confirmations de livraison</div>
-                          <div className="text-sm text-gray-600">Notifications de livraison réussie</div>
+                          <div className="font-medium">{t("settings.deliveryConfirmations")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.deliveryConfirmationsDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.deliveryAlerts} />
@@ -458,8 +458,8 @@ export default function Settings() {
                       <div className="flex items-center gap-3">
                         <CreditCard className="h-5 w-5 text-purple-500" />
                         <div>
-                          <div className="font-medium">Alertes de paiement</div>
-                          <div className="text-sm text-gray-600">Confirmations et échéances de paiement</div>
+                          <div className="font-medium">{t("settings.paymentAlerts")}</div>
+                          <div className="text-sm text-gray-600">{t("settings.paymentAlertsDesc")}</div>
                         </div>
                       </div>
                       <Switch defaultChecked={currentSettings.notifications.paymentAlerts} />
@@ -496,31 +496,31 @@ export default function Settings() {
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="default-transport">Mode de transport par défaut</Label>
+                    <Label htmlFor="default-transport">{t("settings.defaultTransportMode")}</Label>
                     <Select defaultValue={currentSettings.preferences.defaultTransportMode}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="auto">Automatique (IA)</SelectItem>
-                        <SelectItem value="maritime">Maritime</SelectItem>
-                        <SelectItem value="aerienne">Aérienne</SelectItem>
-                        <SelectItem value="terrestre">Terrestre</SelectItem>
-                        <SelectItem value="multimodal">Multimodal</SelectItem>
+                        <SelectItem value="auto">{t("settings.automaticAI")}</SelectItem>
+                        <SelectItem value="maritime">{t("settings.maritime")}</SelectItem>
+                        <SelectItem value="aerienne">{t("settings.air")}</SelectItem>
+                        <SelectItem value="terrestre">{t("settings.road")}</SelectItem>
+                        <SelectItem value="multimodal">{t("settings.multimodal")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="tracking-visibility">Visibilité du tracking</Label>
+                    <Label htmlFor="tracking-visibility">{t("settings.trackingVisibility")}</Label>
                     <Select defaultValue={currentSettings.preferences.trackingVisibility}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="public">Public (clients et partenaires)</SelectItem>
-                        <SelectItem value="private">Privé (entreprise uniquement)</SelectItem>
-                        <SelectItem value="limited">Limité (sur demande)</SelectItem>
+                        <SelectItem value="public">{t("settings.publicClientsPartners")}</SelectItem>
+                        <SelectItem value="private">{t("settings.privateCompanyOnly")}</SelectItem>
+                        <SelectItem value="limited">{t("settings.limitedOnRequest")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -529,25 +529,25 @@ export default function Settings() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium">Génération automatique de cotations</div>
-                      <div className="text-sm text-gray-600">Générer automatiquement des devis avec l'IA</div>
+                      <div className="font-medium">{t("settings.autoQuoteGeneration")}</div>
+                      <div className="text-sm text-gray-600">{t("settings.autoQuoteGenerationDesc")}</div>
                     </div>
                     <Switch defaultChecked={currentSettings.preferences.autoQuoteGeneration} />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="data-retention">Rétention des données (mois)</Label>
+                  <Label htmlFor="data-retention">{t("settings.dataRetention")}</Label>
                   <Select defaultValue={currentSettings.preferences.dataRetention.toString()}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="12">12 mois</SelectItem>
-                      <SelectItem value="24">24 mois</SelectItem>
-                      <SelectItem value="36">36 mois</SelectItem>
-                      <SelectItem value="60">5 ans</SelectItem>
-                      <SelectItem value="120">10 ans</SelectItem>
+                      <SelectItem value="12">{t("settings.twelveMonths")}</SelectItem>
+                      <SelectItem value="24">{t("settings.twentyFourMonths")}</SelectItem>
+                      <SelectItem value="36">{t("settings.thirtySixMonths")}</SelectItem>
+                      <SelectItem value="60">{t("settings.fiveYears")}</SelectItem>
+                      <SelectItem value="120">{t("settings.tenYears")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -562,7 +562,7 @@ export default function Settings() {
                     ) : (
                       <Save className="h-4 w-4 mr-2" />
                     )}
-                    Sauvegarder les préférences
+                    {t("settings.savePreferences")}
                   </Button>
                 </div>
               </CardContent>
