@@ -258,25 +258,25 @@ export default function AviationMaritime() {
 
                 {airportInfo && typeof airportInfo === 'object' && (
                   <div className="space-y-3 p-4 bg-green-50 rounded-lg">
-                    <h3 className="font-semibold text-lg">{(airportInfo as Record<string, any>)?.name || t("aviationMaritime.airportName")}</h3>
+                    <h3 className="font-semibold text-lg">{String((airportInfo as Record<string, any>)?.name || t("aviationMaritime.airportName"))}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.city")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.city || 'N/A'}</p>
+                        <p className="font-medium">{String((airportInfo as Record<string, any>)?.city || 'N/A')}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.country")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.country || 'N/A'}</p>
+                        <p className="font-medium">{String((airportInfo as Record<string, any>)?.country || 'N/A')}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.iataCode")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.iata || 'N/A'}</p>
+                        <p className="font-medium">{String((airportInfo as Record<string, any>)?.iata || 'N/A')}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">{t("aviationMaritime.icaoCode")}</p>
-                        <p className="font-medium">{(airportInfo as Record<string, any>)?.icao || 'N/A'}</p>
+                        <p className="font-medium">{String((airportInfo as Record<string, any>)?.icao || 'N/A')}</p>
                       </div>
                     </div>
                   </div>

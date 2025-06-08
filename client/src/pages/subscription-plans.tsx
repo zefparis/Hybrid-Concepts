@@ -191,6 +191,7 @@ export default function SubscriptionPlans() {
   const [isYearly, setIsYearly] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("professional");
 
+  const plans = getPlans(t);
   const currentPlans = isYearly ? plans.yearly : plans.monthly;
 
   const getColorClasses = (color: string, isSelected: boolean = false) => {
@@ -219,17 +220,16 @@ export default function SubscriptionPlans() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Plans d'Abonnement Hybrid Concept
+            {t("subscriptionPlans.title")}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choisissez le plan qui correspond à vos besoins logistiques. 
-            Transformez votre chaîne d'approvisionnement avec notre technologie IA révolutionnaire.
+            {t("subscriptionPlans.subtitle")}
           </p>
           
           {/* Billing Toggle */}
           <div className="flex items-center justify-center mt-8 space-x-4">
             <span className={`text-sm font-medium ${!isYearly ? 'text-gray-900' : 'text-gray-500'}`}>
-              Mensuel
+              {t("subscriptionPlans.monthlyBilling")}
             </span>
             <Switch
               checked={isYearly}
@@ -237,11 +237,11 @@ export default function SubscriptionPlans() {
               className="data-[state=checked]:bg-purple-600"
             />
             <span className={`text-sm font-medium ${isYearly ? 'text-gray-900' : 'text-gray-500'}`}>
-              Annuel
+              {t("subscriptionPlans.yearlyBilling")}
             </span>
             {isYearly && (
               <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800">
-                Économisez jusqu'à 20%
+                {t("subscriptionPlans.save")} 20%
               </Badge>
             )}
           </div>
@@ -249,7 +249,7 @@ export default function SubscriptionPlans() {
 
         {/* Plans Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {currentPlans.map((plan) => {
+          {currentPlans.map((plan: any) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan === plan.id;
             
@@ -299,7 +299,7 @@ export default function SubscriptionPlans() {
                           €{'originalPrice' in plan ? plan.originalPrice.toLocaleString() : ''}
                         </span>
                         <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800">
-                          Économisez €{'savings' in plan ? plan.savings : 0}
+                          {t("subscriptionPlans.save")} €{'savings' in plan ? plan.savings : 0}
                         </Badge>
                       </div>
                     )}
@@ -308,14 +308,14 @@ export default function SubscriptionPlans() {
 
                 <CardContent className="px-6">
                   <ul className="space-y-3">
-                    {plan.features.map((feature, index) => (
+                    {plan.features.map((feature: string, index: number) => (
                       <li key={index} className="flex items-start">
                         <Check className="w-4 h-4 text-green-600 mt-0.5 mr-3 flex-shrink-0" />
                         <span className="text-sm text-gray-700">{feature}</span>
                       </li>
                     ))}
                     
-                    {plan.limitations.map((limitation, index) => (
+                    {plan.limitations.map((limitation: string, index: number) => (
                       <li key={index} className="flex items-start">
                         <X className="w-4 h-4 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
                         <span className="text-sm text-gray-500">{limitation}</span>
