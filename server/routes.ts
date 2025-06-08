@@ -69,7 +69,7 @@ CONDITIONS:
 ${shipment.quote?.conditions || 'Conditions standard applicables'}
 
 Document généré automatiquement le ${currentDate}
-Plateforme Hybrid Concept - Solutions logistiques intelligentes
+Plateforme Hybrid Concepts - Solutions logistiques intelligentes
 `;
   
   return Buffer.from(documentContent).toString('base64');
@@ -1855,7 +1855,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Return company settings for the authenticated user
       const settings = {
         id: req.user.companyId,
-        name: "Hybrid Concept",
+        name: "Hybrid Concepts",
         email: "bbogaerts@hybridconc.com",
         phone: "+27727768777",
         address: "Cape Town, South Africa",

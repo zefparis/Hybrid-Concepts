@@ -16,10 +16,10 @@ export class SupportChatService {
         max_tokens: 1000,
         messages: [{
           role: 'user',
-          content: `You are a professional customer support representative for Hybrid Concept, a South African enterprise logistics optimization platform. 
+          content: `You are a professional customer support representative for Hybrid Concepts, a South African enterprise logistics optimization platform. 
 
 COMPANY INFORMATION:
-- Company: Hybrid Concept (South Africa)
+- Company: Hybrid Concepts (South Africa)
 - Chairman: Benoît Bogaerts
 - Contact: bbogaerts@hybridconc.com, +27 727 768 777
 - Website: www.hybridconc.com
@@ -114,17 +114,17 @@ Keep responses concise but comprehensive, focusing on business value and practic
     const category = this.categorizeResponse(message);
     
     const fallbackResponses: Record<string, string> = {
-      pricing: "Hybrid Concept offers flexible pricing starting at $99/month for our Starter plan, up to $1,499/month for our Custom enterprise solution. Each tier includes different levels of AI automation, shipment volumes, and advanced features. I'd be happy to discuss which plan best fits your logistics needs and volume requirements.",
+      pricing: "Hybrid Concepts offers flexible pricing starting at $99/month for our Starter plan, up to $1,499/month for our Custom enterprise solution. Each tier includes different levels of AI automation, shipment volumes, and advanced features. I'd be happy to discuss which plan best fits your logistics needs and volume requirements.",
       
       feature: "Our platform provides comprehensive logistics optimization including AI-powered multimodal transport selection, real-time tracking across maritime/air/road/rail, automated quote generation, carbon footprint calculation, and advanced analytics. The system integrates with major carriers and provides end-to-end visibility for your supply chain operations.",
       
-      help: "I'm here to help you get the most out of Hybrid Concept's logistics platform. Whether you need assistance with setup, feature configuration, or understanding our AI automation capabilities, I can guide you through the process. What specific area would you like to explore?",
+      help: "I'm here to help you get the most out of Hybrid Concepts' logistics platform. Whether you need assistance with setup, feature configuration, or understanding our AI automation capabilities, I can guide you through the process. What specific area would you like to explore?",
       
       ai: "Our AI engine automatically analyzes your logistics requirements, selects optimal transport modes, generates competitive quotes from multiple carriers, and provides intelligent recommendations. The system learns from your preferences and continuously optimizes routes, costs, and delivery times while ensuring compliance and risk management.",
       
-      integration: "Hybrid Concept integrates with major shipping carriers, freight forwarders, customs systems, and enterprise software through our comprehensive API suite. We support real-time data exchange, automated documentation, and seamless workflow integration with your existing systems.",
+      integration: "Hybrid Concepts integrates with major shipping carriers, freight forwarders, customs systems, and enterprise software through our comprehensive API suite. We support real-time data exchange, automated documentation, and seamless workflow integration with your existing systems.",
       
-      general: "Thank you for your interest in Hybrid Concept's logistics optimization platform. We specialize in AI-powered multimodal transport management for enterprises, offering automated quote generation, real-time tracking, and comprehensive supply chain visibility. How can I assist you in exploring our capabilities?"
+      general: "Thank you for your interest in Hybrid Concepts' logistics optimization platform. We specialize in AI-powered multimodal transport management for enterprises, offering automated quote generation, real-time tracking, and comprehensive supply chain visibility. How can I assist you in exploring our capabilities?"
     };
     
     return fallbackResponses[category] || fallbackResponses.general;
