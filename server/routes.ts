@@ -467,7 +467,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const shipments = await storage.getShipments(1);
       
       for (const shipment of shipments) {
-        if (!shipment.trackingData || !shipment.trackingData.events) {
+        if (!shipment.trackingData || !shipment.trackingData?.events) {
           const transportMode = shipment.quote?.quoteRequest?.transportMode || 'terre';
           const origin = shipment.quote?.quoteRequest?.origin || 'Origin';
           const destination = shipment.quote?.quoteRequest?.destination || 'Destination';
