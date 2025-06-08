@@ -499,6 +499,29 @@
     "regenerate": "Régénérer"
   },
 
+  "supportChat": {
+    "title": "Support & Information",
+    "subtitle": "Obtenez une assistance professionnelle sur la plateforme logistique Hybrid Concept",
+    "welcomeMessage": "Bonjour ! Je suis votre assistant Hybrid Concept. Je peux vous aider à comprendre notre plateforme logistique, explorer les fonctionnalités et répondre aux questions sur l'automatisation IA, les modes de transport, les prix, et plus encore. Comment puis-je vous assister aujourd'hui ?",
+    "connectionError": "Erreur de Connexion",
+    "connectionErrorDesc": "Impossible d'envoyer le message. Veuillez réessayer.",
+    "quickHelp": "Aide Rapide",
+    "documentation": "Documentation",
+    "featureGuide": "Guide Fonctionnalités",
+    "setupHelp": "Aide Configuration",
+    "suggestedQuestions": "Questions Suggérées",
+    "assistantTitle": "Assistant Hybrid Concept",
+    "online": "En ligne",
+    "thinking": "Réflexion...",
+    "placeholder": "Posez des questions sur les fonctionnalités, les prix, la configuration, ou toute autre question...",
+    "question1": "Quelles fonctionnalités d'automatisation IA offre Hybrid Concept ?",
+    "question2": "Comment fonctionne l'optimisation du transport multimodal ?",
+    "question3": "Quels sont les plans tarifaires et les fonctionnalités ?",
+    "question4": "Comment fonctionne le suivi en temps réel ?",
+    "question5": "Quelles intégrations sont disponibles ?",
+    "question6": "Comment commencer avec la plateforme ?"
+  },
+
   "profile": {
     "title": "Profil Utilisateur",
     "personalInfo": "Informations personnelles",

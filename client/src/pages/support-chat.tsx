@@ -112,9 +112,9 @@ export default function SupportChat() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold mb-4">Support & Information</h1>
+        <h1 className="text-3xl font-bold mb-4">{t('supportChat.title')}</h1>
         <p className="text-muted-foreground">
-          Get professional assistance about Hybrid Concept's logistics platform
+          {t('supportChat.subtitle')}
         </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -124,28 +124,28 @@ export default function SupportChat() {
             <CardHeader>
               <CardTitle className="text-sm flex items-center gap-2">
                 <HelpCircle className="w-4 h-4" />
-                Quick Help
+                {t('supportChat.quickHelp')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button variant="outline" size="sm" className="w-full justify-start">
                 <FileText className="w-4 h-4 mr-2" />
-                Documentation
+                {t('supportChat.documentation')}
               </Button>
               <Button variant="outline" size="sm" className="w-full justify-start">
                 <Lightbulb className="w-4 h-4 mr-2" />
-                Feature Guide
+                {t('supportChat.featureGuide')}
               </Button>
               <Button variant="outline" size="sm" className="w-full justify-start">
                 <Settings className="w-4 h-4 mr-2" />
-                Setup Help
+                {t('supportChat.setupHelp')}
               </Button>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm">Suggested Questions</CardTitle>
+              <CardTitle className="text-sm">{t('supportChat.suggestedQuestions')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {suggestedQuestions.slice(0, 4).map((question, index) => (
@@ -169,10 +169,10 @@ export default function SupportChat() {
             <CardHeader className="border-b">
               <CardTitle className="flex items-center gap-2">
                 <MessageCircle className="w-5 h-5 text-blue-500" />
-                Hybrid Concept Assistant
+                {t('supportChat.assistantTitle')}
                 <Badge variant="secondary" className="ml-auto">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                  Online
+                  {t('supportChat.online')}
                 </Badge>
               </CardTitle>
             </CardHeader>
@@ -212,7 +212,7 @@ export default function SupportChat() {
                         <div className="flex items-center gap-2">
                           <Bot className="w-4 h-4 text-blue-500" />
                           <Loader2 className="w-4 h-4 animate-spin" />
-                          <span className="text-sm">Thinking...</span>
+                          <span className="text-sm">{t('supportChat.thinking')}</span>
                         </div>
                       </div>
                     </div>
@@ -226,7 +226,7 @@ export default function SupportChat() {
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder="Ask about features, pricing, setup, or any other questions..."
+                    placeholder={t('supportChat.placeholder')}
                     className="flex-1"
                     disabled={chatMutation.isPending}
                   />
