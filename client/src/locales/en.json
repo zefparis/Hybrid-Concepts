@@ -958,6 +958,7 @@
     "description": "Description",
     "modifyQuote": "Modify Quote",
     "modifyDetails": "Modify the details of your quote request",
+    "modifying": "Modifying...",
     "status": {
       "quoted": "Quoted",
       "pending": "Pending",
