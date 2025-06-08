@@ -277,8 +277,8 @@ export default function Quotes() {
     },
     onError: () => {
       toast({ 
-        title: "Erreur",
-        description: "Impossible de refuser la cotation",
+        title: t("quotes.error"),
+        description: t("quotes.unableToReject", "Unable to reject quote"),
         variant: "destructive"
       });
     },
@@ -294,12 +294,12 @@ export default function Quotes() {
       queryClient.invalidateQueries({ queryKey: ["/api/quote-requests"] });
       setIsEditOpen(false);
       setEditingQuote(null);
-      toast({ title: "Cotation modifiée avec succès" });
+      toast({ title: t("quotes.quoteModified", "Quote modified successfully") });
     },
     onError: () => {
       toast({ 
-        title: "Erreur",
-        description: "Impossible de modifier la cotation",
+        title: t("quotes.error"),
+        description: t("quotes.unableToModify", "Unable to modify quote"),
         variant: "destructive"
       });
     },
@@ -399,11 +399,11 @@ export default function Quotes() {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case "quoted":
-        return "Cotée";
+        return t("quotes.status.quoted", "Quoted");
       case "pending":
-        return "En attente";
+        return t("quotes.status.pending", "Pending");
       case "rejected":
-        return "Refusée";
+        return t("quotes.status.rejected", "Rejected");
       default:
         return status;
     }
@@ -464,7 +464,7 @@ export default function Quotes() {
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="origin"
-                          placeholder="Tapez pour rechercher..."
+                          placeholder={t("quotes.searchPlaceholder", "Type to search...")}
                           className="pl-10"
                           value={newQuote.origin}
                           onChange={(e) => handleOriginChange(e.target.value)}
@@ -496,7 +496,7 @@ export default function Quotes() {
                         <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="destination"
-                          placeholder="Tapez pour rechercher..."
+                          placeholder={t("quotes.searchPlaceholder", "Type to search...")}
                           className="pl-10"
                           value={newQuote.destination}
                           onChange={(e) => handleDestinationChange(e.target.value)}
@@ -533,7 +533,7 @@ export default function Quotes() {
                         <Ship className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input
                           id="origin-port"
-                          placeholder="Tapez pour rechercher..."
+                          placeholder={t("quotes.searchPlaceholder", "Type to search...")}
                           className="pl-10"
                           value={newQuote.origin}
                           onChange={(e) => handleOriginChange(e.target.value)}
